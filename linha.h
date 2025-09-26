@@ -2,6 +2,14 @@
 #define LINHA_H
 
 #include "stdbool.h"
+#include "stdio.h"
+#include "string.h"
+#include "stdlib.h"
+#include "math.h"
+
+/*
+    Este arquivo se refere à forma de uma linha e suas características e propriedades úteis ao primeiro trabalho de estrutura de dados I.
+*/
 
 typedef void* Linha;
 
@@ -51,7 +59,7 @@ char* getCorLinha(Linha l);
 /// @brief Realiza o cálculo da área da linha
 /// @param l Linha
 /// @return Área da linha
-double getAreaLinha(Linha l);
+double getAreaLinha(Linha l, double x1, double y1, double x2, double y2);
 
 /// @brief Define o identificador da linha
 /// @param l Linha

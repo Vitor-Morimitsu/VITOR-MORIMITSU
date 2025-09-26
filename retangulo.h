@@ -3,7 +3,11 @@
 
 #include "stdio.h"
 #include "stdlib.h"
-#include "stdbool.h"
+#include "string.h"
+
+/*
+    Este arquivo se refere à forma retângulo e suas respectivas características e propriedades úteis ao primeiro trabalho de estrutura de dados I.
+*/
 
 typedef void *Retangulo;
 /*
@@ -14,12 +18,12 @@ typedef void *Retangulo;
 /// @param i Identificador do círculo
 /// @param x Coordenada X do retângulo
 /// @param y Coordenada Y do retângulo
-/// @param comp Comprimento do retângulo
-/// @param larg Largura do retângulo
+/// @param w Largura do retângulo
+/// @param h Altura do retângulo
 /// @param corb Cor da borda do retângulo
 /// @param corp Cor interna do retângulo
 /// @return Retorna o retângulo criado
-Retangulo criaRetangulo(int i, double x, double y, double comp, double larg, char* corb, char* corp);
+Retangulo criaRetangulo(int i, double x, double y, double w, double h, char* corb, char* corp);
 
 /// @brief Retorna o identificador do retângulo
 /// @param r Retângulo
@@ -36,25 +40,25 @@ double getCoordXRetangulo(Retangulo r);
 /// @return Coordenada Y do retângulo
 double getCoordYRetangulo(Retangulo r);
 
-/// @brief Retorna o comprimento do retângulo
-/// @param r Retângulo
-/// @return Comprimento do retângulo
-double getCompRetangulo(Retangulo r); 
-
-/// @brief Retorna a largura do retângulo
+/// @brief Retorna o largura do retângulo
 /// @param r Retângulo
 /// @return Largura do retângulo
-double getLargRetangulo(Retangulo r);
+double getWRetangulo(Retangulo r); 
+
+/// @brief Retorna a altura do retângulo
+/// @param r Retângulo
+/// @return Altura do retângulo
+double getHRetangulo(Retangulo r);
 
 /// @brief Retorna a cor da borda do retângulo
 /// @param r Retângulo
 /// @return Cor da borda do retângulo
-char* getCorBordaRetangulo(Retangulo r);
+char* getCorBRetangulo(Retangulo r);
 
-/// @brief Retorna a cor interna do círculo
+/// @brief Retorna a cor de preenchimento do círculo
 /// @param r Retângulo
-/// @return Cor interna do retângulo
-char* getCorInternaRetangulo(Retangulo r);
+/// @return Cor de preenchimento do retângulo
+char* getCorPRetangulo(Retangulo r);
 
 /// @brief Realiza o cálculo de área e o retorna
 /// @param r Retângulo
@@ -78,22 +82,22 @@ void setCoordYRetangulo(Retangulo r, double y);
 
 /// @brief Define o comprimento do retângulo
 /// @param r Retângulo
-/// @param comp Comprimento do retângulo
-void setCompRetangulo(Retangulo r, double comp);
+/// @param w Largura do retângulo
+void setWRetangulo(Retangulo r, double w);
 
 /// @brief Define a largura do retângulo
 /// @param r Retângulo
-/// @param larg Largura do retângulo
-void setLargRetangulo(Retangulo r, double larg);
+/// @param h Altura do retângulo
+void setHRetangulo(Retangulo r, double h);
 
 /// @brief Define a cor da borda do retângulo
 /// @param r Retângulo
 /// @param corb Cor da borda do retângulo
-void setCorBordaRetangulo(Retangulo r, char* corb);
+void setCorBRetangulo(Retangulo r, char* corb);
 
 /// @brief Define a cor interna do círculo
 /// @param r Retângulo
 /// @param corp Cor de preenchimento do retângulo
-void setCorInternaRetangulo(Retangulo r, char* corp);
+void setCorPRetangulo(Retangulo r, char* corp);
 
 #endif
