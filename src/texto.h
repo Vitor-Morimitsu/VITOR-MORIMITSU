@@ -49,8 +49,8 @@ double getCoordYTexto(Texto t);
 
 /// @brief Retorna a cor da borda do texto
 /// @param t Texto
-/// @return Cor da borda do texto
-char* getCorBTexto(Texto t);
+/// @return Cor da borda do texto l
+char* getCorBTexto(Texto t); 
 
 /// @brief Retorna a cor de preenchimento
 /// @param t Texto
