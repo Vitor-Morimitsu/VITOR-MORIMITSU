@@ -29,8 +29,9 @@ typedef void* Estilo;
 /// @param corp Cor de preenchimento 
 /// @param a Posição da âncora do texto (inicio, meio, fim)
 /// @param txto Texto
+/// @param ts Estilo do texto
 /// @return Retorna o texto criado
-Texto criarTexto(int i, double x, double y, char* corb, char* corp, char a, char* txto);
+Texto criarTexto(int i, double x, double y, char* corb, char* corp, char a, char* txto, Estilo ts);
 
 /// @brief Retorna o identificador do texto
 /// @param t Texto
@@ -49,7 +50,7 @@ double getCoordYTexto(Texto t);
 
 /// @brief Retorna a cor da borda do texto
 /// @param t Texto
-/// @return Cor da borda do texto l
+/// @return Cor da borda do texto 
 char* getCorBTexto(Texto t); 
 
 /// @brief Retorna a cor de preenchimento
@@ -62,57 +63,93 @@ char* getCorPTexto(Texto t);
 /// @return Posição da âncora(início, meio, fim)
 char getATexto(Texto t);
 
-/// @brief
-/// @param
-/// @return
+/// @brief Retorna o texto
+/// @param t Texto 
+/// @return Texto escrito
+char* getTxtoTexto(Texto t);
 
-/// @brief
-/// @param
+/// @brief Retorna o estilo do texto
+/// @param t Texto
+/// @return Estilo do texto
+Estilo getEstiloTexto(Texto t);
 
+/// @brief Retorna o cálculo da área do texto
+/// @param t Texto
+/// @return Área do texto
+double getAreaTexto(Texto t);
 
-/// @brief
-/// @param
+/// @brief Define o identificador do texto
+/// @param t Texto
+/// @param i Novo identificador
+void setIDTexto(Texto t, int i);
 
-/// @brief
-/// @param
+/// @brief Define a coordenada X do texto
+/// @param t Texto
+/// @param x Nova coordenada X do texto
+void setXTexto(Texto t, double x);
+
+/// @brief Define a coordenada Y do texto
+/// @param t Texto
+/// @param y Nova coordenada Y do texto
+void setYTexto(Texto t, double y);
+
+/// @brief Define a cor da borda do texto
+/// @param t Texto
+/// @param corb Nova cor da borda do texto
+void setCorBTexto(Texto t, char* corb);
+
+/// @brief Define a cor de preenchimento do texto
+/// @param t Texto
+/// @param corp Nova cor de preenchimento
+void setCorPTexto(Texto t, char* corp);
+
+/// @brief Define a posição da âncora do texto
+/// @param t Texto
+/// @param a Nova posição da ancora
+void setATexto(Texto t, char* a);
+
+/// @brief Define o texto
+/// @param t Texto
+/// @param txto Novo texto
+void setTxtoTexto(Texto t, char* txto);
 
 // ---------------- FUNÇÕES DE ESTILO ----------------- //
-/// @brief cria e retorna um estilo que vai ser associado a uma forma texto
-/// @param family familia da fonte
-/// @param weight weight da fonte
-/// @param size tamanho da fonte
-/// @return retorna o estilo
-Estilo criarEstilo(char *family, char *weight, char *size);
+/// @brief Cria e retorna um estilo de texto
+/// @param fFamily Familia da fonte
+/// @param fWeight Weight da fonte
+/// @param fSize Tamanho da fonte
+/// @return Retorna o estilo
+Estilo criarEstilo(char *fFamily, char *fWeight, char *fSize);
 
-/// @brief metodo get da familia da fonte  do texto 
+/// @brief Retorna a familia da fonte do texto 
 /// @param ts Estilo ts
-/// @return retorna a familia
-char* getFamily(Estilo ts);
+/// @return Familia
+char* getfFamily(Estilo ts);
 
-/// @brief metodo get do weight da fonte do texto 
+/// @brief Retorna o weight da fonte do texto 
 /// @param ts Estilo ts
-/// @return retorna o weight
-char* getWeight(Estilo ts);
+/// @return Weight
+char* getfWeight(Estilo ts);
 
-/// @brief metodo get do tamanho da fonte do texto
+/// @brief Retorna o tamanho da fonte do texto
 /// @param ts Estilo ts
-/// @return retorna o tamanho da fonte
-char* getSize(Estilo ts);
+/// @return Tamanho da fonte
+char* getfSize(Estilo ts);
 
-/// @brief metodo set da familia da fonte do texto 
+/// @brief Define a familia da fonte do texto 
 /// @param ts Estilo ts
-/// @param family nova familia da fonte
-void setFamily(Estilo ts, char *family); 
+/// @param family Nova familia da fonte
+void setfFamily(Estilo ts, char *family); 
 
-/// @brief metodo set do weight da fonte do texto
+/// @brief Define o weight da fonte do texto
 /// @param ts Estilo ts
-/// @param weight novo weight da fonte
-void setWeight(Estilo ts, char *weight);
+/// @param weight Novo weight da fonte
+void setfWeight(Estilo ts, char *weight);
 
-/// @brief metodo set do tamanho da fonte do texto
+/// @brief Define o tamanho da fonte do texto
 /// @param ts Estilo ts
-/// @param size novo tamanho de fonte
-void setSize(Estilo ts, char *size);
+/// @param size Novo tamanho de fonte
+void setfSize(Estilo ts, char *size);
 
 
 #endif
