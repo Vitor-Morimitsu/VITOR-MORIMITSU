@@ -21,7 +21,7 @@ typedef void *Circulo;
 /// @param corb Cor da borda do círculo
 /// @param corp Cor interna de preenchimento
 /// @return Retorna o círculo criado
-Circulo criaCirculo(int i, double x, double y, double r, char* corb, char* corp);
+Circulo criaCirculo(int i,double x, double y, double r, char* corb, char* corp);
 
 /// @brief Retorna o identificador do círculo
 /// @param c Círculo

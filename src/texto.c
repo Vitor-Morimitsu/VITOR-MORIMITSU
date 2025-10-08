@@ -51,32 +51,6 @@ Texto criarTexto(int i, double x, double y, char* corb, char* corp, char a, char
     return ((stTexto*)t);
 }
 
-Estilo criarEstilo(char* fFamily, char* fWeight, char*fSize){
-    stEstilo* ts = malloc(sizeof(stEstilo));
-    ts->fFamily = (char*)malloc(strlen(fFamily)+1);
-    if(ts->fFamily == NULL){
-        printf("Erro ao alocar memória para família");
-        exit(1);
-    }
-    strcpy(ts->fFamily, fFamily);
-
-    ts->fWeight = (char*)malloc(strlen(fWeight)+1);
-    if(ts->fWeight == NULL){
-        printf("Erro ao alocar memória para weight");
-        exit(1);
-    }
-    strcpy(ts->fWeight, fWeight);
-
-    ts->fSize = (char*)malloc(strlen(fSize)+1);
-    if(ts->fSize == NULL){
-        printf("Erro ao alocar memória para o tamanho");
-        exit(1);
-    }
-    strcpy(ts->fSize, fSize);
-
-    return((stEstilo*)ts);
-}
-
 int getIDTexto(Texto t){
     return((stTexto*)t)->i;
 }
@@ -139,5 +113,55 @@ void setATexto(Texto t, char* a){
 
 void setTxtoTexto(Texto t, char* txto){
     ((stTexto*)t)->txto = txto;
+}
+// FUNÇÕES DE ESTILO
+Estilo criarEstilo(char* fFamily, char* fWeight, char*fSize){
+    stEstilo* ts = malloc(sizeof(stEstilo));
+    ts->fFamily = (char*)malloc(strlen(fFamily)+1);
+    if(ts->fFamily == NULL){
+        printf("Erro ao alocar memória para família");
+        exit(1);
+    }
+    strcpy(ts->fFamily, fFamily);
+
+    ts->fWeight = (char*)malloc(strlen(fWeight)+1);
+    if(ts->fWeight == NULL){
+        printf("Erro ao alocar memória para weight");
+        exit(1);
+    }
+    strcpy(ts->fWeight, fWeight);
+
+    ts->fSize = (char*)malloc(strlen(fSize)+1);
+    if(ts->fSize == NULL){
+        printf("Erro ao alocar memória para o tamanho");
+        exit(1);
+    }
+    strcpy(ts->fSize, fSize);
+
+    return((stEstilo*)ts);
+}
+
+char* getfFamily(Estilo ts){
+    return((stEstilo*)ts)->fFamily;
+}
+
+char* getfWeight(Estilo ts){
+    return((stEstilo*)ts)->fWeight;
+}
+
+char* getfSize(Estilo ts){
+    return((stEstilo*)ts)->fSize;
+}
+
+void setfFamily(Estilo ts, char* fFamily){
+    ((stEstilo*)ts)->fFamily = fFamily;
+}
+
+void setfWeight(Estilo ts, char* fWeight){
+    ((stEstilo*)ts)->fWeight = fWeight;
+}
+
+void setfSize(Estilo ts, char* fSize){
+    ((stEstilo*)ts)->fSize = fSize;
 }
 

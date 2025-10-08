@@ -9,7 +9,7 @@
     Este arquivo se refere à forma retângulo e suas respectivas características e propriedades úteis ao primeiro trabalho de estrutura de dados I.
 */
 
-typedef void *Retangulo;
+typedef void* Retangulo;
 /*
     Arquivo .h para criação do círculo e suas operações como set, get e cálculo de área.
 */
