@@ -11,7 +11,7 @@ typedef struct linha{
     char* cor;
 }stLinha;
 
-Linha criarLinha(int i , double x1,double y1, double x2, double y2, char* cor){
+Linha criarLinha(int i , double x1, double y1, double x2, double y2, char* cor){
     stLinha* l = malloc(sizeof(stLinha)); 
     l->i = i;
     l->x1 = x1, l->y1 = y1, l->x2 = x2, l->y2 = y2;
