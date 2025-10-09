@@ -23,7 +23,7 @@ typedef void* Botao;
 /// @param bEsquerdo Botão esquerdo
 /// @param bDireito Botão direito
 /// @return Disparador criado
-Disparador* criarDisparador(int i, Pilha* esquerda, Pilha* direita,Botao* disparador, Botao* bEsquerdo, Botao* bDireito);
+Disparador* criarDisparador(int i, Pilha* esquerda, Pilha* direita);
 
 /// @brief Retorna o identificador do disparador
 /// @return Identificador
@@ -35,7 +35,7 @@ Celula getConteudoCarEsq(Disparador* d);
 
 /// @brief Retorna o primeiro conteúdo do carregador direito
 /// @return Primeiro conteúdo do carregador direito
-Celula getConteudpCarDir(Disparador* d);
+Celula getConteudoCarDir(Disparador* d);
 
 /// @brief Define o identificador
 /// @param i Identificador do disparador

@@ -2,6 +2,8 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "disparador.h"
+#include "formas.h"
+#include "fila.h"
 
 typedef void* Forma;
 
@@ -24,14 +26,12 @@ Fila* criarChao(){
         return NULL;
     }
 
-    f->primeiro = NULL;
-    f->tamanho = 0;
-    f->ultimo = NULL;
+    f = criarFila;
 
     return ((Fila*)f);
 }
 
-void insereChao(Fila* f, Forma* form){
+void insereChao(Fila* f, Forma* form,char type){
     Aux* novaForma = (Aux*)malloc(sizeof(Aux));
     if(novaForma == NULL){
         printf("Erro ao alocar memória para a nova forma");
@@ -42,17 +42,7 @@ void insereChao(Fila* f, Forma* form){
         exit(1);
     }
     
-    novaForma->form = form;
-    novaForma->prox = NULL;
-
-    //caso a fila esteja vazia
-    if(f->primeiro == NULL){
-        f->primeiro = novaForma;
-        f->ultimo = novaForma;
-    }else{ // fila já contém elementos
-        f->ultimo->prox = novaForma;
-        f->ultimo = novaForma;
-    }
+    insereFila(f, form, type);
     f->tamanho++;
 }
 
@@ -62,15 +52,7 @@ void removeChao(Fila* f) {
         return;
     }
 
-    Aux* temp = f->primeiro; 
-
-    f->primeiro = f->primeiro->prox;
-
-    if (f->primeiro == NULL) {
-        f->ultimo = NULL;
-    }
-
-    free(temp);
+    removeFila(f);
     f->tamanho--;
 }
 
@@ -79,7 +61,8 @@ Forma getPrimeiroElementoChao(Fila* f){
         printf("Chão inexistente.");
         return NULL;
     }
-    return f->primeiro->form;
+    
+    getPrimeiraFormaFila(f);
 }
 
 void liberarChao(Fila* f) {
@@ -87,14 +70,5 @@ void liberarChao(Fila* f) {
         return;
     }
 
-    Aux* atual = f->primeiro;
-    Aux* proximo;
-
-    while (atual != NULL) {
-        proximo = atual->prox; 
-        free(atual);           
-        atual = proximo;       
-    }
-
-    free(f);
+    liberarFila(f);
 }

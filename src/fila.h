@@ -14,12 +14,12 @@ typedef void* Forma;
 
 /// @brief Cria uma fila vazia
 /// @return Ponteiro para a fila criada
-Fila* criarFila();
+Fila criarFila();
 
 /// @brief Insere um elemento na fila
 /// @param f Fila
 /// @param form Forma a ser inserida
-void insereFila(Fila* f, Forma* form);
+void insereFila(Fila* f, Forma* form, char type);
 
 /// @brief Remove o primeiro elemento da fila
 /// @param f Fila
@@ -27,7 +27,7 @@ void removeFila(Fila* f);
 
 /// @brief Mostra o primeiro elemento da fila
 /// @param f Fila
-Fila getPrimeiroElementoFila(Fila* f);
+Forma getPrimeiraFormaFila(Fila* f);
 
 /// @brief Libera a memória ocupada pela fila
 /// @param f Fila
