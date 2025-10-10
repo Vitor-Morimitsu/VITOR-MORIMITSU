@@ -42,7 +42,7 @@ void insereChao(Fila* f, Forma* form,char type){
         exit(1);
     }
     
-    insereFila(f, form, type);
+    insereFila(f, form,type);
     f->tamanho++;
 }
 

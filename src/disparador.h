@@ -4,6 +4,7 @@
 #include "stdio.h"
 #include "stdlib.h"
 #include "string.h"
+#include "formas.h"
 
 /*
     Arquivo .h destinado à criação de um disparador e suas operações de uso no primeiro trabalho de estrutura de dados
@@ -12,8 +13,6 @@
 typedef void* Disparador;
 typedef void* Pilha;
 typedef void* Celula;
-typedef void* Botao;
-
 
 /// @brief Cria e retorna o disparador
 /// @param i Identificador do disparador

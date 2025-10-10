@@ -15,7 +15,7 @@ typedef struct forma{
     char tipo;
 }stForma;
 
-Forma criaRetanguloForma(int i, double x, double y, double w, double h, char* corb, char* corp){
+Forma criaRetanguloForma(int i, char tipo,double x, double y, double w, double h, char* corb, char* corp){
     stForma* f = malloc(sizeof(stForma));
     if(f == NULL){
         printf("Erro ao alocar memória para a nova forma.");
@@ -28,7 +28,7 @@ Forma criaRetanguloForma(int i, double x, double y, double w, double h, char* co
     return f;
 }
 
-Forma criaCirculoForma(int i, double x, double y, double r, char* corb, char* corp){
+Forma criaCirculoForma(int i, char tipo,double x, double y, double r, char* corb, char* corp){
     stForma* f = malloc(sizeof(stForma));
     if(f == NULL){
         printf("Erro ao alocar memória para a nova forma.");
@@ -41,7 +41,7 @@ Forma criaCirculoForma(int i, double x, double y, double r, char* corb, char* co
     return f;
 }
 
-Forma criaLinhaForma(int i, double x1, double y1, double x2, double y2, char* cor){
+Forma criaLinhaForma(int i, char tipo,double x1, double y1, double x2, double y2, char* cor){
     stForma* f = malloc(sizeof(stForma));
     if(f == NULL){
         printf("Erro ao alocar memória para a nova forma.");
@@ -54,7 +54,7 @@ Forma criaLinhaForma(int i, double x1, double y1, double x2, double y2, char* co
     return f;
 }
 
-Forma criaTextoForma(int i, double x, double y, char* corb, char* corp, char a, char* txto, Estilo ts){
+Forma criaTextoForma(int i,char tipo, double x, double y, char* corb, char* corp, char a, char* txto, Estilo ts){
     stForma* f = malloc(sizeof(stForma));
     if(f == NULL){
         printf("Erro ao alocar memória para a nova forma.");
