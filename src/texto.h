@@ -151,5 +151,4 @@ void setfWeight(Estilo ts, char *weight);
 /// @param size Novo tamanho de fonte
 void setfSize(Estilo ts, char *size);
 
-
 #endif

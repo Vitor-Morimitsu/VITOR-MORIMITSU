@@ -20,7 +20,7 @@ Fila* criarChao();
 /// @brief Insere um elemento na fila
 /// @param f Fila
 /// @param form Forma a ser inserida
-void insereChao(Fila* f, Forma* form);
+void insereChao(Fila* f, Forma* form, char type);
 
 /// @brief Remove o primeiro elemento da fila
 /// @param f Fila
