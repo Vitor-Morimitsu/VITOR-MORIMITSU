@@ -21,7 +21,7 @@ int main(int argc, char* argv[])
     //ler os aquivos passados
     char* nomeArqGeo = NULL;
     char* nomeArqQry = NULL;
-    char* arqSvg = fopen("imagem.svg", "w");
+    FILE* arqSvg = fopen("arqSVG.svg", "w");
     if(arqSvg == NULL){
         printf("Erro ao gerar arquivo .svg.");
         return 1;
@@ -37,7 +37,7 @@ int main(int argc, char* argv[])
                     nomeArqGeo = argv[i + 1];
                     i++;
                 }
-            }else if(strmp(argv[i], "-o") == 0){ //saída svg
+            }else if(strcmp(argv[i], "-o") == 0){ //saída svg
                 if(i + 1 < argc){
                     nomeArqQry = argv[i + 1];
                     i++;
@@ -50,7 +50,7 @@ int main(int argc, char* argv[])
         printf("Erro ao abrir o geo.");
         return 1;
     }else{
-        lerGeo(nomeArqGeo, arqSvg,chao);
+        lerGeo(nomeArqGeo, arqSvg,chao);//gera formas e printa elas no Svg
     }
-
+    fclose(arqSvg);
 }

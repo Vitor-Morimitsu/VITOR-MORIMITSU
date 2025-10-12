@@ -1,96 +1,95 @@
 #include "fila.h"
-#include "stdio.h"
-#include "stdlib.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include "disparador.h"
-
-typedef void* Forma;
-
-typedef struct auxiliar{
-    Forma* form;
+typedef struct no {
+    Forma form;
     char type;
-    struct auxiliar* prox;
-}Aux;
-
-typedef struct fila{
-    Aux* primeiro;
-    Aux* ultimo;
+    struct no* prox;
+} No;
+typedef struct fila_interna {
+    No* primeiro;
+    No* ultimo;
     int tamanho;
-}Fila;
+} Fila_interna;
 
-Fila* criarFila(){
-    Fila* f = (Fila*)malloc(sizeof(Fila));
-    if(f == NULL){
-        printf("Erro ao alocar memória para a fila");
-        return NULL;
+Fila criarFila() {
+    Fila_interna* f = (Fila_interna*)malloc(sizeof(Fila_interna));
+    if (f == NULL) {
+        perror("Erro ao alocar memória para a fila");
+        return NULL; 
     }
 
     f->primeiro = NULL;
-    f->tamanho = 0;
     f->ultimo = NULL;
-
+    f->tamanho = 0;
     return f;
 }
 
-void insereFila(Fila* f, Forma* form, char type){
-    Aux* novaForma = (Aux*)malloc(sizeof(Aux));
-    if(novaForma == NULL){
-        printf("Erro ao alocar memória para a nova forma");
+void insereFila(Fila f, Forma form, char type) {
+    Fila_interna* fila = (Fila_interna*)f;
+
+    No* novoNo = (No*)malloc(sizeof(No));
+    if (novoNo == NULL) {
+        perror("Erro ao alocar memória para o novo nó");
         exit(1);
     }
     
-    novaForma->form = form;
-    novaForma->type = type;
-    novaForma->prox = NULL;
+    novoNo->form = form;
+    novoNo->type = type;
+    novoNo->prox = NULL;
 
-    //caso a fila esteja vazia
-    if(f->primeiro == NULL){
-        f->primeiro = novaForma;
-        f->ultimo = novaForma;
-    }else{ // fila já contém elementos
-        f->ultimo->prox = novaForma;
-        f->ultimo = novaForma;
+    if (fila->primeiro == NULL) {
+        fila->primeiro = novoNo;
+        fila->ultimo = novoNo;
+    } else {
+        fila->ultimo->prox = novoNo;
+        fila->ultimo = novoNo;
     }
-    f->tamanho++;
+    fila->tamanho++;
 }
 
-void removeFila(Fila* f){
-    if(f == NULL){
-        printf("Erro ao acessar a primeira forma da fila.");
-        exit(1);
+void removeFila(Fila f) {
+    Fila_interna* fila = (Fila_interna*)f;
+    
+    if (fila == NULL || fila->primeiro == NULL) {
+        return; 
+    }
+    
+    No* temp = fila->primeiro;
+    fila->primeiro = fila->primeiro->prox;
+    free(temp);
+    fila->tamanho--;
+
+    if (fila->primeiro == NULL) {
+        fila->ultimo = NULL;
+    }
+}
+
+
+Forma getPrimeiraFormaFila(Fila f) {
+    Fila_interna* fila = (Fila_interna*)f;
+
+    if (fila == NULL || fila->primeiro == NULL) {
+        return NULL;
+    }
+    
+    return fila->primeiro->form;
+}
+
+void liberarFila(Fila* f) {
+    Fila_interna* fila = (Fila_interna*)f;
+
+    if (fila == NULL) {
+        return;
     }
 
-    if(f->primeiro == NULL){
-        printf("Fila vazia.");
-    }else{
-        Aux* temp = f->primeiro;
-        f->primeiro = f->primeiro->prox;
+    No* atual = fila->primeiro;
+    while (atual != NULL) {
+        No* temp = atual;
+        atual = atual->prox;
         free(temp);
-        f->tamanho--;
     }
-}
-
-Forma getPrimeiraFormaFila(Fila* f){
-    if(f == NULL){
-        printf("Erro ao acessar a primeira forma da fila.");
-        exit(1);
-    }else{
-        return f->primeiro->form;
-    }
-
-}
-
-void liberarFila(Fila* f){
-    if(f == NULL){
-        printf("Erro ao acessar a fila para liberação.");
-        exit(1);
-    }
-
-    Aux* temp;
-
-    for(int i = 0;i<f->tamanho;i++){
-        temp = f->primeiro;
-        f->primeiro = f->primeiro->prox;
-        free(temp);
-    }
-    free(f);
+ 
+    free(fila);
 }

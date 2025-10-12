@@ -12,9 +12,9 @@ typedef void* Forma;
 typedef void* Fila;
 
 /*
-    Função responsável por gerar as formas em SVG a partir das instruções do arquivo .geo
+    Função responsável por gerar as formas em SVG a partir das formar geradas do arquivo .geo
 */
-void printSVG(FILE* arqSvg, Fila f);
+void printSVG(FILE* arqSvg,Fila* f);
 
 
 #endif

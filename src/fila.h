@@ -19,15 +19,15 @@ Fila criarFila();
 /// @brief Insere um elemento na fila
 /// @param f Fila
 /// @param form Forma a ser inserida
-void insereFila(Fila* f, Forma* form, char type);
+void insereFila(Fila f, Forma form, char type);
 
 /// @brief Remove o primeiro elemento da fila
 /// @param f Fila
-void removeFila(Fila* f);
+void removeFila(Fila f);
 
 /// @brief Mostra o primeiro elemento da fila
 /// @param f Fila
-Forma getPrimeiraFormaFila(Fila* f);
+Forma getPrimeiraFormaFila(Fila f);
 
 /// @brief Libera a memória ocupada pela fila
 /// @param f Fila
