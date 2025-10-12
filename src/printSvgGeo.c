@@ -5,21 +5,13 @@
 #include <stdlib.h>
 #include "geo.h"
 
-typedef void* Forma;
+void desenharCirculoSVG(FILE* arqSvg, Forma forma) {
+    Circulo* c = (Circulo*)forma;
+    
+    fprintf(arqSvg, "\t<circle cx=\"%f\" cy=\"%f\" r=\"%f\" stroke=\"%s\" fill=\"%s\" />\n",getCirculoX(c), getCirculoY(c), getCirculoR(c), getCirculoCorb(c), getCirculoCorp(c));
+}
+void desenharRetanguloSVG(FILE* arqSvg, Forma forma){
+    Retangulo* r = (Retangulo*)forma;
 
-typedef void* Fila;
-
-void printSVG(FILE* arqSvg, Fila f, Forma* form){
-    if(arqSvg == NULL){
-        printf("Erro ao abrir o arquivo .svg");
-        return;
-    }
-    if(f == NULL){
-        printf("Fila vazia.");
-        return;
-    }
-
-    Aux* temp = f
-
-
+    fprintf(arqSvg, "\t<rect x=\"%f\" y=\"%f\" width=\"%f\" height=\"%f\" stroke=\"%s\" fill=\"%s\" />\n",getRetanguloX(r), getRetanguloY(r), getRetanguloW(r), getRetanguloH(r), getRetanguloCorb(r), getRetanguloCorp(r));
 }
