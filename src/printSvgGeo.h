@@ -18,22 +18,22 @@ void desenharCirculoSVG(FILE* arqSvg,Forma f);
 /*
     Função responsável por gerar um retângulo em SVG.
 */
-void desenharRetanguloSVG(FILE* arqSvg, Fila f);
+void desenharRetanguloSVG(FILE* arqSvg, Forma f);
 
 /*
     Função responsável por gerar uma linha em SVG.
 */
-void desenharLinhaSVG(FILE* arqSvg, Fila f);
+void desenharLinhaSVG(FILE* arqSvg, Forma f);
 
 /*
     Função responsável por gerar um texto em SVG.
 */
-void desenharTextoSVG(FILE* arqSvg, Fila f);
+void desenharTextoSVG(FILE* arqSvg, Forma f);
 
 /*
     Função responsável por printar as formas no arquivo SVG.
 */
-void printSVG(FILE* arqSvg, Fila f);
+void printSVG(FILE* arqSvg, Forma f);
 
 
 #endif

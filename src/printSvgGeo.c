@@ -8,10 +8,22 @@
 void desenharCirculoSVG(FILE* arqSvg, Forma forma) {
     Circulo* c = (Circulo*)forma;
     
-    fprintf(arqSvg, "\t<circle cx=\"%f\" cy=\"%f\" r=\"%f\" stroke=\"%s\" fill=\"%s\" />\n",getCirculoX(c), getCirculoY(c), getCirculoR(c), getCirculoCorb(c), getCirculoCorp(c));
+    fprintf(arqSvg, "\t<circle cx=\"%f\" cy=\"%f\" r=\"%f\" stroke=\"%s\" fill=\"%s\" />\n",getIDCirculo(c), getCoordXCirculo(c),getCoordYCirculo(c),getRaioCirculo(c), getCorBCirculo(c), getCorPCirculo(c));
 }
 void desenharRetanguloSVG(FILE* arqSvg, Forma forma){
     Retangulo* r = (Retangulo*)forma;
 
-    fprintf(arqSvg, "\t<rect x=\"%f\" y=\"%f\" width=\"%f\" height=\"%f\" stroke=\"%s\" fill=\"%s\" />\n",getRetanguloX(r), getRetanguloY(r), getRetanguloW(r), getRetanguloH(r), getRetanguloCorb(r), getRetanguloCorp(r));
+    fprintf(arqSvg, "\t<rect id=\"%d\" x=\"%f\" y=\"%f\" width=\"%f\" height=\"%f\" stroke=\"%s\" fill=\"%s\" />\n",getIDRetangulo(r), getCoordXRetangulo(r),getCoordYRetangulo(r),getWRetangulo(r),getHRetangulo(r), getCorBordaRetangulo(r),getCorPRetangulo(r));
+}
+void desenharLinhaSVG(FILE* arqSvg, Forma forma){
+    Linha* l = (Linha*)forma;
+
+     fprintf(arqSvg, "<line id=\"%d\" x1=\"%lf\" y1=\"%lf\" x2=\"%lf\" y2=\"%lf\" stroke=\"%s\" stroke-width=\"2\" />\n", getIDLinha(l), getX1Linha(l), getY1Linha(l), getX2Linha(l), getY2Linha(l), getCorLinha(l));
+}
+
+void desenharTextSVG(FILE* arqSvg, Forma forma){
+    Texto* t = (Texto*)forma;
+
+    fprintf(arqSvg, "<text id=\"%d\" style=\"%d\";font-size:%s;line-height:%s;fill:%s\" font-size=\"5\" y=\"%lf\" x=\"%lf\"> %s </text>\n", getIDTexto(t), getEstiloTexto(t), getfSize(t),getfWeight(t),getCorPTexto(t));
+
 }
