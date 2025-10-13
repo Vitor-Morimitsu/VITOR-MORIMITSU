@@ -29,11 +29,4 @@ void desenharLinhaSVG(FILE* arqSvg, Forma f);
     Função responsável por gerar um texto em SVG.
 */
 void desenharTextoSVG(FILE* arqSvg, Forma f);
-
-/*
-    Função responsável por printar as formas no arquivo SVG.
-*/
-void printSVG(FILE* arqSvg, Forma f);
-
-
 #endif
