@@ -7,12 +7,13 @@
 
 typedef struct disparador{
     int i;
+    double x,y;
     void* centro;
     Pilha* esquerda;
     Pilha* direita; 
 } Disparador;
 
-Disparador* criarDisparador(int i, Pilha* esquerda, Pilha* direita){
+Disparador* criarDisparador(int i, double x, double y,Pilha* esquerda, Pilha* direita){
     Disparador* d = (Disparador*)malloc(sizeof(Disparador));
     if(d == NULL){
         printf("Erro ao alocar memória para o disparador");
@@ -28,10 +29,10 @@ Disparador* criarDisparador(int i, Pilha* esquerda, Pilha* direita){
 }
 
 int getIDDisparador(Disparador* d){
-    return d->i;
+    return ((Disparador*)d)->i;
 }
 
-Pilha* getConteudoCarEsq(Disparador* d){
+Celula getConteudoCarEsq(Disparador* d){
     if(d == NULL){
         printf("Disparador inexistente");
         return NULL;

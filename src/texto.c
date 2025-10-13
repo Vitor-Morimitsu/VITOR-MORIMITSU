@@ -107,7 +107,7 @@ void setCorPTexto(Texto t, char* corp){
     ((stTexto*)t)->corp = corp;
 }
 
-void setATexto(Texto t, char* a){
+void setATexto(Texto t, char a){
     ((stTexto*)t)->a = a;
 }
 

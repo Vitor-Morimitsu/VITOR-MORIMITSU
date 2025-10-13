@@ -16,28 +16,29 @@ typedef void* Celula;
 
 /// @brief Cria e retorna o disparador
 /// @param i Identificador do disparador
+/// @param x Coordenada X do disparador
+/// @param y Coordenada Y do disparador
 /// @param esquerda Carregador esquerdo
 /// @param direita Carregador direito
-/// @param disparador Disparador responsável por atirar as formas na arena
-/// @param bEsquerdo Botão esquerdo
-/// @param bDireito Botão direito
 /// @return Disparador criado
-Disparador* criarDisparador(int i, Pilha* esquerda, Pilha* direita);
+Disparador* criarDisparador(int i,double x, double y, Pilha* esquerda, Pilha* direita);
 
 /// @brief Retorna o identificador do disparador
 /// @return Identificador
-int getIDDisparador(Disparador* d);
+int getIDDisparador(Disparador d);
 
 /// @brief Retorna o primeiro conteúdo do carregador esquerdo
 /// @return Primeiro conteúdo do carregador esquerdo
-Celula getConteudoCarEsq(Disparador* d);
+Celula getConteudoCarEsq(Disparador d);
 
 /// @brief Retorna o primeiro conteúdo do carregador direito
 /// @return Primeiro conteúdo do carregador direito
-Celula getConteudoCarDir(Disparador* d);
+Celula getConteudoCarDir(Disparador d);
 
 /// @brief Define o identificador
 /// @param i Identificador do disparador
-void setIDDisparador(Disparador* d, int i);
+void setIDDisparador(Disparador d, int i);
+
+void set
 
 #endif
