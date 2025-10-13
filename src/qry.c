@@ -39,6 +39,7 @@ void lerQry(FILE* arqQry, Fila f, FILE* arqTxt){
         if(strcmp(comando, "pd") == 0){
             //posiciona o disparador l na coordenada (x,y)
             
+
         }
     }
 }

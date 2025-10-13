@@ -9,21 +9,28 @@ typedef struct disparador{
     int i;
     double x,y;
     void* centro;
-    Pilha* esquerda;
-    Pilha* direita; 
+    Pilha esquerda;
+    Pilha direita; 
 } Disparador;
 
-Disparador* criarDisparador(int i, double x, double y,Pilha* esquerda, Pilha* direita){
+Disparador criarDisparador(int i, double x, double y){
     Disparador* d = (Disparador*)malloc(sizeof(Disparador));
     if(d == NULL){
         printf("Erro ao alocar memória para o disparador");
-        return NULL;
+        return;
     }
 
     d->i = i;
-    d->esquerda = esquerda;
-    d->direita = direita;
+    d->x = x;
+    d->y = y;
+    d->esquerda = criarPilha();
+    d->direita = criarPilha();
 
+    if(d->esquerda == NULL || d->direita == NULL){
+        printf("Erro ao alocar memória para os carregadores do disparador.");
+        free(d); //libera o disparador que não teve os carregadores criados
+        return;
+    }
 
     return d;
 }

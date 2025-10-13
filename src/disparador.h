@@ -18,27 +18,43 @@ typedef void* Celula;
 /// @param i Identificador do disparador
 /// @param x Coordenada X do disparador
 /// @param y Coordenada Y do disparador
-/// @param esquerda Carregador esquerdo
-/// @param direita Carregador direito
 /// @return Disparador criado
-Disparador* criarDisparador(int i,double x, double y, Pilha* esquerda, Pilha* direita);
+Disparador criarDisparador(int i,double x, double y);
 
 /// @brief Retorna o identificador do disparador
 /// @return Identificador
 int getIDDisparador(Disparador d);
 
-/// @brief Retorna o primeiro conteúdo do carregador esquerdo
-/// @return Primeiro conteúdo do carregador esquerdo
-Celula getConteudoCarEsq(Disparador d);
+/// @brief Retorna a coordenada X do disparador
+/// @param d Disparador
+/// @return Coordenada X do disparador
+double getXDisparador(Disparador d);
 
-/// @brief Retorna o primeiro conteúdo do carregador direito
+/// @brief Retorna a coordenada Y do disparador
+/// @param d Disparador
+/// @return Coordenada Y do disparador
+double getYDisparador(Disparador d);
+
+/// @brief Retorna o ponteiro para o carregador esquerdo
+/// @return Primeiro conteúdo do carregador esquerdo
+Pilha getConteudoCarEsq(Disparador d);
+
+/// @brief Retorna o ponteiro para o carregador direito
 /// @return Primeiro conteúdo do carregador direito
-Celula getConteudoCarDir(Disparador d);
+Pilha getConteudoCarDir(Disparador d);
 
 /// @brief Define o identificador
 /// @param i Identificador do disparador
 void setIDDisparador(Disparador d, int i);
 
-void set
 
+/// @brief Define a posição do disparador com base nas coordenadas passadas
+/// @param d Disparador
+/// @param x Coordenada X do disparador
+/// @param y Coordenada Y do disparador
+void setPosicaoDisparador(Disparador d, double x, double y);
+
+/// @brief Destruir um disparador
+/// @param d Disparador
+void destruirDisparador(Disparador d);
 #endif
