@@ -11,10 +11,10 @@ typedef struct disparador{
     void* centro;
     Pilha esquerda;
     Pilha direita; 
-} Disparador;
+} stDisparador;
 
 Disparador criarDisparador(int i, double x, double y){
-    Disparador* d = (Disparador*)malloc(sizeof(Disparador));
+    stDisparador* d = (stDisparador*)malloc(sizeof(stDisparador));
     if(d == NULL){
         printf("Erro ao alocar memória para o disparador");
         return;
@@ -35,30 +35,73 @@ Disparador criarDisparador(int i, double x, double y){
     return d;
 }
 
-int getIDDisparador(Disparador* d){
-    return ((Disparador*)d)->i;
+int getIDDisparador(Disparador d){
+    if(d == NULL){
+        printf("Erro ao acessar o disparador para retornar a ID.");
+        exit(1);
+    }
+    stDisparador* ds = (stDisparador*)d;
+
+    return ds->i; 
 }
 
-Celula getConteudoCarEsq(Disparador* d){
+double getXDisparador(Disparador d){
+    if(d == NULL){
+        printf("Erro ao acessar o disparador para retornar a ID.");
+        exit(1);
+    }
+
+    stDisparador* ds = (stDisparador*)d;
+    return ds->x;
+}
+
+double getYDisparador(Disparador d){
+    if(d == NULL){
+        printf("Erro ao acessar o disparador para retornar a ID.");
+        exit(1);
+    }
+    stDisparador* ds = (stDisparador*)d;
+    return ds->y;
+}
+
+
+Pilha getConteudoCarEsq(Disparador d){
     if(d == NULL){
         printf("Disparador inexistente");
         return NULL;
     }
-    return d->esquerda;
+    stDisparador* ds = (stDisparador*)d;
+    return ds->esquerda;
 }
 
-Celula getConteudoCarDir(Disparador* d){
+Pilha getConteudoCarDir(Disparador d){
     if(d == NULL){
         printf("Disparador inexistente");
         return NULL;
     }
-    return d->direita;
+    stDisparador* ds = (stDisparador*)d;
+
+    return ds->direita;
 }
 
-void setIDDisparador(Disparador* d, int i){
+void setIDDisparador(Disparador d, int i){
     if(d == NULL){
         printf("Disparador inexistente");
         exit(1);
     }
-    d->i = i;
+    stDisparador* ds = (stDisparador*)d;
+    ds->i = i;
+}
+
+void destruirDisparador(Disparador ds){
+    if(ds == NULL){
+        printf("Erro ao acessar o disparador.");
+        exit(1);
+    }
+
+    stDisparador* d = (stDisparador*)ds;
+    liberarMemoriaPilha(d->esquerda);
+    liberarMemoriaPilha(d->direita);
+
+    free(d);
 }
