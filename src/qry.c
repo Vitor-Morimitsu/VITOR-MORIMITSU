@@ -1,5 +1,6 @@
 #include "qry.h"
 #include "formas.h"
+#include "pilha.c"
 #include "geo.h"
 #include "disparador.h"
 
@@ -11,7 +12,7 @@ void abrirTxt(FILE* arqTxt){
     fopen(arqTxt, "w");
 }
 
-void lerQry(FILE* arqQry, Fila f, FILE* arqTxt){
+void lerQry(FILE* arqQry, Fila f, FILE* arqTxt, Disparador d){
     if(arqQry == NULL){
         printf("Erro ao ler o arquivo .qry");
         exit(1);
@@ -38,8 +39,14 @@ void lerQry(FILE* arqQry, Fila f, FILE* arqTxt){
 
         if(strcmp(comando, "pd") == 0){
             //posiciona o disparador l na coordenada (x,y)
-            
-
+            double x,y;
+            sscanf(linha, "pd %lf %lf", &x, &y);
+            setPosicaoDisparador(d,x,y);
+        }else if(strcmp(comando, "lc") == 0){
+            //Coloca no carregador c as primeiras n formas que estão no chão
+            double n;
+            int c; //id do carregador
+            sscanf(linha, "lc %i %n", &c, &n);
         }
     }
 }

@@ -4,18 +4,18 @@
 
 typedef void* Conteudo;
 
-typedef struct celula{
+typedef struct stcelula{
     Conteudo conteudo;
-    struct celula *prox;
-}Celula;
+    struct stcelula *prox;
+}stCelula;
 
-typedef struct pilha{
-    Celula *topo;
+typedef struct stpilha{
+    stCelula *topo;
     int tamanho;
-}Pilha;
+}stPilha;
 
-Pilha* criarPilha(){
-    Pilha* p = (Pilha*)malloc(sizeof(Pilha));
+Pilha criarPilha(){
+    stPilha* p = (stPilha*)malloc(sizeof(stPilha));
     if(p == NULL){
         printf("Erro ao alocar memória para a Pilha");
         exit(1);
@@ -25,64 +25,70 @@ Pilha* criarPilha(){
     return p;
 }
 
-void inserirPilha(Pilha* p, Conteudo n){
-    Celula* novaCelula = (Celula*)malloc(sizeof(Celula));
-    if(novaCelula == NULL){
-        printf("Erro ao alocar memória para a nova célula");
+void inserirPilha(Pilha p, Conteudo n){
+    if(p == NULL){
+        printf("Erro ao acessar a pilha.");
         exit(1);
     }
+    stPilha* pilha = (stPilha*)p;
+
+    stCelula* novaCelula = (stCelula*)malloc(sizeof(stCelula));
+    if(novaCelula == NULL){
+        printf("Erro ao criar a nova célula para inserir na pilha.");
+        exit(1);
+    }
+
     novaCelula->conteudo = n;
-    novaCelula->prox = p->topo;
-    p->topo = novaCelula;
-    
-    p->tamanho++;
+    novaCelula->prox = pilha->topo;
+    pilha->topo = novaCelula;
+    pilha->tamanho++;
 }
 
-void removerPilha(Pilha* p){
-    if(p == NULL || p->topo == NULL){
-        printf("Pilha vazia");
+void removerPilha(Pilha p){
+    stPilha* pilha = (stPilha*)p;
+    if(pilha == NULL||pilha->topo == NULL){
         return;
     }
 
-    Celula* temp = p->topo;
-    p->topo = p->topo->prox;
-    p->tamanho--;
+    stCelula* temp = pilha->topo;
+    pilha->topo = pilha->topo->prox;
     free(temp);
+    pilha->tamanho--;
 }
 
-Conteudo getConteudoPilha(Pilha* p){
-    if(p->topo != NULL){
-        return p->topo->conteudo;
+Conteudo getConteudoPilha(Pilha p){
+    if(p == NULL){
+        printf("Erro ao acessar o conteúdo da pilha");
+        return NULL;
+    }
+    stPilha* pilha = (stPilha*)p;
+    if(pilha != NULL && pilha->topo != NULL){
+        return pilha->topo->conteudo;
     }else{
-        printf("Pilha está vazia");
         return NULL;
     }
 }
 
-Celula* getCelulaPilha(Pilha* p){
-    if(p->topo != NULL){
-        return p->topo;
-    }else{
-        printf("Pilha está vazia");
-        return -1;
+int getTamanhoPilha(Pilha p){
+    if(p == NULL){
+        printf("Erro ao acessar o tamanho da pilha.");
+        return NULL;
     }
+
+    stPilha* pilha = (stPilha*)p;
+    return pilha->tamanho;
 }
 
-int getTamanhoPilha(Pilha* p){
-    if(p->topo != NULL){
-        return p->tamanho;
-    }else{
-        printf("Pilha esetá vazia");
-        return -1;
-    }
-}
-
-void liberarMemoriaPilha(Pilha* p){
+void liberarMemoriaPilha(Pilha p){
     if (p == NULL) {
-        return;
+        printf("Erro ao acessar a pilha para liberar a memória.");
+        return NULL;
     }
-    while (p->topo != NULL) { 
-        removerPilha(p);
+
+    stPilha* pilha = (stPilha*)p;
+    while(pilha->topo != NULL){
+        removerPilha(pilha);
     }
-    free(p);
+
+    free(pilha);
 }
