@@ -44,9 +44,14 @@ void lerQry(FILE* arqQry, Fila f, FILE* arqTxt, Disparador d){
             setPosicaoDisparador(d,x,y);
         }else if(strcmp(comando, "lc") == 0){
             //Coloca no carregador c as primeiras n formas que estão no chão
-            double n;
+            int n, q = 0;
             int c; //id do carregador
             sscanf(linha, "lc %i %n", &c, &n);
+            Pilha p;
+            while(q != n){
+                inserirPilha(p, f);
+            }
+            
         }
     }
 }

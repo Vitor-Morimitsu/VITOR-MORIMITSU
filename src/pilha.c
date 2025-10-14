@@ -1,9 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "pilha.h"
-
-typedef void* Conteudo;
-
+#include "fila.h"
 typedef struct stcelula{
     Conteudo conteudo;
     struct stcelula *prox;
@@ -25,23 +23,37 @@ Pilha criarPilha(){
     return p;
 }
 
-void inserirPilha(Pilha p, Conteudo n){
+void carregarPilhaPelaFila(Pilha p, Fila f, int n){
     if(p == NULL){
         printf("Erro ao acessar a pilha.");
         exit(1);
     }
-    stPilha* pilha = (stPilha*)p;
-
-    stCelula* novaCelula = (stCelula*)malloc(sizeof(stCelula));
-    if(novaCelula == NULL){
-        printf("Erro ao criar a nova célula para inserir na pilha.");
-        exit(1);
+    if(f == NULL){
+        printf("Erro ao acessar a fila.");
+        exit(2);
     }
+    if(n <= 0){
+        return;
+    }
+    stPilha* pilha = (stPilha*)p;
+    No_t* noFila = getPrimeiroNo(f);
 
-    novaCelula->conteudo = n;
-    novaCelula->prox = pilha->topo;
-    pilha->topo = novaCelula;
-    pilha->tamanho++;
+    for(int i = 0; i<n && noFila != NULL;i++){
+        Conteudo conteudoInserir = getConteudoDoNo(noFila);
+
+        stCelula* novaCelula = (stCelula*)malloc(sizeof(stCelula));
+        if(novaCelula == NULL){
+            printf("Erro ao alocar memória para o novo nó.");
+            exit(1);
+        }
+
+        novaCelula->conteudo = conteudoInserir;
+        novaCelula->prox = pilha->topo;
+
+        pilha->topo = novaCelula;
+        pilha->tamanho++;
+        noFila = getProximoNo(noFila);
+    }
 }
 
 void removerPilha(Pilha p){
@@ -72,7 +84,7 @@ Conteudo getConteudoPilha(Pilha p){
 int getTamanhoPilha(Pilha p){
     if(p == NULL){
         printf("Erro ao acessar o tamanho da pilha.");
-        return NULL;
+        return 0;
     }
 
     stPilha* pilha = (stPilha*)p;
@@ -82,12 +94,12 @@ int getTamanhoPilha(Pilha p){
 void liberarMemoriaPilha(Pilha p){
     if (p == NULL) {
         printf("Erro ao acessar a pilha para liberar a memória.");
-        return NULL;
+        return;
     }
 
     stPilha* pilha = (stPilha*)p;
     while(pilha->topo != NULL){
-        removerPilha(pilha);
+        removerPilha(p);
     }
 
     free(pilha);

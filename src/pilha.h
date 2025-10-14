@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "fila.h"
 
 /*
     Arquivo .h relacionado a criação e uso de uma pilha, a qual segue o princípio LIFO(last in first out), ou seja, o último elemento que entra, é o primeiro a sair.
@@ -10,15 +11,16 @@
 
 typedef void* Pilha;
 typedef void* Conteudo;
+typedef void* Fila;
 
 /// @brief Cria e retorna uma pilha vazia
 /// @return Pilha vazia
 Pilha criarPilha();
 
-/// @brief Insere elementos na pilha
+/// @brief Insere os n primeiros elementos da fila na pilha
 /// @param p Pilha p
 /// @param n Conteudo n
-void inserirPilha(Pilha p, Conteudo n);
+void carregarPilhaPelaFila(Pilha p, Fila f, int n);
 
 /// @brief Remove a celula do inicio da pilha
 /// @param p Pilha p
