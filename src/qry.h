@@ -5,6 +5,7 @@
 #include "geo.h"
 #include "formas.h"
 #include "disparador.h"
+#include "pilha.h"
 
 /*
     Arquivo .h responsável por ler as instruções contidas no arquivo .qry e executa-las  
@@ -26,7 +27,7 @@ void abrirTxt(FILE* arqTxt);
 /*
     Função responsável por ler as instruções contidas no arquivo .qry, executá-las e fazer uma cópia das intruções em um arquivo .txt
 */
-void lerQry(FILE* arqQry, Fila f, FILE* arqTxt);
+void lerQry(FILE* arqQry, Fila f, FILE* arqTxt, Disparador d);
 
 /*
     Função responsável por fechar o arquivo .qry que havia sido previamente aberto.

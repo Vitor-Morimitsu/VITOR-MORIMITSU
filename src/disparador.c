@@ -93,6 +93,16 @@ void setIDDisparador(Disparador d, int i){
     ds->i = i;
 }
 
+void setPosicaoDisparador(Disparador d, double x, double y){
+    if(d == NULL){
+        printf("Erro ao acessar o disparador para retornar a ID.");
+        exit(1);
+    }
+    stDisparador* ds = (stDisparador*)d;
+    ds->x = x;
+    ds->y = y;
+}
+
 void destruirDisparador(Disparador ds){
     if(ds == NULL){
         printf("Erro ao acessar o disparador.");
