@@ -47,6 +47,11 @@ Pilha getConteudoCarDir(Disparador d);
 /// @param i Identificador do disparador
 void setIDDisparador(Disparador d, int i);
 
+/// @brief Encaixa no disparador d os carregadores da esquerda e direita
+/// @param d Disparador
+/// @param idPilhaEsq Id do carregador da esquerda
+/// @param idPilhaDir Id do carregador da direita
+void setCarregadorDisparador(Disparador d, int idPilhaEsq,int idPilhaDir);
 
 /// @brief Define a posição do disparador com base nas coordenadas passadas
 /// @param d Disparador

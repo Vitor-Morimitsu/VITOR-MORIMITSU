@@ -8,6 +8,7 @@ typedef struct stcelula{
 }stCelula;
 
 typedef struct stpilha{
+    int id;
     stCelula *topo;
     int tamanho;
 }stPilha;
@@ -18,6 +19,7 @@ Pilha criarPilha(){
         printf("Erro ao alocar memória para a Pilha");
         exit(1);
     }
+    p->id = -1;
     p->tamanho = 0;
     p->topo = NULL;
     return p;
@@ -36,7 +38,7 @@ void carregarPilhaPelaFila(Pilha p, Fila f, int n){
         return;
     }
     stPilha* pilha = (stPilha*)p;
-    No_t* noFila = getPrimeiroNo(f);
+    No_t noFila = getPrimeiroNo(f);
 
     for(int i = 0; i<n && noFila != NULL;i++){
         Conteudo conteudoInserir = getConteudoDoNo(noFila);
@@ -79,6 +81,15 @@ Conteudo getConteudoPilha(Pilha p){
     }else{
         return NULL;
     }
+}
+
+int getIDPilha(Pilha p){
+    if(p == NULL){
+        printf("Erro ao acessar a pilha.");
+        return -1;
+    }
+    stPilha* pilha = (stPilha*)p;
+    return pilha->id;
 }
 
 int getTamanhoPilha(Pilha p){

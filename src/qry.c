@@ -49,8 +49,13 @@ void lerQry(FILE* arqQry, Fila f, FILE* arqTxt, Disparador d){
             sscanf(linha, "lc %i %n", &c, &n);
             Pilha p;
             while(q != n){
-                inserirPilha(p, f);
+                carregarPilhaPelaFila(p, f, n);
+                q++;
             }
+        }else if(strcmp(comando, "atch") == 0){
+            //encaixa no disparador d os carregadores cesq(na esquerda) e cdir(na direita)
+            int idDis, idCesq, idCDir;
+            sscanf(linha,"atch %i %i %i",&idDis,&idCesq,&idCDir);
             
         }
     }
