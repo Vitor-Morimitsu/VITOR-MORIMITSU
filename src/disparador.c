@@ -9,11 +9,11 @@ typedef struct disparador{
     int i;
     double x,y;
     void* centro;
-    Pilha esquerda;
-    Pilha direita; 
+    int idEsquerda;
+    int idDireita; 
 } stDisparador;
 
-Disparador criarDisparador(int i, double x, double y){
+Disparador criarDisparador(int i, double x, double y,int idEsquerdo, int idDireito){
     stDisparador* d = (stDisparador*)malloc(sizeof(stDisparador));
     if(d == NULL){
         printf("Erro ao alocar memória para o disparador");
@@ -23,15 +23,8 @@ Disparador criarDisparador(int i, double x, double y){
     d->i = i;
     d->x = x;
     d->y = y;
-    d->esquerda = criarPilha();
-    d->direita = criarPilha();
-
-    if(d->esquerda == NULL || d->direita == NULL){
-        printf("Erro ao alocar memória para os carregadores do disparador.");
-        free(d); //libera o disparador que não teve os carregadores criados
-        return;
-    }
-
+    d->idEsquerda = idEsquerdo;
+    d->idDireita = idDireito;
     return d;
 }
 
@@ -64,24 +57,22 @@ double getYDisparador(Disparador d){
     return ds->y;
 }
 
-
-Pilha getConteudoCarEsq(Disparador d){
+int getIDPilhaEsquerda(Disparador d){
     if(d == NULL){
-        printf("Disparador inexistente");
-        return NULL;
+        printf("Erro ao acessar a id esquerda do disparador.");
+        return;
     }
     stDisparador* ds = (stDisparador*)d;
-    return ds->esquerda;
+    return ds->idEsquerda;
 }
 
-Pilha getConteudoCarDir(Disparador d){
+int getIDPilhaDireita(Disparador d){
     if(d == NULL){
-        printf("Disparador inexistente");
-        return NULL;
+        printf("Erro ao acessar a id direita do disparador.");
+        return;
     }
     stDisparador* ds = (stDisparador*)d;
-
-    return ds->direita;
+    return ds->idDireita;
 }
 
 void setIDDisparador(Disparador d, int i){
@@ -91,6 +82,16 @@ void setIDDisparador(Disparador d, int i){
     }
     stDisparador* ds = (stDisparador*)d;
     ds->i = i;
+}
+
+void setCarregadorDisparador(Disparador d, int idPilhaEsq, int idPilhaDir){
+    if(d == NULL){
+        printf("Erro ao acessar o disparador.");
+        exit(1);
+    }  
+    stDisparador* ds = (stDisparador*)d;
+    ds->idEsquerda = idPilhaEsq;
+    ds->idDireita = idPilhaDir;
 }
 
 void setPosicaoDisparador(Disparador d, double x, double y){
@@ -103,15 +104,14 @@ void setPosicaoDisparador(Disparador d, double x, double y){
     ds->y = y;
 }
 
+void pressionaBotao(int idDis, char lado, int n){
+    if
+}
+
 void destruirDisparador(Disparador ds){
     if(ds == NULL){
         printf("Erro ao acessar o disparador.");
         exit(1);
     }
-
-    stDisparador* d = (stDisparador*)ds;
-    liberarMemoriaPilha(d->esquerda);
-    liberarMemoriaPilha(d->direita);
-
-    free(d);
+    free(ds);
 }

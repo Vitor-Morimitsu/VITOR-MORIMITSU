@@ -19,7 +19,7 @@ typedef void* Celula;
 /// @param x Coordenada X do disparador
 /// @param y Coordenada Y do disparador
 /// @return Disparador criado
-Disparador criarDisparador(int i,double x, double y);
+Disparador criarDisparador(int i,double x, double y, int IDEsquerda, int IDDireita);
 
 /// @brief Retorna o identificador do disparador
 /// @return Identificador
@@ -35,24 +35,37 @@ double getXDisparador(Disparador d);
 /// @return Coordenada Y do disparador
 double getYDisparador(Disparador d);
 
-/// @brief Retorna o ponteiro para o carregador esquerdo
-/// @return Primeiro conteúdo do carregador esquerdo
-Pilha getConteudoCarEsq(Disparador d);
+/// @brief Retorna o identificador da pilha esquerda
+/// @param d Disparador
+/// @return Identificador da pilha esquerda
+int getIDPilhaEsquerda(Disparador d);
 
-/// @brief Retorna o ponteiro para o carregador direito
-/// @return Primeiro conteúdo do carregador direito
-Pilha getConteudoCarDir(Disparador d);
+/// @brief Retorna o identificador da pilha direita
+/// @param d Disparador
+/// @return Identificador da pilha direita
+int getPilhaDireita(Disparador d);
 
 /// @brief Define o identificador
 /// @param i Identificador do disparador
 void setIDDisparador(Disparador d, int i);
 
+/// @brief Encaixa no disparador d os carregadores da esquerda e direita
+/// @param d Disparador
+/// @param idPilhaEsq Id do carregador da esquerda
+/// @param idPilhaDir Id do carregador da direita
+void setCarregadorDisparador(Disparador d, int idPilhaEsq,int idPilhaDir);
 
 /// @brief Define a posição do disparador com base nas coordenadas passadas
 /// @param d Disparador
 /// @param x Coordenada X do disparador
 /// @param y Coordenada Y do disparador
 void setPosicaoDisparador(Disparador d, double x, double y);
+
+/// @brief Pressiona o botão do disparador n vezes
+/// @param idDisp Identificador do disparador
+/// @param lado Lado a ser alterado
+/// @param n Quantidade de vezes a ser alterado
+void pressionaBotao(int idDisp, char lado, int n);
 
 /// @brief Destruir um disparador
 /// @param d Disparador

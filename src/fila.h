@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "disparador.h"
+
 /*
     Arquivo .h criado com o intuito de criar uma fila no primeiro trabalho de estrutura de dados.
     A fila segue o princípio FIFO(first in, first out) cujo o primeiro elemento a entrar, também é o primeiro a sair
@@ -11,6 +11,7 @@
 
 typedef void* Fila;
 typedef void* Forma;
+typedef void* No_t;
 
 /// @brief Cria uma fila vazia
 /// @return Ponteiro para a fila criada
@@ -31,6 +32,26 @@ Forma getPrimeiraFormaFila(Fila f);
 
 /// @brief Libera a memória ocupada pela fila
 /// @param f Fila
-void liberarFila(Fila* f);
+void liberarFila(Fila f);
 
-#endif
+/// @brief Retorna o primeiro nó da fila para iniciar uma iteração.
+/// @param f A fila.
+/// @return O primeiro nó (como um No_t), ou NULL se a fila estiver vazia.
+No_t getPrimeiroNo(Fila f);
+
+/// @brief Dado um nó, retorna o próximo nó na sequência da fila.
+/// @param no O nó atual (um No_t).
+/// @return O nó seguinte, ou NULL se for o último.
+No_t getProximoNo(No_t no);
+
+/// @brief Retorna a Forma (o dado) armazenada dentro de um nó.
+/// @param no O nó (um No_t).
+/// @return A Forma contida no nó.
+Forma getConteudoDoNo(No_t no);
+
+/// @brief Retorna o tipo (char) da Forma armazenada dentro de um nó.
+/// @param no O nó (um No_t).
+/// @return O caractere de tipo da Forma.
+char getTipoDoNo(No_t no);
+
+#endif;

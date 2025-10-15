@@ -14,10 +14,13 @@
 int main(int argc, char* argv[])
 {
     //inicializa o chão
-    Fila* chao = criarChao();
+    Fila chao = criarChao();
 
-    Forma* generica;
-
+    //inicializa as filas
+    Fila listaFormas = criarFila();
+    Fila listaDisparadores = criarFila();
+    Fila listaPilhas = criarFila();
+    
     //ler os aquivos passados
     char* nomeArqGeo = NULL;
     char* nomeArqQry = NULL;

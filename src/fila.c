@@ -2,19 +2,19 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "disparador.h"
-typedef struct no {
+typedef struct stNo {
     Forma form;
     char type;
-    struct no* prox;
-} No;
-typedef struct fila_interna {
-    No* primeiro;
-    No* ultimo;
+    struct stNo* prox;
+} stNo;
+typedef struct stFila {
+    stNo* primeiro;
+    stNo* ultimo;
     int tamanho;
-} Fila_interna;
+} stFila;
 
 Fila criarFila() {
-    Fila_interna* f = (Fila_interna*)malloc(sizeof(Fila_interna));
+    stFila* f = (stFila*)malloc(sizeof(stFila));
     if (f == NULL) {
         perror("Erro ao alocar memória para a fila");
         return NULL; 
@@ -27,11 +27,11 @@ Fila criarFila() {
 }
 
 void insereFila(Fila f, Forma form, char type) {
-    Fila_interna* fila = (Fila_interna*)f;
+    stFila* fila = (stFila*)f;
 
-    No* novoNo = (No*)malloc(sizeof(No));
+    stNo* novoNo = (stNo*)malloc(sizeof(stNo));
     if (novoNo == NULL) {
-        perror("Erro ao alocar memória para o novo nó");
+        printf("Erro ao alocar memória para o novo nó");
         exit(1);
     }
     
@@ -50,13 +50,13 @@ void insereFila(Fila f, Forma form, char type) {
 }
 
 void removeFila(Fila f) {
-    Fila_interna* fila = (Fila_interna*)f;
+    stFila* fila = (stFila*)f;
     
     if (fila == NULL || fila->primeiro == NULL) {
         return; 
     }
     
-    No* temp = fila->primeiro;
+    stNo* temp = fila->primeiro;
     fila->primeiro = fila->primeiro->prox;
     free(temp);
     fila->tamanho--;
@@ -68,7 +68,7 @@ void removeFila(Fila f) {
 
 
 Forma getPrimeiraFormaFila(Fila f) {
-    Fila_interna* fila = (Fila_interna*)f;
+    stFila* fila = (stFila*)f;
 
     if (fila == NULL || fila->primeiro == NULL) {
         return NULL;
@@ -77,19 +77,41 @@ Forma getPrimeiraFormaFila(Fila f) {
     return fila->primeiro->form;
 }
 
-void liberarFila(Fila* f) {
-    Fila_interna* fila = (Fila_interna*)f;
+void liberarFila(Fila f) {
+    stFila* fila = (stFila*)f;
 
     if (fila == NULL) {
         return;
     }
 
-    No* atual = fila->primeiro;
+    stNo* atual = fila->primeiro;
     while (atual != NULL) {
-        No* temp = atual;
+        stNo* temp = atual;
         atual = atual->prox;
         free(temp);
     }
  
     free(fila);
+}
+No_t getPrimeiroNo(Fila f) {
+    stFila* fila = (stFila*)f;
+    return fila->primeiro;
+}
+
+No_t getProximoNo(No_t no) {
+    if (no == NULL) return NULL;
+    stNo* no_interno = (stNo*)no; 
+    return no_interno->prox;
+}
+
+Forma getConteudoDoNo(No_t no) {
+    if (no == NULL) return NULL;
+    stNo* no_interno = (stNo*)no;
+    return no_interno->form;
+}
+
+char getTipoDoNo(No_t no) {
+    if (no == NULL) return '\0';
+    stNo* no_interno = (stNo*)no;
+    return no_interno->type;
 }
