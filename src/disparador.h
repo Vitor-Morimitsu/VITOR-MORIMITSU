@@ -61,11 +61,11 @@ void setCarregadorDisparador(Disparador d, int idPilhaEsq,int idPilhaDir);
 /// @param y Coordenada Y do disparador
 void setPosicaoDisparador(Disparador d, double x, double y);
 
-/// @brief Pressiona o botão do disparador n vezes
-/// @param idDisp Identificador do disparador
+/// @brief Pressiona um botão do disparador n vezes
+/// @param d Disparador
 /// @param lado Lado a ser alterado
 /// @param n Quantidade de vezes a ser alterado
-void pressionaBotao(int idDisp, char lado, int n);
+void pressionaBotao(Disparador d, char lado, int n, Pilha esq, Pilha dir);
 
 /// @brief Destruir um disparador
 /// @param d Disparador

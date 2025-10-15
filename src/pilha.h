@@ -17,6 +17,11 @@ typedef void* Fila;
 /// @return Pilha vazia
 Pilha criarPilha(int d);
 
+/// @brief Insere um conteúdo no topo da pilha
+/// @param p Pilha
+/// @param cont Conteudo a ser inserido
+void inserirPilha(Pilha p, Conteudo cont);
+
 /// @brief Insere os n primeiros elementos da fila na pilha
 /// @param p Pilha p
 /// @param n Conteudo n
