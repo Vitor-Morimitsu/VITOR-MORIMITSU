@@ -15,7 +15,7 @@ typedef void* Fila;
 
 /// @brief Cria e retorna uma pilha vazia
 /// @return Pilha vazia
-Pilha criarPilha();
+Pilha criarPilha(int d);
 
 /// @brief Insere os n primeiros elementos da fila na pilha
 /// @param p Pilha p
@@ -30,6 +30,11 @@ void removerPilha(Pilha p);
 /// @param p Pilha p
 /// @return Conteúdo da primeira célula
 Conteudo getConteudoPilha(Pilha p);
+
+/// @brief Retorna o identificador da pilha
+/// @param p Pilha
+/// @return Identificador da pilha
+int getIDPilha(Pilha p);
 
 /// @brief Retorna o tamanho da pilha
 /// @param p Pilha

@@ -9,11 +9,11 @@ typedef struct disparador{
     int i;
     double x,y;
     void* centro;
-    Pilha esquerda;
-    Pilha direita; 
+    int idEsquerda;
+    int idDireita; 
 } stDisparador;
 
-Disparador criarDisparador(int i, double x, double y){
+Disparador criarDisparador(int i, double x, double y,int idEsquerdo, int idDireito){
     stDisparador* d = (stDisparador*)malloc(sizeof(stDisparador));
     if(d == NULL){
         printf("Erro ao alocar memória para o disparador");
@@ -23,15 +23,8 @@ Disparador criarDisparador(int i, double x, double y){
     d->i = i;
     d->x = x;
     d->y = y;
-    d->esquerda = criarPilha();
-    d->direita = criarPilha();
-
-    if(d->esquerda == NULL || d->direita == NULL){
-        printf("Erro ao alocar memória para os carregadores do disparador.");
-        free(d); //libera o disparador que não teve os carregadores criados
-        return;
-    }
-
+    d->idEsquerda = idEsquerdo;
+    d->idDireita = idDireito;
     return d;
 }
 
@@ -62,6 +55,24 @@ double getYDisparador(Disparador d){
     }
     stDisparador* ds = (stDisparador*)d;
     return ds->y;
+}
+
+int getIDPilhaEsquerda(Disparador d){
+    if(d == NULL){
+        printf("Erro ao acessar a id esquerda do disparador.");
+        return;
+    }
+    stDisparador* ds = (stDisparador*)d;
+    return ds->idEsquerda;
+}
+
+int getIDPilhaDireita(Disparador d){
+    if(d == NULL){
+        printf("Erro ao acessar a id direita do disparador.");
+        return;
+    }
+    stDisparador* ds = (stDisparador*)d;
+    return ds->idDireita;
 }
 
 
@@ -98,7 +109,10 @@ void setCarregadorDisparador(Disparador d, int idPilhaEsq, int idPilhaDir){
         printf("Erro ao acessar o disparador.");
         exit(1);
     }
-    get
+    //busca o id do carregador esquerdo
+    getIDPilha(idPilhaEsq);
+    //busca o id do carregador direito
+    getIDPilha(idPilhaDir);
     
 
 }
@@ -118,10 +132,5 @@ void destruirDisparador(Disparador ds){
         printf("Erro ao acessar o disparador.");
         exit(1);
     }
-
-    stDisparador* d = (stDisparador*)ds;
-    liberarMemoriaPilha(d->esquerda);
-    liberarMemoriaPilha(d->direita);
-
-    free(d);
+    free(ds);
 }

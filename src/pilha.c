@@ -13,13 +13,13 @@ typedef struct stpilha{
     int tamanho;
 }stPilha;
 
-Pilha criarPilha(){
+Pilha criarPilha(int ID){
     stPilha* p = (stPilha*)malloc(sizeof(stPilha));
     if(p == NULL){
         printf("Erro ao alocar memória para a Pilha");
         exit(1);
     }
-    p->id = -1;
+    p->id = ID;
     p->tamanho = 0;
     p->topo = NULL;
     return p;
