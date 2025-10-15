@@ -104,6 +104,10 @@ void setPosicaoDisparador(Disparador d, double x, double y){
     ds->y = y;
 }
 
+void pressionaBotao(int idDis, char lado, int n){
+    if
+}
+
 void destruirDisparador(Disparador ds){
     if(ds == NULL){
         printf("Erro ao acessar o disparador.");
