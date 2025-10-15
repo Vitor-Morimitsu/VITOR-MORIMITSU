@@ -75,26 +75,6 @@ int getIDPilhaDireita(Disparador d){
     return ds->idDireita;
 }
 
-
-Pilha getConteudoCarEsq(Disparador d){
-    if(d == NULL){
-        printf("Disparador inexistente");
-        return NULL;
-    }
-    stDisparador* ds = (stDisparador*)d;
-    return ds->esquerda;
-}
-
-Pilha getConteudoCarDir(Disparador d){
-    if(d == NULL){
-        printf("Disparador inexistente");
-        return NULL;
-    }
-    stDisparador* ds = (stDisparador*)d;
-
-    return ds->direita;
-}
-
 void setIDDisparador(Disparador d, int i){
     if(d == NULL){
         printf("Disparador inexistente");
@@ -108,13 +88,10 @@ void setCarregadorDisparador(Disparador d, int idPilhaEsq, int idPilhaDir){
     if(d == NULL){
         printf("Erro ao acessar o disparador.");
         exit(1);
-    }
-    //busca o id do carregador esquerdo
-    getIDPilha(idPilhaEsq);
-    //busca o id do carregador direito
-    getIDPilha(idPilhaDir);
-    
-
+    }  
+    stDisparador* ds = (stDisparador*)d;
+    ds->idEsquerda = idPilhaEsq;
+    ds->idDireita = idPilhaDir;
 }
 
 void setPosicaoDisparador(Disparador d, double x, double y){
