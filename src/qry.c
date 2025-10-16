@@ -4,6 +4,7 @@
 #include "geo.h"
 #include "disparador.h"
 #include "fila.h"
+#include "buscas.h"
 
 void abrirQry(FILE* arqQry){
     fopen(arqQry, "w");
@@ -13,12 +14,11 @@ void abrirTxt(FILE* arqTxt){
     fopen(arqTxt, "w");
 }
 
-void lerQry(FILE* arqQry, Fila f, FILE* arqTxt, Disparador d){
+void lerQry(FILE* arqQry, Fila f, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregadores){
     if(arqQry == NULL){
         printf("Erro ao ler o arquivo .qry");
         exit(1);
     }
-    
     char linha[500];
     char comando[500];
 
@@ -41,14 +41,16 @@ void lerQry(FILE* arqQry, Fila f, FILE* arqTxt, Disparador d){
         if(strcmp(comando, "pd") == 0){
             //posiciona o disparador l na coordenada (x,y)
             double x,y;
-            sscanf(linha, "pd %lf %lf", &x, &y);
+            int idDis;
+            sscanf(linha, "pd %i %lf %lf",&idDis, &x, &y);
+            Disparador d = encontrarDisparadorPorID(filaDisparadores, idDis);
             setPosicaoDisparador(d,x,y);
         }else if(strcmp(comando, "lc") == 0){
             //Coloca no carregador c as primeiras n formas que estão no chão
             int n, q = 0;
-            int c; //id do carregador
-            sscanf(linha, "lc %i %n", &c, &n);
-            Pilha p;
+            int idCar; //id do carregador
+            sscanf(linha, "lc %i %n", &idCar, &n);
+            Pilha p = encontrarPilhaPorID();
             while(q != n){
                 carregarPilhaPelaFila(p, f, n);
                 q++;
@@ -63,6 +65,8 @@ void lerQry(FILE* arqQry, Fila f, FILE* arqTxt, Disparador d){
             char lado;
             int n, idDis;
             sscanf(linha, "shft %i %c %i", &idDis,&lado, &n);
+            Disparador ds = encontrarDisparadorPorID(listaDisparadores, idDis);
+            pressionaBotao(ds,lado,n, )
         }else if(strcmp(comando, "dsp") == 0){
             //posiciona a forma que está em posição de disparo a um deslocamento de dx, dy em relação à posição do disparador
             double dx, dy;
