@@ -71,7 +71,7 @@ void lerQry(FILE* arqQry, Fila filaFormas, FILE* arqTxt, Fila filaDisparadores,F
             char letra;
             sscanf(linha, "dsp %i %lf %lf %c", &idDis,&dx,&dy,&letra);
             Disparador d = encontrarDisparadorPorID(filaDisparadores, idDis);
-            Forma f = getConteudoDoNo
+            Forma f = getConteudoCentro(d);
             posicionaForma(f,d,dx,dy);
 
         }else if(strcmp(comando, "rjd") == 0){
@@ -80,6 +80,7 @@ void lerQry(FILE* arqQry, Fila filaFormas, FILE* arqTxt, Fila filaDisparadores,F
             int idDis,idEsq, idDir;
             double dx, dy, ix, iy;
             sscanf(linha, "rjd %i %c %lf %lf %lf %lf", &idDis,&car,&dx,&dy,&ix,&iy);
+
             Disparador d = encontrarDisparadorPorID(filaDisparadores, idDis);
             int idEsq = getIDPilhaEsquerda(d);
             int idDir = getIDPilhaDireita(d);
@@ -87,15 +88,29 @@ void lerQry(FILE* arqQry, Fila filaFormas, FILE* arqTxt, Fila filaDisparadores,F
             Pilha pEsq = encontrarPilhaPorID(filaCarregadores, idEsq);
             Pilha pDir = encontrarPilhaPorID(filaCarregadores, idDir);
 
-            Forma f = getPrimeiraFormaFila(filaCarregadores);
-            if(car == 'e'){
-                //carregador esquerdo
-                pressionaBotao(d, 'e',1,pEsq,pDir);
-                posicionaForma(f,d,dx+ix, dy+iy);
-            }else if(car == 'd'){
-                //carregador direito
-                pressionaBotao(d, 'd',1,pEsq,pDir);
-                posicionaForma(f,d,dx+ix, dy+iy);
+            if(pEsq != NULL && pDir != NULL){
+                Pilha pilhaRajada; 
+                if (car == 'e') {
+                    pilhaRajada = pEsq;
+                } else {
+                    pilhaRajada = pDir;
+                }
+                int i = 0;
+                    
+                while (getTamanhoPilha(pilhaRajada) > 0 || getConteudoCentro(d) != NULL) {
+                    if (getConteudoCentro(d) == NULL) {
+                        if (getTamanhoPilha(pilhaRajada) == 0) break; // Acabou tudo
+                        pressionaBotao(d, car, 1, pEsq, pDir);
+                    }
+                
+                    Forma f = getConteudoCentro(d);
+                
+                    posicionaForma(f, d, dx + (i * ix), dy + (i * iy));
+                    
+                    char ladoOposto = (car == 'e') ? 'd' : 'e';
+                    pressionaBotao(d, ladoOposto, -1, pEsq, pDir); 
+                    i++;
+                }
             }
 
         }else if(strcmp(comando, "calc") == 0){
