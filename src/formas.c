@@ -71,7 +71,7 @@ Forma criaTextoForma(int i,char tipo, double x, double y, char* corb, char* corp
 int getIDForma(Forma f) {
     if (f == NULL) {
         printf("Erro ao buscar a ID da forma");
-        return NULL;
+        return -1;
     }
 
     stForma* formaWrapper = (stForma*)f;
@@ -137,25 +137,27 @@ double getYForma(Forma f){
     stForma* tipoForma = (stForma*)f;
     switch (tipoForma->tipo){
         case 'r': {
-            Retangulo ret = (Retangulo)tipoForma->fig;
+            Retangulo* ret = (Retangulo*)tipoForma->fig;
             return getCoordYRetangulo(ret);
         }
         case 'c':{
-            Circulo circ = (Circulo)tipoForma->fig;
+            Circulo* circ = (Circulo*)tipoForma->fig;
             return getCoordYCirculo(circ);
         }
         case 'l':{
-            Linha lin = (Linha)tipoForma->fig;
+            Linha* lin = (Linha*)tipoForma->fig;
             return getY1Linha(lin);
         }
         case 't':{
-            Texto txt = (Texto)tipoForma->fig;
+            Texto* txt = (Texto*)tipoForma->fig;
             return getCoordYTexto(txt);
         }
+        default:
+            return -1;
     }
 }
 
-void liberaForma(Forma f){
+void liberarForma(Forma f){
     if(f == NULL){
         return; 
     }
@@ -201,7 +203,7 @@ void posicionaForma(Forma f, Disparador d, double deslocX, double deslocY){
     }else if(forma->tipo == 'l'){//Linha
         setX1Linha((Linha*)forma->fig,dx);
         setY1Linha((Linha*)forma->fig,dy);
-    }else if(forma->fig == 't'){//Texto
+    }else if(forma->tipo == 't'){//Texto
         setXTexto((Texto*)forma->fig, dx);
         setYTexto((Texto*)forma->fig, dy);
     }

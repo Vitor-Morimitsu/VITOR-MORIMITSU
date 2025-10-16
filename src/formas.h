@@ -51,5 +51,5 @@ void liberarForma(Forma f);
 /// @brief Posiciona a forma f a um deslocamento dx,dy em relação à posição do disparador
 /// @param f Forma 
 /// @param d Diparador
-void posicionaForma(Forma f, Disparador d);
+void posicionaForma(Forma f, Disparador d, double deslocX, double deslocY);
 #endif

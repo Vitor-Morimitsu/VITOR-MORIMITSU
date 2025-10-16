@@ -29,6 +29,15 @@ Disparador criarDisparador(int i, double x, double y,int idEsquerdo, int idDirei
     return d;
 }
 
+Conteudo getConteudoCentro(Disparador d) {
+    if (d == NULL) {
+        return NULL;
+    }
+    stDisparador* ds = (stDisparador*)d;
+    
+    return ds->centro;
+}
+
 int getIDDisparador(Disparador d){
     if(d == NULL){
         printf("Erro ao acessar o disparador para retornar a ID.");

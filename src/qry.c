@@ -6,7 +6,7 @@
 #include "fila.h"
 #include "buscas.h"
 
-void lerQry(FILE* arqQry, Fila f, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregadores){
+void lerQry(FILE* arqQry, Fila filaFormas, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregadores){
     if(arqQry == NULL){
         printf("Erro ao ler o arquivo .qry");
         exit(1);
@@ -41,7 +41,7 @@ void lerQry(FILE* arqQry, Fila f, FILE* arqTxt, Fila filaDisparadores,Fila filaC
             int idCar; //id do carregador
             sscanf(linha, "lc %i %i", &idCar, &n);
             Pilha p = encontrarPilhaPorID(filaCarregadores, idCar);
-            carregarPilhaPelaFila(p, f, n);
+            carregarPilhaPelaFila(p, filaFormas, n);
             q++;
         }else if(strcmp(comando, "atch") == 0){
             //encaixa no disparador d os carregadores cesq(na esquerda) e cdir(na direita)
@@ -71,13 +71,35 @@ void lerQry(FILE* arqQry, Fila f, FILE* arqTxt, Fila filaDisparadores,Fila filaC
             char letra;
             sscanf(linha, "dsp %i %lf %lf %c", &idDis,&dx,&dy,&letra);
             Disparador d = encontrarDisparadorPorID(filaDisparadores, idDis);
-            
+            Forma f = getConteudoDoNo
+            posicionaForma(f,d,dx,dy);
+
         }else if(strcmp(comando, "rjd") == 0){
             //rajada de disparos até as formas do carregador se esgotarem
             char car;
-            int idDis;
+            int idDis,idEsq, idDir;
+            double dx, dy, ix, iy;
+            sscanf(linha, "rjd %i %c %lf %lf %lf %lf", &idDis,&car,&dx,&dy,&ix,&iy);
+            Disparador d = encontrarDisparadorPorID(filaDisparadores, idDis);
+            int idEsq = getIDPilhaEsquerda(d);
+            int idDir = getIDPilhaDireita(d);
+
+            Pilha pEsq = encontrarPilhaPorID(filaCarregadores, idEsq);
+            Pilha pDir = encontrarPilhaPorID(filaCarregadores, idDir);
+
+            Forma f = getPrimeiraFormaFila(filaCarregadores);
+            if(car == 'e'){
+                //carregador esquerdo
+                pressionaBotao(d, 'e',1,pEsq,pDir);
+                posicionaForma(f,d,dx+ix, dy+iy);
+            }else if(car == 'd'){
+                //carregador direito
+                pressionaBotao(d, 'd',1,pEsq,pDir);
+                posicionaForma(f,d,dx+ix, dy+iy);
+            }
+
         }else if(strcmp(comando, "calc") == 0){
-            //processa as figuras da arena confomre descrito anteriormente
+            //processa as figuras da arena conforme descrito anteriormente
         }
     }
 }

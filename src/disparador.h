@@ -21,6 +21,11 @@ typedef void* Celula;
 /// @return Disparador criado
 Disparador criarDisparador(int i,double x, double y, int IDEsquerda, int IDDireita);
 
+/// @brief Retorna o conteudo que está no centro do disparador em posição de disparo
+/// @param d Disparador
+/// @return Conteudo do centro
+Conteudo getConteudoCentro(Disparador d);
+
 /// @brief Retorna o identificador do disparador
 /// @return Identificador
 int getIDDisparador(Disparador d);
