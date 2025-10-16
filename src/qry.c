@@ -99,7 +99,7 @@ void lerQry(FILE* arqQry, Fila filaFormas, FILE* arqTxt, Fila filaDisparadores,F
                     
                 while (getTamanhoPilha(pilhaRajada) > 0 || getConteudoCentro(d) != NULL) {
                     if (getConteudoCentro(d) == NULL) {
-                        if (getTamanhoPilha(pilhaRajada) == 0) break; // Acabou tudo
+                        if (getTamanhoPilha(pilhaRajada) == 0) break; //Acabou tudo
                         pressionaBotao(d, car, 1, pEsq, pDir);
                     }
                 
