@@ -11,6 +11,8 @@
 #include "texto.h"
 #include <string.h>
 
+//abrir arquivos
+
 int main(int argc, char* argv[])
 {
     //inicializa o chão
