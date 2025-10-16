@@ -37,12 +37,11 @@ void lerQry(FILE* arqQry, Fila filaFormas, FILE* arqTxt, Fila filaDisparadores,F
             setPosicaoDisparador(d,x,y);
         }else if(strcmp(comando, "lc") == 0){
             //Coloca no carregador c as primeiras n formas que estão no chão
-            int n, q = 0;
+            int n;
             int idCar; //id do carregador
             sscanf(linha, "lc %i %i", &idCar, &n);
             Pilha p = encontrarPilhaPorID(filaCarregadores, idCar);
             carregarPilhaPelaFila(p, filaFormas, n);
-            q++;
         }else if(strcmp(comando, "atch") == 0){
             //encaixa no disparador d os carregadores cesq(na esquerda) e cdir(na direita)
             int idDis, idCesq, idCDir;
@@ -106,15 +105,20 @@ void lerQry(FILE* arqQry, Fila filaFormas, FILE* arqTxt, Fila filaDisparadores,F
                     Forma f = getConteudoCentro(d);
                 
                     posicionaForma(f, d, dx + (i * ix), dy + (i * iy));
-                    
-                    char ladoOposto = (car == 'e') ? 'd' : 'e';
+                    char ladoOposto;
+                    if(car == 'e'){
+                        ladoOposto = 'd';
+                    }else {
+                        ladoOposto = 'e';
+                    }
                     pressionaBotao(d, ladoOposto, -1, pEsq, pDir); 
                     i++;
                 }
             }
 
         }else if(strcmp(comando, "calc") == 0){
-            //processa as figuras da arena conforme descrito anteriormente
+            //processa as figuras da arena conforme descrito anteriormente em um novo arqSVg
+            
         }
     }
 }

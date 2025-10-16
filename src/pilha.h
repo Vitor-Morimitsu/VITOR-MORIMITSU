@@ -50,4 +50,18 @@ int getTamanhoPilha(Pilha p);
 /// @param p Pilha 
 void liberarMemoriaPilha(Pilha p);
 
+/// @brief Retorna a nó do topo da pilha
+/// @param p Pilha
+/// @return Nó do topo
+No_t getNoTopo(Pilha p);
+
+/// @brief Retorna o próximo nó da pilha
+/// @param p Pilha
+/// @return Próximo nó da pilha
+No_t getProximoNo(Pilha p);
+
+/// @brief Retorna o conteúdo do nó da pilha
+/// @param p Pilha
+/// @return Conteúdo do nó da pilha
+Conteudo getConteudoDoNo(Pilha p);
 #endif      

@@ -99,6 +99,12 @@ int getIDForma(Forma f) {
     }
 }
 
+char getTipoForma(Forma f){
+    if(f == NULL) return;
+    stForma* forma = (stForma*)f;
+    return forma->tipo;
+}
+
 double getXForma(Forma f){
     if(f == NULL){
         printf("Erro ao buscar a coordenada X da forma.");
