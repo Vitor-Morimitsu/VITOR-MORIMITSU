@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "circulo.h"
 #include "retangulo.h"
 #include "linha.h"
@@ -67,7 +68,7 @@ Forma criaTextoForma(int i,char tipo, double x, double y, char* corb, char* corp
     return f;
 }
 
-char getTipoForma(Forma f) {
+int getIDForma(Forma f) {
     if (f == NULL) {
         printf("Erro ao buscar a ID da forma");
         return NULL;
@@ -108,19 +109,19 @@ double getXForma(Forma f){
 
     switch (tipoForma->tipo){
         case 'r':{
-            Retangulo ret =(Retangulo)tipoForma->fig;
+            Retangulo* ret =(Retangulo*)tipoForma->fig;
             return getCoordXRetangulo(ret);
         }
         case 'c':{
-            Circulo cir = (Circulo)tipoForma->fig;
+            Circulo* cir = (Circulo*)tipoForma->fig;
             return getCoordXCirculo(cir);
         }
         case 'l':{
-            Linha lin = (Linha)tipoForma->fig;
+            Linha* lin = (Linha*)tipoForma->fig;
             return getX1Linha(lin);
         }
         case 't':{
-            Texto txt=(Texto)tipoForma->fig;
+            Texto* txt=(Texto*)tipoForma->fig;
             return getCoordXTexto(txt);
         }
         default:
@@ -149,7 +150,7 @@ double getYForma(Forma f){
         }
         case 't':{
             Texto txt = (Texto)tipoForma->fig;
-            return getCoordXTexto(txt);
+            return getCoordYTexto(txt);
         }
     }
 }
@@ -177,4 +178,32 @@ void liberaForma(Forma f){
     }
 
     free(formaWrapper);
+}
+
+void posicionaForma(Forma f, Disparador d, double deslocX, double deslocY){
+    if(f == NULL || d == NULL){
+        printf("Erro ao acessar a figura para posicionar na arena.");
+        exit(1);
+    }
+    double XD = getXDisparador(d);
+    double YD = getYDisparador(d);
+
+    double dx = XD + deslocX;
+    double dy = YD + deslocY;
+    stForma* forma = (stForma*)f;
+
+    if(forma->tipo == 'c'){//Circulo
+        setXCirculo((Circulo*)forma->fig,dx);
+        setYCirculo((Circulo*)forma->fig,dy);
+    }else if(forma->tipo == 'r'){//Retangulo
+        setCoordXRetangulo((Retangulo*)forma->fig, dx);
+        setCoordYRetangulo((Retangulo*)forma->fig, dy);
+    }else if(forma->tipo == 'l'){//Linha
+        setX1Linha((Linha*)forma->fig,dx);
+        setY1Linha((Linha*)forma->fig,dy);
+    }else if(forma->fig == 't'){//Texto
+        setXTexto((Texto*)forma->fig, dx);
+        setYTexto((Texto*)forma->fig, dy);
+    }
+
 }

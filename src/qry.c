@@ -41,10 +41,8 @@ void lerQry(FILE* arqQry, Fila f, FILE* arqTxt, Fila filaDisparadores,Fila filaC
             int idCar; //id do carregador
             sscanf(linha, "lc %i %i", &idCar, &n);
             Pilha p = encontrarPilhaPorID(filaCarregadores, idCar);
-            while(q != n){
-                carregarPilhaPelaFila(p, f, n);
-                q++;
-            }
+            carregarPilhaPelaFila(p, f, n);
+            q++;
         }else if(strcmp(comando, "atch") == 0){
             //encaixa no disparador d os carregadores cesq(na esquerda) e cdir(na direita)
             int idDis, idCesq, idCDir;
@@ -62,7 +60,7 @@ void lerQry(FILE* arqQry, Fila f, FILE* arqTxt, Fila filaDisparadores,Fila filaC
                 int idDir = getIDPilhaDireita(d);
 
                 Pilha pEsq = encontrarPilhaPorID(filaCarregadores, idEsq);
-                Pilha pDir = encontrarPilhasPorID(filaCarregadores, idDir);
+                Pilha pDir = encontrarPilhaPorID(filaCarregadores, idDir);
 
                 pressionaBotao(d,lado,n,pEsq,pDir);
             }
@@ -70,6 +68,10 @@ void lerQry(FILE* arqQry, Fila f, FILE* arqTxt, Fila filaDisparadores,Fila filaC
             //posiciona a forma que está em posição de disparo a um deslocamento de dx, dy em relação à posição do disparador
             double dx, dy;
             int idDis;
+            char letra;
+            sscanf(linha, "dsp %i %lf %lf %c", &idDis,&dx,&dy,&letra);
+            Disparador d = encontrarDisparadorPorID(filaDisparadores, idDis);
+            
         }else if(strcmp(comando, "rjd") == 0){
             //rajada de disparos até as formas do carregador se esgotarem
             char car;
