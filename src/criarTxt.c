@@ -216,7 +216,6 @@ void comandoCalc(FILE* arqTxt, Fila chao, Fila formas){
     }
     int n = 0;
     int quantidade = getTamanhoFila(formas);
-    // achar o tamanho da fila
 
     // ver a posição de cada forma e ver se elas se sobrepõem
     while(n != quantidade){
