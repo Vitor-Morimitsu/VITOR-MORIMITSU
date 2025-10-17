@@ -21,6 +21,11 @@ typedef void* Celula;
 /// @return Disparador criado
 Disparador criarDisparador(int i,double x, double y, int IDEsquerda, int IDDireita);
 
+/// @brief Retorna o conteudo que está no centro do disparador em posição de disparo
+/// @param d Disparador
+/// @return Conteudo do centro
+Conteudo getConteudoCentro(Disparador d);
+
 /// @brief Retorna o identificador do disparador
 /// @return Identificador
 int getIDDisparador(Disparador d);
@@ -43,7 +48,7 @@ int getIDPilhaEsquerda(Disparador d);
 /// @brief Retorna o identificador da pilha direita
 /// @param d Disparador
 /// @return Identificador da pilha direita
-int getPilhaDireita(Disparador d);
+int getIDPilhaDireita(Disparador d);
 
 /// @brief Define o identificador
 /// @param i Identificador do disparador
@@ -61,11 +66,11 @@ void setCarregadorDisparador(Disparador d, int idPilhaEsq,int idPilhaDir);
 /// @param y Coordenada Y do disparador
 void setPosicaoDisparador(Disparador d, double x, double y);
 
-/// @brief Pressiona o botão do disparador n vezes
-/// @param idDisp Identificador do disparador
+/// @brief Pressiona um botão do disparador n vezes
+/// @param d Disparador
 /// @param lado Lado a ser alterado
 /// @param n Quantidade de vezes a ser alterado
-void pressionaBotao(int idDisp, char lado, int n);
+void pressionaBotao(Disparador d, char lado, int n, Pilha esq, Pilha dir);
 
 /// @brief Destruir um disparador
 /// @param d Disparador

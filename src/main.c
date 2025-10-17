@@ -11,6 +11,8 @@
 #include "texto.h"
 #include <string.h>
 
+//abrir arquivos
+
 int main(int argc, char* argv[])
 {
     //inicializa o chão
@@ -35,7 +37,12 @@ int main(int argc, char* argv[])
         return 1;
     }else{
         for(int i = 1; i < argc; i++){
-            if(strcmp(argv[i], "-f") == 0){ //entrada do geo
+            if(strcmp(argv[i], "-e")==0){//diretório de entrada
+                if(i+1 < argc){
+                    char* dirEntrada = argv[i+1];
+                    i++;
+                }
+            }else if(strcmp(argv[i], "-f") == 0){ //entrada do geo
                 if(i + 1 < argc){
                     nomeArqGeo = argv[i + 1];
                     i++;
@@ -43,6 +50,11 @@ int main(int argc, char* argv[])
             }else if(strcmp(argv[i], "-o") == 0){ //saída svg
                 if(i + 1 < argc){
                     nomeArqQry = argv[i + 1];
+                    i++;
+                }
+            }else if(strcmp(argv[i], "-q") == 0){//arquivo com consultas
+                if(i+1<argc){
+                    char* arqConsultas = argv[i+1];
                     i++;
                 }
             }

@@ -25,6 +25,24 @@ Pilha criarPilha(int ID){
     return p;
 }
 
+void inserirPilha(Pilha p, Conteudo cont){
+    if(p == NULL){
+        prinf("Erro ao acessar a pilha.");
+        return;
+    }
+    stPilha* pilha = (stPilha*)p;
+
+    stCelula* novaCelula = (stCelula*)malloc(sizeof(novaCelula));
+    if(novaCelula == NULL){
+        printf("Erro ao acessar a nova celula criada");
+        return;
+    }
+    novaCelula->conteudo=cont;
+    novaCelula->prox = pilha->topo;
+    pilha->topo = novaCelula;
+    pilha->tamanho++;
+}
+
 void carregarPilhaPelaFila(Pilha p, Fila f, int n){
     if(p == NULL){
         printf("Erro ao acessar a pilha.");
@@ -114,4 +132,22 @@ void liberarMemoriaPilha(Pilha p){
     }
 
     free(pilha);
+}
+
+No_t getNoTopo(Pilha p) {
+    if (p == NULL) return NULL;
+    stPilha* pilha = (stPilha*)p;
+    return pilha->topo; 
+}
+
+No_t getProximoNo(No_t no) {
+    if (no == NULL) return NULL;
+    stCelula* celula_interna = (stCelula*)no; 
+    return celula_interna->prox;
+}
+
+Conteudo getConteudoDoNo(No_t no) {
+    if (no == NULL) return NULL;
+    stCelula* celula_interna = (stCelula*)no;
+    return celula_interna->conteudo;
 }

@@ -4,7 +4,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "geo.h"
-
+void abrirSvg(FILE* arqSvg){
+    fprintf(arqSvg, "<svg xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\n");
+}
 void desenharCirculoSVG(FILE* arqSvg, Forma forma) {
     Circulo* c = (Circulo*)forma;
     
@@ -25,4 +27,8 @@ void desenharTextoSVG(FILE* arqSvg, Forma forma){
     Texto* t = (Texto*)forma;
 
  fprintf(arqSvg, "\t<text id=\"%d\" x=\"%f\" y=\"%f\" fill=\"%s\" text-anchor=\"%s\">%s</text>\n",getIDTexto(t),getCoordXTexto(t),getCoordYTexto(t), getCorPTexto(t),getAncoraTexto(t), getTextoConteudo(t)); 
+}
+
+void fecharSvg(FILE* arqSvg){
+    fprintf(arqSvg, "</svg>\n");
 }

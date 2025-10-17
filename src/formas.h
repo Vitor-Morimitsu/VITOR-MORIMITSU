@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <math.h>
 #include "circulo.h"
 #include "retangulo.h"
 #include "linha.h"
@@ -47,4 +48,8 @@ double getYForma(Forma f);
 /// @param f Forma f
 void liberarForma(Forma f);
 
+/// @brief Posiciona a forma f a um deslocamento dx,dy em relação à posição do disparador
+/// @param f Forma 
+/// @param d Diparador
+void posicionaForma(Forma f, Disparador d, double deslocX, double deslocY);
 #endif

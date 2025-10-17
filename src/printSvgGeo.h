@@ -11,6 +11,10 @@
 */
 
 /*
+    Função responsável por abrir o arquivo Svg passado como parâmetro.
+*/
+void abrirSvg(FILE* arqSvg);
+/*
     Função responsável por gerar um círculo em SVG.
 */
 void desenharCirculoSVG(FILE* arqSvg,Forma f);
@@ -29,4 +33,9 @@ void desenharLinhaSVG(FILE* arqSvg, Forma f);
     Função responsável por gerar um texto em SVG.
 */
 void desenharTextoSVG(FILE* arqSvg, Forma f);
+
+/*
+    Função responsável por fechar um arquivo Svg.
+*/
+void fecharSvg(FILE* arqSvg);
 #endif
