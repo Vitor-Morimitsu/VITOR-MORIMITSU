@@ -101,12 +101,12 @@ void comandoShft(FILE* arqTxt,int idDis, Fila filaDisparadores, Fila filaCarrega
     }
 }
 
-void comandoDsp(FILE* arqTxt, Fila listaDisparadores,int idDis, double dx, double dy){
+void comandoDsp(FILE* arqTxt, Fila filaDisparadores,int idDis, double dx, double dy){
     if(arqTxt == NULL){
         printf("Erro ao acessar o arquivo txt.");
         return;
     }
-    Disparador d = encontrarDisparadorPorID(listaDisparadores, idDis);
+    Disparador d = encontrarDisparadorPorID(filaDisparadores, idDis);
     if(d == NULL){
         printf("Disparador não encontrado.");
         return;
@@ -147,5 +147,64 @@ void comandoDsp(FILE* arqTxt, Fila listaDisparadores,int idDis, double dx, doubl
         fprintf(arqTxt, "forma:%s   X1 final:%lf   Y1 final:%lf  X2 final:%lf  Y2 final:%lf\n ", nomeFigura, xFinal, yFinal, x2Final, y2Final);
     }else{
         fprintf(arqTxt, "forma:%s  X final:%lf  Y final:%lf\n", nomeFigura, xFinal, yFinal);
+    }
+}
+
+void comandoRjd(FILE* arqTxt, Fila filaDisparadores, int idDis,Fila filaCarregadores, char car){
+    if (arqTxt == NULL) {
+        fprintf(stderr, "Erro: Arquivo de texto nulo.\n");
+        return;
+    }
+
+    Disparador d = encontrarDisparadorPorID(filaDisparadores, idDis);
+    if (d == NULL) {
+        printf("Disparador não encontrado para rajada.\n");
+        return;
+    }
+
+    int idEsq = getIDPilhaEsquerda(d);
+    int idDir = getIDPilhaDireita(d);
+    Pilha pEsq = encontrarPilhaPorID(filaCarregadores, idEsq);
+    Pilha pDir = encontrarPilhaPorID(filaCarregadores, idDir);
+    
+    if (pEsq == NULL || pDir == NULL) {
+        printf(arqTxt, "Pilhas para o disparador não encontradas.\n");
+        return;
+    }
+    
+    Pilha pilhaRajada;
+    if (car == 'e') {
+        pilhaRajada = pEsq;
+    } else {
+        pilhaRajada = pDir;
+    }
+        
+    int totalTiros = 0;
+
+    while (getTamanhoPilha(pilhaRajada) > 0) {
+        pressionaBotao(d, car, 1, pEsq, pDir);
+        
+        Forma f = getConteudoCentro(d);
+        if (f == NULL) break; 
+        
+        char tipo = getTipoForma(f);
+        int id = getIDForma(f);
+        const char* nomeFigura = "desconhecida";
+        if(tipo == 'c') nomeFigura = "circulo";
+        else if(tipo == 'r') nomeFigura = "retangulo";
+        else if(tipo == 'l') nomeFigura = "linha";
+        else if(tipo == 't') nomeFigura = "texto";
+        
+        fprintf(arqTxt, "Tiro %d: Forma disparada:%s ID:%d\n", totalTiros + 1, nomeFigura, id);
+        
+        char ladoOposto;
+        if (car == 'e') {
+            ladoOposto = 'd';
+        } else {
+            ladoOposto = 'e';
+        }
+        pressionaBotao(d, ladoOposto, -1, pEsq, pDir); 
+        
+        totalTiros++;
     }
 }

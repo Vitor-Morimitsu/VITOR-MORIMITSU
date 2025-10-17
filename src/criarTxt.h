@@ -31,7 +31,7 @@ void comandoDsp(FILE* arqTxt, Fila listaDisparadores, int idDis, double dx, doub
 
 /// @brief Reportar os dados das formas disapradas
 /// @param arqTxt Arquivo destino
-void comandoRjd(FILE* arqTxt, FILE* arqQry);
+void comandoRjd(FILE* arqTxt, Fila filaDisparadores, int idDis,Fila filaCarregadores, char car);
 
 /// @brief Reportar o resultado de cada verificação; área total esmagada no round e a área total esmagada
 /// @param arqTxt Arquivo destino
