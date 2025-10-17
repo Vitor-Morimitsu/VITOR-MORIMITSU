@@ -62,7 +62,7 @@ void escreverConteudoPilha(FILE* arqTxt, Pilha p){
                 char* fFamily = getfFamily(ts);
                 char* fWeight = getfWeight(ts);
                 char* fSize = getfSize(ts);
-                fprintf(arqTxt, "t id:%d x:%lf y:%lf corb:%s corp:%s ancora:%c texto:%s family:%s weight:%s size:%s",id,x,y,corb,corp,a,txto,fFamily,fWeight,fSize);
+                fprintf(arqTxt, "t id:%d x:%lf y:%lf corb:%s corp:%s ancora:%c texto:%s family:%s weight:%s size:%s\n",id,x,y,corb,corp,a,txto,fFamily,fWeight,fSize);
             }
         }
         atual = getProximoNo(atual);
@@ -84,9 +84,10 @@ void comandoShft(FILE* arqTxt,int idDis, Fila filaDisparadores, Fila filaCarrega
     Conteudo centro = getConteudoCentro(disp);
     if(centro == NULL){
         printf("A posição de disparo está vazia.");
+        return;
     }else{
         char fig = getTipoForma(centro);
-        char* figura;
+        char* figura = "desconhecida";
         if(fig == 'c'){
             figura = "circulo";
         }else if(fig == 'r'){
@@ -96,8 +97,55 @@ void comandoShft(FILE* arqTxt,int idDis, Fila filaDisparadores, Fila filaCarrega
         }else if(fig == 't'){
             figura = "texto";
         }
-    
-        fprintf(arqTxt, "A figura que está no centro é %s", fig);
+        fprintf(arqTxt, "A figura que está no centro é %s\n", figura);
+    }
+}
 
+void comandoDsp(FILE* arqTxt, Fila listaDisparadores,int idDis, double dx, double dy){
+    if(arqTxt == NULL){
+        printf("Erro ao acessar o arquivo txt.");
+        return;
+    }
+    Disparador d = encontrarDisparadorPorID(listaDisparadores, idDis);
+    if(d == NULL){
+        printf("Disparador não encontrado.");
+        return;
+    }
+    Conteudo forma = getConteudoCentro(d);
+    if(forma == NULL){
+        printf("Nenhuma forma foi disparada.");
+        return;
+    }
+    posicionaForma(forma, d, dx, dy);
+
+    double xFinal = getXForma(forma);
+    double yFinal = getYForma(forma);
+    //caso da linha
+    double x2Final = -1;
+    double y2Final = -1;
+    
+    char* nomeFigura = "desconhecida";
+    char tipo = getTipoForma(forma);
+    if(tipo == 'c'){
+
+        nomeFigura = "círculo";
+    }else if(tipo == 'r'){
+
+        nomeFigura = "retângulo";
+    }else if(tipo == 'l'){
+        nomeFigura = "linha";
+        xFinal = getX1Linha((Linha*)forma);
+        yFinal = getY1Linha((Linha*)forma);
+        x2Final = getX2Linha((Linha*)forma);
+        y2Final = getY2Linha((Linha*)forma);
+
+    }else if(tipo == 't'){
+        nomeFigura = "texto";
+    }
+
+    if(tipo == 'l'){
+        fprintf(arqTxt, "forma:%s   X1 final:%lf   Y1 final:%lf  X2 final:%lf  Y2 final:%lf\n ", nomeFigura, xFinal, yFinal, x2Final, y2Final);
+    }else{
+        fprintf(arqTxt, "forma:%s  X final:%lf  Y final:%lf\n", nomeFigura, xFinal, yFinal);
     }
 }
