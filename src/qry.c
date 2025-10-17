@@ -107,7 +107,8 @@ void lerQry(FILE* arqQry, Fila filaFormas, FILE* arqTxt, Fila filaDisparadores,F
                     }
                 
                     Forma f = getConteudoCentro(d);
-                
+                    
+                    comandoDsp(arqTxt,filaDisparadores,idDis,dx+(i * ix),dy+(i * iy));
                     posicionaForma(f, d, dx + (i * ix), dy + (i * iy));
                     char ladoOposto;
                     if(car == 'e'){
@@ -122,7 +123,7 @@ void lerQry(FILE* arqQry, Fila filaFormas, FILE* arqTxt, Fila filaDisparadores,F
 
         }else if(strcmp(comando, "calc") == 0){
             //processa as figuras da arena conforme descrito anteriormente em um novo arqSVg
-
+            
         }
     }
 }

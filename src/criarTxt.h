@@ -27,7 +27,7 @@ void comandoShft(FILE* arqTxt, int idDis,Fila filaDisparadores, Fila filaCarrega
 
 /// @brief Reportar os dados da forma disparada e a posição final da forma
 /// @param arqTxt Arquivo destino
-void comandoDsp(FILE* arqTxt, Fila listaDisparadores, int idDis, double dx, double dy);
+void comandoDsp(FILE* arqTxt, Fila filaDisparadores, int idDis, double dx, double dy);
 
 /// @brief Reportar os dados das formas disapradas
 /// @param arqTxt Arquivo destino
@@ -35,6 +35,6 @@ void comandoRjd(FILE* arqTxt, Fila filaDisparadores, int idDis,Fila filaCarregad
 
 /// @brief Reportar o resultado de cada verificação; área total esmagada no round e a área total esmagada
 /// @param arqTxt Arquivo destino
-void comandoCalc(FILE* arqTxt, FILE* arqQry);
+void comandoCalc(FILE* arqTxt,Fila chao, Fila formas);
 
 #endif
