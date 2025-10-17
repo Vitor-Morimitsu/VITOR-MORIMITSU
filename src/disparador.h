@@ -48,7 +48,7 @@ int getIDPilhaEsquerda(Disparador d);
 /// @brief Retorna o identificador da pilha direita
 /// @param d Disparador
 /// @return Identificador da pilha direita
-int getPilhaDireita(Disparador d);
+int getIDPilhaDireita(Disparador d);
 
 /// @brief Define o identificador
 /// @param i Identificador do disparador

@@ -9,6 +9,8 @@
 #include "retangulo.h"
 #include "linha.h"
 #include "texto.h"
+#include "disparador.h"
+#include "buscas.h"
 
 /*
     Arquivo .h responsável por criar um arquivo .txt com as instruções contidas no primeiro trabalho de estruturas de dados.
@@ -21,8 +23,7 @@ void escreverConteudoPilha(FILE* arqTxt, Pilha p);
 
 /// @brief Reportar os dados da figura que resultou ficar no ponto de disparo
 /// @param arqTxt Arquivo destino
-void comandoShft(FILE* arqTxt, FILE* arqQry);
-
+void comandoShft(FILE* arqTxt, int idDis,Fila filaDisparadores, Fila filaCarregadores);
 
 /// @brief Reportar os dados da forma disparada e a posição final da forma
 /// @param arqTxt Arquivo destino

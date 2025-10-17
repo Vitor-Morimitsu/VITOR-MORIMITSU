@@ -5,6 +5,7 @@
 #include "disparador.h"
 #include "fila.h"
 #include "buscas.h"
+#include "criarTxt.h"
 
 void lerQry(FILE* arqQry, Fila filaFormas, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregadores){
     if(arqQry == NULL){
@@ -42,6 +43,7 @@ void lerQry(FILE* arqQry, Fila filaFormas, FILE* arqTxt, Fila filaDisparadores,F
             sscanf(linha, "lc %i %i", &idCar, &n);
             Pilha p = encontrarPilhaPorID(filaCarregadores, idCar);
             carregarPilhaPelaFila(p, filaFormas, n);
+            escreverConteudoPilha(arqTxt, p);
         }else if(strcmp(comando, "atch") == 0){
             //encaixa no disparador d os carregadores cesq(na esquerda) e cdir(na direita)
             int idDis, idCesq, idCDir;
@@ -118,7 +120,7 @@ void lerQry(FILE* arqQry, Fila filaFormas, FILE* arqTxt, Fila filaDisparadores,F
 
         }else if(strcmp(comando, "calc") == 0){
             //processa as figuras da arena conforme descrito anteriormente em um novo arqSVg
-            
+
         }
     }
 }

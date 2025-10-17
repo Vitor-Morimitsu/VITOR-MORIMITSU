@@ -7,6 +7,8 @@
 #include "retangulo.h"
 #include "linha.h"
 #include "texto.h"
+#include "disparador.h"
+#include "buscas.h"
 
 void escreverConteudoPilha(FILE* arqTxt, Pilha p){
     if(p == NULL || arqTxt == NULL){
@@ -64,5 +66,38 @@ void escreverConteudoPilha(FILE* arqTxt, Pilha p){
             }
         }
         atual = getProximoNo(atual);
+    }
+}
+
+void comandoShft(FILE* arqTxt,int idDis, Fila filaDisparadores, Fila filaCarregadores){
+    if(arqTxt == NULL){
+        printf("Erro ao abrir o arquivo txt.");
+        exit(1);
+    }
+
+    Disparador disp = encontrarDisparadorPorID(filaDisparadores, idDis);
+    if(disp == NULL){
+        printf("Erro ao acessar o disparador.");
+        return;
+    }
+
+    Conteudo centro = getConteudoCentro(disp);
+    if(centro == NULL){
+        printf("A posição de disparo está vazia.");
+    }else{
+        char fig = getTipoForma(centro);
+        char* figura;
+        if(fig == 'c'){
+            figura = "circulo";
+        }else if(fig == 'r'){
+            figura = "retangulo";
+        }else if(fig == 'l'){
+            figura = "linha";
+        }else if(fig == 't'){
+            figura = "texto";
+        }
+    
+        fprintf(arqTxt, "A figura que está no centro é %s", fig);
+
     }
 }
