@@ -11,8 +11,27 @@ int circuloSobrepoeCirculo(Forma f1, Forma f2){
         return -1;
     }
 
-    Circulo c = (Circulo*)f1;
+    Circulo* c1 = (Circulo*)f1;
+    Circulo* c2 = (Circulo*)f2;
+
+    double x1 = getCoordXCirculo(c1); 
+    double y1 = getCoordYCirculo(c1);
+    double r1 = getRaioCirculo(c1);
+
+    double x2 = getCoordXCirculo(c2);
+    double y2 = getCoordYCirculo(c2);
+    double r2 = getRaioCirculo(c2);
+
+    //ver se as figuras se sobrepõem
+    double dx = x1 - x2;
+    double dy = y1 - y2;
+    double distanciaEntreCentros = sqrt(dx * dx + dy * dy);
     
+    if(distanciaEntreCentros <= (r1+r2)){//figuras se sobrepõem
+        return 1;
+    }else{
+        return 0;
+    }
 }
 
 int circuloSobrepoeRetangulo(Forma f1, Forma f2);
