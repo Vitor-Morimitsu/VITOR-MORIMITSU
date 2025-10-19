@@ -285,12 +285,45 @@ int retanguloSobrepoeLinha(Forma f1, Forma f2) {
 
 int retanguloSobrepoeRetangulo(Forma f1, Forma f2){
     if(f1 == NULL || f2 == NULL){
-        printf("Erro ao acessar as formas passadas.");
-        return -1;
+        return 0;
     }
-
     Retangulo* r1 = (Retangulo*)f1;
     Retangulo* r2 = (Retangulo*)f2;
+
+    // Dados r1 (usando nomes mais curtos para clareza)
+    double r1_x1 = getCoordXRetangulo(r1);
+    double r1_y1 = getCoordYRetangulo(r1);
+    double r1_w = getWRetangulo(r1);
+    double r1_h = getHRetangulo(r1);
+    double r1_x2 = r1_x1 + r1_w; 
+    double r1_y2 = r1_y1 + r1_h; 
+
+    // Dados r2
+    double r2_x1 = getCoordXRetangulo(r2);
+    double r2_y1 = getCoordYRetangulo(r2);
+    double r2_w = getWRetangulo(r2);
+    double r2_h = getHRetangulo(r2);
+    double r2_x2 = r2_x1 + r2_w; 
+    double r2_y2 = r2_y1 + r2_h; 
+
+    if (r1_x2 < r2_x1) {
+        return 0; 
+    }
+   
+    if (r1_x1 > r2_x2) {
+        return 0; 
+    }
+  
+    if (r1_y2 < r2_y1) {
+        return 0; 
+    }
+    
+    if (r1_y1 > r2_y2) {
+        return 0; 
+    }
+
+    //nenhuma das condições de separação foi atendida, logo eles se sobrepõem
+    return 1;
 }
 
 int retanguloSobrepoeTexto(Forma f1, Forma f2){
