@@ -79,6 +79,13 @@ char* getTxtoTexto(Texto t){
     return((stTexto*)t)->txto;
 }
 
+int quantidadeLetras(Texto t){
+    char* texto = getTxtoTexto(t);
+    if(texto == NULL) return -1;
+    int quantidade = strlen(texto);
+    return quantidade;
+}
+
 Estilo getEstiloTexto(Texto t){
     return((stTexto*)t)->ts;
 }
