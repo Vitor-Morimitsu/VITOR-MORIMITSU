@@ -6,13 +6,13 @@
 #include "formas.h"
 #include <string.h>
 #include <stdio.h>
-#include "printSvgGEo.h"
+#include "printSvgGeo.h"
 
 typedef void* Forma;
 
 #define MAX_SIZE 200
 
-void lerGeo(FILE* arqGeo, FILE* arqSVG,Fila* f){ 
+void lerGeo(FILE* arqGeo, FILE* arqSVG,Fila f){ 
     if(arqGeo == NULL){
         printf("Arquivo .geo não encontrado");
         exit(1);

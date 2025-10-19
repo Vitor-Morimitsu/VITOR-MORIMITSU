@@ -54,4 +54,15 @@ Forma getConteudoDoNo(No_t no);
 /// @return O caractere de tipo da Forma.
 char getTipoDoNo(No_t no);
 
+/// @brief Retorna o tamanho da fila
+/// @param f Fila
+/// @return Tamanho da fila
+int getTamanhoFila(Fila f);
+
+/// @brief Retorna a forma que está em determinada posicao
+/// @param f Fila
+/// @param posicao Posicao da forma de interesse
+/// @return Forma presente na posição desejada
+Forma percorreFila(Fila f, int posicao);
+
 #endif;

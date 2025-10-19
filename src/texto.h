@@ -68,6 +68,11 @@ char getATexto(Texto t);
 /// @return Texto escrito
 char* getTxtoTexto(Texto t);
 
+/// @brief Retorna a quantidade de letras do texto
+/// @param t Texto
+/// @return Quantidade de letras do texto
+int quantidadeLetras(Texto t);
+
 /// @brief Retorna o estilo do texto
 /// @param t Texto
 /// @return Estilo do texto

@@ -75,8 +75,12 @@ void setYCirculo(Circulo c, double y){
     ((stCirculo*)c)->y = y;
 }
 
-void setCorbCirculo(Circulo c, char* corb){
+void setCorBCirculo(Circulo c, char* corb){
     ((stCirculo*)c)->corb = corb;
+}
+
+void setRaioCirculo(Circulo c, double raio){
+    ((stCirculo*)c)->r = raio;
 }
 
 void setCorPCirculo(Circulo c, char* corp){

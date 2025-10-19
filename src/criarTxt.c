@@ -101,12 +101,12 @@ void comandoShft(FILE* arqTxt,int idDis, Fila filaDisparadores, Fila filaCarrega
     }
 }
 
-void comandoDsp(FILE* arqTxt, Fila listaDisparadores,int idDis, double dx, double dy){
+void comandoDsp(FILE* arqTxt, Fila filaDisparadores,int idDis, double dx, double dy){
     if(arqTxt == NULL){
         printf("Erro ao acessar o arquivo txt.");
         return;
     }
-    Disparador d = encontrarDisparadorPorID(listaDisparadores, idDis);
+    Disparador d = encontrarDisparadorPorID(filaDisparadores, idDis);
     if(d == NULL){
         printf("Disparador não encontrado.");
         return;
@@ -149,3 +149,108 @@ void comandoDsp(FILE* arqTxt, Fila listaDisparadores,int idDis, double dx, doubl
         fprintf(arqTxt, "forma:%s  X final:%lf  Y final:%lf\n", nomeFigura, xFinal, yFinal);
     }
 }
+
+void comandoRjd(FILE* arqTxt, Fila filaDisparadores, int idDis,Fila filaCarregadores, char car){
+    if (arqTxt == NULL) {
+        fprintf(stderr, "Erro: Arquivo de texto nulo.\n");
+        return;
+    }
+
+    Disparador d = encontrarDisparadorPorID(filaDisparadores, idDis);
+    if (d == NULL) {
+        printf("Disparador não encontrado para rajada.\n");
+        return;
+    }
+
+    int idEsq = getIDPilhaEsquerda(d);
+    int idDir = getIDPilhaDireita(d);
+    Pilha pEsq = encontrarPilhaPorID(filaCarregadores, idEsq);
+    Pilha pDir = encontrarPilhaPorID(filaCarregadores, idDir);
+    
+    if (pEsq == NULL || pDir == NULL) {
+        printf(arqTxt, "Pilhas para o disparador não encontradas.\n");
+        return;
+    }
+    
+    Pilha pilhaRajada;
+    if (car == 'e') {
+        pilhaRajada = pEsq;
+    } else {
+        pilhaRajada = pDir;
+    }
+        
+    int totalTiros = 0;
+
+    while (getTamanhoPilha(pilhaRajada) > 0) {
+        pressionaBotao(d, car, 1, pEsq, pDir);
+        
+        Forma f = getConteudoCentro(d);
+        if (f == NULL) break; 
+        
+        char tipo = getTipoForma(f);
+        int id = getIDForma(f);
+        const char* nomeFigura = "desconhecida";
+        if(tipo == 'c') nomeFigura = "circulo";
+        else if(tipo == 'r') nomeFigura = "retangulo";
+        else if(tipo == 'l') nomeFigura = "linha";
+        else if(tipo == 't') nomeFigura = "texto";
+        
+        fprintf(arqTxt, "Tiro %d: Forma disparada:%s ID:%d\n", totalTiros + 1, nomeFigura, id);
+        
+        char ladoOposto;
+        if (car == 'e') {
+            ladoOposto = 'd';
+        } else {
+            ladoOposto = 'e';
+        }
+        pressionaBotao(d, ladoOposto, -1, pEsq, pDir); 
+        
+        totalTiros++;
+    }
+}
+
+void comandoCalc(FILE* arqTxt, Fila chao, Fila formas){
+    if(arqTxt == NULL || chao == NULL || formas == NULL){
+        printf("Erro ao realizar o comando calc.");
+        return;
+    }
+    int n = 0;
+    int quantidade = getTamanhoFila(formas);
+
+    // ver a posição de cada forma e ver se elas se sobrepõem
+    while(n != quantidade){
+        Forma f1 = percorreFila(formas,n);
+        Forma f2 = percorreFila(formas, n+1);
+
+        double xf1 = getXForma(f1);
+        double yf1 = getYForma(f1);
+
+        double xf2 = getXForma(f2);
+        double yf2 = getYForma(f2);
+
+        double areaf1, areaf2;
+
+        if(xf1 == xf2 || yf1 == yf2){//as formas se sobrepõe em pelo menos uma coordenada
+            char tf1 = getTipoForma(f1);
+            if(tf1 == 'c'){//círculo
+                areaf1 = getAreaCirculo((Circulo*)f1);
+            }else if(tf1 == 'r'){// retangulo
+                areaf1 = getAreaRetangulo((Retangulo*)f1);
+            }else if(tf1 == 'l'){// linha
+                double x1 = getX1Linha((Linha*)f1);
+                double y1 = getY1Linha((Linha*)f1);
+                double x2 = getX2Linha((Linha*)f1);
+                double y2 = getY2Linha((Linha*)f1);
+                areaf1 = getAreaLinha((Linha*)f1,x1,y1,x2,y2);
+            }else if(tf1 == 't'){//texto
+                areaf1 = getAreaTexto((Texto*)f1);
+            }
+            char tf2 = getTipoForma(f2);
+        }
+    }
+
+    //se sobrepor: calcular a área da figura esmagada e salvar em uma nova fila p depois somar tudo
+
+
+}
+

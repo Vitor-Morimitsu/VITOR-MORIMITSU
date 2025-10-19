@@ -64,6 +64,7 @@ void lerQry(FILE* arqQry, Fila filaFormas, FILE* arqTxt, Fila filaDisparadores,F
                 Pilha pDir = encontrarPilhaPorID(filaCarregadores, idDir);
 
                 pressionaBotao(d,lado,n,pEsq,pDir);
+                comandoShft(arqTxt, idDis, filaDisparadores, filaCarregadores);
             }
         }else if(strcmp(comando, "dsp") == 0){
             //posiciona a forma que está em posição de disparo a um deslocamento de dx, dy em relação à posição do disparador
@@ -74,6 +75,7 @@ void lerQry(FILE* arqQry, Fila filaFormas, FILE* arqTxt, Fila filaDisparadores,F
             Disparador d = encontrarDisparadorPorID(filaDisparadores, idDis);
             Forma f = getConteudoCentro(d);
             posicionaForma(f,d,dx,dy);
+            comandoDsp(arqTxt,filaDisparadores, idDis,dx,dy);
 
         }else if(strcmp(comando, "rjd") == 0){
             //rajada de disparos até as formas do carregador se esgotarem
@@ -105,7 +107,8 @@ void lerQry(FILE* arqQry, Fila filaFormas, FILE* arqTxt, Fila filaDisparadores,F
                     }
                 
                     Forma f = getConteudoCentro(d);
-                
+                    
+                    comandoDsp(arqTxt,filaDisparadores,idDis,dx+(i * ix),dy+(i * iy));
                     posicionaForma(f, d, dx + (i * ix), dy + (i * iy));
                     char ladoOposto;
                     if(car == 'e'){
@@ -120,7 +123,7 @@ void lerQry(FILE* arqQry, Fila filaFormas, FILE* arqTxt, Fila filaDisparadores,F
 
         }else if(strcmp(comando, "calc") == 0){
             //processa as figuras da arena conforme descrito anteriormente em um novo arqSVg
-
+            
         }
     }
 }

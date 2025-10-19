@@ -115,3 +115,17 @@ char getTipoDoNo(No_t no) {
     stNo* no_interno = (stNo*)no;
     return no_interno->type;
 }
+
+int getTamanhoFila(Fila f){
+    if(f == NULL){
+        printf("Erro ao acessar a fila.");
+        return -1;
+    }
+
+    stFila* fila = (stFila*)f;
+    return fila->tamanho;
+}
+
+Forma percorreFila(Fila f, int posicao){
+
+}

@@ -88,4 +88,5 @@ void setCorBCirculo(Circulo c, char* corb);
 /// @param corp Cor interna do círculo
 void setCorPCirculo(Circulo c, char* corp);
 
+
 #endif
