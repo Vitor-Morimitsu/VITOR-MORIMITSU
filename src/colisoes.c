@@ -179,14 +179,108 @@ int circuloSobrepoeTexto(Forma f1, Forma f2){
     }    
 }
 
-int retanguloSobrepoeLinha(Forma f1, Forma f2){
-    if(f1 == NULL || f2 == NULL){
+int retanguloSobrepoeLinha(Forma f1, Forma f2) {
+    if (f1 == NULL || f2 == NULL) {
         printf("Erro ao acessar as formas passadas.");
-        return -1;
+        return 0;
     }
 
-    Retangulo* r = (Retangulo*)f1;
-    
+    Retangulo* retangulo = (Retangulo*)f1;
+    Linha* linha = (Linha*)f2;
+
+    double retanguloX = getCoordXRetangulo(retangulo);
+    double retanguloY = getCoordYRetangulo(retangulo);
+    double retanguloLargura = getWRetangulo(retangulo);
+    double retanguloAltura = getHRetangulo(retangulo);
+    double retanguloDireita = retanguloX + retanguloLargura; 
+    double retanguloBaixo = retanguloY + retanguloAltura; 
+
+    double linhaX1 = getX1Linha(linha);
+    double linhaY1 = getY1Linha(linha);
+    double linhaX2 = getX2Linha(linha);
+    double linhaY2 = getY2Linha(linha);
+
+    double vetorLinhaX = linhaX2 - linhaX1;
+    double vetorLinhaY = linhaY2 - linhaY1;
+
+    //teste para ver se a borda superior é sobrposta pela linha
+    {
+        double bordaInicioX = retanguloX;
+        double bordaInicioY = retanguloY;
+        double vetorBordaX = retanguloDireita - retanguloX; 
+        double vetorBordaY = 0; 
+        
+        double denominador = (-vetorBordaX * vetorLinhaY + vetorLinhaX * vetorBordaY);
+
+        if (fabs(denominador) > 0.000001) {
+            double parametroBorda_s = (-vetorLinhaY * (linhaX1 - bordaInicioX) + vetorLinhaX * (linhaY1 - bordaInicioY)) / denominador;
+            
+            double parametroLinha_t = ( vetorBordaX * (linhaY1 - bordaInicioY) - vetorBordaY * (linhaX1 - bordaInicioX)) / denominador;
+
+            if (parametroBorda_s >= 0 && parametroBorda_s <= 1 && parametroLinha_t >= 0 && parametroLinha_t <= 1) {
+                return 1; 
+            }
+        }
+    }
+
+    {
+        double bordaInicioX = retanguloX;
+        double bordaInicioY = retanguloBaixo;
+        double vetorBordaX = retanguloDireita - retanguloX; 
+        double vetorBordaY = 0;
+        double denominador = (-vetorBordaX * vetorLinhaY + vetorLinhaX * vetorBordaY);
+
+        if (fabs(denominador) > 0.000001) {
+            double parametroBorda_s = (-vetorLinhaY * (linhaX1 - bordaInicioX) + vetorLinhaX * (linhaY1 - bordaInicioY)) / denominador;
+            double parametroLinha_t = ( vetorBordaX * (linhaY1 - bordaInicioY) - vetorBordaY * (linhaX1 - bordaInicioX)) / denominador;
+            if (parametroBorda_s >= 0 && parametroBorda_s <= 1 && parametroLinha_t >= 0 && parametroLinha_t <= 1) {
+                return 1; 
+            }
+        }
+    } 
+
+    {
+        double bordaInicioX = retanguloX;
+        double bordaInicioY = retanguloY;
+        double vetorBordaX = 0;      
+        double vetorBordaY = retanguloBaixo - retanguloY; 
+        double denominador = (-vetorBordaX * vetorLinhaY + vetorLinhaX * vetorBordaY);
+
+        if (fabs(denominador) > 0.000001) {
+            double parametroBorda_s = (-vetorLinhaY * (linhaX1 - bordaInicioX) + vetorLinhaX * (linhaY1 - bordaInicioY)) / denominador;
+            double parametroLinha_t = ( vetorBordaX * (linhaY1 - bordaInicioY) - vetorBordaY * (linhaX1 - bordaInicioX)) / denominador;
+            if (parametroBorda_s >= 0 && parametroBorda_s <= 1 && parametroLinha_t >= 0 && parametroLinha_t <= 1) {
+                return 1; 
+            }
+        }
+    } 
+
+    {
+        double bordaInicioX = retanguloDireita;
+        double bordaInicioY = retanguloY;
+        double vetorBordaX = 0; 
+        double vetorBordaY = retanguloBaixo - retanguloY;    
+        double denominador = (-vetorBordaX * vetorLinhaY + vetorLinhaX * vetorBordaY);
+
+        if (fabs(denominador) > 0.000001) {
+            double parametroBorda_s = (-vetorLinhaY * (linhaX1 - bordaInicioX) + vetorLinhaX * (linhaY1 - bordaInicioY)) / denominador;
+            double parametroLinha_t = ( vetorBordaX * (linhaY1 - bordaInicioY) - vetorBordaY * (linhaX1 - bordaInicioX)) / denominador;
+            if (parametroBorda_s >= 0 && parametroBorda_s <= 1 && parametroLinha_t >= 0 && parametroLinha_t <= 1) {
+                return 1; 
+            }
+        }
+    } 
+
+    int ponto1Dentro = (linhaX1 >= retanguloX && linhaX1 <= retanguloDireita &&
+                        linhaY1 >= retanguloY && linhaY1 <= retanguloBaixo);
+    int ponto2Dentro = (linhaX2 >= retanguloX && linhaX2 <= retanguloDireita &&
+                        linhaY2 >= retanguloY && linhaY2 <= retanguloBaixo);
+
+    if (ponto1Dentro || ponto2Dentro) {
+       return 1; 
+    }
+
+    return 0;
 }
 
 int retanguloSobrepoeRetangulo(Forma f1, Forma f2){
@@ -194,6 +288,9 @@ int retanguloSobrepoeRetangulo(Forma f1, Forma f2){
         printf("Erro ao acessar as formas passadas.");
         return -1;
     }
+
+    Retangulo* r1 = (Retangulo*)f1;
+    Retangulo* r2 = (Retangulo*)f2;
 }
 
 int retanguloSobrepoeTexto(Forma f1, Forma f2){
