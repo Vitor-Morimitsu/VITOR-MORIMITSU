@@ -114,6 +114,7 @@ int circuloSobrepoeLinha(Forma f1, Forma f2){
         return 0; // Não sobrepõe
     }
 }
+
 int circuloSobrepoeTexto(Forma f1, Forma f2){
     if(f1 == NULL || f2 == NULL){
         printf("Erro ao acessar as formas passadas.");
@@ -127,19 +128,55 @@ int circuloSobrepoeTexto(Forma f1, Forma f2){
     double yc = getCoordYCirculo(c);
     double raio = getRaioCirculo(c);
 
-    double x1t,x2t,y1t,y2y;
+    double x1t,x2t,y1t,y2t;
+    int comprimentoTxt = quantidadeLetras(t);
+    if(comprimentoTxt <= 0) return 0;
     char ancora = getATexto(t);
     if(ancora == 'i'){
         x1t = getCoordXTexto(t);
         y1t = getCoordYTexto(t);
-        
+        x2t = x1t + 10*comprimentoTxt;
+        y2t = y1t;
     }else if(ancora == 'f'){
+        double xa = getCoordXTexto(t);
+        double ya = getCoordYTexto(t);
 
+        x1t = xa - 10*comprimentoTxt;
+        y1t = ya;
+
+        x2t = xa;
+        y2t = ya;
     }else if(ancora == 'm'){
+        double xa = getCoordXTexto(t);
+        double ya = getCoordYTexto(t);
 
+        x1t = xa - 10*comprimentoTxt;
+        y1t = ya;
+        
+        x2t = xa + 10*comprimentoTxt;
+        y2t = ya;
     }
-    
-    
+
+    double dx_segmento = x2t - x1t;
+    double dy_segmento = y2t - y1t; 
+    double comprimentoSegmentoQuadrado = (dx_segmento * dx_segmento) + (dy_segmento * dy_segmento);
+
+    double z = ((xc - x1t) * dx_segmento + (yc - y1t) * dy_segmento) / comprimentoSegmentoQuadrado;
+
+    double t_limitado = fmax(0.0, fmin(1.0, z));
+
+    double pontoMaisProximoX = x1t + t_limitado * dx_segmento;
+    double pontoMaisProximoY = y1t + t_limitado * dy_segmento;
+
+    double dx_centro_prox = xc - pontoMaisProximoX;
+    double dy_centro_prox = yc - pontoMaisProximoY;
+    double distanciaQuadrada = (dx_centro_prox * dx_centro_prox) + (dy_centro_prox * dy_centro_prox);
+
+    if (distanciaQuadrada <= (raio * raio)) {
+        return 1; // Sobrepõe
+    } else {
+        return 0; // Não sobrepõe
+    }    
 }
 
 int retanguloSobrepoeLinha(Forma f1, Forma f2){
