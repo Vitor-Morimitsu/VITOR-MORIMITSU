@@ -386,6 +386,46 @@ int retanguloSobrepoeTexto(Forma f1, Forma f2){
     return 1;
 }
 
+int linhaSobrepoeLinha(Forma f1, Forma f2){
+    if(f1 == NULL || f2 == NULL){
+        printf("Erro ao acessar as formas passadas.");
+        return 0;
+    }
+
+    Linha* l1 = (Linha*)f1;
+    Linha* l2 = (Linha*)f2;
+
+    //dados linha 1
+    double p0_x = getX1Linha(l1);
+    double p0_y = getY1Linha(l1);
+    double p1_x = getX2Linha(l1);
+    double p1_y = getY2Linha(l1);
+
+    //dados linha 2 
+    double p2_x = getX1Linha(l2);
+    double p2_y = getY1Linha(l2);
+    double p3_x = getX2Linha(l2);
+    double p3_y = getY2Linha(l2);
+
+    double s1_x = p1_x - p0_x;
+    double s1_y = p1_y - p0_y;
+
+    double s2_x = p3_x - p2_x;
+    double s2_y = p3_y - p2_y;
+
+    double denominador = (-s2_x * s1_y + s1_x * s2_y);
+
+    double s = (-s1_y * (p0_x - p2_x) + s1_x * (p0_y - p2_y)) / denominador;
+
+    double t = ( s2_x * (p0_y - p2_y) - s2_y * (p0_x - p2_x)) / denominador;
+
+    if (s >= 0 && s <= 1 && t >= 0 && t <= 1) {
+        return 1;
+    }
+
+    return 0; 
+}
+
 int linhaSobrepoeTexto(Forma f1, Forma f2){
     if(f1 == NULL || f2 == NULL){
         printf("Erro ao acessar as formas passadas.");
@@ -444,9 +484,118 @@ int linhaSobrepoeTexto(Forma f1, Forma f2){
    return 1;
 }
 
+int textoSobrepoeTexto(Forma f1, Forma f2){
+    if(f1 == NULL || f2 == NULL){
+        printf("Erro ao acessar as formas passadas.");
+        return -1;
+    }
+
+    Texto* t1 = (Texto*)f1;
+    Texto* t2 = (Texto*)f2;
+
+    //dados do texto 1
+    double x1_t1, x2_t1, y1_t1, y2_t1;
+    char* txt = getTxtoTexto(t1);
+    double comprimentoLinha = 10*strlen(txt);
+    char ancora = getATexto(t1);
+    if(ancora == 'i'){
+        x1_t1 = getCoordXTexto(t1);
+        y1_t1 = getCoordYTexto(t1);
+        x2_t1 = x1_t1 + comprimentoLinha;
+        y2_t1 = y1_t1;
+    }else if(ancora == 'f'){
+        x1_t1 = getCoordXTexto(t1) - comprimentoLinha;
+        y1_t1 = getCoordYTexto(t1);
+        x2_t1 = getCoordXTexto(t1);
+        y2_t1 = y1_t1;
+    }else if(ancora == 'm'){
+        x1_t1 = (getCoordXTexto(t1) - comprimentoLinha)/2;
+        y1_t1 = getCoordYTexto(t1);
+        x2_t1 = (x1_t1 + comprimentoLinha)/2;
+        y2_t1 = y1_t1;
+    }
+
+    //dados do texto 2
+    double x1_t2, x2_t2, y1_t2, y2_t2;
+    char* txt = getTxtoTexto(t2);
+    double comprimentoLinha = 10*strlen(txt);
+    char ancora = getATexto(t2);
+    if(ancora == 'i'){
+        x1_t2 = getCoordXTexto(t2);
+        y1_t2 = getCoordYTexto(t2);
+        x2_t2 = x1_t2 + comprimentoLinha;
+        y2_t2 = y1_t2;
+    }else if(ancora == 'f'){
+        x1_t2 = getCoordXTexto(t2) - comprimentoLinha;
+        y1_t2 = getCoordYTexto(t2);
+        x2_t2 = getCoordXTexto(t2);
+        y2_t2 = y1_t2;
+    }else if(ancora == 'm'){
+        x1_t2 = (getCoordXTexto(t2) - comprimentoLinha)/2;
+        y1_t2 = getCoordYTexto(t2);
+        x2_t2 = (x1_t2 + comprimentoLinha)/2;
+        y2_t2 = y1_t2;
+    }
+
+    //lógica de sobreposição
+    if (x1_t1 >= x2_t2) {
+        return 0; // Separados
+    }
+    
+    if (x2_t1 <= x1_t2) {
+        return 0; // Separados
+    }
+
+    return 1;
+}
+
 int formasSobrepoem(Forma f1, Forma f2){
     if(f1 == NULL || f2 == NULL){
         printf("Erro ao acessar as formas passadas.");
         return -1;
+    }
+    char tipoF1 = getTipoForma(f1);
+    char tipoF1 = getTipoForma(f2);
+
+    if(f1 == 'c'){
+        if(f2 == 'c'){
+            return circuloSobrepoeCirculo(f1,f2);            
+        }else if(f2 == 'r'){
+            return circuloSobrepoeRetangulo(f1,f2);
+        }else if(f2 == 'l'){
+            return circuloSobrepoeLinha(f1,f2);
+        }else if(f2 == 't'){
+            return circuloSobrepoeTexto(f1,f2);
+        }
+    }else if(f1 == 'r'){
+        if(f2 == 'c'){
+            return circuloSobrepoeRetangulo(f1,f2);
+        }else if(f2 == 'r'){
+            return retanguloSobrepoeRetangulo(f1,f2);
+        }else if(f2 == 'l'){
+            return retanguloSobrepoeLinha(f1,f2);
+        }else if(f2 == 't'){
+            return retanguloSobrepoeTexto(f1,f2);
+        }
+    }else if(f1 == 'l'){
+        if(f2 == 'c'){
+            return circuloSobrepoeLinha(f1,f2);
+        }else if(f2 == 'r'){
+            return retanguloSobrepoeLinha(f1,f2);
+        }else if(f2 == 'l'){
+            return linhaSobrepoeLinha(f1,f2);
+        }else if(f2 == 't'){
+            return linhaSobrepoeTexto(f1,f2);
+        }
+    }else if(f1 == 't'){
+        if(f2 == 'c'){
+            return circuloSobrepoeTexto(f1, f2);
+        }else if(f2 == 'r'){
+            return retanguloSobrepoeTexto(f1,f2);
+        }else if(f2 == 'l'){
+            return linhaSobrepoeTexto(f1,f2);
+        }else if(f2 == 't'){
+            return texto
+        }
     }
 }
