@@ -595,7 +595,7 @@ int formasSobrepoem(Forma f1, Forma f2){
         }else if(f2 == 'l'){
             return linhaSobrepoeTexto(f1,f2);
         }else if(f2 == 't'){
-            return texto
+            return textoSobrepoeTexto(f1,f2);
         }
     }
 }

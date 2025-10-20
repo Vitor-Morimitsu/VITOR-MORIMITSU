@@ -127,5 +127,23 @@ int getTamanhoFila(Fila f){
 }
 
 Forma percorreFila(Fila f, int posicao){
+    if(f == NULL){
+        printf("Fila vazia.");
+        return NULL;
+    }
+    if(posicao < 0){
+        printf("Posição negativa passada como parâmetro.");
+        return NULL;
+    }
 
+    No_t noAtual = getPrimeiroNo(f);
+
+    for(int i = 0;i<posicao;i++){
+        noAtual = getProximoNo(noAtual);
+    }
+
+    if(noAtual == NULL){
+        printf("Posição inválida.");
+        return NULL;
+    }
 }
