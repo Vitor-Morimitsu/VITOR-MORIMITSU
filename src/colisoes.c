@@ -153,7 +153,7 @@ int circuloSobrepoeTexto(Forma f1, Forma f2){
         x1t = xa - 10*comprimentoTxt;
         y1t = ya;
         
-        x2t = xa + 10*comprimentoTxt;
+        x2t = (xa + 10*comprimentoTxt)/2;
         y2t = ya;
     }
 
@@ -285,7 +285,8 @@ int retanguloSobrepoeLinha(Forma f1, Forma f2) {
 
 int retanguloSobrepoeRetangulo(Forma f1, Forma f2){
     if(f1 == NULL || f2 == NULL){
-        return 0;
+        printf("Erro ao acessar as formas passadas.");
+        return -1;
     }
     Retangulo* r1 = (Retangulo*)f1;
     Retangulo* r2 = (Retangulo*)f2;
@@ -331,6 +332,58 @@ int retanguloSobrepoeTexto(Forma f1, Forma f2){
         printf("Erro ao acessar as formas passadas.");
         return -1;
     }
+
+    Retangulo* r = (Retangulo*)f1;
+    Texto* t = (Texto*)f2;
+
+    //dados do retangulo
+    double xRet = getCoordXRetangulo(r);
+    double yRet = getCoordYRetangulo(r);
+    double wRet = getWRetangulo(r);
+    double hRet = getHRetangulo(r);
+    double x2Ret = xRet + wRet;
+    double y2Ret = yRet + hRet;
+
+    //dados do texto
+    double x2Text, y2Text, yText, xText;
+    char* txt = getTxtoTexto(t);
+    double comprimentoLinha = 10*strlen(txt);
+    char ancora = getATexto(t);
+    if(ancora == 'i'){
+        xText = getCoordXTexto(t);
+        yText = getCoordYTexto(t);
+        x2Text = xText + comprimentoLinha;
+        y2Text = yText;
+    }else if(ancora == 'f'){
+        xText = getCoordXTexto(t) - comprimentoLinha;
+        yText = getCoordYTexto(t);
+        x2Text = getCoordXTexto(t);
+        y2Text = yText;
+    }else if(ancora == 'm'){
+        xText = (getCoordXTexto(t) - comprimentoLinha)/2;
+        yText = getCoordYTexto(t);
+        x2Text = (xText + comprimentoLinha)/2;
+        y2Text = yText;
+    }
+
+    //casos de não sobreposição
+    if(xRet > x2Text){//retangulo está depois do texto
+        return 0;
+    }
+
+    if(x2Ret < xText){//retangulo está antes do texto
+        return 0;
+    }
+
+    if(yRet > y2Text){//retangulo está em baixo do texto
+        return 0;    
+    }
+
+    if(y2Ret < yText){//retangulo está em cima do texto
+        return 0;    
+    }
+
+    return 1;
 }
 
 int linhaSobrepoeTexto(Forma f1, Forma f2){
