@@ -391,6 +391,57 @@ int linhaSobrepoeTexto(Forma f1, Forma f2){
         printf("Erro ao acessar as formas passadas.");
         return -1;
     }
+
+    Linha* l = (Linha*)f1;
+    Texto* t = (Texto*)f2;
+
+    //dados linha
+    double x1Linha = getX1Linha(l);
+    double y1Linha = getY1Linha(l);
+    double x2Linha = getX2Linha(l);
+    double y2Linha = getY2Linha(l);
+
+    //dados texto
+    double x2Texto, y2Texto;
+    double x1Texto = getCoordXTexto(t);
+    double y1Texto = getCoordYTexto(t);
+    char* txt = getTxtoTexto(t);
+    double comprimentoLinha = 10*strlen(txt);
+    char ancora = getATexto(t);
+    if(ancora == 'i'){
+        x1Texto = getCoordXTexto(t);
+        y1Texto = getCoordYTexto(t);
+        x2Texto = x1Texto + comprimentoLinha;
+        y2Texto = y1Texto;
+    }else if(ancora == 'f'){
+        x1Texto = getCoordXTexto(t) - comprimentoLinha;
+        y1Texto = getCoordYTexto(t);
+        x2Texto = getCoordXTexto(t);
+        y2Texto = y1Texto;
+    }else if(ancora == 'm'){
+        x1Texto = (getCoordXTexto(t) - comprimentoLinha)/2;
+        y1Texto = getCoordYTexto(t);
+        x2Texto = (x1Texto + comprimentoLinha)/2;
+        y2Texto = y1Texto;
+    }
+
+    //----------------------------------------casos de não sobreposição
+    
+    //x2Linha < x1Texto
+    if(x2Linha < x1Texto){
+        return 0;
+    }else if(x2Texto < x1Linha){
+        //x2Texto < x1Linha
+        return 0;
+    }else if(y2Linha < y1Texto){
+        //y2Linha < y1Texto
+        return 0;
+    }else if(y2Texto < y1Linha){
+        //y2Texto < y1Linha
+        return 0;
+    }
+
+   return 1;
 }
 
 int formasSobrepoem(Forma f1, Forma f2){
