@@ -44,6 +44,11 @@ double getXForma(Forma f);
 /// @return Coordenada Y da forma
 double getYForma(Forma f);
 
+/// @brief Retorna a área da forma
+/// @param f Forma f
+/// @return Área da forma
+double getAreaForma(Forma f);
+
 /// @brief Libera as formas criadas
 /// @param f Forma f
 void liberarForma(Forma f);
@@ -52,4 +57,5 @@ void liberarForma(Forma f);
 /// @param f Forma 
 /// @param d Diparador
 void posicionaForma(Forma f, Disparador d, double deslocX, double deslocY);
+
 #endif

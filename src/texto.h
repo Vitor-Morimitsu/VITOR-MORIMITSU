@@ -111,7 +111,7 @@ void setCorPTexto(Texto t, char* corp);
 /// @brief Define a posição da âncora do texto
 /// @param t Texto
 /// @param a Nova posição da ancora
-void setATexto(Texto t, char* a);
+void setATexto(Texto t, char anc);
 
 /// @brief Define o texto
 /// @param t Texto

@@ -5,7 +5,6 @@
 #include <stdlib.h>
 #include <string.h>
 #include "formas.h"
-#include "chao.h"
 #include "fila.h"
 
 /*

@@ -495,45 +495,44 @@ int textoSobrepoeTexto(Forma f1, Forma f2){
 
     //dados do texto 1
     double x1_t1, x2_t1, y1_t1, y2_t1;
-    char* txt = getTxtoTexto(t1);
-    double comprimentoLinha = 10*strlen(txt);
-    char ancora = getATexto(t1);
-    if(ancora == 'i'){
-        x1_t1 = getCoordXTexto(t1);
+    char* txt1 = getTxtoTexto(t1);
+    double comprimentoLinha1 = 10*strlen(txt1);
+    char ancora1 = getATexto(t1);
+    if(ancora1 == 'i'){
         y1_t1 = getCoordYTexto(t1);
-        x2_t1 = x1_t1 + comprimentoLinha;
+        x2_t1 = x1_t1 + comprimentoLinha1;
         y2_t1 = y1_t1;
-    }else if(ancora == 'f'){
-        x1_t1 = getCoordXTexto(t1) - comprimentoLinha;
+    }else if(ancora1 == 'f'){
+        x1_t1 = getCoordXTexto(t1) - comprimentoLinha1;
         y1_t1 = getCoordYTexto(t1);
         x2_t1 = getCoordXTexto(t1);
         y2_t1 = y1_t1;
-    }else if(ancora == 'm'){
-        x1_t1 = (getCoordXTexto(t1) - comprimentoLinha)/2;
+    }else if(ancora1 == 'm'){
+        x1_t1 = (getCoordXTexto(t1) - comprimentoLinha1)/2;
         y1_t1 = getCoordYTexto(t1);
-        x2_t1 = (x1_t1 + comprimentoLinha)/2;
+        x2_t1 = (x1_t1 + comprimentoLinha1)/2;
         y2_t1 = y1_t1;
     }
 
     //dados do texto 2
     double x1_t2, x2_t2, y1_t2, y2_t2;
-    char* txt = getTxtoTexto(t2);
-    double comprimentoLinha = 10*strlen(txt);
-    char ancora = getATexto(t2);
-    if(ancora == 'i'){
+    char* txt2 = getTxtoTexto(t2);
+    double comprimentoLinha2 = 10*strlen(txt2);
+    char ancora2 = getATexto(t2);
+    if(ancora2 == 'i'){
         x1_t2 = getCoordXTexto(t2);
         y1_t2 = getCoordYTexto(t2);
-        x2_t2 = x1_t2 + comprimentoLinha;
+        x2_t2 = x1_t2 + comprimentoLinha2;
         y2_t2 = y1_t2;
-    }else if(ancora == 'f'){
-        x1_t2 = getCoordXTexto(t2) - comprimentoLinha;
+    }else if(ancora2 == 'f'){
+        x1_t2 = getCoordXTexto(t2) - comprimentoLinha2;
         y1_t2 = getCoordYTexto(t2);
         x2_t2 = getCoordXTexto(t2);
         y2_t2 = y1_t2;
-    }else if(ancora == 'm'){
-        x1_t2 = (getCoordXTexto(t2) - comprimentoLinha)/2;
+    }else if(ancora2 == 'm'){
+        x1_t2 = (getCoordXTexto(t2) - comprimentoLinha2)/2;
         y1_t2 = getCoordYTexto(t2);
-        x2_t2 = (x1_t2 + comprimentoLinha)/2;
+        x2_t2 = (x1_t2 + comprimentoLinha2)/2;
         y2_t2 = y1_t2;
     }
 
@@ -555,7 +554,7 @@ int formasSobrepoem(Forma f1, Forma f2){
         return -1;
     }
     char tipoF1 = getTipoForma(f1);
-    char tipoF1 = getTipoForma(f2);
+    char tipoF2 = getTipoForma(f2);
 
     if(f1 == 'c'){
         if(f2 == 'c'){

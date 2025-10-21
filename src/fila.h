@@ -65,4 +65,4 @@ int getTamanhoFila(Fila f);
 /// @return Forma presente na posição desejada
 Forma percorreFila(Fila f, int posicao);
 
-#endif;
+#endif

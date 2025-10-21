@@ -113,9 +113,9 @@ void setCorBTexto(Texto t, char* corb){
 void setCorPTexto(Texto t, char* corp){
     ((stTexto*)t)->corp = corp;
 }
-
-void setATexto(Texto t, char a){
-    ((stTexto*)t)->a = a;
+ 
+void setATexto(Texto t, char anc){
+    ((stTexto*)t)->a = anc;
 }
 
 void setTxtoTexto(Texto t, char* txto){

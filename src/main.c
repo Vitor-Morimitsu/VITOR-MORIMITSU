@@ -1,4 +1,3 @@
-#include "chao.h"
 #include "circulo.h"
 #include "retangulo.h"
 #include "disparador.h"
@@ -16,7 +15,7 @@
 int main(int argc, char* argv[])
 {
     //inicializa o chão
-    Fila chao = criarChao();
+    Fila chao = criarFila();
 
     //inicializa as filas
     Fila listaFormas = criarFila();

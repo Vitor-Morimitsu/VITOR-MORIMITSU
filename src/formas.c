@@ -1,13 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <math.h>
-#include "circulo.h"
-#include "retangulo.h"
-#include "linha.h"
-#include "texto.h"
-#include "disparador.h"
-#include "pilha.h"
-#include <math.h>
+#include "formas.h"
 
 typedef void* Forma;
 
@@ -160,6 +151,34 @@ double getYForma(Forma f){
         }
         default:
             return -1;
+    }
+}
+
+double getAreaForma(Forma f){
+    if(f == NULL){
+        printf("Erro ao acessar a forma.");
+        return 0;
+    }
+
+    stForma* forma = (stForma*)f;
+    if(forma->tipo == 'c'){
+        //a forma é um círculo
+        Circulo* cir = (Circulo*)forma->fig;
+        return getAreaCirculo(cir);
+    }else if(forma->tipo == 'r'){
+        //a forma é um retângulo
+        Retangulo* ret = (Retangulo*)forma->fig;
+        return getAreaRetangulo(ret);
+    }else if(forma->tipo == 'l'){
+        //é uma linha
+        Linha* lin = (Linha*)forma->fig;
+        return getAreaLinha(lin);
+    }else if(forma->tipo == 't'){
+        //é um texto
+        Texto* t = (Texto*)forma->fig;
+        return getAreaTexto(t);
+    }else{
+        return 0.0;
     }
 }
 

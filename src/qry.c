@@ -80,13 +80,13 @@ void lerQry(FILE* arqQry, Fila filaFormas, FILE* arqTxt, Fila filaDisparadores,F
         }else if(strcmp(comando, "rjd") == 0){
             //rajada de disparos até as formas do carregador se esgotarem
             char car;
-            int idDis,idEsq, idDir;
+            int idDis, idEsq, idDir;
             double dx, dy, ix, iy;
             sscanf(linha, "rjd %i %c %lf %lf %lf %lf", &idDis,&car,&dx,&dy,&ix,&iy);
 
             Disparador d = encontrarDisparadorPorID(filaDisparadores, idDis);
-            int idEsq = getIDPilhaEsquerda(d);
-            int idDir = getIDPilhaDireita(d);
+            idEsq = getIDPilhaEsquerda(d);
+            idDir = getIDPilhaDireita(d);
 
             Pilha pEsq = encontrarPilhaPorID(filaCarregadores, idEsq);
             Pilha pDir = encontrarPilhaPorID(filaCarregadores, idDir);

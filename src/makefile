@@ -1,56 +1,61 @@
-Nome do executável
+# Nome do executável
 TARGET = ted
 
-Nome do aluno
-ALUNO = 
+# Nome do aluno (usado na regra pack)
+ALUNO = vitorms
 
-Compilador
+# Compilador
 CC = gcc
 
-Flags de compilação
+# Flags de compilação
 CFLAGS = -std=c99 -fstack-protector-all -Wall -Wextra -O0 -g -ggdb
 
-Diretório de código-fonte
+# Diretório de código-fonte
 SRC_DIR = .
 
-Diretório de cabeçalhos
+# Diretório de cabeçalhos
 INC_DIR = .
 
-Diretório de bibliotecas
+# Diretório de bibliotecas
 LIB_DIR = ./lib
 
-Bibliotecas adicionais (use -lm para a biblioteca matemática, por exemplo)
+# Bibliotecas adicionais (use -lm para a biblioteca matemática, por exemplo)
 LIBS = -lm
 
-Lista de arquivos de origem
-SRCS = $(wildcard $(SRC_DIR)/.c)
+# Lista de arquivos de origem (*.c no diretório SRC_DIR)
+SRCS = $(wildcard $(SRC_DIR)/*.c)
 
-Lista de arquivos de objeto
+# Lista de arquivos de objeto
 OBJS = $(SRCS:.c=.o)
 
-Incluir diretórios
+# Incluir diretórios
 INC_FLAGS = -I$(INC_DIR)
 
-Diretórios de bibliotecas
+# Diretórios de bibliotecas
 LIB_FLAGS = -L$(LIB_DIR)
 
-Regra de compilação dos arquivos de objeto
+# Regra principal (default)
+all: $(TARGET)
+
+# Regra de compilação dos arquivos de objeto (CONFERIR SE O ESPAÇO É UM TAB)
 $(SRC_DIR)/%.o: $(SRC_DIR)/%.c
-    $(CC) $(CFLAGS) $(INC_FLAGS) -c $< -o $@
+	$(CC) $(CFLAGS) $(INC_FLAGS) -c $< -o $@
 
-Regra de compilação do executável
+# Regra de compilação do executável (CONFERIR SE O ESPAÇO É UM TAB)
 $(TARGET): $(OBJS)
-    $(CC) $(CFLAGS) $(OBJS) $(LIB_FLAGS) $(LIBS) -o $(TARGET)
+	$(CC) $(CFLAGS) $(OBJS) $(LIB_FLAGS) $(LIBS) -o $(TARGET)
 
-Limpar arquivos intermediários e o executável
+# Limpar arquivos intermediários e o executável (CONFERIR SE O ESPAÇO É UM TAB)
 clean:
-    rm -f $(SRC_DIR)/.o $(TARGET)
+	rm -f $(SRC_DIR)/*.o $(TARGET)
 
-Falso alvo para evitar conflitos com arquivos chamados "clean"
-.PHONY: clean
+# Falsos alvos para evitar conflitos com arquivos de mesmo nome
+.PHONY: all clean pack
 
-pack: $(PROJ_NAME)
-    rm -f ../$(ALUNO).zip
-    echo $(ALUNO)
-    date >> .entrega
-    cd ..; zip $(ALUNO).zip -r src/.c src/.h src/Makefile LEIA-ME.txt .entrega
+# Regra para criar um pacote ZIP (CONFERIR SE O ESPAÇO É UM TAB)
+pack: $(TARGET)
+	rm -f ../$(ALUNO).zip
+	echo $(ALUNO)
+	date >> .entrega
+	cd ..; zip -r $(ALUNO).zip $(SRC_DIR)/*.c $(SRC_DIR)/*.h Makefile LEIA-ME.txt .entrega
+	rm .entrega
