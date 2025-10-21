@@ -6,10 +6,10 @@ void escreverConteudoPilha(FILE* arqTxt, Pilha p){
         exit(1);
     }
 
-    No_t atual = getNoTopo(p);  
+    No_t atual = getNoTopoPilha(p);  
 
     while(atual != NULL){
-        Conteudo cont = getConteudoDoNo(atual);
+        Conteudo cont = getConteudoDoNoPilha(atual);
         if(cont != NULL){
             char tipo = getTipoForma(cont);
             
@@ -55,7 +55,7 @@ void escreverConteudoPilha(FILE* arqTxt, Pilha p){
                 fprintf(arqTxt, "t id:%d x:%lf y:%lf corb:%s corp:%s ancora:%c texto:%s family:%s weight:%s size:%s\n",id,x,y,corb,corp,a,txto,fFamily,fWeight,fSize);
             }
         }
-        atual = getProximoNo(atual);
+        atual = getProximoNoPilha(atual);
     }
 }
 
@@ -204,7 +204,7 @@ void comandoCalc(FILE* arqTxt, Fila chao, Fila formas){
         printf("Erro ao realizar o comando calc.");
         return;
     }
-    int n = 0;
+    
     int quantidade = getTamanhoFila(formas);
 
     // ver a posição de cada forma e ver se elas se sobrepõem

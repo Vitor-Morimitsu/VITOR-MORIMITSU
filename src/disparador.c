@@ -12,7 +12,7 @@ Disparador criarDisparador(int i, double x, double y,int idEsquerdo, int idDirei
     stDisparador* d = (stDisparador*)malloc(sizeof(stDisparador));
     if(d == NULL){
         printf("Erro ao alocar memória para o disparador");
-        return;
+        return NULL;
     }
 
     d->i = i;
@@ -65,7 +65,7 @@ double getYDisparador(Disparador d){
 int getIDPilhaEsquerda(Disparador d){
     if(d == NULL){
         printf("Erro ao acessar a id esquerda do disparador.");
-        return;
+        return -1;
     }
     stDisparador* ds = (stDisparador*)d;
     return ds->idEsquerda;
@@ -74,7 +74,7 @@ int getIDPilhaEsquerda(Disparador d){
 int getIDPilhaDireita(Disparador d){
     if(d == NULL){
         printf("Erro ao acessar a id direita do disparador.");
-        return;
+        return -1;
     }
     stDisparador* ds = (stDisparador*)d;
     return ds->idDireita;
@@ -128,7 +128,7 @@ void pressionaBotao(Disparador d, char lado, int n, Pilha esq, Pilha dir){
     }
 
     if(n == 1){ //a forma que está no topo da pilha vai para o centro
-        Conteudo novo = getConteudoPilhaI(origem);
+        Conteudo novo = getConteudoPilha(origem);
         if(novo == NULL){
             return;
         }

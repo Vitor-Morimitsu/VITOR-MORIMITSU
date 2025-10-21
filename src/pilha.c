@@ -53,10 +53,10 @@ void carregarPilhaPelaFila(Pilha p, Fila f, int n){
         return;
     }
     stPilha* pilha = (stPilha*)p;
-    No_t noFila = getPrimeiroNo(f);
+    No_t noFila = getPrimeiroNoFila(f);
 
     for(int i = 0; i<n && noFila != NULL;i++){
-        Conteudo conteudoInserir = getConteudoDoNo(noFila);
+        Conteudo conteudoInserir = getConteudoDoNoFila(noFila);
 
         stCelula* novaCelula = (stCelula*)malloc(sizeof(stCelula));
         if(novaCelula == NULL){
@@ -69,7 +69,7 @@ void carregarPilhaPelaFila(Pilha p, Fila f, int n){
 
         pilha->topo = novaCelula;
         pilha->tamanho++;
-        noFila = getProximoNo(noFila);
+        noFila = getProximoNoFila(noFila);
     }
 }
 

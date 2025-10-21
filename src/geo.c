@@ -12,7 +12,7 @@ typedef void* Forma;
 
 #define MAX_SIZE 200
 
-void lerGeo(FILE* arqGeo, FILE* arqSVG,Fila f){ 
+void lerGeo(FILE* arqGeo, Fila f){ 
     if(arqGeo == NULL){
         printf("Arquivo .geo não encontrado");
         exit(1);
@@ -49,16 +49,18 @@ void lerGeo(FILE* arqGeo, FILE* arqSVG,Fila f){
             int i;
             double x1,y1,x2,y2;
             char cor[32];
-            sscanf(linha, "l %d %d %d %d %s", &i, &x1, &y1, &x2, &y2, cor);
-            novaForma = criarLinhaForma(i,'l', x1,y1,x2,y2,cor);
+            sscanf(linha, "l %d %lf %lf %lf %lf %s", &i, &x1, &y1, &x2, &y2, cor);
+            novaForma = criaLinhaForma(i,'l', x1,y1,x2,y2,cor);
             insereFila(f,novaForma,'l');
 
         } else if( tipoForma == 't'){
             int i;
             double x, y;
-            char* corb, corp, texto;
+            char corb[32];
+            char corp[32];
+            char texto[50];
             char a;
-            sscanf(linha, "t %d %d %d %s %s %c %s", &i, &x, &y, corb, corp, &a, texto);
+            sscanf(linha, "t %d %lf %lf %s %s %c %s", &i, &x, &y, corb, corp, &a, texto);
             novaForma = criaTextoForma(i,'t',x,y,corb,corp,a,texto,NULL);
             insereFila(f, novaForma, 't');
         }
