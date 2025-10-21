@@ -104,13 +104,13 @@ No_t getProximoNoFila(No_t no) {
     return no_interno->prox;
 }
 
-Forma getConteudoDoNo(No_t no) {
+Forma getConteudoDoNoFila(No_t no) {
     if (no == NULL) return NULL;
     stNo* no_interno = (stNo*)no;
     return no_interno->form;
 }
 
-char getTipoDoNo(No_t no) {
+char getTipoDoNoFila(No_t no) {
     if (no == NULL) return '\0';
     stNo* no_interno = (stNo*)no;
     return no_interno->type;

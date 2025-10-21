@@ -3,6 +3,7 @@
 typedef void* Forma;
 
 typedef struct forma{
+    int id;
     Forma fig;
     char tipo;
 }stForma;
@@ -13,7 +14,7 @@ Forma criaRetanguloForma(int i, char tipo,double x, double y, double w, double h
         printf("Erro ao alocar memória para a nova forma.");
         return NULL;
     }
-    
+    f->id = i;
     f->fig = criaRetangulo(i,x,y,w,h,corb,corp);
     f->tipo = 'r';
 
@@ -27,6 +28,7 @@ Forma criaCirculoForma(int i, char tipo,double x, double y, double r, char* corb
         return NULL;
     }
 
+    f->id = i;
     f->fig = criaCirculo(i,x,y,r,corb,corp);
     f->tipo = 'c';
 
@@ -40,6 +42,7 @@ Forma criaLinhaForma(int i, char tipo,double x1, double y1, double x2, double y2
         return NULL;
     }
 
+    f->id = i;
     f->fig = criarLinha(i,x1,y1,x2,y2,cor);
     f->tipo = 'l';
 
@@ -53,6 +56,7 @@ Forma criaTextoForma(int i,char tipo, double x, double y, char* corb, char* corp
         return NULL;
     }
 
+    f->id = i;
     f->fig = criarTexto(i,x,y,corb,corp,a,txto,ts);
     f->tipo = 't';
 

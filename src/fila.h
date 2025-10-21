@@ -47,12 +47,12 @@ No_t getProximoNoFila(No_t no);
 /// @brief Retorna a Forma (o dado) armazenada dentro de um nó.
 /// @param no O nó (um No_t).
 /// @return A Forma contida no nó.
-Forma getConteudoDoNo(No_t no);
+Forma getConteudoDoNoFila(No_t no);
 
 /// @brief Retorna o tipo (char) da Forma armazenada dentro de um nó.
 /// @param no O nó (um No_t).
 /// @return O caractere de tipo da Forma.
-char getTipoDoNo(No_t no);
+char getTipoDoNoFila(No_t no);
 
 /// @brief Retorna o tamanho da fila
 /// @param f Fila

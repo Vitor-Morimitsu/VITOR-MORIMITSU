@@ -63,5 +63,5 @@ No_t getProximoNoPilha(No_t no);
 /// @brief Retorna o conteúdo do nó da pilha
 /// @param p Pilha
 /// @return Conteúdo do nó da pilha
-Conteudo getConteudoDoNo(No_t p);
+Conteudo getConteudoDoNoPilha(No_t p);
 #endif      
