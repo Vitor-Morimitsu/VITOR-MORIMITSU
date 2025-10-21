@@ -2,6 +2,11 @@
 #define COLISOES_H
 
 #include "formas.h"
+#include <math.h>
+#include "circulo.h"
+#include "retangulo.h" 
+#include "linha.h"
+#include "texto.h"
 
 /*
     Arquivo .h responsável por averiguar as "colisões" de formas no primeiro trabalho de estrutura de dados.

@@ -1,8 +1,8 @@
 #ifndef CRIARTXT_H
 #define CRIARTXT_H
 
-#include "stdio.h"
-#include "stdlib.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include "colisoes.h"
 #include "pilha.h"
 #include "formas.h"

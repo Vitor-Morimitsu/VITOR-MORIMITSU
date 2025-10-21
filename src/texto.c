@@ -50,11 +50,11 @@ int getIDTexto(Texto t){
     return((stTexto*)t)->i;
 }
 
-double getXTexto(Texto t){
+double getCoordXTexto(Texto t){
     return((stTexto*)t)->x;
 }
 
-double getYTexto(Texto t){
+double getCoordYTexto(Texto t){
     return((stTexto*)t)->y;
 }
 

@@ -1,15 +1,4 @@
 #include "criarTxt.h"
-#include "colisoes.h"
-#include "stdio.h"
-#include "stdlib.h"
-#include "pilha.h"
-#include "formas.h"
-#include "circulo.h"
-#include "retangulo.h"
-#include "linha.h"
-#include "texto.h"
-#include "disparador.h"
-#include "buscas.h"
 
 void escreverConteudoPilha(FILE* arqTxt, Pilha p){
     if(p == NULL || arqTxt == NULL){

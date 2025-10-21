@@ -1,9 +1,4 @@
 #include "colisoes.h"
-#include <math.h>
-#include "circulo.h"
-#include "retangulo.h" 
-#include "linha.h"
-#include "texto.h"
 
 int circuloSobrepoeCirculo(Forma f1, Forma f2){
     if(f1 == NULL || f2 == NULL){
@@ -556,45 +551,47 @@ int formasSobrepoem(Forma f1, Forma f2){
     char tipoF1 = getTipoForma(f1);
     char tipoF2 = getTipoForma(f2);
 
-    if(f1 == 'c'){
-        if(f2 == 'c'){
+    if(tipoF1 == 'c'){
+        if(tipoF2 == 'c'){
             return circuloSobrepoeCirculo(f1,f2);            
-        }else if(f2 == 'r'){
+        }else if(tipoF2 == 'r'){
             return circuloSobrepoeRetangulo(f1,f2);
-        }else if(f2 == 'l'){
+        }else if(tipoF2 == 'l'){
             return circuloSobrepoeLinha(f1,f2);
-        }else if(f2 == 't'){
+        }else if(tipoF2 == 't'){
             return circuloSobrepoeTexto(f1,f2);
         }
-    }else if(f1 == 'r'){
-        if(f2 == 'c'){
+    }else if(tipoF1 == 'r'){
+        if(tipoF2 == 'c'){
             return circuloSobrepoeRetangulo(f1,f2);
-        }else if(f2 == 'r'){
+        }else if(tipoF2 == 'r'){
             return retanguloSobrepoeRetangulo(f1,f2);
-        }else if(f2 == 'l'){
+        }else if(tipoF2 == 'l'){
             return retanguloSobrepoeLinha(f1,f2);
-        }else if(f2 == 't'){
+        }else if(tipoF2 == 't'){
             return retanguloSobrepoeTexto(f1,f2);
         }
-    }else if(f1 == 'l'){
-        if(f2 == 'c'){
+    }else if(tipoF1 == 'l'){
+        if(tipoF2 == 'c'){
             return circuloSobrepoeLinha(f1,f2);
-        }else if(f2 == 'r'){
+        }else if(tipoF2 == 'r'){
             return retanguloSobrepoeLinha(f1,f2);
-        }else if(f2 == 'l'){
+        }else if(tipoF2 == 'l'){
             return linhaSobrepoeLinha(f1,f2);
-        }else if(f2 == 't'){
+        }else if(tipoF2 == 't'){
             return linhaSobrepoeTexto(f1,f2);
         }
-    }else if(f1 == 't'){
-        if(f2 == 'c'){
+    }else if(tipoF1 == 't'){
+        if(tipoF2 == 'c'){
             return circuloSobrepoeTexto(f1, f2);
-        }else if(f2 == 'r'){
+        }else if(tipoF2 == 'r'){
             return retanguloSobrepoeTexto(f1,f2);
-        }else if(f2 == 'l'){
+        }else if(tipoF2 == 'l'){
             return linhaSobrepoeTexto(f1,f2);
-        }else if(f2 == 't'){
+        }else if(tipoF2 == 't'){
             return textoSobrepoeTexto(f1,f2);
         }
     }
+
+    return -1;
 }
