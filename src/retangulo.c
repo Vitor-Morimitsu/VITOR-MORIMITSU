@@ -1,8 +1,4 @@
 #include "retangulo.h"
-#include "stdio.h"
-#include "stdlib.h"
-#include "string.h"
-
 typedef struct Retangulo{
     int i;
     double x;

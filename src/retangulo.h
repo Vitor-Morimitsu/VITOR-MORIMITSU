@@ -1,9 +1,9 @@
 #ifndef RETANGULO_H
 #define RETANGULO_H
 
-#include "stdio.h"
-#include "stdlib.h"
-#include "string.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 /*
     Este arquivo se refere à forma retângulo e suas respectivas características e propriedades úteis ao primeiro trabalho de estrutura de dados I.

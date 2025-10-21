@@ -1,14 +1,9 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "texto.h"
-
 typedef struct stEstilo{
     char* fFamily;
     char* fWeight;
     char* fSize;
 } stEstilo;
-
 typedef struct stTexto{
     int i;
     double x, y;

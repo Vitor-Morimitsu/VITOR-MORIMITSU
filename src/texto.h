@@ -1,9 +1,9 @@
 #ifndef TEXTO_H
 #define TEXTO_H
 
-#include "stdio.h"
-#include "stdlib.h"
-#include "string.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 /*
     Este arquivo se refere à forma texto e suas respectivas características e propriedades úteis ao primeiro trabalho de estrutura de dados I.
