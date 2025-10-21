@@ -6,7 +6,8 @@ typedef struct Circulo{
     double x;
     double y;
     double r;
-    char* corb, corp;
+    char* corb;
+    char* corp;
 }stCirculo;
 
 Circulo criaCirculo(int i, double x, double y, double r, char* corb, char* corp){
@@ -22,7 +23,7 @@ Circulo criaCirculo(int i, double x, double y, double r, char* corb, char* corp)
     }
     strcpy(c->corb, corb);
 
-    c->corp = (char*)malloc(strlen(corp) + 1);
+    c->corp = malloc(strlen(corp) + 1);
     if(c->corp == NULL){
         printf("Erro ao alocar memória para a cor de preenchimento");
         exit(1);
@@ -44,7 +45,7 @@ double getCoordYCirculo(Circulo c){
     return ((stCirculo*)c)->y;
 }
 
-double getRaio(Circulo c){
+double getRaioCirculo(Circulo c){
     return ((stCirculo*)c)->r;
 }
 
