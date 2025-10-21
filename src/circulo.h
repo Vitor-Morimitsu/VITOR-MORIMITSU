@@ -1,8 +1,9 @@
 #ifndef CIRCULO_H
 #define CIRCULO_H
 
-#include "stdio.h"
-#include "stdlib.h" 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 /*
     Este arquivo se refere à forma círculo e suas características e propriedades úteis ao primeiro trabalho de estrutura de dados I.

@@ -1,11 +1,4 @@
 #include "qry.h"
-#include "formas.h"
-#include "pilha.h"
-#include "geo.h"
-#include "disparador.h"
-#include "fila.h"
-#include "buscas.h"
-#include "criarTxt.h"
 
 void lerQry(FILE* arqQry, Fila filaFormas, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregadores){
     if(arqQry == NULL){

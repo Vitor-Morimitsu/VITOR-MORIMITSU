@@ -1,7 +1,4 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "pilha.h"
-#include "fila.h"
 typedef struct stcelula{
     Conteudo conteudo;
     struct stcelula *prox;
@@ -27,7 +24,7 @@ Pilha criarPilha(int ID){
 
 void inserirPilha(Pilha p, Conteudo cont){
     if(p == NULL){
-        prinf("Erro ao acessar a pilha.");
+        printf("Erro ao acessar a pilha.");
         return;
     }
     stPilha* pilha = (stPilha*)p;

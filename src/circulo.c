@@ -1,9 +1,6 @@
 #include "circulo.h"
-#include "stdio.h"
-#include "stdlib.h"
 
 #define PI 3.14
-
 typedef struct Circulo{
     int i;
     double x;
