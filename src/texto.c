@@ -116,6 +116,16 @@ void setATexto(Texto t, char anc){
 void setTxtoTexto(Texto t, char* txto){
     ((stTexto*)t)->txto = txto;
 }
+
+void liberaTexto(Texto t){
+    if(t == NULL) return;
+    stTexto* texto = (stTexto*)t;
+    free(texto->corb);
+    free(texto->corp);
+    free(texto->ts);
+    free(texto->txto);
+    free(texto);
+}
 // FUNÇÕES DE ESTILO
 Estilo criarEstilo(char* fFamily, char* fWeight, char*fSize){
     stEstilo* ts = malloc(sizeof(stEstilo));

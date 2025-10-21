@@ -24,7 +24,7 @@ void escreverConteudoPilha(FILE* arqTxt, Pilha p);
 
 /// @brief Reportar os dados da figura que resultou ficar no ponto de disparo
 /// @param arqTxt Arquivo destino
-void comandoShft(FILE* arqTxt, int idDis,Fila filaDisparadores, Fila filaCarregadores);
+void comandoShft(FILE* arqTxt, int idDis,Fila filaDisparadores);
 
 /// @brief Reportar os dados da forma disparada e a posição final da forma
 /// @param arqTxt Arquivo destino

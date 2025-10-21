@@ -59,7 +59,7 @@ void escreverConteudoPilha(FILE* arqTxt, Pilha p){
     }
 }
 
-void comandoShft(FILE* arqTxt,int idDis, Fila filaDisparadores, Fila filaCarregadores){
+void comandoShft(FILE* arqTxt,int idDis, Fila filaDisparadores){
     if(arqTxt == NULL){
         printf("Erro ao abrir o arquivo txt.");
         exit(1);
@@ -158,7 +158,7 @@ void comandoRjd(FILE* arqTxt, Fila filaDisparadores, int idDis,Fila filaCarregad
     Pilha pDir = encontrarPilhaPorID(filaCarregadores, idDir);
     
     if (pEsq == NULL || pDir == NULL) {
-        printf(arqTxt, "Pilhas para o disparador não encontradas.\n");
+        printf("Pilhas para o disparador não encontradas.\n");
         return;
     }
     

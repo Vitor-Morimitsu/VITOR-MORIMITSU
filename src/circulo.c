@@ -83,3 +83,13 @@ void setRaioCirculo(Circulo c, double raio){
 void setCorPCirculo(Circulo c, char* corp){
     ((stCirculo*)c)->corp = corp;
 }
+
+void liberaCirculo(Circulo c){
+    if(c == NULL) return;
+
+    stCirculo* circ = (stCirculo*)c;
+
+    free(circ->corb);
+    free(circ->corp);
+    free(circ);
+}

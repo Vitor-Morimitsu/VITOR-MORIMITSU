@@ -100,4 +100,8 @@ void setCorBRetangulo(Retangulo r, char* corb);
 /// @param corp Cor de preenchimento do retângulo
 void setCorPRetangulo(Retangulo r, char* corp);
 
+/// @brief Libera um retângulo
+/// @param r Retângulo
+void liberaRetangulo(Retangulo r);
+
 #endif

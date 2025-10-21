@@ -91,4 +91,8 @@ void setY2Linha(Linha l, double y2);
 /// @param Cor Cor da linha
 void setCorLinha(Linha l, char* cor);
 
+/// @brief Libera uma linha
+/// @param l Linha
+void liberaLinha(Linha l);
+
 #endif

@@ -83,3 +83,11 @@ void setY2Linha(Linha l, double y2){
 void setCorLinha(Linha l, char* cor){
     ((stLinha*)l)->cor = cor;
 }
+
+void liberaLinha(Linha l){
+    if(l == NULL) return;
+
+    stLinha* linha = (stLinha*)l;
+    free(linha->cor);
+    free(linha);
+}

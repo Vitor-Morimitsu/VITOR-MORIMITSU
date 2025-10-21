@@ -118,6 +118,10 @@ void setATexto(Texto t, char anc);
 /// @param txto Novo texto
 void setTxtoTexto(Texto t, char* txto);
 
+/// @brief Libera um texto
+/// @param t Texto
+void liberaTexto(Texto t);
+
 // ---------------- FUNÇÕES DE ESTILO ----------------- //
 /// @brief Cria e retorna um estilo de texto
 /// @param fFamily Familia da fonte
