@@ -93,12 +93,12 @@ void liberarFila(Fila f) {
  
     free(fila);
 }
-No_t getPrimeiroNo(Fila f) {
+No_t getPrimeiroNoFila(Fila f) {
     stFila* fila = (stFila*)f;
     return fila->primeiro;
 }
 
-No_t getProximoNo(No_t no) {
+No_t getProximoNoFila(No_t no) {
     if (no == NULL) return NULL;
     stNo* no_interno = (stNo*)no; 
     return no_interno->prox;
@@ -136,14 +136,16 @@ Forma percorreFila(Fila f, int posicao){
         return NULL;
     }
 
-    No_t noAtual = getPrimeiroNo(f);
+    No_t noAtual = getPrimeiroNoFila(f);
 
     for(int i = 0;i<posicao;i++){
-        noAtual = getProximoNo(noAtual);
+        noAtual = getProximoNoFila(noAtual);
     }
 
     if(noAtual == NULL){
         printf("Posição inválida.");
         return NULL;
     }
+
+    return NULL;
 }

@@ -37,12 +37,12 @@ void liberarFila(Fila f);
 /// @brief Retorna o primeiro nó da fila para iniciar uma iteração.
 /// @param f A fila.
 /// @return O primeiro nó (como um No_t), ou NULL se a fila estiver vazia.
-No_t getPrimeiroNo(Fila f);
+No_t getPrimeiroNoFila(Fila f);
 
 /// @brief Dado um nó, retorna o próximo nó na sequência da fila.
 /// @param no O nó atual (um No_t).
 /// @return O nó seguinte, ou NULL se for o último.
-No_t getProximoNo(No_t no);
+No_t getProximoNoFila(No_t no);
 
 /// @brief Retorna a Forma (o dado) armazenada dentro de um nó.
 /// @param no O nó (um No_t).

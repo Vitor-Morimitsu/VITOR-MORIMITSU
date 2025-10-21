@@ -131,19 +131,19 @@ void liberarMemoriaPilha(Pilha p){
     free(pilha);
 }
 
-No_t getNoTopo(Pilha p) {
+No_t getNoTopoPilha(Pilha p) {
     if (p == NULL) return NULL;
     stPilha* pilha = (stPilha*)p;
     return pilha->topo; 
 }
 
-No_t getProximoNo(No_t no) {
+No_t getProximoNoPilha(No_t no) {
     if (no == NULL) return NULL;
     stCelula* celula_interna = (stCelula*)no; 
     return celula_interna->prox;
 }
 
-Conteudo getConteudoDoNo(No_t no) {
+Conteudo getConteudoDoNoPilha(No_t no) {
     if (no == NULL) return NULL;
     stCelula* celula_interna = (stCelula*)no;
     return celula_interna->conteudo;

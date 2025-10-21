@@ -53,15 +53,15 @@ void liberarMemoriaPilha(Pilha p);
 /// @brief Retorna a nó do topo da pilha
 /// @param p Pilha
 /// @return Nó do topo
-No_t getNoTopo(Pilha p);
+No_t getNoTopoPilha(Pilha p);
 
 /// @brief Retorna o próximo nó da pilha
 /// @param p Pilha
 /// @return Próximo nó da pilha
-No_t getProximoNo(Pilha p);
+No_t getProximoNoPilha(No_t no);
 
 /// @brief Retorna o conteúdo do nó da pilha
 /// @param p Pilha
 /// @return Conteúdo do nó da pilha
-Conteudo getConteudoDoNo(Pilha p);
+Conteudo getConteudoDoNo(No_t p);
 #endif      
