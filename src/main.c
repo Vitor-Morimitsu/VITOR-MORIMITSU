@@ -77,10 +77,6 @@ int main(int argc, char* argv[])
     Fila filaDisparadores = criarFila();
     Fila filaPilhas = criarFila();
 
-    //criar disparadores
-    for(int i  = 0;i < 20;i++){
-        Disparador
-    }
     arqGeo = fopen(fullPathGeo, "r");
     if(arqGeo == NULL){
         printf("Nâo foi possível abrir o arquivo geo no main.");

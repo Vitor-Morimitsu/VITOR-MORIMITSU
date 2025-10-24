@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "disparador.h"
 
 /*
     Arquivo .h criado com o intuito de criar uma fila no primeiro trabalho de estrutura de dados.
@@ -20,7 +21,7 @@ Fila criarFila();
 /// @brief Insere um elemento na fila
 /// @param f Fila
 /// @param form Forma a ser inserida
-void insereFila(Fila f, Forma form, char type);
+void insereFila(Fila f, void* Conteudo, char type);
 
 /// @brief Insere um disparador na fila de disparadores
 /// @param FilaDisparadores Fila de disparadores
