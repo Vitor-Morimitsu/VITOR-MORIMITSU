@@ -160,8 +160,7 @@ Forma percorreFila(Fila f, int posicao){
     return getConteudoDoNoFila(noAtual);
 }
 
-void liberarTudo(Fila formas, Fila disparadores, Fila carregadores, Fila arena){
-    liberarFila(formas);
+void liberarTudo( Fila disparadores, Fila carregadores, Fila arena){
     liberarFila(disparadores);
     liberarFila(carregadores);
     liberarFila(arena);

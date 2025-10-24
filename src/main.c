@@ -73,14 +73,13 @@ int main(int argc, char* argv[])
     
     //inicializar as filas
     Fila chao = criarFila();
-    Fila filaFormas = criarFila();
     Fila filaDisparadores = criarFila();
     Fila filaPilhas = criarFila();
 
     arqGeo = fopen(fullPathGeo, "r");
     if(arqGeo == NULL){
         printf("Nâo foi possível abrir o arquivo geo no main.");
-        liberarTudo(filaFormas,filaDisparadores, filaPilhas,chao);
+        liberarTudo(filaDisparadores, filaPilhas,chao);
         return 1;
     }
 
@@ -88,11 +87,11 @@ int main(int argc, char* argv[])
     if(arqSvgEntrada == NULL){
         printf("Erro ao abrir arquivo Svg de entrada.");
         fclose(arqGeo);
-        liberarTudo(filaFormas,filaDisparadores, filaPilhas,chao);
+        liberarTudo(filaDisparadores, filaPilhas,chao);
         return 1;
     }
     
-    lerGeo(arqGeo,filaFormas,arqSvgEntrada);
+    lerGeo(arqGeo,chao,arqSvgEntrada);
     
     fclose(arqGeo);
     fclose(arqSvgEntrada);
@@ -101,7 +100,7 @@ int main(int argc, char* argv[])
         FILE* arqQry = fopen(fullPathQry, "r");
         if (arqQry == NULL) {
             printf("Falha ao abrir arquivo qry no main.");
-            liberarTudo(filaFormas,filaDisparadores, filaPilhas,chao);
+            liberarTudo(filaDisparadores, filaPilhas,chao);
             return 1;
         }
 
@@ -109,11 +108,11 @@ int main(int argc, char* argv[])
         if(arqTxt == NULL){
             printf("Erro ao abrir txt para escrita.");
             fclose(arqQry);
-            liberarTudo(filaFormas,filaDisparadores, filaPilhas,chao);
+            liberarTudo(filaDisparadores, filaPilhas,chao);
             return 1;
         }
 
-        lerQry(arqQry,filaFormas,arqTxt,filaDisparadores,filaPilhas,chao);
+        lerQry(arqQry,arqTxt,filaDisparadores,filaPilhas,chao);
         
         fclose(arqQry);
         fclose(arqTxt);

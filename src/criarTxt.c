@@ -199,25 +199,25 @@ void comandoRjd(FILE* arqTxt, Fila filaDisparadores, int idDis,Fila filaCarregad
     }
 }
 
-void comandoCalc(FILE* arqTxt, Fila chao, Fila formas){
-    if(arqTxt == NULL || chao == NULL || formas == NULL){
+void comandoCalc(FILE* arqTxt, Fila chao){
+    if(arqTxt == NULL || chao == NULL ){
         printf("Erro ao realizar o comando calc.");
         return;
     }
     
-    int quantidade = getTamanhoFila(formas);
+    int quantidade = getTamanhoFila(chao);
 
     // ver a posição de cada forma e ver se elas se sobrepõem
     double area_esmagada_total = 0;
     for(int i  = 0;i< quantidade;i++){
-        Forma f1 = percorreFila(formas,i);
+        Forma f1 = percorreFila(chao,i);
         char tipo_f1 = getTipoForma(f1);
 
         int confirmacao = -1;
         double area_esmagada_round = 0;
  
         for(int j = 0;j< quantidade - 1;j++){
-            Forma f2 = percorreFila(formas, j);
+            Forma f2 = percorreFila(chao, j);
             char tipo_f2 = getTipoForma(f2);
             if(tipo_f1 == 'c'){
                 if(tipo_f2 == 'c'){

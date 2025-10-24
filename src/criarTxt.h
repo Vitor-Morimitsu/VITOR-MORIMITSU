@@ -36,6 +36,6 @@ void comandoRjd(FILE* arqTxt, Fila filaDisparadores, int idDis,Fila filaCarregad
 
 /// @brief Reportar o resultado de cada verificação; área total esmagada no round e a área total esmagada
 /// @param arqTxt Arquivo destino
-void comandoCalc(FILE* arqTxt,Fila chao, Fila formas);
+void comandoCalc(FILE* arqTxt,Fila chao);
 
 #endif

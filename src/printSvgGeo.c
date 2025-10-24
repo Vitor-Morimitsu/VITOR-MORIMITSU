@@ -4,6 +4,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "geo.h"
+
 void abrirSvg(FILE* arqSvg){
     fprintf(arqSvg, "<svg xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\n");
 }

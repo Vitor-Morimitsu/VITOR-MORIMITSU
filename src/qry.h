@@ -20,7 +20,7 @@ typedef void* Fila;
 /*
     Função responsável por ler as instruções contidas no arquivo .qry, executá-las e fazer uma cópia das intruções em um arquivo .txt
 */
-void lerQry(FILE* arqQry, Fila f, FILE* arqTxt, Fila filaDisparadores, Fila filaCarregadores, Fila chao);
+void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores, Fila filaCarregadores, Fila chao);
 
 /*
     Função responsável por fechar o arquivo .qry que havia sido previamente aberto.
