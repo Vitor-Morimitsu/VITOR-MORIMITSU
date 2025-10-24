@@ -1,15 +1,13 @@
 #include "circulo.h"
-#include "stdio.h"
-#include "stdlib.h"
 
 #define PI 3.14
-
 typedef struct Circulo{
     int i;
     double x;
     double y;
     double r;
-    char* corb, corp;
+    char* corb;
+    char* corp;
 }stCirculo;
 
 Circulo criaCirculo(int i, double x, double y, double r, char* corb, char* corp){
@@ -25,7 +23,7 @@ Circulo criaCirculo(int i, double x, double y, double r, char* corb, char* corp)
     }
     strcpy(c->corb, corb);
 
-    c->corp = (char*)malloc(strlen(corp) + 1);
+    c->corp = malloc(strlen(corp) + 1);
     if(c->corp == NULL){
         printf("Erro ao alocar memória para a cor de preenchimento");
         exit(1);
@@ -47,7 +45,7 @@ double getCoordYCirculo(Circulo c){
     return ((stCirculo*)c)->y;
 }
 
-double getRaio(Circulo c){
+double getRaioCirculo(Circulo c){
     return ((stCirculo*)c)->r;
 }
 
@@ -85,4 +83,14 @@ void setRaioCirculo(Circulo c, double raio){
 
 void setCorPCirculo(Circulo c, char* corp){
     ((stCirculo*)c)->corp = corp;
+}
+
+void liberaCirculo(Circulo c){
+    if(c == NULL) return;
+
+    stCirculo* circ = (stCirculo*)c;
+
+    free(circ->corb);
+    free(circ->corp);
+    free(circ);
 }

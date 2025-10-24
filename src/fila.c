@@ -3,7 +3,7 @@
 #include <stdlib.h>
 #include "disparador.h"
 typedef struct stNo {
-    Forma form;
+    void* conteudo;
     char type;
     struct stNo* prox;
 } stNo;
@@ -26,7 +26,7 @@ Fila criarFila() {
     return f;
 }
 
-void insereFila(Fila f, Forma form, char type) {
+void insereFila(Fila f,void* conteudo, char type) {
     stFila* fila = (stFila*)f;
 
     stNo* novoNo = (stNo*)malloc(sizeof(stNo));
@@ -35,7 +35,7 @@ void insereFila(Fila f, Forma form, char type) {
         exit(1);
     }
     
-    novoNo->form = form;
+    novoNo->conteudo = conteudo;
     novoNo->type = type;
     novoNo->prox = NULL;
 
@@ -47,6 +47,16 @@ void insereFila(Fila f, Forma form, char type) {
         fila->ultimo = novoNo;
     }
     fila->tamanho++;
+}
+
+void insereFilaDisparadores(Fila FilaDisparadores, void* d){
+    if(FilaDisparadores == NULL || d == NULL){
+        printf("Erro ao acessar ao inserir um disparador na fila de disparadores.");
+        exit(1);
+    }
+
+    insereFila(FilaDisparadores,(void*)d,'d');
+
 }
 
 void removeFila(Fila f) {
@@ -74,7 +84,7 @@ Forma getPrimeiraFormaFila(Fila f) {
         return NULL;
     }
     
-    return fila->primeiro->form;
+    return fila->primeiro->conteudo;
 }
 
 void liberarFila(Fila f) {
@@ -93,24 +103,24 @@ void liberarFila(Fila f) {
  
     free(fila);
 }
-No_t getPrimeiroNo(Fila f) {
+No_t getPrimeiroNoFila(Fila f) {
     stFila* fila = (stFila*)f;
     return fila->primeiro;
 }
 
-No_t getProximoNo(No_t no) {
+No_t getProximoNoFila(No_t no) {
     if (no == NULL) return NULL;
     stNo* no_interno = (stNo*)no; 
     return no_interno->prox;
 }
 
-Forma getConteudoDoNo(No_t no) {
+Forma getConteudoDoNoFila(No_t no) {
     if (no == NULL) return NULL;
     stNo* no_interno = (stNo*)no;
-    return no_interno->form;
+    return no_interno->conteudo;
 }
 
-char getTipoDoNo(No_t no) {
+char getTipoDoNoFila(No_t no) {
     if (no == NULL) return '\0';
     stNo* no_interno = (stNo*)no;
     return no_interno->type;
@@ -127,5 +137,31 @@ int getTamanhoFila(Fila f){
 }
 
 Forma percorreFila(Fila f, int posicao){
+    if(f == NULL){
+        printf("Fila vazia.");
+        return NULL;
+    }
+    if(posicao < 0){
+        printf("Posição negativa passada como parâmetro.");
+        return NULL;
+    }
 
+    No_t noAtual = getPrimeiroNoFila(f);
+
+    for(int i = 0;i<posicao;i++){
+        noAtual = getProximoNoFila(noAtual);
+    }
+
+    if(noAtual == NULL){
+        printf("Posição inválida.");
+        return NULL;
+    }
+
+    return getConteudoDoNoFila(noAtual);
+}
+
+void liberarTudo( Fila disparadores, Fila carregadores, Fila arena){
+    liberarFila(disparadores);
+    liberarFila(carregadores);
+    liberarFila(arena);
 }

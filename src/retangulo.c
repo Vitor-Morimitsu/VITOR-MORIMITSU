@@ -1,8 +1,4 @@
 #include "retangulo.h"
-#include "stdio.h"
-#include "stdlib.h"
-#include "string.h"
-
 typedef struct Retangulo{
     int i;
     double x;
@@ -57,7 +53,7 @@ double getHRetangulo(Retangulo r){
     return((stRetangulo*)r)->h;
 }
 
-char* getCorBordaRetangulo(Retangulo r){
+char* getCorBRetangulo(Retangulo r){
     return((stRetangulo*)r)->corb;
 }
 
@@ -95,4 +91,14 @@ void setCorBRetangulo(Retangulo r, char* corb){
 
 void setCorPRetangulo(Retangulo r, char* corp){
     ((stRetangulo*)r)->corp = corp;
+}
+
+void liberaRetangulo(Retangulo r){
+    if(r == NULL) return;
+
+    stRetangulo* ret = (stRetangulo*)r;
+    free(ret->corb);
+    free(ret->corp);
+
+    free(r);
 }

@@ -1,8 +1,9 @@
 #ifndef CIRCULO_H
 #define CIRCULO_H
 
-#include "stdio.h"
-#include "stdlib.h" 
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 /*
     Este arquivo se refere à forma círculo e suas características e propriedades úteis ao primeiro trabalho de estrutura de dados I.
@@ -88,5 +89,7 @@ void setCorBCirculo(Circulo c, char* corb);
 /// @param corp Cor interna do círculo
 void setCorPCirculo(Circulo c, char* corp);
 
-
+/// @brief Libera um círculo
+/// @param c Círculo
+void liberaCirculo(Circulo c);
 #endif

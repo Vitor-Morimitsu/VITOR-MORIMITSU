@@ -29,6 +29,11 @@ Forma criaLinhaForma(int i,char tipo, double x1, double y1, double x2, double y2
 /// @brief Cria um texto com os parâmetros fornecidos.
 Forma criaTextoForma(int i,char tipo, double x, double y, char* corb, char* corp, char a, char* txto, Estilo ts);
 
+/// @brief Retorna o identificador da forma criada
+/// @param f Forma
+/// @return Identificador da forma
+int getIDForma(Forma f);
+
 /// @brief Retorna o tipo da forma geométrica
 /// @param f Forma f
 /// @return Tipo da forma geométrica
@@ -44,6 +49,11 @@ double getXForma(Forma f);
 /// @return Coordenada Y da forma
 double getYForma(Forma f);
 
+/// @brief Retorna a área da forma
+/// @param f Forma f
+/// @return Área da forma
+double getAreaForma(Forma f);
+
 /// @brief Libera as formas criadas
 /// @param f Forma f
 void liberarForma(Forma f);
@@ -52,4 +62,5 @@ void liberarForma(Forma f);
 /// @param f Forma 
 /// @param d Diparador
 void posicionaForma(Forma f, Disparador d, double deslocX, double deslocY);
+
 #endif

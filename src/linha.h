@@ -59,7 +59,7 @@ char* getCorLinha(Linha l);
 /// @brief Realiza o cálculo da área da linha
 /// @param l Linha
 /// @return Área da linha
-double getAreaLinha(Linha l, double x1, double y1, double x2, double y2);
+double getAreaLinha(Linha l);
 
 /// @brief Define o identificador da linha
 /// @param l Linha
@@ -90,5 +90,9 @@ void setY2Linha(Linha l, double y2);
 /// @param l Linha
 /// @param Cor Cor da linha
 void setCorLinha(Linha l, char* cor);
+
+/// @brief Libera uma linha
+/// @param l Linha
+void liberaLinha(Linha l);
 
 #endif

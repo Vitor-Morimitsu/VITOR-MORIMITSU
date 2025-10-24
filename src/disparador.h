@@ -1,10 +1,10 @@
 #ifndef DISPARADOR_H
 #define DISPARADOR_H
 
-#include "stdio.h"
-#include "stdlib.h"
-#include "string.h"
-#include "formas.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include "pilha.h"
 
 /*
     Arquivo .h destinado à criação de um disparador e suas operações de uso no primeiro trabalho de estrutura de dados
@@ -13,6 +13,7 @@
 typedef void* Disparador;
 typedef void* Pilha;
 typedef void* Celula;
+typedef void* Conteudo;
 
 /// @brief Cria e retorna o disparador
 /// @param i Identificador do disparador

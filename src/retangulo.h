@@ -1,9 +1,9 @@
 #ifndef RETANGULO_H
 #define RETANGULO_H
 
-#include "stdio.h"
-#include "stdlib.h"
-#include "string.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 /*
     Este arquivo se refere à forma retângulo e suas respectivas características e propriedades úteis ao primeiro trabalho de estrutura de dados I.
@@ -99,5 +99,9 @@ void setCorBRetangulo(Retangulo r, char* corb);
 /// @param r Retângulo
 /// @param corp Cor de preenchimento do retângulo
 void setCorPRetangulo(Retangulo r, char* corp);
+
+/// @brief Libera um retângulo
+/// @param r Retângulo
+void liberaRetangulo(Retangulo r);
 
 #endif

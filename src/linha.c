@@ -49,10 +49,12 @@ char* getCorLinha(Linha l){
     return((stLinha*)l)->cor;
 }
 
-double getAreaLinha(Linha l, double x1, double y1, double x2, double y2){
+double getAreaLinha(Linha l){
     //calculo do  comprimento
-    double difx = x2 - x1;
-    double dify = y2 - y1;
+    stLinha* linha = (stLinha*)l;
+
+    double difx = linha->x2 - linha->x1;
+    double dify = linha->y2 - linha->y1;
     double comp = sqrt(pow(difx, 2) + pow(dify, 2));
 
     return 2*comp;
@@ -80,4 +82,12 @@ void setY2Linha(Linha l, double y2){
 
 void setCorLinha(Linha l, char* cor){
     ((stLinha*)l)->cor = cor;
+}
+
+void liberaLinha(Linha l){
+    if(l == NULL) return;
+
+    stLinha* linha = (stLinha*)l;
+    free(linha->cor);
+    free(linha);
 }

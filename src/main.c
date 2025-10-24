@@ -1,4 +1,5 @@
-#include "chao.h"
+#include <stdio.h>
+#include <stdlib.h>
 #include "circulo.h"
 #include "retangulo.h"
 #include "disparador.h"
@@ -10,62 +11,138 @@
 #include "printSvgGeo.h"
 #include "texto.h"
 #include <string.h>
+#include "qry.h"
 
-//abrir arquivos
+#define PATH_LEN 512
+#define FILE_NAME_LEN 256
 
 int main(int argc, char* argv[])
 {
-    //inicializa o chão
-    Fila chao = criarChao();
+    FILE* arqGeo = NULL;
+    char dirEntrada[PATH_LEN] = "";
+    char dirSaida[PATH_LEN] = "";
+    char nomeArquivoGeo[FILE_NAME_LEN] = "";
+    char nomeArquivoQry[FILE_NAME_LEN] = "";
+    char onlyQry[FILE_NAME_LEN] = "";
+    int hasGeo = 0, hasSaida = 0;
 
-    //inicializa as filas
-    Fila listaFormas = criarFila();
-    Fila listaDisparadores = criarFila();
-    Fila listaPilhas = criarFila();
-    
-    //ler os aquivos passados
-    char* nomeArqGeo = NULL;
-    char* nomeArqQry = NULL;
-    FILE* arqSvg = fopen("arqSVG.svg", "w");
-    if(arqSvg == NULL){
-        printf("Erro ao gerar arquivo .svg.");
-        return 1;
-    }
-    
-    if(argc < 3){
-        printf("Número de parâmetros insuficiente.");
-        return 1;
-    }else{
-        for(int i = 1; i < argc; i++){
-            if(strcmp(argv[i], "-e")==0){//diretório de entrada
-                if(i+1 < argc){
-                    char* dirEntrada = argv[i+1];
-                    i++;
-                }
-            }else if(strcmp(argv[i], "-f") == 0){ //entrada do geo
-                if(i + 1 < argc){
-                    nomeArqGeo = argv[i + 1];
-                    i++;
-                }
-            }else if(strcmp(argv[i], "-o") == 0){ //saída svg
-                if(i + 1 < argc){
-                    nomeArqQry = argv[i + 1];
-                    i++;
-                }
-            }else if(strcmp(argv[i], "-q") == 0){//arquivo com consultas
-                if(i+1<argc){
-                    char* arqConsultas = argv[i+1];
-                    i++;
-                }
-            }
-
+    for (int i = 1; i < argc; i++) {
+        if (strcmp(argv[i], "-e") == 0 && i + 1 < argc) {//Diretório base de entrada
+            strcpy(dirEntrada, argv[++i]);
+        } else if (strcmp(argv[i], "-o") == 0 && i + 1 < argc) {//Arquivo com a descrição 
+            strcpy(dirSaida, argv[++i]);
+            hasSaida = 1;
+        } else if (strcmp(argv[i], "-f") == 0 && i + 1 < argc) {//Diretório base de saída
+            strcpy(nomeArquivoGeo, argv[++i]);
+            hasGeo = 1;
+        } else if (strcmp(argv[i], "-q") == 0 && i + 1 < argc) {//arquivo com consultas
+            strcpy(nomeArquivoQry, argv[++i]);
+            char *p = strrchr(argv[i], '/');
+            strcpy(onlyQry, p ? p + 1 : argv[i]);
+        } else {
+            fprintf(stderr, "Parametro desconhecido ou invalido: %s\n", argv[i]);
+            return EXIT_FAILURE;
         }
     }
-    if(nomeArqGeo == NULL){
-        printf("Erro ao abrir o geo.");
-        return 1;
-    }else{
-        lerGeo(nomeArqGeo, arqSvg,chao);//gera formas e printa elas no Svg
+
+    if (!hasGeo || !hasSaida) {
+        fprintf(stderr, "Erro: parametros obrigatorios -f (geo) e -o (saida) nao fornecidos.\n");
+        return EXIT_FAILURE;
     }
-    fclose(arqSvg);
+
+    char fullPathGeo[1024];
+    snprintf(fullPathGeo, sizeof(fullPathGeo), "%s/%s", dirEntrada, nomeArquivoGeo);
+
+    char fullPathQry[1024];
+    if (strlen(nomeArquivoQry) > 0) {
+        snprintf(fullPathQry, sizeof(fullPathQry), "%s/%s", dirEntrada, nomeArquivoQry);
+    }
+
+    char arquivoSaidaSvgGeo[1024];
+    snprintf(arquivoSaidaSvgGeo, sizeof(arquivoSaidaSvgGeo), "%s/%s.svg", dirSaida, nomeArquivoGeo);
+
+    char arquivoSaidaSvgQry[1024];
+    if (strlen(nomeArquivoQry) > 0) {
+        snprintf(arquivoSaidaSvgQry, sizeof(arquivoSaidaSvgQry), "%s/%s.svg", dirSaida, onlyQry);
+    }
+
+    char arquivoSaidaTxt[1024];
+    if (strlen(nomeArquivoQry) > 0) {
+        snprintf(arquivoSaidaTxt, sizeof(arquivoSaidaTxt), "%s/%s.txt", dirSaida, onlyQry);
+    }
+    
+    //inicializar as filas
+    Fila chao = criarFila();
+    Fila filaDisparadores = criarFila();
+    Fila filaPilhas = criarFila();
+
+    arqGeo = fopen(fullPathGeo, "r");
+    if(arqGeo == NULL){
+        printf("Nâo foi possível abrir o arquivo geo no main.");
+        liberarTudo(filaDisparadores, filaPilhas,chao);
+        return 1;
+    }
+
+    FILE* arqSvgEntrada = fopen(arquivoSaidaSvgGeo, "w");
+    if(arqSvgEntrada == NULL){
+        printf("Erro ao abrir arquivo Svg de entrada.");
+        fclose(arqGeo);
+        liberarTudo(filaDisparadores, filaPilhas,chao);
+        return 1;
+    }
+    
+    lerGeo(arqGeo,chao,arqSvgEntrada);
+    
+    fclose(arqGeo);
+    fclose(arqSvgEntrada);
+
+    if (strlen(nomeArquivoQry) > 0) {
+        FILE* arqQry = fopen(fullPathQry, "r");
+        if (arqQry == NULL) {
+            printf("Falha ao abrir arquivo qry no main.");
+            liberarTudo(filaDisparadores, filaPilhas,chao);
+            return 1;
+        }
+
+        FILE* arqTxt = fopen(arquivoSaidaTxt, "w");
+        if(arqTxt == NULL){
+            printf("Erro ao abrir txt para escrita.");
+            fclose(arqQry);
+            liberarTudo(filaDisparadores, filaPilhas,chao);
+            return 1;
+        }
+
+        lerQry(arqQry,arqTxt,filaDisparadores,filaPilhas,chao);
+        
+        fclose(arqQry);
+        fclose(arqTxt);
+        
+        //reabrir txt para leitura 
+        arqTxt = fopen(arquivoSaidaTxt,"r");
+        if(arqTxt == NULL){
+            printf("Erro ao abrir aqruivo txt para leitura");
+           
+            liberarTudo(filaFormas,filaDisparadores, filaPilhas,chao);
+            return 1;
+        }
+
+        //abrir svg de saida
+        FILE* arqSvgSaida = fopen(arquivoSaidaSvgQry, "w"); 
+        if(arqSvgSaida == NULL){
+            printf("Erro ao abrir svg de saida\n");
+            fclose(arqTxt);
+            liberarTudo(filaFormas, chao, filaDisparadores, filaPilhas);
+            return 1;
+        }
+
+        gerarSvgSaida(arqTxt, arqSvgSaida);   
+        
+        fclose(arqTxt);
+        fclose(arqSvgSaida);
+    }
+    
+    liberarTudo(filaFormas, chao, filaDisparadores, filaPilhas);
+
+    return 0; 
+
 }

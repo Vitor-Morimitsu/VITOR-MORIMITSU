@@ -1,12 +1,8 @@
-#include <stdio.h>
-#include <stdlib.h>
 #include "pilha.h"
-#include "fila.h"
 typedef struct stcelula{
-    Conteudo conteudo;
+    void* conteudo;
     struct stcelula *prox;
 }stCelula;
-
 typedef struct stpilha{
     int id;
     stCelula *topo;
@@ -25,19 +21,19 @@ Pilha criarPilha(int ID){
     return p;
 }
 
-void inserirPilha(Pilha p, Conteudo cont){
+void inserirPilha(Pilha p, void* conteudo){
     if(p == NULL){
-        prinf("Erro ao acessar a pilha.");
+        printf("Erro ao acessar a pilha.");
         return;
     }
     stPilha* pilha = (stPilha*)p;
 
-    stCelula* novaCelula = (stCelula*)malloc(sizeof(novaCelula));
+    stCelula* novaCelula = (stCelula*)malloc(sizeof(stCelula));
     if(novaCelula == NULL){
         printf("Erro ao acessar a nova celula criada");
         return;
     }
-    novaCelula->conteudo=cont;
+    novaCelula->conteudo = conteudo;
     novaCelula->prox = pilha->topo;
     pilha->topo = novaCelula;
     pilha->tamanho++;
@@ -45,54 +41,50 @@ void inserirPilha(Pilha p, Conteudo cont){
 
 void carregarPilhaPelaFila(Pilha p, Fila f, int n){
     if(p == NULL){
-        printf("Erro ao acessar a pilha.");
+        printf("Erro ao acessar a pilha para receber as fomras da fila.");
         exit(1);
     }
     if(f == NULL){
-        printf("Erro ao acessar a fila.");
+        printf("Erro ao acessar a fila para passar as formas para pilha.");
         exit(2);
     }
     if(n <= 0){
         return;
     }
-    stPilha* pilha = (stPilha*)p;
-    No_t noFila = getPrimeiroNo(f);
+    
+    No_t noFila = getPrimeiroNoFila(f);
 
     for(int i = 0; i<n && noFila != NULL;i++){
-        Conteudo conteudoInserir = getConteudoDoNo(noFila);
+        void* conteudoInserir = getConteudoDoNoFila(noFila);
 
-        stCelula* novaCelula = (stCelula*)malloc(sizeof(stCelula));
-        if(novaCelula == NULL){
-            printf("Erro ao alocar memória para o novo nó.");
-            exit(1);
-        }
+        inserirPilha(p,conteudoInserir);
 
-        novaCelula->conteudo = conteudoInserir;
-        novaCelula->prox = pilha->topo;
-
-        pilha->topo = novaCelula;
-        pilha->tamanho++;
-        noFila = getProximoNo(noFila);
+        noFila = getProximoNoFila(noFila);
     }
 }
 
-void removerPilha(Pilha p){
+void* removerPilha(Pilha p){
     stPilha* pilha = (stPilha*)p;
     if(pilha == NULL||pilha->topo == NULL){
-        return;
+        return NULL;
     }
 
     stCelula* temp = pilha->topo;
+    void* conteudo = temp->conteudo;
+
     pilha->topo = pilha->topo->prox;
     free(temp);
     pilha->tamanho--;
+
+    return conteudo;
 }
 
-Conteudo getConteudoPilha(Pilha p){
+void* getConteudoPilha(Pilha p){
     if(p == NULL){
         printf("Erro ao acessar o conteúdo da pilha");
         return NULL;
     }
+
     stPilha* pilha = (stPilha*)p;
     if(pilha != NULL && pilha->topo != NULL){
         return pilha->topo->conteudo;
@@ -120,34 +112,37 @@ int getTamanhoPilha(Pilha p){
     return pilha->tamanho;
 }
 
+NoPilha_t getNoTopoPilha(Pilha p) {
+    if (p == NULL) return NULL;
+    stPilha* pilha = (stPilha*)p;
+    return (NoPilha_t)pilha->topo; 
+}
+
+NoPilha_t getProximoNoPilha(NoPilha_t no) {
+    if (no == NULL) return NULL;
+    stCelula* celula_interna = (stCelula*)no; 
+    return (NoPilha_t)celula_interna->prox;
+}
+
+void* getConteudoDoNoPilha(NoPilha_t no) {
+    if (no == NULL) return NULL;
+    stCelula* celula_interna = (stCelula*)no;
+    return celula_interna->conteudo;
+}
+
 void liberarMemoriaPilha(Pilha p){
     if (p == NULL) {
-        printf("Erro ao acessar a pilha para liberar a memória.");
         return;
     }
 
     stPilha* pilha = (stPilha*)p;
-    while(pilha->topo != NULL){
-        removerPilha(p);
+    stCelula* atual = pilha->topo;
+ 
+    while (atual != NULL) {
+        stCelula* temp = atual;
+        atual = atual->prox;
+
+        free(temp); 
     }
-
-    free(pilha);
-}
-
-No_t getNoTopo(Pilha p) {
-    if (p == NULL) return NULL;
-    stPilha* pilha = (stPilha*)p;
-    return pilha->topo; 
-}
-
-No_t getProximoNo(No_t no) {
-    if (no == NULL) return NULL;
-    stCelula* celula_interna = (stCelula*)no; 
-    return celula_interna->prox;
-}
-
-Conteudo getConteudoDoNo(No_t no) {
-    if (no == NULL) return NULL;
-    stCelula* celula_interna = (stCelula*)no;
-    return celula_interna->conteudo;
+    free(pilha); 
 }

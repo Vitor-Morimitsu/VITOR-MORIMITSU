@@ -1,13 +1,6 @@
 #include "qry.h"
-#include "formas.h"
-#include "pilha.h"
-#include "geo.h"
-#include "disparador.h"
-#include "fila.h"
-#include "buscas.h"
-#include "criarTxt.h"
 
-void lerQry(FILE* arqQry, Fila filaFormas, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregadores){
+void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregadores,Fila chao){
     if(arqQry == NULL){
         printf("Erro ao ler o arquivo .qry");
         exit(1);
@@ -21,7 +14,7 @@ void lerQry(FILE* arqQry, Fila filaFormas, FILE* arqTxt, Fila filaDisparadores,F
         }
 
         if(arqTxt == NULL){
-            printf("Erro ao acessar o arquivo .txt");
+            printf("Erro ao acessar o arquivo .txt ");
             exit(1);
         }else{
             fprintf(arqTxt, "%s", linha);
@@ -34,6 +27,8 @@ void lerQry(FILE* arqQry, Fila filaFormas, FILE* arqTxt, Fila filaDisparadores,F
             double x,y;
             int idDis;
             sscanf(linha, "pd %i %lf %lf",&idDis, &x, &y);
+            criarDisparador(idDis,x,y,NULL,NULL);
+
             Disparador d = encontrarDisparadorPorID(filaDisparadores, idDis);
             setPosicaoDisparador(d,x,y);
         }else if(strcmp(comando, "lc") == 0){
@@ -42,7 +37,7 @@ void lerQry(FILE* arqQry, Fila filaFormas, FILE* arqTxt, Fila filaDisparadores,F
             int idCar; //id do carregador
             sscanf(linha, "lc %i %i", &idCar, &n);
             Pilha p = encontrarPilhaPorID(filaCarregadores, idCar);
-            carregarPilhaPelaFila(p, filaFormas, n);
+            carregarPilhaPelaFila(p, chao, n);
             escreverConteudoPilha(arqTxt, p);
         }else if(strcmp(comando, "atch") == 0){
             //encaixa no disparador d os carregadores cesq(na esquerda) e cdir(na direita)
@@ -64,7 +59,7 @@ void lerQry(FILE* arqQry, Fila filaFormas, FILE* arqTxt, Fila filaDisparadores,F
                 Pilha pDir = encontrarPilhaPorID(filaCarregadores, idDir);
 
                 pressionaBotao(d,lado,n,pEsq,pDir);
-                comandoShft(arqTxt, idDis, filaDisparadores, filaCarregadores);
+                comandoShft(arqTxt, idDis, filaDisparadores);
             }
         }else if(strcmp(comando, "dsp") == 0){
             //posiciona a forma que está em posição de disparo a um deslocamento de dx, dy em relação à posição do disparador
@@ -80,13 +75,13 @@ void lerQry(FILE* arqQry, Fila filaFormas, FILE* arqTxt, Fila filaDisparadores,F
         }else if(strcmp(comando, "rjd") == 0){
             //rajada de disparos até as formas do carregador se esgotarem
             char car;
-            int idDis,idEsq, idDir;
+            int idDis, idEsq, idDir;
             double dx, dy, ix, iy;
             sscanf(linha, "rjd %i %c %lf %lf %lf %lf", &idDis,&car,&dx,&dy,&ix,&iy);
 
             Disparador d = encontrarDisparadorPorID(filaDisparadores, idDis);
-            int idEsq = getIDPilhaEsquerda(d);
-            int idDir = getIDPilhaDireita(d);
+            idEsq = getIDPilhaEsquerda(d);
+            idDir = getIDPilhaDireita(d);
 
             Pilha pEsq = encontrarPilhaPorID(filaCarregadores, idEsq);
             Pilha pDir = encontrarPilhaPorID(filaCarregadores, idDir);
@@ -123,6 +118,7 @@ void lerQry(FILE* arqQry, Fila filaFormas, FILE* arqTxt, Fila filaDisparadores,F
 
         }else if(strcmp(comando, "calc") == 0){
             //processa as figuras da arena conforme descrito anteriormente em um novo arqSVg
+            comandoCalc(arqTxt,chao);
             
         }
     }

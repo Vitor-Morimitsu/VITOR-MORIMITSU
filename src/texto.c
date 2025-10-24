@@ -1,14 +1,9 @@
-#include <stdio.h>
-#include <stdlib.h>
-#include <string.h>
 #include "texto.h"
-
 typedef struct stEstilo{
     char* fFamily;
     char* fWeight;
     char* fSize;
 } stEstilo;
-
 typedef struct stTexto{
     int i;
     double x, y;
@@ -55,11 +50,11 @@ int getIDTexto(Texto t){
     return((stTexto*)t)->i;
 }
 
-double getXTexto(Texto t){
+double getCoordXTexto(Texto t){
     return((stTexto*)t)->x;
 }
 
-double getYTexto(Texto t){
+double getCoordYTexto(Texto t){
     return((stTexto*)t)->y;
 }
 
@@ -113,13 +108,23 @@ void setCorBTexto(Texto t, char* corb){
 void setCorPTexto(Texto t, char* corp){
     ((stTexto*)t)->corp = corp;
 }
-
-void setATexto(Texto t, char a){
-    ((stTexto*)t)->a = a;
+ 
+void setATexto(Texto t, char anc){
+    ((stTexto*)t)->a = anc;
 }
 
 void setTxtoTexto(Texto t, char* txto){
     ((stTexto*)t)->txto = txto;
+}
+
+void liberaTexto(Texto t){
+    if(t == NULL) return;
+    stTexto* texto = (stTexto*)t;
+    free(texto->corb);
+    free(texto->corp);
+    free(texto->ts);
+    free(texto->txto);
+    free(texto);
 }
 // FUNÇÕES DE ESTILO
 Estilo criarEstilo(char* fFamily, char* fWeight, char*fSize){

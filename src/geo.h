@@ -5,7 +5,7 @@
 #include <stdlib.h>
 #include <string.h>
 #include "formas.h"
-#include "chao.h"
+#include "circulo.h"
 #include "fila.h"
 
 /*
@@ -16,6 +16,6 @@ typedef void* Forma;
 /// @param arqGeo Arquivo .geo fornecido pelo professor
 /// @param arqSVG Arquivo .svg para a criação de formas fornecidas pelo .geo
 /// @param quantidade Conta quantas formas serão fornecidas pelo .geo
-void lerGeo(FILE* arqGeo, FILE* arqSVG,Fila f);
+void lerGeo(FILE* arqGeo,Fila chao, FILE* arqSvgEntrada);
 
 #endif

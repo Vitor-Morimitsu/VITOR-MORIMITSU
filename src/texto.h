@@ -1,9 +1,9 @@
 #ifndef TEXTO_H
 #define TEXTO_H
 
-#include "stdio.h"
-#include "stdlib.h"
-#include "string.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 /*
     Este arquivo se refere à forma texto e suas respectivas características e propriedades úteis ao primeiro trabalho de estrutura de dados I.
@@ -28,6 +28,7 @@ typedef void* Estilo;
 /// @param corb Cor da borda
 /// @param corp Cor de preenchimento 
 /// @param a Posição da âncora do texto (inicio, meio, fim)
+
 /// @param txto Texto
 /// @param ts Estilo do texto
 /// @return Retorna o texto criado
@@ -111,12 +112,16 @@ void setCorPTexto(Texto t, char* corp);
 /// @brief Define a posição da âncora do texto
 /// @param t Texto
 /// @param a Nova posição da ancora
-void setATexto(Texto t, char* a);
+void setATexto(Texto t, char anc);
 
 /// @brief Define o texto
 /// @param t Texto
 /// @param txto Novo texto
 void setTxtoTexto(Texto t, char* txto);
+
+/// @brief Libera um texto
+/// @param t Texto
+void liberaTexto(Texto t);
 
 // ---------------- FUNÇÕES DE ESTILO ----------------- //
 /// @brief Cria e retorna um estilo de texto

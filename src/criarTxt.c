@@ -1,14 +1,4 @@
 #include "criarTxt.h"
-#include "stdio.h"
-#include "stdlib.h"
-#include "pilha.h"
-#include "formas.h"
-#include "circulo.h"
-#include "retangulo.h"
-#include "linha.h"
-#include "texto.h"
-#include "disparador.h"
-#include "buscas.h"
 
 void escreverConteudoPilha(FILE* arqTxt, Pilha p){
     if(p == NULL || arqTxt == NULL){
@@ -16,10 +6,10 @@ void escreverConteudoPilha(FILE* arqTxt, Pilha p){
         exit(1);
     }
 
-    No_t atual = getNoTopo(p);  
+    No_t atual = getNoTopoPilha(p);  
 
     while(atual != NULL){
-        Conteudo cont = getConteudoDoNo(atual);
+        Conteudo cont = getConteudoDoNoPilha(atual);
         if(cont != NULL){
             char tipo = getTipoForma(cont);
             
@@ -65,11 +55,11 @@ void escreverConteudoPilha(FILE* arqTxt, Pilha p){
                 fprintf(arqTxt, "t id:%d x:%lf y:%lf corb:%s corp:%s ancora:%c texto:%s family:%s weight:%s size:%s\n",id,x,y,corb,corp,a,txto,fFamily,fWeight,fSize);
             }
         }
-        atual = getProximoNo(atual);
+        atual = getProximoNoPilha(atual);
     }
 }
 
-void comandoShft(FILE* arqTxt,int idDis, Fila filaDisparadores, Fila filaCarregadores){
+void comandoShft(FILE* arqTxt,int idDis, Fila filaDisparadores){
     if(arqTxt == NULL){
         printf("Erro ao abrir o arquivo txt.");
         exit(1);
@@ -168,7 +158,7 @@ void comandoRjd(FILE* arqTxt, Fila filaDisparadores, int idDis,Fila filaCarregad
     Pilha pDir = encontrarPilhaPorID(filaCarregadores, idDir);
     
     if (pEsq == NULL || pDir == NULL) {
-        printf(arqTxt, "Pilhas para o disparador não encontradas.\n");
+        printf("Pilhas para o disparador não encontradas.\n");
         return;
     }
     
@@ -209,48 +199,221 @@ void comandoRjd(FILE* arqTxt, Fila filaDisparadores, int idDis,Fila filaCarregad
     }
 }
 
-void comandoCalc(FILE* arqTxt, Fila chao, Fila formas){
-    if(arqTxt == NULL || chao == NULL || formas == NULL){
+void comandoCalc(FILE* arqTxt, Fila chao){
+    if(arqTxt == NULL || chao == NULL ){
         printf("Erro ao realizar o comando calc.");
         return;
     }
-    int n = 0;
-    int quantidade = getTamanhoFila(formas);
+    
+    int quantidade = getTamanhoFila(chao);
 
     // ver a posição de cada forma e ver se elas se sobrepõem
-    while(n != quantidade){
-        Forma f1 = percorreFila(formas,n);
-        Forma f2 = percorreFila(formas, n+1);
+    double area_esmagada_total = 0;
+    for(int i  = 0;i< quantidade;i++){
+        Forma f1 = percorreFila(chao,i);
+        char tipo_f1 = getTipoForma(f1);
 
-        double xf1 = getXForma(f1);
-        double yf1 = getYForma(f1);
+        int confirmacao = -1;
+        double area_esmagada_round = 0;
+ 
+        for(int j = 0;j< quantidade - 1;j++){
+            Forma f2 = percorreFila(chao, j);
+            char tipo_f2 = getTipoForma(f2);
+            if(tipo_f1 == 'c'){
+                if(tipo_f2 == 'c'){
+                    confirmacao = circuloSobrepoeCirculo(f1,f2);
+                    if(confirmacao == 1){
+                        double area_f1 = getAreaCirculo((Circulo*)f1);
+                        double area_f2 = getAreaCirculo((Circulo*)f2);
+                        if(area_f1 < area_f2){
+                            area_esmagada_round += area_f1;
+                        }else{
+                            area_esmagada_round += area_f2;
+                        }   
+                    }
+                }else if(tipo_f2 == 'r'){
+                    confirmacao = circuloSobrepoeRetangulo(f1,f2);
+                    if(confirmacao == 1){
+                        double area_f1 = getAreaCirculo((Circulo*)f1);;
+                        double area_f2 = getAreaRetangulo((Retangulo*)f2);
+                        if(area_f1 < area_f2){
+                            area_esmagada_round += area_f1;
+                        }else{
+                            area_esmagada_round += area_f2;
+                        }  
+                    }
+                }else if(tipo_f2 == 'l'){
+                    confirmacao = circuloSobrepoeLinha(f1,f2);
+                    if(confirmacao == 1){
+                        double area_f1 = getAreaCirculo((Circulo*)f1);;
+                        double area_f2 = getAreaLinha((Linha*)f2);
+                        if(area_f1 < area_f2){
+                            area_esmagada_round += area_f1;
+                        }else{
+                            area_esmagada_round += area_f2;
+                        }     
+                    }
+                }else if(tipo_f2 == 't'){
+                    confirmacao = circuloSobrepoeTexto(f1,f2);
+                    if(confirmacao == 1){
+                        double area_f1 = getAreaCirculo((Circulo*)f1);;
+                        double area_f2 = getAreaTexto((Texto*)f2);
+                        if(area_f1 < area_f2){
+                            area_esmagada_round += area_f1;
+                        }else{
+                            area_esmagada_round += area_f2;
+                        }     
+                    }
+                }
 
-        double xf2 = getXForma(f2);
-        double yf2 = getYForma(f2);
+            }else if(tipo_f1 == 'r'){
+                if(tipo_f2 == 'c'){
+                    confirmacao = circuloSobrepoeRetangulo(f2,f1);
+                    if(confirmacao == 1){
+                        double area_f1 = getAreaRetangulo((Retangulo*)f1);
+                        double area_f2 = getAreaCirculo((Circulo*)f2);
+                        if(area_f1 < area_f2){
+                            area_esmagada_round += area_f1;
+                        }else{
+                            area_esmagada_round += area_f2;
+                        }     
+                    }
+                }else if(tipo_f2 == 'r'){
+                    confirmacao = retanguloSobrepoeRetangulo(f1,f2);
+                    if(confirmacao == 1){
+                        double area_f1 = getAreaRetangulo((Retangulo*)f1);
+                        double area_f2 = getAreaRetangulo((Retangulo*)f2);
+                        if(area_f1 < area_f2){
+                            area_esmagada_round += area_f1;
+                        }else{
+                            area_esmagada_round += area_f2;
+                        }     
+                    }
+                }else if(tipo_f2 == 'l'){
+                    confirmacao = retanguloSobrepoeLinha(f1,f2);
+                    if(confirmacao == 1){
+                        double area_f1 = getAreaRetangulo((Retangulo*)f1);
+                        double area_f2 = getAreaLinha((Linha*)f2);
+                        if(area_f1 < area_f2){
+                            area_esmagada_round += area_f1;
+                        }else{
+                            area_esmagada_round += area_f2;
+                        }     
+                    }
+                }else if(tipo_f2 == 't'){
+                    confirmacao = retanguloSobrepoeTexto(f1,f2);
+                    if(confirmacao == 1){
+                        double area_f1 = getAreaRetangulo((Retangulo*)f1);
+                        double area_f2 = getAreaTexto((Texto*)f2);
+                        if(area_f1 < area_f2){
+                            area_esmagada_round += area_f1;
+                        }else{
+                            area_esmagada_round += area_f2;
+                        }     
+                    }
+                }
 
-        double areaf1, areaf2;
+            }else if(tipo_f1 == 'l'){
+                if(tipo_f2 == 'c'){
+                    confirmacao = circuloSobrepoeLinha(f2,f1);
+                    if(confirmacao == 1){
+                        double area_f1 = getAreaLinha((Linha*)f1);
+                        double area_f2 = getAreaCirculo((Circulo*)f2);
+                        if(area_f1 < area_f2){
+                            area_esmagada_round += area_f1;
+                        }else{
+                            area_esmagada_round += area_f2;
+                        }     
+                    }
+                }else if(tipo_f2 == 'r'){
+                    confirmacao = retanguloSobrepoeLinha(f2,f1);
+                    if(confirmacao == 1){
+                        double area_f1 = getAreaLinha((Linha*)f1);;
+                        double area_f2 = getAreaRetangulo((Retangulo*)f2);
+                        if(area_f1 < area_f2){
+                            area_esmagada_round += area_f1;
+                        }else{
+                            area_esmagada_round += area_f2;
+                        }     
+                    }
+                }else if(tipo_f2 == 'l'){
+                    confirmacao = linhaSobrepoeLinha(f1,f2);
+                    if(confirmacao == 1){
+                        double area_f1 = getAreaLinha((Linha*)f1);
+                        double area_f2 = getAreaLinha((Linha*)f2);
+                        if(area_f1 < area_f2){
+                            area_esmagada_round += area_f1;
+                        }else{
+                            area_esmagada_round += area_f2;
+                        }     
+                    }
+                }else if(tipo_f2 == 't'){
+                    confirmacao = linhaSobrepoeTexto(f1,f2);
+                    if(confirmacao == 1){
+                        double area_f1 = getAreaLinha((Linha*)f1);
+                        double area_f2 = getAreaTexto((Texto*)f2);
+                        if(area_f1 < area_f2){
+                            area_esmagada_round += area_f1;
+                        }else{
+                            area_esmagada_round += area_f2;
+                        }     
+                    }
+                }
 
-        if(xf1 == xf2 || yf1 == yf2){//as formas se sobrepõe em pelo menos uma coordenada
-            char tf1 = getTipoForma(f1);
-            if(tf1 == 'c'){//círculo
-                areaf1 = getAreaCirculo((Circulo*)f1);
-            }else if(tf1 == 'r'){// retangulo
-                areaf1 = getAreaRetangulo((Retangulo*)f1);
-            }else if(tf1 == 'l'){// linha
-                double x1 = getX1Linha((Linha*)f1);
-                double y1 = getY1Linha((Linha*)f1);
-                double x2 = getX2Linha((Linha*)f1);
-                double y2 = getY2Linha((Linha*)f1);
-                areaf1 = getAreaLinha((Linha*)f1,x1,y1,x2,y2);
-            }else if(tf1 == 't'){//texto
-                areaf1 = getAreaTexto((Texto*)f1);
+            }else if(tipo_f1 == 't'){
+                if(tipo_f2 == 'c'){
+                    confirmacao = circuloSobrepoeTexto(f2,f1);
+                    if(confirmacao == 1){
+                        double area_f1 = getAreaTexto((Texto*)f1);
+                        double area_f2 = getAreaCirculo((Circulo*)f2);
+                        if(area_f1 < area_f2){
+                            area_esmagada_round += area_f1;
+                        }else{
+                            area_esmagada_round += area_f2;
+                        }     
+                    }
+                }else if(tipo_f2 == 'r'){
+                    confirmacao = retanguloSobrepoeTexto(f2,f1);
+                    if(confirmacao == 1){
+                        double area_f1 = getAreaTexto((Texto*)f1);
+                        double area_f2 = getAreaRetangulo((Retangulo*)f2);
+                        if(area_f1 < area_f2){
+                            area_esmagada_round += area_f1;
+                        }else{
+                            area_esmagada_round += area_f2;
+                        }     
+                    }
+                }else if(tipo_f2 == 'l'){
+                    confirmacao = linhaSobrepoeTexto(f2,f1);
+                    if(confirmacao == 1){
+                        double area_f1 = getAreaTexto((Texto*)f1);
+                        double area_f2 = getAreaLinha((Linha*)f2);
+                        if(area_f1 < area_f2){
+                            area_esmagada_round += area_f1;
+                        }else{
+                            area_esmagada_round += area_f2;
+                        }     
+                    }
+                }else if(tipo_f2 == 't'){
+                    confirmacao = textoSobrepoeTexto(f1,f2);
+                    if(confirmacao == 1){
+                        double area_f1 = getAreaTexto((Texto*)f1);
+                        double area_f2 = getAreaTexto((Texto*)f2);
+                        if(area_f1 < area_f2){
+                            area_esmagada_round += area_f1;
+                        }else{
+                            area_esmagada_round += area_f2;
+                        }     
+                    }
+                }
+
             }
-            char tf2 = getTipoForma(f2);
+            fprintf(arqTxt, "Área esmagada do round: %lf.\n", area_esmagada_round);
+
         }
-    }
-
-    //se sobrepor: calcular a área da figura esmagada e salvar em uma nova fila p depois somar tudo
-
-
+        area_esmagada_total += area_esmagada_round; 
+        
+    } 
+    fprintf(arqTxt,"Área total esmagada: %lf.\n", area_esmagada_total);
 }
 

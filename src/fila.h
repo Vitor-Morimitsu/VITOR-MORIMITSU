@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "disparador.h"
 
 /*
     Arquivo .h criado com o intuito de criar uma fila no primeiro trabalho de estrutura de dados.
@@ -20,7 +21,12 @@ Fila criarFila();
 /// @brief Insere um elemento na fila
 /// @param f Fila
 /// @param form Forma a ser inserida
-void insereFila(Fila f, Forma form, char type);
+void insereFila(Fila f, void* Conteudo, char type);
+
+/// @brief Insere um disparador na fila de disparadores
+/// @param FilaDisparadores Fila de disparadores
+/// @param d Disparador a ser inserido
+void insereFilaDisparadores(Fila FilaDisparadores, void* d);
 
 /// @brief Remove o primeiro elemento da fila
 /// @param f Fila
@@ -37,22 +43,22 @@ void liberarFila(Fila f);
 /// @brief Retorna o primeiro nó da fila para iniciar uma iteração.
 /// @param f A fila.
 /// @return O primeiro nó (como um No_t), ou NULL se a fila estiver vazia.
-No_t getPrimeiroNo(Fila f);
+No_t getPrimeiroNoFila(Fila f);
 
 /// @brief Dado um nó, retorna o próximo nó na sequência da fila.
 /// @param no O nó atual (um No_t).
 /// @return O nó seguinte, ou NULL se for o último.
-No_t getProximoNo(No_t no);
+No_t getProximoNoFila(No_t no);
 
 /// @brief Retorna a Forma (o dado) armazenada dentro de um nó.
 /// @param no O nó (um No_t).
 /// @return A Forma contida no nó.
-Forma getConteudoDoNo(No_t no);
+Forma getConteudoDoNoFila(No_t no);
 
 /// @brief Retorna o tipo (char) da Forma armazenada dentro de um nó.
 /// @param no O nó (um No_t).
 /// @return O caractere de tipo da Forma.
-char getTipoDoNo(No_t no);
+char getTipoDoNoFila(No_t no);
 
 /// @brief Retorna o tamanho da fila
 /// @param f Fila
@@ -65,4 +71,11 @@ int getTamanhoFila(Fila f);
 /// @return Forma presente na posição desejada
 Forma percorreFila(Fila f, int posicao);
 
-#endif;
+/// @brief Libera todas as filas criadas
+/// @param formas Fila que contém todas as formas
+/// @param disparadores Fila que contém todos os disparadores
+/// @param carregadores Fila que contém todos os carregadores
+/// @param arena Libera a fila da arena
+void liberarTudo(Fila formas, Fila disparadores, Fila carregadores, Fila arena);
+
+#endif

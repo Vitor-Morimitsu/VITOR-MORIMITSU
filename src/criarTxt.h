@@ -1,8 +1,9 @@
 #ifndef CRIARTXT_H
 #define CRIARTXT_H
 
-#include "stdio.h"
-#include "stdlib.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include "colisoes.h"
 #include "pilha.h"
 #include "formas.h"
 #include "circulo.h"
@@ -23,7 +24,7 @@ void escreverConteudoPilha(FILE* arqTxt, Pilha p);
 
 /// @brief Reportar os dados da figura que resultou ficar no ponto de disparo
 /// @param arqTxt Arquivo destino
-void comandoShft(FILE* arqTxt, int idDis,Fila filaDisparadores, Fila filaCarregadores);
+void comandoShft(FILE* arqTxt, int idDis,Fila filaDisparadores);
 
 /// @brief Reportar os dados da forma disparada e a posição final da forma
 /// @param arqTxt Arquivo destino
@@ -35,6 +36,6 @@ void comandoRjd(FILE* arqTxt, Fila filaDisparadores, int idDis,Fila filaCarregad
 
 /// @brief Reportar o resultado de cada verificação; área total esmagada no round e a área total esmagada
 /// @param arqTxt Arquivo destino
-void comandoCalc(FILE* arqTxt,Fila chao, Fila formas);
+void comandoCalc(FILE* arqTxt,Fila chao);
 
 #endif
