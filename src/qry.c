@@ -27,10 +27,14 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
             double x,y;
             int idDis;
             sscanf(linha, "pd %i %lf %lf",&idDis, &x, &y);
-            criarDisparador(idDis,x,y,NULL,NULL);
-
-            Disparador d = encontrarDisparadorPorID(filaDisparadores, idDis);
+            Disparador d = criarDisparador(idDis,x,y,NULL,NULL);
+            
+            insereFilaDisparadores(filaDisparadores, d);
+            
+            encontrarDisparadorPorID(filaDisparadores, idDis);
+            printf("Disparador encontrado.\n");
             setPosicaoDisparador(d,x,y);
+            
         }else if(strcmp(comando, "lc") == 0){
             //Coloca no carregador c as primeiras n formas que estão no chão
             int n;

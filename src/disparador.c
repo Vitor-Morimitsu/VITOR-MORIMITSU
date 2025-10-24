@@ -1,4 +1,7 @@
 #include "disparador.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 
 typedef struct disparador{
     int i;
@@ -11,7 +14,7 @@ typedef struct disparador{
 Disparador criarDisparador(int i, double x, double y,int idEsquerdo, int idDireito){
     stDisparador* d = (stDisparador*)malloc(sizeof(stDisparador));
     if(d == NULL){
-        printf("Erro ao alocar memória para o disparador");
+        printf("Erro ao alocar memória para o novo disparador.");
         return NULL;
     }
 
@@ -51,6 +54,30 @@ double getXDisparador(Disparador d){
 
     stDisparador* ds = (stDisparador*)d;
     return ds->x;
+}
+
+void carregarPilhaPelaFila(Pilha p, Fila f, int n){
+    if(p == NULL){
+        printf("Erro ao acessar a pilha para receber as fomras da fila.");
+        exit(1);
+    }
+    if(f == NULL){
+        printf("Erro ao acessar a fila para passar as formas para pilha.");
+        exit(2);
+    }
+    if(n <= 0){
+        return;
+    }
+    
+    No_t noFila = getPrimeiroNoFila(f);
+
+    for(int i = 0; i<n && noFila != NULL;i++){
+        void* conteudoInserir = getConteudoDoNoFila(noFila);
+
+        inserirPilha(p,conteudoInserir);
+
+        noFila = getProximoNoFila(noFila);
+    }
 }
 
 double getYDisparador(Disparador d){
@@ -104,6 +131,7 @@ void setPosicaoDisparador(Disparador d, double x, double y){
         printf("Erro ao posicionar o disparador.");
         exit(1);
     }
+    printf("Disparador posicionado\n");
     stDisparador* ds = (stDisparador*)d;
     ds->x = x;
     ds->y = y;

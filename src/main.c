@@ -77,6 +77,8 @@ int main(int argc, char* argv[])
     Fila filaPilhas = criarFila();
 
     arqGeo = fopen(fullPathGeo, "r");
+    printf("%s", fullPathGeo);
+
     if(arqGeo == NULL){
         printf("Nâo foi possível abrir o arquivo geo no main.");
         liberarTudo(filaDisparadores, filaPilhas,chao);
@@ -95,14 +97,17 @@ int main(int argc, char* argv[])
     
     fclose(arqGeo);
     fclose(arqSvgEntrada);
+    printf("\nPassou leitura geo\n"); 
 
     if (strlen(nomeArquivoQry) > 0) {
+        printf("entrou no loop\n");
         FILE* arqQry = fopen(fullPathQry, "r");
         if (arqQry == NULL) {
             printf("Falha ao abrir arquivo qry no main.");
             liberarTudo(filaDisparadores, filaPilhas,chao);
             return 1;
         }
+        printf("abriu arquivo qry.\n");
 
         FILE* arqTxt = fopen(arquivoSaidaTxt, "w");
         if(arqTxt == NULL){
@@ -111,8 +116,10 @@ int main(int argc, char* argv[])
             liberarTudo(filaDisparadores, filaPilhas,chao);
             return 1;
         }
-
+        // printarFilaTxt(chao, arqTxt);
+        printf("Printou a fila\n");
         lerQry(arqQry,arqTxt,filaDisparadores,filaPilhas,chao);
+        printf("Passou a leitura do qry\n");
         
         fclose(arqQry);
         fclose(arqTxt);
@@ -122,7 +129,7 @@ int main(int argc, char* argv[])
         if(arqTxt == NULL){
             printf("Erro ao abrir aqruivo txt para leitura");
            
-            liberarTudo(filaFormas,filaDisparadores, filaPilhas,chao);
+            liberarTudo(filaDisparadores, filaPilhas,chao);
             return 1;
         }
 
@@ -131,7 +138,7 @@ int main(int argc, char* argv[])
         if(arqSvgSaida == NULL){
             printf("Erro ao abrir svg de saida\n");
             fclose(arqTxt);
-            liberarTudo(filaFormas, chao, filaDisparadores, filaPilhas);
+            liberarTudo(chao, filaDisparadores, filaPilhas);
             return 1;
         }
 
@@ -141,7 +148,7 @@ int main(int argc, char* argv[])
         fclose(arqSvgSaida);
     }
     
-    liberarTudo(filaFormas, chao, filaDisparadores, filaPilhas);
+    liberarTudo(chao, filaDisparadores, filaPilhas);
 
     return 0; 
 
