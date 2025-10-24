@@ -12,7 +12,7 @@ typedef void* Forma;
 
 #define MAX_SIZE 200
 
-void lerGeo(FILE* arqGeo, Fila f){ 
+void lerGeo(FILE* arqGeo, Fila f, FILE* arqSvgEntrada){ 
     if(arqGeo == NULL){
         printf("Arquivo .geo não encontrado");
         exit(1);
@@ -28,6 +28,8 @@ void lerGeo(FILE* arqGeo, Fila f){
 
         sscanf(linha, "%c", &tipoForma);
 
+        abrirSvg(arqSvgEntrada);
+
         Forma novaForma = NULL;
 
         if (tipoForma == 'c') {
@@ -36,6 +38,7 @@ void lerGeo(FILE* arqGeo, Fila f){
             char corb[32], corp[32];
             sscanf(linha, "c %d %lf %lf %lf %s %s", &i, &x, &y, &r, corb, corp);
             novaForma = criaCirculoForma(i, 'c',x, y, r, corb, corp);
+            desenharCirculoSVG(arqSvgEntrada, novaForma);
             insereFila(f, novaForma, 'c');
         } else if (tipoForma == 'r') {
             int i;
@@ -43,6 +46,7 @@ void lerGeo(FILE* arqGeo, Fila f){
             char corb[32], corp[32];
             sscanf(linha, "r %d %lf %lf %lf %lf %s %s", &i, &x, &y, &w, &h, corb, corp);
             novaForma = criaRetanguloForma(i,'r', x, y, w, h, corb, corp);
+            desenharRetanguloSVG(arqSvgEntrada,novaForma);
             insereFila(f, novaForma, 'r');
 
         } else if (tipoForma == 'l'){
@@ -51,6 +55,7 @@ void lerGeo(FILE* arqGeo, Fila f){
             char cor[32];
             sscanf(linha, "l %d %lf %lf %lf %lf %s", &i, &x1, &y1, &x2, &y2, cor);
             novaForma = criaLinhaForma(i,'l', x1,y1,x2,y2,cor);
+            desenharLinhaSVG(arqSvgEntrada, novaForma);
             insereFila(f,novaForma,'l');
 
         } else if( tipoForma == 't'){
@@ -62,8 +67,11 @@ void lerGeo(FILE* arqGeo, Fila f){
             char a;
             sscanf(linha, "t %d %lf %lf %s %s %c %s", &i, &x, &y, corb, corp, &a, texto);
             novaForma = criaTextoForma(i,'t',x,y,corb,corp,a,texto,NULL);
+            desenharTextoSVG(arqSvgEntrada, novaForma);
             insereFila(f, novaForma, 't');
         }
     }
+
+    fecharSvg(arqSvgEntrada);
     
 }

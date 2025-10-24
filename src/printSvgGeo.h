@@ -3,7 +3,9 @@
 
 #include "formas.h"
 #include "geo.h"
-#include "stdio.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "fila.h"
 
 /*
@@ -35,7 +37,7 @@ void desenharLinhaSVG(FILE* arqSvg, Forma f);
 void desenharTextoSVG(FILE* arqSvg, Forma f);
 
 /*
-    Função responsável por fechar um arquivo Svg.
-*/
-void fecharSvg(FILE* arqSvg);
+    Função responsável por gerar um arquivo Svg com base no arquivo txt lido
+*/ 
+void gerarSvgSaida(FILE* arqTxt, FILE* arqSvg);
 #endif

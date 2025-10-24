@@ -28,6 +28,7 @@ typedef void* Estilo;
 /// @param corb Cor da borda
 /// @param corp Cor de preenchimento 
 /// @param a Posição da âncora do texto (inicio, meio, fim)
+
 /// @param txto Texto
 /// @param ts Estilo do texto
 /// @return Retorna o texto criado
