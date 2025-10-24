@@ -1,3 +1,5 @@
+#include <stdio.h>
+#include <stdlib.h>
 #include "circulo.h"
 #include "retangulo.h"
 #include "disparador.h"
@@ -76,36 +78,71 @@ int main(int argc, char* argv[])
     Fila filaPilhas = criarFila();
 
     arqGeo = fopen(fullPathGeo, "r");
-
-    FILE* arqTxt = NULL;
-
     if(arqGeo == NULL){
         printf("Nâo foi possível abrir o arquivo geo");
-        liberarFila(filaFormas);
+        liberarTudo(filaFormas,filaDisparadores, filaPilhas,chao);
+        return 1;
     }
 
-    lerGeo(arqGeo,filaFormas);
+    FILE* arqSvgEntrada = fopen(arquivoSaidaSvgGeo, "w");
+    if(arqSvgEntrada == NULL){
+        printf("Erro ao abrir arquivo Svg de entrada.");
+        fclose(arqGeo);
+        liberarTudo(filaFormas,filaDisparadores, filaPilhas,chao);
+        return 1;
+    }
+    
+    lerGeo(arqGeo,filaFormas,arqSvgEntrada);
+    
     fclose(arqGeo);
+    fclose(arqSvgEntrada);
 
     if (strlen(nomeArquivoQry) > 0) {
         FILE* arqQry = fopen(fullPathQry, "r");
         if (arqQry == NULL) {
             printf("Falha ao abrir arquivo qry.");
+            liberarTudo(filaFormas,filaDisparadores, filaPilhas,chao);
+            return 1;
         }
+
+        FILE* arqTxt = fopen(arquivoSaidaTxt, "w");
+        if(arqTxt == NULL){
+            printf("Erro ao abrir txt para escrita.");
+            fclose(arqQry);
+            liberarTudo(filaFormas,filaDisparadores, filaPilhas,chao);
+            return 1;
+        }
+
         lerQry(arqQry,filaFormas,arqTxt,filaDisparadores,filaPilhas,chao);
+        
         fclose(arqQry);
+        fclose(arqTxt);
+        
+        //reabrir txt para leitura 
+        arqTxt = fopen(arquivoSaidaTxt,"r");
+        if(arqTxt == NULL){
+            printf("Erro ao abrir aqruivo txt para leitura");
+           
+            liberarTudo(filaFormas,filaDisparadores, filaPilhas,chao);
+            return 1;
+        }
+
+        //abrir svg de saida
+        FILE* arqSvgSaida = fopen(arquivoSaidaSvgQry, "w"); 
+        if(arqSvgSaida == NULL){
+            printf("Erro ao abrir svg de saida\n");
+            fclose(arqTxt);
+            liberarTudo(filaFormas, chao, filaDisparadores, filaPilhas);
+            return 1;
+        }
+
+        gerarSvgSaida(arqTxt, arqSvgSaida);   
+        
+        fclose(arqTxt);
+        fclose(arqSvgSaida);
     }
     
-    printf("Gerando SVG de saida: %s\n", arquivoSaidaSvgGeo);
-    
-    // --- LIMPEZA FINAL ---
-    printf("Limpando memoria...\n");
-    // (Você precisa de uma função para liberar os dados DENTRO da fila)
-    // destruirFilaComDados(listaFormas, freeForma); 
-    destruirFila(filaFormas);
-    // destruirFila(chao);
-    // destruirFila(listaDisparadores);
-    // destruirFila(listaPilhas);
+    liberarTudo(filaFormas, chao, filaDisparadores, filaPilhas);
 
     return 0; 
 

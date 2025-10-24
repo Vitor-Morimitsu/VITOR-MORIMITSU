@@ -40,4 +40,8 @@ void desenharTextoSVG(FILE* arqSvg, Forma f);
     Função responsável por gerar um arquivo Svg com base no arquivo txt lido
 */ 
 void gerarSvgSaida(FILE* arqTxt, FILE* arqSvg);
+
+/// @brief Realiza o comando de encerramento do arquivo svg
+/// @param arqSvg Arquivo
+void fecharSVG(FILE* arqSvg);
 #endif

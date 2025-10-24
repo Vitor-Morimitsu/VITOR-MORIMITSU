@@ -65,4 +65,11 @@ int getTamanhoFila(Fila f);
 /// @return Forma presente na posição desejada
 Forma percorreFila(Fila f, int posicao);
 
+/// @brief Libera todas as filas criadas
+/// @param formas Fila que contém todas as formas
+/// @param disparadores Fila que contém todos os disparadores
+/// @param carregadores Fila que contém todos os carregadores
+/// @param arena Libera a fila da arena
+void liberarTudo(Fila formas, Fila disparadores, Fila carregadores, Fila arena);
+
 #endif

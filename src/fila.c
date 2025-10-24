@@ -149,3 +149,10 @@ Forma percorreFila(Fila f, int posicao){
 
     return NULL;
 }
+
+void liberarTudo(Fila formas, Fila disparadores, Fila carregadores, Fila arena){
+    liberarFila(formas);
+    liberarFila(disparadores);
+    liberarFila(carregadores);
+    liberarFila(arena);
+}

@@ -20,6 +20,8 @@ void lerGeo(FILE* arqGeo, Fila f, FILE* arqSvgEntrada){
 
     char linha[MAX_SIZE];
     char tipoForma;
+    
+    abrirSvg(arqSvgEntrada);
 
     while(fgets(linha, sizeof(linha), arqGeo) != NULL){
         if(linha[0] == '\n' || linha[0] == '#'){
@@ -28,7 +30,6 @@ void lerGeo(FILE* arqGeo, Fila f, FILE* arqSvgEntrada){
 
         sscanf(linha, "%c", &tipoForma);
 
-        abrirSvg(arqSvgEntrada);
 
         Forma novaForma = NULL;
 
@@ -70,8 +71,5 @@ void lerGeo(FILE* arqGeo, Fila f, FILE* arqSvgEntrada){
             desenharTextoSVG(arqSvgEntrada, novaForma);
             insereFila(f, novaForma, 't');
         }
-    }
-
-    fecharSvg(arqSvgEntrada);
-    
+    }    
 }
