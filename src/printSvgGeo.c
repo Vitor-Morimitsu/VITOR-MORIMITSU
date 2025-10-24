@@ -103,5 +103,5 @@ void gerarSvgSaida(FILE* arqTxt, FILE* arqSvgSaida){
         free(forma);
 
     }
-    fecharSvg(arqSvgSaida);
+    fecharSVG(arqSvgSaida);
 }
