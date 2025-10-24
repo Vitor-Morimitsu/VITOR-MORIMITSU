@@ -26,7 +26,7 @@ void insereFila(Fila f, void* Conteudo, char type);
 /// @brief Insere um disparador na fila de disparadores
 /// @param FilaDisparadores Fila de disparadores
 /// @param d Disparador a ser inserido
-void insereFilaDisparadores(Fila FilaDisparadores, Disparador d);
+void insereFilaDisparadores(Fila FilaDisparadores, void* d);
 
 /// @brief Remove o primeiro elemento da fila
 /// @param f Fila

@@ -49,7 +49,7 @@ void insereFila(Fila f,void* conteudo, char type) {
     fila->tamanho++;
 }
 
-void insereFilaDisparadores(Fila FilaDisparadores, Disparador d){
+void insereFilaDisparadores(Fila FilaDisparadores, void* d){
     if(FilaDisparadores == NULL || d == NULL){
         printf("Erro ao acessar ao inserir um disparador na fila de disparadores.");
         exit(1);

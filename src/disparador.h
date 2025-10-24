@@ -13,6 +13,7 @@
 typedef void* Disparador;
 typedef void* Pilha;
 typedef void* Celula;
+typedef void* Conteudo;
 
 /// @brief Cria e retorna o disparador
 /// @param i Identificador do disparador

@@ -57,12 +57,12 @@ NoPilha_t getNoTopoPilha(Pilha p);
 /// @brief Retorna o próximo nó da pilha
 /// @param p Pilha
 /// @return Próximo nó da pilha
-NoPilha_t getProximoNoPilha(No_t no);
+NoPilha_t getProximoNoPilha(NoPilha_t no);
 
 /// @brief Retorna o conteúdo do nó da pilha
 /// @param p Pilha
 /// @return Conteúdo do nó da pilha
-void* getConteudoDoNoPilha(No_t p);
+void* getConteudoDoNoPilha(NoPilha_t p);
 
 /// @brief Libera memória da pilha.
 /// @param p Pilha
