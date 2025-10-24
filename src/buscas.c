@@ -2,6 +2,7 @@
 
 Disparador encontrarDisparadorPorID(Fila filaDeDisparadores, int id) {
     if (filaDeDisparadores == NULL) {
+        printf("Erro ao procurar o disparador pela ID");
         return NULL;
     }
     for (No_t no = getPrimeiroNoFila(filaDeDisparadores); no != NULL; no = getProximoNoFila(no)) {
@@ -9,8 +10,8 @@ Disparador encontrarDisparadorPorID(Fila filaDeDisparadores, int id) {
         if (getIDDisparador(d) == id) {
             return d; 
         }
-    }
-    return NULL; 
+    } 
+    return NULL;
 }
 
 Pilha encontrarPilhaPorID(Fila listaDePilhas, int id) {

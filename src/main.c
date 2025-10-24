@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
     for (int i = 1; i < argc; i++) {
         if (strcmp(argv[i], "-e") == 0 && i + 1 < argc) {//Diretório base de entrada
             strcpy(dirEntrada, argv[++i]);
-        } else if (strcmp(argv[i], "-o") == 0 && i + 1 < argc) {//Arquivo com a descrição da cidade
+        } else if (strcmp(argv[i], "-o") == 0 && i + 1 < argc) {//Arquivo com a descrição 
             strcpy(dirSaida, argv[++i]);
             hasSaida = 1;
         } else if (strcmp(argv[i], "-f") == 0 && i + 1 < argc) {//Diretório base de saída
@@ -77,9 +77,13 @@ int main(int argc, char* argv[])
     Fila filaDisparadores = criarFila();
     Fila filaPilhas = criarFila();
 
+    //criar disparadores
+    for(int i  = 0;i < 20;i++){
+        Disparador
+    }
     arqGeo = fopen(fullPathGeo, "r");
     if(arqGeo == NULL){
-        printf("Nâo foi possível abrir o arquivo geo");
+        printf("Nâo foi possível abrir o arquivo geo no main.");
         liberarTudo(filaFormas,filaDisparadores, filaPilhas,chao);
         return 1;
     }
@@ -100,7 +104,7 @@ int main(int argc, char* argv[])
     if (strlen(nomeArquivoQry) > 0) {
         FILE* arqQry = fopen(fullPathQry, "r");
         if (arqQry == NULL) {
-            printf("Falha ao abrir arquivo qry.");
+            printf("Falha ao abrir arquivo qry no main.");
             liberarTudo(filaFormas,filaDisparadores, filaPilhas,chao);
             return 1;
         }

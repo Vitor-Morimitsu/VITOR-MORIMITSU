@@ -101,7 +101,7 @@ void setCarregadorDisparador(Disparador d, int idPilhaEsq, int idPilhaDir){
 
 void setPosicaoDisparador(Disparador d, double x, double y){
     if(d == NULL){
-        printf("Erro ao acessar o disparador.");
+        printf("Erro ao posicionar o disparador.");
         exit(1);
     }
     stDisparador* ds = (stDisparador*)d;

@@ -22,6 +22,11 @@ Fila criarFila();
 /// @param form Forma a ser inserida
 void insereFila(Fila f, Forma form, char type);
 
+/// @brief Insere um disparador na fila de disparadores
+/// @param FilaDisparadores Fila de disparadores
+/// @param d Disparador a ser inserido
+void insereFilaDisparadores(Fila FilaDisparadores, Disparador d);
+
 /// @brief Remove o primeiro elemento da fila
 /// @param f Fila
 void removeFila(Fila f);

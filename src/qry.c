@@ -14,7 +14,7 @@ void lerQry(FILE* arqQry, Fila filaFormas, FILE* arqTxt, Fila filaDisparadores,F
         }
 
         if(arqTxt == NULL){
-            printf("Erro ao acessar o arquivo .txt");
+            printf("Erro ao acessar o arquivo .txt ");
             exit(1);
         }else{
             fprintf(arqTxt, "%s", linha);
