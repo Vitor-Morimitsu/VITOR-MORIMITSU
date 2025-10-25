@@ -37,9 +37,9 @@ void desenharLinhaSVG(FILE* arqSvg, Forma f);
 void desenharTextoSVG(FILE* arqSvg, Forma f);
 
 /*
-    Função responsável por gerar um arquivo Svg com base no arquivo txt lido
+    Função responsável por gerar um arquivo Svg com base nas formas lidas da fila
 */ 
-void gerarSvgSaida(FILE* arqTxt, FILE* arqSvg);
+void gerarSvgSaida(Fila filaFormas, FILE* arqSvg);
 
 /// @brief Realiza o comando de encerramento do arquivo svg
 /// @param arqSvg Arquivo

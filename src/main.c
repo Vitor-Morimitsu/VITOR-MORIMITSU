@@ -96,7 +96,6 @@ int main(int argc, char* argv[])
     
     fclose(arqGeo);
     fclose(arqSvgEntrada);
-    // printf("\nPassou leitura geo\n"); 
 
     if (strlen(nomeArquivoQry) > 0) {
         FILE* arqQry = fopen(fullPathQry, "r");

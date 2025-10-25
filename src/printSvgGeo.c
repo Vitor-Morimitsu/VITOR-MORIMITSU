@@ -35,84 +35,56 @@ void fecharSVG(FILE* arqSvg) {
     fprintf(arqSvg, "</svg>\n");
 }
 
-void gerarSvgSaida(FILE* arqTxt, FILE* arqSvgSaida){
-    if(arqTxt == NULL || arqSvgSaida == NULL){
-        printf("Erro ao abrir arquivos.");
+void gerarSvgSaida(Fila filaFormas, FILE* arqSvgSaida){
+    if(filaFormas == NULL || arqSvgSaida == NULL){
+        printf("Erro ao acessar os arquivos para gerar o svg de saída.\n");
         exit(1);
     }
 
-    printf("arqtxt e arq svgSaida abertos.\n");
-    abrirSvg(arqSvgSaida);
-    
-    char linha[200];
-    char tipoForma;
-    while(fgets(linha, sizeof(linha), arqTxt)!= NULL){
-        if(linha[0] == '\n' || linha[0] == '#'){
+    No_t atual = getPrimeiroNoFila(filaFormas);
+    if(atual == NULL){
+        printf("Fila vazia\n");
+        exit(1);
+    }
+
+
+    while(atual != NULL){
+        Forma formaAtual = (Forma)getConteudoDoNoFila(atual);
+        if(formaAtual == NULL){
+            printf("Erro ao gerar a formaAtual no arquivo printSvgGeo\n");
             continue;
         }
-        
-        sscanf(linha, "%c", &tipoForma);
 
-        printf("Caracter do arquivo escaneada\n");
-        
-        fprintf(arqTxt, "%s\n", linha);
-        
-        printf("Linha printada\n");
+        char tipoForma = getTipoForma(formaAtual);
+        void* figura = getFiguraForma(formaAtual);
+        if(figura == NULL){
+            printf("Erro ao acessar a figura void*\n");
+            atual = getProximoNoFila(atual);
+            continue;
+        }
 
         if(tipoForma == 'c'){
             //círculo 
-            int i;
-            double x, y, r;
-            char corb[32], corp[32];
-            sscanf(linha, "c %d %lf %lf %lf %s %s", &i, &x, &y, &r, corb, corp);
-            Forma novaForma = criaCirculo(i,x,y,r,corb,corp);
-            if(novaForma != NULL){
-                desenharCirculoSVG(arqSvgSaida, getFiguraForma(novaForma));
-            }       
-            free(novaForma);     
+            desenharCirculoSVG(arqSvgSaida,formaAtual);          
+            printf("Printar o círculo no arquivo de saída svg");
 
         }else if(tipoForma == 'r'){
             //retângulo
-            int i;
-            double x, y, w, h;
-            char corb[32], corp[32];
-            sscanf(linha, "r %d %lf %lf %lf %lf %s %s", &i, &x, &y, &w, &h, corb, corp);
-            Forma novaForma = criaRetangulo(i,x,y,w,h,corb,corp);
-            if(novaForma != NULL){
-                desenharRetanguloSVG(arqSvgSaida, getFiguraForma(novaForma));
-            }
-            free(novaForma);
+            desenharRetanguloSVG(arqSvgSaida,formaAtual);  
+            printf("Retangulo printado no arquivo de saida do svg\n");        
 
         }else if(tipoForma == 'l'){
             //linha
-            int i;
-            double x1,y1,x2,y2;
-            char cor[32];
-            sscanf(linha, "l %d %lf %lf %lf %lf %s", &i, &x1, &y1, &x2, &y2, cor);
-            Forma novaForma = criarLinha(i,x1,y1,x2,y2,cor);
-            if(novaForma != NULL){
-                desenharLinhaSVG(arqSvgSaida,getFiguraForma(novaForma));
-            }
-            free(novaForma);
-
+            desenharLinhaSVG(arqSvgSaida,formaAtual);
+            
         }else if(tipoForma == 't'){
             //texto
-            int i;
-            double x, y;
-            char corb[32];
-            char corp[32];
-            char texto[50];
-            char a;
-            sscanf(linha, "t %d %lf %lf %s %s %c %s", &i, &x, &y, corb, corp, &a, texto);
-            Forma novaForma = criarTexto(i,x,y,corb,corp,a,texto,NULL);
-            if(novaForma != NULL){
-                desenharTextoSVG(arqSvgSaida, getFiguraForma(novaForma));
-            }
-            free(novaForma);
+            desenharTextoSVG(arqSvgSaida, formaAtual);
+            
         }else{
             continue;
         }
-
+        atual = getProximoNoFila(atual);
     }
     fecharSVG(arqSvgSaida);
 }

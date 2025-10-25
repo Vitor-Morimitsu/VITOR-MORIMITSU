@@ -49,11 +49,9 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
             }            
             carregarPilhaPelaFila(p, chao, n);
             printf("TESTE\n");
-            // escreverConteudoPilha(arqTxt, p);
             // printf("Escreveu na pilha\n");
             
         }else if(strcmp(comando, "atch") == 0){
-            printf("teste 1\n");
             //encaixa no disparador d os carregadores cesq(na esquerda) e cdir(na direita)
             int idDis, idCesq, idCDir;
             sscanf(linha,"atch %i %i %i",&idDis,&idCesq,&idCDir);
@@ -62,6 +60,7 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
                 printf("Erro ao encontrar o disparador no comando atch\n");
             }
             setCarregadorDisparador(d, idCesq, idCDir);
+            printf("teste 1\n");
             
         }else if(strcmp(comando, "shft") == 0){
             printf("teste 2 \n");
@@ -95,20 +94,19 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
             
 
         }else if(strcmp(comando, "rjd") == 0){
-            printf("teste 4\n");
             //rajada de disparos até as formas do carregador se esgotarem
             char car;
             int idDis, idEsq, idDir;
             double dx, dy, ix, iy;
             sscanf(linha, "rjd %i %c %lf %lf %lf %lf", &idDis,&car,&dx,&dy,&ix,&iy);
-
+            
             Disparador d = encontrarDisparadorPorID(filaDisparadores, idDis);
             idEsq = getIDPilhaEsquerda(d);
             idDir = getIDPilhaDireita(d);
-
+            
             Pilha pEsq = encontrarPilhaPorID(filaCarregadores, idEsq);
             Pilha pDir = encontrarPilhaPorID(filaCarregadores, idDir);
-
+            
             if(pEsq != NULL && pDir != NULL){
                 Pilha pilhaRajada; 
                 if (car == 'e') {
@@ -117,13 +115,13 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
                     pilhaRajada = pDir;
                 }
                 int i = 0;
-                    
+                
                 while (getTamanhoPilha(pilhaRajada) > 0 || getConteudoCentro(d) != NULL) {
                     if (getConteudoCentro(d) == NULL) {
                         if (getTamanhoPilha(pilhaRajada) == 0) break; //Acabou tudo
                         pressionaBotao(d, car, 1, pEsq, pDir);
                     }
-                
+                    
                     Forma f = getConteudoCentro(d);
                     
                     comandoDsp(arqTxt,filaDisparadores,idDis,dx+(i * ix),dy+(i * iy));
@@ -138,8 +136,9 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
                     i++;
                 }
             }
+            printf("teste 4\n");
             
-
+            
         }else if(strcmp(comando, "calc") == 0){
             printf("teste 5 \n");
             //processa as figuras da arena conforme descrito anteriormente em um novo arqSVg
