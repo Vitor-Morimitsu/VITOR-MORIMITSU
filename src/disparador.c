@@ -6,7 +6,7 @@
 typedef struct disparador{
     int i;
     double x,y;
-    Conteudo centro;
+    void* centro;
     int idEsquerda;
     int idDireita; 
 } stDisparador;
@@ -27,7 +27,7 @@ Disparador criarDisparador(int i, double x, double y,int idEsquerdo, int idDirei
     return d;
 }
 
-Conteudo getConteudoCentro(Disparador d) {
+void* getConteudoCentro(Disparador d) {
     if (d == NULL) {
         return NULL;
     }
@@ -131,7 +131,6 @@ void setPosicaoDisparador(Disparador d, double x, double y){
         printf("Erro ao posicionar o disparador.");
         exit(1);
     }
-    printf("Disparador posicionado\n");
     stDisparador* ds = (stDisparador*)d;
     ds->x = x;
     ds->y = y;
@@ -156,12 +155,12 @@ void pressionaBotao(Disparador d, char lado, int n, Pilha esq, Pilha dir){
     }
 
     if(n == 1){ //a forma que está no topo da pilha vai para o centro
-        Conteudo novo = getConteudoPilha(origem);
+        void* novo = getConteudoPilha(origem);
         if(novo == NULL){
             return;
         }
 
-        Conteudo antigo = ds->centro;
+        void* antigo = ds->centro;
 
         removerPilha(origem);
 
@@ -172,11 +171,11 @@ void pressionaBotao(Disparador d, char lado, int n, Pilha esq, Pilha dir){
         }
     }else if(n > 1){
         for(int i = 0;i < n; i++){
-            Conteudo novo = getConteudoPilha(origem);
+            void* novo = getConteudoPilha(origem);
             if(novo == NULL){
                 break; // não existe nenhum conteudo na pilha
             }
-            Conteudo antigo =ds->centro;
+            void* antigo =ds->centro;
             removerPilha(origem);
             ds->centro = novo;
             if(antigo != NULL){

@@ -114,7 +114,6 @@ int main(int argc, char* argv[])
             return 1;
         }
         
-        printf("chegou ao qry no main\n");
         lerQry(arqQry,arqTxt,filaDisparadores,filaPilhas,chao);
         printf("Passou a leitura do qry\n");
         

@@ -14,7 +14,7 @@
 typedef void* Disparador;
 //typedef void* Pilha;
 typedef void* Celula;
-typedef void* Conteudo;
+
 
 /// @brief Cria e retorna o disparador
 /// @param i Identificador do disparador
@@ -26,7 +26,7 @@ Disparador criarDisparador(int i,double x, double y, int IDEsquerda, int IDDirei
 /// @brief Retorna o conteudo que está no centro do disparador em posição de disparo
 /// @param d Disparador
 /// @return Conteudo do centro
-Conteudo getConteudoCentro(Disparador d);
+void* getConteudoCentro(Disparador d);
 
 /// @brief Retorna o identificador do disparador
 /// @return Identificador

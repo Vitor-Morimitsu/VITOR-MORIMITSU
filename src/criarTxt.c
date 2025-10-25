@@ -5,18 +5,17 @@ void escreverConteudoPilha(FILE* arqTxt, Pilha p){
         printf("Erro ao abrir arquivos.");
         exit(1);
     }
-
-    No_t atual = getNoTopoPilha(p);  
-
+    NoPilha_t atual = getNoTopoPilha(p);  
+    
     while(atual != NULL){
-        Conteudo cont = getConteudoDoNoPilha(atual);
+        void* cont = getConteudoDoNoPilha(atual);
         if(cont != NULL){
+
             char tipo = getTipoForma(cont);
-            
             int id = getIDForma(cont);
             double x = getXForma(cont);
             double y = getYForma(cont);
-
+            
             if(tipo == 'c'){//círculo
                 Circulo* circ = (Circulo*)cont;
                 double raio = getRaioCirculo(circ);
@@ -26,11 +25,15 @@ void escreverConteudoPilha(FILE* arqTxt, Pilha p){
             }else if(tipo == 'r'){
                 // retângulo
                 Retangulo* ret = (Retangulo*)cont;
+                int idRet = getIDRetangulo(ret);
+                double CordX = getCoordXRetangulo(ret);
+                double CordY = getCoordYRetangulo(ret);
                 double w = getWRetangulo(ret);
                 double h = getHRetangulo(ret);
                 char* corb = getCorBRetangulo(ret);
                 char* corp = getCorPRetangulo(ret);
-                fprintf(arqTxt, "re id:%i x:%lf y:%lf w:%lf h:%lf corB:%s corP:%s\n",id,x,y,w,h,corb,corp);
+                printf("teste 6\n");
+                fprintf(arqTxt, "retângulo id:%i x:%lf y:%lf w:%lf h:%lf corB:%s corP:%s\n",idRet,CordX,CordY,w,h,corb,corp);
             }else if(tipo == 'l'){
                 //linha
                 Linha* l = (Linha*)cont;
@@ -47,7 +50,7 @@ void escreverConteudoPilha(FILE* arqTxt, Pilha p){
                 char* corp = getCorPTexto(t);
                 char a = getATexto(t);
                 char* txto = getTxtoTexto(t);
-
+                
                 Estilo ts = getEstiloTexto(t);
                 char* fFamily = getfFamily(ts);
                 char* fWeight = getfWeight(ts);
@@ -71,7 +74,7 @@ void comandoShft(FILE* arqTxt,int idDis, Fila filaDisparadores){
         return;
     }
 
-    Conteudo centro = getConteudoCentro(disp);
+    void* centro = getConteudoCentro(disp);
     if(centro == NULL){
         printf("A posição de disparo está vazia.");
         return;
@@ -101,7 +104,7 @@ void comandoDsp(FILE* arqTxt, Fila filaDisparadores,int idDis, double dx, double
         printf("Disparador não encontrado.");
         return;
     }
-    Conteudo forma = getConteudoCentro(d);
+    void* forma = getConteudoCentro(d);
     if(forma == NULL){
         printf("Nenhuma forma foi disparada.");
         return;

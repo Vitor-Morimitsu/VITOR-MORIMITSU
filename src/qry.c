@@ -7,7 +7,6 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
     }
     char linha[500];
     char comando[500];
-    printf("Função lerqry aberta\n");
 
     while(fgets(linha, sizeof(linha), arqQry) != NULL){
         if(linha[0] == '\n' || linha[0] == '\r'){
@@ -22,45 +21,50 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
         sscanf(linha, "%s", comando);
         fprintf(arqTxt, "%s\n" ,linha);
 
-        printf("Linha printada no txt\n");
-
         if(strcmp(comando, "pd") == 0){
-            printf("comando pd printado\n");
+            // printf("comando pd\n");
             //posiciona o disparador l na coordenada (x,y)
             double x,y;
             int idDis;
             sscanf(linha, "pd %i %lf %lf",&idDis, &x, &y);
             Disparador d = criarDisparador(idDis,x,y,NULL,NULL);
+            if(d == NULL){
+                printf("erro ao criar o disparador no comando pd\n");
+                continue;
+            }
+            // printf("Disparador criado\n");
             insereFilaDisparadores(filaDisparadores, d);
-            encontrarDisparadorPorID(filaDisparadores, idDis);
-            printf("Disparador encontrado.\n");
             setPosicaoDisparador(d,x,y);
             
-
         }else if(strcmp(comando, "lc") == 0){
-            printf("comando lc printado\n");
+            printf("comando lc\n");
             //Coloca no carregador c as primeiras n formas que estão no chão
             int n;
             int idCar; //id do carregador
             sscanf(linha, "lc %i %i", &idCar, &n);
-            Pilha p = encontrarPilhaPorID(filaCarregadores, idCar);
+            Pilha p = criarPilha(idCar);
             if(p == NULL){
                 printf("Erro ao acessar a pilha no comando lc\n");
                 continue;
-            }
+            }            
             carregarPilhaPelaFila(p, chao, n);
-            escreverConteudoPilha(arqTxt, p);
+            printf("TESTE\n");
+            // escreverConteudoPilha(arqTxt, p);
+            // printf("Escreveu na pilha\n");
             
         }else if(strcmp(comando, "atch") == 0){
-            printf("comando atch printado\n");
+            printf("teste 1\n");
             //encaixa no disparador d os carregadores cesq(na esquerda) e cdir(na direita)
             int idDis, idCesq, idCDir;
             sscanf(linha,"atch %i %i %i",&idDis,&idCesq,&idCDir);
             Disparador d = encontrarDisparadorPorID(filaDisparadores,idDis);
+            if(d == NULL){
+                printf("Erro ao encontrar o disparador no comando atch\n");
+            }
             setCarregadorDisparador(d, idCesq, idCDir);
             
         }else if(strcmp(comando, "shft") == 0){
-            printf("comando shft printado\n");
+            printf("teste 2 \n");
             //pressiona o botão esquerdo(e) ou o botão direito(d) do disparador d n vezes
             char lado;
             int n, idDis;
@@ -78,7 +82,7 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
             }
             
         }else if(strcmp(comando, "dsp") == 0){
-            printf("comando dsp printado");
+            printf("teste 3\n");
             //posiciona a forma que está em posição de disparo a um deslocamento de dx, dy em relação à posição do disparador
             double dx, dy;
             int idDis;
@@ -91,7 +95,7 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
             
 
         }else if(strcmp(comando, "rjd") == 0){
-            printf("comando rjd printado\n");
+            printf("teste 4\n");
             //rajada de disparos até as formas do carregador se esgotarem
             char car;
             int idDis, idEsq, idDir;
@@ -137,7 +141,7 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
             
 
         }else if(strcmp(comando, "calc") == 0){
-            printf("Comando calc printado\n");
+            printf("teste 5 \n");
             //processa as figuras da arena conforme descrito anteriormente em um novo arqSVg
             comandoCalc(arqTxt,chao);
         }
