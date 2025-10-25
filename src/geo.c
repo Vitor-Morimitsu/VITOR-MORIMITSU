@@ -22,7 +22,6 @@ void lerGeo(FILE* arqGeo, Fila chao, FILE* arqSvgEntrada){
     char tipoForma;
     
     abrirSvg(arqSvgEntrada);
-    printf("\nPassou abertura svg\n");
     
     while(fgets(linha, sizeof(linha), arqGeo) != NULL){
         if(linha[0] == '\n' || linha[0] == '#'){
@@ -52,11 +51,8 @@ void lerGeo(FILE* arqGeo, Fila chao, FILE* arqSvgEntrada){
             char corb[32], corp[32];
             sscanf(linha, "r %d %lf %lf %lf %lf %s %s", &i, &x, &y, &w, &h, corb, corp);
             Forma novaForma = criaRetanguloForma(i,'r', x, y, w, h, corb, corp);
-            printf("passou novaForma retangulo\n");
             desenharRetanguloSVG(arqSvgEntrada,getFiguraForma(novaForma));
-            printf("passou desenho retangulo");
             insereFila(chao, novaForma, 'r');
-            printf("retangulo insere fila");
             
         } else if (tipoForma == 'l'){
             int i;

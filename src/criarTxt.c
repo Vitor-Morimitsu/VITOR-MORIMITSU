@@ -209,12 +209,12 @@ void comandoCalc(FILE* arqTxt, Fila chao){
 
     // ver a posição de cada forma e ver se elas se sobrepõem
     double area_esmagada_total = 0;
+    double area_esmagada_round = 0;
     for(int i  = 0;i< quantidade;i++){
         Forma f1 = percorreFila(chao,i);
         char tipo_f1 = getTipoForma(f1);
 
         int confirmacao = -1;
-        double area_esmagada_round = 0;
  
         for(int j = 0;j< quantidade - 1;j++){
             Forma f2 = percorreFila(chao, j);
@@ -408,12 +408,12 @@ void comandoCalc(FILE* arqTxt, Fila chao){
                 }
 
             }
-            fprintf(arqTxt, "Área esmagada do round: %lf.\n", area_esmagada_round);
-
+            
         }
         area_esmagada_total += area_esmagada_round; 
         
     } 
+    fprintf(arqTxt, "Área esmagada do round: %lf.\n", area_esmagada_round);
     fprintf(arqTxt,"Área total esmagada: %lf.\n", area_esmagada_total);
 }
 

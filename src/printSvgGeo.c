@@ -16,7 +16,7 @@ void desenharCirculoSVG(FILE* arqSvg, Forma forma) {
 void desenharRetanguloSVG(FILE* arqSvg, Forma forma){
     Retangulo r = (Retangulo)forma;
 
-    fprintf(arqSvg, "\t<rect id=\"%d\" x=\"%f\" y=\"%f\" width=\"%f\" height=\"%f\" stroke=\"%s\" fill=\"%s\" />\n",getIDRetangulo(r), getCoordXRetangulo(r),getCoordYRetangulo(r),getWRetangulo(r),getHRetangulo(r), getCorBRetangulo(r),getCorPRetangulo(r));
+    fprintf(arqSvg, "\t<rect id=\"%d\" x=\"%f\" y=\"%f\" width=\"%f\" height=\"%f\" stroke=\"%s\" fill=\"%s\" opacity=\"0.5\" />\n", getIDRetangulo(r), getCoordXRetangulo(r), getCoordYRetangulo(r), getWRetangulo(r), getHRetangulo(r), getCorBRetangulo(r), getCorPRetangulo(r));
 }
 void desenharLinhaSVG(FILE* arqSvg, Forma forma){
     Linha l = (Linha)forma;
@@ -41,7 +41,7 @@ void gerarSvgSaida(FILE* arqTxt, FILE* arqSvgSaida){
         exit(1);
     }
 
-    
+    printf("arqtxt e arq svgSaida abertos.\n");
     abrirSvg(arqSvgSaida);
     
     char linha[200];
@@ -51,8 +51,13 @@ void gerarSvgSaida(FILE* arqTxt, FILE* arqSvgSaida){
             continue;
         }
         
-        Forma forma = NULL;
         sscanf(linha, "%c", &tipoForma);
+
+        printf("Caracter do arquivo escaneada\n");
+        
+        fprintf(arqTxt, "%s\n", linha);
+        
+        printf("Linha printada\n");
 
         if(tipoForma == 'c'){
             //círculo 
@@ -60,10 +65,11 @@ void gerarSvgSaida(FILE* arqTxt, FILE* arqSvgSaida){
             double x, y, r;
             char corb[32], corp[32];
             sscanf(linha, "c %d %lf %lf %lf %s %s", &i, &x, &y, &r, corb, corp);
-            forma = criaCirculo(i,x,y,r,corb,corp);
-            if(forma != NULL){
-                desenharCirculoSVG(arqSvgSaida, forma);
-            }            
+            Forma novaForma = criaCirculo(i,x,y,r,corb,corp);
+            if(novaForma != NULL){
+                desenharCirculoSVG(arqSvgSaida, getFiguraForma(novaForma));
+            }       
+            free(novaForma);     
 
         }else if(tipoForma == 'r'){
             //retângulo
@@ -71,10 +77,11 @@ void gerarSvgSaida(FILE* arqTxt, FILE* arqSvgSaida){
             double x, y, w, h;
             char corb[32], corp[32];
             sscanf(linha, "r %d %lf %lf %lf %lf %s %s", &i, &x, &y, &w, &h, corb, corp);
-            forma = criaRetangulo(i,x,y,w,h,corb,corp);
-            if(forma != NULL){
-                desenharRetanguloSVG(arqSvgSaida, forma);
+            Forma novaForma = criaRetangulo(i,x,y,w,h,corb,corp);
+            if(novaForma != NULL){
+                desenharRetanguloSVG(arqSvgSaida, getFiguraForma(novaForma));
             }
+            free(novaForma);
 
         }else if(tipoForma == 'l'){
             //linha
@@ -82,10 +89,11 @@ void gerarSvgSaida(FILE* arqTxt, FILE* arqSvgSaida){
             double x1,y1,x2,y2;
             char cor[32];
             sscanf(linha, "l %d %lf %lf %lf %lf %s", &i, &x1, &y1, &x2, &y2, cor);
-            forma = criarLinha(i,x1,y1,x2,y2,cor);
-            if(forma != NULL){
-                desenharLinhaSVG(arqSvgSaida,forma);
+            Forma novaForma = criarLinha(i,x1,y1,x2,y2,cor);
+            if(novaForma != NULL){
+                desenharLinhaSVG(arqSvgSaida,getFiguraForma(novaForma));
             }
+            free(novaForma);
 
         }else if(tipoForma == 't'){
             //texto
@@ -96,12 +104,14 @@ void gerarSvgSaida(FILE* arqTxt, FILE* arqSvgSaida){
             char texto[50];
             char a;
             sscanf(linha, "t %d %lf %lf %s %s %c %s", &i, &x, &y, corb, corp, &a, texto);
-            forma = criarTexto(i,x,y,corb,corp,a,texto,NULL);
-            if(forma != NULL){
-                desenharTextoSVG(arqSvgSaida, forma);
+            Forma novaForma = criarTexto(i,x,y,corb,corp,a,texto,NULL);
+            if(novaForma != NULL){
+                desenharTextoSVG(arqSvgSaida, getFiguraForma(novaForma));
             }
+            free(novaForma);
+        }else{
+            continue;
         }
-        free(forma);
 
     }
     fecharSVG(arqSvgSaida);
