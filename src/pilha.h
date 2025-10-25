@@ -6,6 +6,7 @@
 #include "fila.h"
 
 
+
 /*
     Arquivo .h relacionado a criação e uso de uma pilha, a qual segue o princípio LIFO(last in first out), ou seja, o último elemento que entra, é o primeiro a sair.
 */
@@ -27,6 +28,11 @@ void inserirPilha(Pilha p, void* conteudo);
 // /// @param f Fila
 // /// @param n Quantidade de elementos da fila a serem inseridos na pilha
 // void carregarPilhaPelaFila(Pilha p, Fila f, int n);
+
+// /// @brief Reportar os dados de cada uma das formas carregadas
+// /// @param arqTxt Arquivo destino
+// /// @param p Pilha
+// void escreverConteudoPilha(FILE* arqTxt, Pilha p);
 
 /// @brief Remove a celula do inicio da pilha
 /// @param p Pilha p

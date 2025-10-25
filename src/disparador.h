@@ -7,6 +7,7 @@
 #include "pilha.h"
 #include "fila.h"
 
+
 /*
     Arquivo .h destinado à criação de um disparador e suas operações de uso no primeiro trabalho de estrutura de dados
 */

@@ -38,15 +38,13 @@ void fecharSVG(FILE* arqSvg) {
 void gerarSvgSaida(Fila filaFormas, FILE* arqSvgSaida){
     if(filaFormas == NULL || arqSvgSaida == NULL){
         printf("Erro ao acessar os arquivos para gerar o svg de saída.\n");
-        exit(1);
     }
-
+    abrirSvg(arqSvgSaida);
     No_t atual = getPrimeiroNoFila(filaFormas);
     if(atual == NULL){
         printf("Fila vazia\n");
-        exit(1);
     }
-
+    printf("dentro do svg de saída\n");
 
     while(atual != NULL){
         Forma formaAtual = (Forma)getConteudoDoNoFila(atual);
@@ -85,6 +83,6 @@ void gerarSvgSaida(Fila filaFormas, FILE* arqSvgSaida){
             continue;
         }
         atual = getProximoNoFila(atual);
+        fecharSVG(arqSvgSaida);
     }
-    fecharSVG(arqSvgSaida);
 }

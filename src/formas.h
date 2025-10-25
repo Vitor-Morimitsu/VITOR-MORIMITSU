@@ -10,6 +10,7 @@
 #include "texto.h"
 #include "disparador.h"
 #include "pilha.h"
+#include "fila.h"
 
 /*
     Arquivo .h destinado à criação de um tipo genérico de forma que consiga armazenar e classificar outros tipos armazenados internamente.
@@ -59,6 +60,11 @@ double getAreaForma(Forma f);
 /// @brief Libera as formas criadas
 /// @param f Forma f
 void liberarForma(Forma f);
+
+/// @brief Reportar os dados de cada uma das formas carregadas
+/// @param arqTxt Arquivo destino
+/// @param p Pilha
+void escreverConteudoPilha(FILE* arqTxt, Pilha p);
 
 /// @brief Posiciona a forma f a um deslocamento dx,dy em relação à posição do disparador
 /// @param f Forma 

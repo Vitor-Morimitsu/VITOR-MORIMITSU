@@ -137,10 +137,10 @@ int main(int argc, char* argv[])
             liberarTudo(chao, filaDisparadores, filaPilhas);
             return 1;
         }
-        printf("Arquivo svg de saída aberto\n");
+        printf("Arquivo svg de saída aberto no main\n");
 
         gerarSvgSaida(arqTxt, arqSvgSaida);   
-        printf("Arquivo Svg saída gerado\n");
+        printf("Arquivo Svg saída gerado no main\n");
         
         fclose(arqTxt);
         fclose(arqSvgSaida);
