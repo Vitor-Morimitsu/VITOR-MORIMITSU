@@ -5,15 +5,16 @@
 #include <stdlib.h>
 #include <string.h>
 #include "pilha.h"
+#include "fila.h"
 
 /*
     Arquivo .h destinado à criação de um disparador e suas operações de uso no primeiro trabalho de estrutura de dados
 */
 
 typedef void* Disparador;
-typedef void* Pilha;
+//typedef void* Pilha;
 typedef void* Celula;
-typedef void* Conteudo;
+
 
 /// @brief Cria e retorna o disparador
 /// @param i Identificador do disparador
@@ -25,7 +26,7 @@ Disparador criarDisparador(int i,double x, double y, int IDEsquerda, int IDDirei
 /// @brief Retorna o conteudo que está no centro do disparador em posição de disparo
 /// @param d Disparador
 /// @return Conteudo do centro
-Conteudo getConteudoCentro(Disparador d);
+void* getConteudoCentro(Disparador d);
 
 /// @brief Retorna o identificador do disparador
 /// @return Identificador
@@ -35,6 +36,12 @@ int getIDDisparador(Disparador d);
 /// @param d Disparador
 /// @return Coordenada X do disparador
 double getXDisparador(Disparador d);
+
+/// @brief Insere os n primeiros elementos da fila na pilha
+/// @param p Pilha p
+/// @param f Fila
+/// @param n Quantidade de elementos da fila a serem inseridos na pilha
+void carregarPilhaPelaFila(Pilha p, Fila f, int n);
 
 /// @brief Retorna a coordenada Y do disparador
 /// @param d Disparador

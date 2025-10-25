@@ -3,7 +3,8 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include "disparador.h"
+//#include "disparador.h"
+//#include "formas.h"
 
 /*
     Arquivo .h criado com o intuito de criar uma fila no primeiro trabalho de estrutura de dados.
@@ -11,7 +12,7 @@
 */
 
 typedef void* Fila;
-typedef void* Forma;
+//typedef void* Forma;
 typedef void* No_t;
 
 /// @brief Cria uma fila vazia
@@ -34,7 +35,7 @@ void removeFila(Fila f);
 
 /// @brief Mostra o primeiro elemento da fila
 /// @param f Fila
-Forma getPrimeiraFormaFila(Fila f);
+void* getPrimeiraFormaFila(Fila f);
 
 /// @brief Libera a memória ocupada pela fila
 /// @param f Fila
@@ -53,7 +54,7 @@ No_t getProximoNoFila(No_t no);
 /// @brief Retorna a Forma (o dado) armazenada dentro de um nó.
 /// @param no O nó (um No_t).
 /// @return A Forma contida no nó.
-Forma getConteudoDoNoFila(No_t no);
+void* getConteudoDoNoFila(No_t no);
 
 /// @brief Retorna o tipo (char) da Forma armazenada dentro de um nó.
 /// @param no O nó (um No_t).
@@ -69,13 +70,18 @@ int getTamanhoFila(Fila f);
 /// @param f Fila
 /// @param posicao Posicao da forma de interesse
 /// @return Forma presente na posição desejada
-Forma percorreFila(Fila f, int posicao);
+void* percorreFila(Fila f, int posicao);
 
 /// @brief Libera todas as filas criadas
 /// @param formas Fila que contém todas as formas
 /// @param disparadores Fila que contém todos os disparadores
 /// @param carregadores Fila que contém todos os carregadores
 /// @param arena Libera a fila da arena
-void liberarTudo(Fila formas, Fila disparadores, Fila carregadores, Fila arena);
+void liberarTudo( Fila disparadores, Fila carregadores, Fila arena);
+
+/// @brief Printa em um arquivo txt tudo o que estiver na fila
+/// @param fila Fila 
+/// @param arqTxt Arquivo texto 
+void printarFilaTxt(Fila fila, FILE* arqTxt);
 
 #endif

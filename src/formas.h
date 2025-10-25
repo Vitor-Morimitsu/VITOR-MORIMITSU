@@ -39,6 +39,8 @@ int getIDForma(Forma f);
 /// @return Tipo da forma geométrica
 char getTipoForma(Forma f);
 
+void* getFiguraForma(Forma f);
+
 /// @brief Retorna a coordenada X da forma
 /// @param f Forma f
 /// @return Coordenada X da forma

@@ -1,10 +1,9 @@
 #include "formas.h"
-
-typedef void* Forma;
+#include "disparador.h"
 
 typedef struct forma{
     int id;
-    Forma fig;
+    void* fig;
     char tipo;
 }stForma;
 
@@ -156,6 +155,10 @@ double getYForma(Forma f){
         default:
             return -1;
     }
+}
+
+void* getFiguraForma(Forma f){
+    return ((stForma*)f)->fig;
 }
 
 double getAreaForma(Forma f){

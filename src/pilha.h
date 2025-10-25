@@ -11,9 +11,7 @@
 */
 
 typedef void* Pilha;
-typedef void* Fila;
 typedef void* NoPilha_t;
-typedef void* Conteudo;
 
 /// @brief Cria e retorna uma pilha vazia
 /// @return Pilha vazia
@@ -24,11 +22,11 @@ Pilha criarPilha(int d);
 /// @param conteudo Conteudo a ser inserido
 void inserirPilha(Pilha p, void* conteudo);
 
-/// @brief Insere os n primeiros elementos da fila na pilha
-/// @param p Pilha p
-/// @param f Fila
-/// @param n Quantidade de elementos da fila a serem inseridos na pilha
-void carregarPilhaPelaFila(Pilha p, Fila f, int n);
+// /// @brief Insere os n primeiros elementos da fila na pilha
+// /// @param p Pilha p
+// /// @param f Fila
+// /// @param n Quantidade de elementos da fila a serem inseridos na pilha
+// void carregarPilhaPelaFila(Pilha p, Fila f, int n);
 
 /// @brief Remove a celula do inicio da pilha
 /// @param p Pilha p

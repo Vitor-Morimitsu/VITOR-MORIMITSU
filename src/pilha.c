@@ -1,4 +1,5 @@
 #include "pilha.h"
+#include "fila.h"
 typedef struct stcelula{
     void* conteudo;
     struct stcelula *prox;
@@ -39,29 +40,29 @@ void inserirPilha(Pilha p, void* conteudo){
     pilha->tamanho++;
 }
 
-void carregarPilhaPelaFila(Pilha p, Fila f, int n){
-    if(p == NULL){
-        printf("Erro ao acessar a pilha para receber as fomras da fila.");
-        exit(1);
-    }
-    if(f == NULL){
-        printf("Erro ao acessar a fila para passar as formas para pilha.");
-        exit(2);
-    }
-    if(n <= 0){
-        return;
-    }
+// void carregarPilhaPelaFila(Pilha p, Fila f, int n){
+//     if(p == NULL){
+//         printf("Erro ao acessar a pilha para receber as fomras da fila.");
+//         exit(1);
+//     }
+//     if(f == NULL){
+//         printf("Erro ao acessar a fila para passar as formas para pilha.");
+//         exit(2);
+//     }
+//     if(n <= 0){
+//         return;
+//     }
     
-    No_t noFila = getPrimeiroNoFila(f);
+//     No_t noFila = getPrimeiroNoFila(f);
 
-    for(int i = 0; i<n && noFila != NULL;i++){
-        void* conteudoInserir = getConteudoDoNoFila(noFila);
+//     for(int i = 0; i<n && noFila != NULL;i++){
+//         void* conteudoInserir = getConteudoDoNoFila(noFila);
 
-        inserirPilha(p,conteudoInserir);
+//         inserirPilha(p,conteudoInserir);
 
-        noFila = getProximoNoFila(noFila);
-    }
-}
+//         noFila = getProximoNoFila(noFila);
+//     }
+// }
 
 void* removerPilha(Pilha p){
     stPilha* pilha = (stPilha*)p;

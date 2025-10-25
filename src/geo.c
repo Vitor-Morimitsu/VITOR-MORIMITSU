@@ -22,33 +22,36 @@ void lerGeo(FILE* arqGeo, Fila chao, FILE* arqSvgEntrada){
     char tipoForma;
     
     abrirSvg(arqSvgEntrada);
-
+    
     while(fgets(linha, sizeof(linha), arqGeo) != NULL){
         if(linha[0] == '\n' || linha[0] == '#'){
             continue;
         }
-
+        
         sscanf(linha, "%c", &tipoForma);
-
-
-        Forma novaForma = NULL;
-
+        
+        
+        //Forma novaForma = NULL;
+        
         if (tipoForma == 'c') {
             int i;
             double x, y, r;
             char corb[32], corp[32];
             sscanf(linha, "c %d %lf %lf %lf %s %s", &i, &x, &y, &r, corb, corp);
-            novaForma = criaCirculoForma(i, 'c',x, y, r, corb, corp);
-            desenharCirculoSVG(arqSvgEntrada, novaForma);
+            printf("passou scanf circulo\n");
+            Forma novaForma = criaCirculoForma(i, 'c',x, y, r, corb, corp);
+            desenharCirculoSVG(arqSvgEntrada, getFiguraForma(novaForma));
+            printf("passou desenho cirfculo svg");
             insereFila(chao, novaForma, 'c');
+            printf("Circulo insere fila");
             
         } else if (tipoForma == 'r') {
             int i;
             double x, y, w, h;
             char corb[32], corp[32];
             sscanf(linha, "r %d %lf %lf %lf %lf %s %s", &i, &x, &y, &w, &h, corb, corp);
-            novaForma = criaRetanguloForma(i,'r', x, y, w, h, corb, corp);
-            desenharRetanguloSVG(arqSvgEntrada,novaForma);
+            Forma novaForma = criaRetanguloForma(i,'r', x, y, w, h, corb, corp);
+            desenharRetanguloSVG(arqSvgEntrada,getFiguraForma(novaForma));
             insereFila(chao, novaForma, 'r');
             
         } else if (tipoForma == 'l'){
@@ -56,11 +59,14 @@ void lerGeo(FILE* arqGeo, Fila chao, FILE* arqSvgEntrada){
             double x1,y1,x2,y2;
             char cor[32];
             sscanf(linha, "l %d %lf %lf %lf %lf %s", &i, &x1, &y1, &x2, &y2, cor);
-            novaForma = criaLinhaForma(i,'l', x1,y1,x2,y2,cor);
-            desenharLinhaSVG(arqSvgEntrada, novaForma);
+            printf("passou scanf linha\n");
+            Forma novaForma = criaLinhaForma(i,'l', x1,y1,x2,y2,cor);
+            desenharLinhaSVG(arqSvgEntrada, getFiguraForma(novaForma));
+            printf("passou desenho linha");
             insereFila(chao,novaForma,'l');
+            printf("linha insere fila");
             
-
+            
         } else if( tipoForma == 't'){
             int i;
             double x, y;
@@ -69,9 +75,14 @@ void lerGeo(FILE* arqGeo, Fila chao, FILE* arqSvgEntrada){
             char texto[50];
             char a;
             sscanf(linha, "t %d %lf %lf %s %s %c %s", &i, &x, &y, corb, corp, &a, texto);
-            novaForma = criaTextoForma(i,'t',x,y,corb,corp,a,texto,NULL);
-            desenharTextoSVG(arqSvgEntrada, novaForma);
+            printf("passou scanf texto\n");
+            Forma novaForma = criaTextoForma(i,'t',x,y,corb,corp,a,texto,NULL);
+            desenharTextoSVG(arqSvgEntrada, getFiguraForma(novaForma));
+            printf("passou desenho texto");
             insereFila(chao, novaForma, 't');
+            printf("texto insere fila");
         }
+        
     }    
+    fecharSVG(arqSvgEntrada);
 }

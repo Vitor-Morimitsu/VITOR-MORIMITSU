@@ -77,6 +77,7 @@ int main(int argc, char* argv[])
     Fila filaPilhas = criarFila();
 
     arqGeo = fopen(fullPathGeo, "r");
+
     if(arqGeo == NULL){
         printf("Nâo foi possível abrir o arquivo geo no main.");
         liberarTudo(filaDisparadores, filaPilhas,chao);
@@ -95,6 +96,7 @@ int main(int argc, char* argv[])
     
     fclose(arqGeo);
     fclose(arqSvgEntrada);
+    // printf("\nPassou leitura geo\n"); 
 
     if (strlen(nomeArquivoQry) > 0) {
         FILE* arqQry = fopen(fullPathQry, "r");
@@ -111,8 +113,9 @@ int main(int argc, char* argv[])
             liberarTudo(filaDisparadores, filaPilhas,chao);
             return 1;
         }
-
+        
         lerQry(arqQry,arqTxt,filaDisparadores,filaPilhas,chao);
+        printf("Passou a leitura do qry\n");
         
         fclose(arqQry);
         fclose(arqTxt);
@@ -122,26 +125,29 @@ int main(int argc, char* argv[])
         if(arqTxt == NULL){
             printf("Erro ao abrir aqruivo txt para leitura");
            
-            liberarTudo(filaFormas,filaDisparadores, filaPilhas,chao);
+            liberarTudo(filaDisparadores, filaPilhas,chao);
             return 1;
         }
+        printf("Txt reaberto para leitura\n");
 
         //abrir svg de saida
         FILE* arqSvgSaida = fopen(arquivoSaidaSvgQry, "w"); 
         if(arqSvgSaida == NULL){
             printf("Erro ao abrir svg de saida\n");
             fclose(arqTxt);
-            liberarTudo(filaFormas, chao, filaDisparadores, filaPilhas);
+            liberarTudo(chao, filaDisparadores, filaPilhas);
             return 1;
         }
+        printf("Arquivo svg de saída aberto\n");
 
         gerarSvgSaida(arqTxt, arqSvgSaida);   
+        printf("Arquivo Svg saída gerado\n");
         
         fclose(arqTxt);
         fclose(arqSvgSaida);
     }
     
-    liberarTudo(filaFormas, chao, filaDisparadores, filaPilhas);
+    liberarTudo(chao, filaDisparadores, filaPilhas);
 
     return 0; 
 
