@@ -48,6 +48,7 @@ void insereFila(Fila f,void* conteudo, char type) {
         fila->ultimo = novoNo;
     }
     fila->tamanho++;
+    
 }
 
 void insereFilaDisparadores(Fila FilaDisparadores, void* d){
@@ -88,21 +89,24 @@ Forma getPrimeiraFormaFila(Fila f) {
     return fila->primeiro->conteudo;
 }
 
-void liberarFila(Fila f) {
+void liberarFilaComConteudo(Fila f, DestruidorConteudo destruir) {
     stFila* fila = (stFila*)f;
-
-    if (fila == NULL) {
-        return;
-    }
+    if (fila == NULL) return;
 
     stNo* atual = fila->primeiro;
     while (atual != NULL) {
         stNo* temp = atual;
         atual = atual->prox;
-        free(temp);
+
+        // --- A LINHA ESSENCIAL QUE FALTA NA SUA liberarFila ---
+        if (destruir != NULL && temp->conteudo != NULL) {
+            destruir(temp->conteudo); // Chama free() ou freeDisparador() no conteúdo
+        }
+        // --- Fim da linha essencial ---
+
+        free(temp); // Libera o nó
     }
- 
-    free(fila);
+    free(fila); // Libera a fila
 }
 No_t getPrimeiroNoFila(Fila f) {
     stFila* fila = (stFila*)f;
@@ -162,9 +166,9 @@ Forma percorreFila(Fila f, int posicao){
 }
 
 void liberarTudo( Fila disparadores, Fila carregadores, Fila arena){
-    liberarFila(disparadores);
-    liberarFila(carregadores);
-    liberarFila(arena);
+    liberarFilaComConteudo(disparadores,free);
+    liberarFilaComConteudo(carregadores,free);
+    liberarFilaComConteudo(arena, free);
 }
 
 // void printarFilaTxt(Fila fila, FILE* arqTxt){

@@ -94,7 +94,10 @@ int getIDForma(Forma f) {
 }
 
 char getTipoForma(Forma f){
-    if(f == NULL) return;
+    if(f == NULL){
+        printf("Não existe nada no centro do carregador\n");
+        return 'n';
+    } 
     stForma* forma = (stForma*)f;
     return forma->tipo;
 }
@@ -290,20 +293,49 @@ void posicionaForma(Forma f, Disparador d, double deslocX, double deslocY){
 
     double dx = XD + deslocX;
     double dy = YD + deslocY;
-    stForma* forma = (stForma*)f;
 
-    if(forma->tipo == 'c'){//Circulo
-        setXCirculo((Circulo*)forma->fig,dx);
-        setYCirculo((Circulo*)forma->fig,dy);
-    }else if(forma->tipo == 'r'){//Retangulo
-        setCoordXRetangulo((Retangulo*)forma->fig, dx);
-        setCoordYRetangulo((Retangulo*)forma->fig, dy);
-    }else if(forma->tipo == 'l'){//Linha
-        setX1Linha((Linha*)forma->fig,dx);
-        setY1Linha((Linha*)forma->fig,dy);
-    }else if(forma->tipo == 't'){//Texto
-        setXTexto((Texto*)forma->fig, dx);
-        setYTexto((Texto*)forma->fig, dy);
+    char tipoForma = getTipoForma(f);
+    void* figura = getFiguraForma(f);
+    if(figura == NULL){
+        printf("Erro ao acessar a figura na função posicionaForma em formas.c\n");
+        return;
+    }
+
+    if(tipoForma == 'c'){//Circulo
+        Circulo* circ = (Circulo*)figura;
+        setXCirculo(circ,dx);
+        setYCirculo(circ,dy);
+        printf("Circulo movido para %lf em x e %lf em y\n",dx,dy);
+    }else if(tipoForma == 'r'){//Retangulo
+        Retangulo* ret = (Retangulo*)figura;
+        setCoordXRetangulo(ret, dx);
+        setCoordYRetangulo(ret, dy);
+        printf("Retangulo movido para %lf em x e %lf em y\n", dx,dy);
+    }else if(tipoForma == 'l'){//Linha
+        Linha* l = (Linha*)figura;
+        double x1_antigo = getX1Linha(l);
+        double y1_antigo = getY1Linha(l);
+        double x2_antigo = getX2Linha(l);
+        double y2_antigo = getY2Linha(l);
+
+        double deltaX = dx - x1_antigo;
+        double deltaY = dy - y1_antigo;
+
+        double x1_novo = x1_antigo + deltaX; 
+        double y1_novo = y1_antigo + deltaY; 
+        double x2_novo = x2_antigo + deltaX;
+        double y2_novo = y2_antigo + deltaY;
+
+        setX1Linha(l, x1_novo);
+        setY1Linha(l, y1_novo);
+        setX2Linha(l, x2_novo);
+        setY2Linha(l, y2_novo);
+        printf("Linha movida para :%lf em x1 ,%lf em y1,%lf em x2,%lf em y2\n",x1_novo,y1_novo,x2_novo,y2_novo);
+    }else if(tipoForma == 't'){//Texto
+        Texto* text =(Texto*)figura;
+        setXTexto(text, dx);
+        setYTexto(text, dy);
+        printf("Texto movido para %lf em x e %lf em y\n",dx,dy);
     }
 
 }

@@ -36,27 +36,35 @@ void fecharSVG(FILE* arqSvg) {
 void gerarSvgSaida(Fila filaFormas, FILE* arqSvgSaida){
     if(filaFormas == NULL || arqSvgSaida == NULL){
         printf("Erro ao acessar os arquivos para gerar o svg de saída.\n");
+        exit(1);
     }
     abrirSvg(arqSvgSaida);
 
     No_t atual = getPrimeiroNoFila(filaFormas);
+
     if(atual == NULL){
         printf("Fila vazia\n");
         fecharSVG(arqSvgSaida);
         return;
     }
+
     printf("dentro do svg de saída\n");
 
     while(atual != NULL){
         Forma formaAtual = (Forma)getConteudoDoNoFila(atual);
         if(formaAtual == NULL){
             printf("Erro ao gerar a formaAtual no arquivo printSvgGeo\n");
+            atual = getProximoNoFila(atual);
+            continue;
         }
 
         char tipoForma = getTipoForma(formaAtual);
         void* figura = getFiguraForma(formaAtual);
+
         if(figura == NULL){
             printf("Erro ao acessar a figura void*\n");
+            atual = getProximoNoFila(atual);
+            continue;
         }
 
         if(tipoForma == 'c'){

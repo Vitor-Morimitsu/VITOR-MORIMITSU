@@ -288,17 +288,17 @@ void comandoCalc(FILE* arqTxt, Fila chao) {
                     if (area_f1 < area_f2) {
                         areaEsmagadaRound += area_f1;
                         area_esmagada_total += area_f1;
-                        printf("  Sobreposição: [%c %d] sobre [%c %d]. Menor área (%.2f) adicionada.\n",
-                                tipo_f1, getIDForma(f1), tipo_f2, getIDForma(f2), area_f1);
+                        // printf("  Sobreposição: [%c %d] sobre [%c %d]. Menor área (%.2f) adicionada.\n",
+                        //         tipo_f1, getIDForma(f1), tipo_f2, getIDForma(f2), area_f1);
                     } else {
                         areaEsmagadaRound += area_f2;
                         area_esmagada_total += area_f2;
-                        printf("  Sobreposição: [%c %d] sobre [%c %d]. Menor área (%.2f) adicionada.\n",
-                                tipo_f1, getIDForma(f1), tipo_f2, getIDForma(f2), area_f2);
+                        // printf("  Sobreposição: [%c %d] sobre [%c %d]. Menor área (%.2f) adicionada.\n",
+                        //         tipo_f1, getIDForma(f1), tipo_f2, getIDForma(f2), area_f2);
                     }
                 } else {
-                    printf("  Sobreposição: [%c %d] sobre [%c %d]. Uma das áreas inválida (linha/texto?), não somado.\n",
-                                tipo_f1, getIDForma(f1), tipo_f2, getIDForma(f2));
+                    // printf("  Sobreposição: [%c %d] sobre [%c %d]. Uma das áreas inválida (linha/texto?), não somado.\n",
+                    //             tipo_f1, getIDForma(f1), tipo_f2, getIDForma(f2));
                 }
             } 
 

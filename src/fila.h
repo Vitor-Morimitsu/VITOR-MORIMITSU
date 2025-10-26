@@ -3,6 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
+#include "pilha.h"
 //#include "disparador.h"
 //#include "formas.h"
 
@@ -12,7 +13,7 @@
 */
 
 typedef void* Fila;
-//typedef void* Forma;
+typedef void (*DestruidorConteudo)(void* conteudo);
 typedef void* No_t;
 
 /// @brief Cria uma fila vazia
@@ -28,6 +29,7 @@ void insereFila(Fila f, void* Conteudo, char type);
 /// @param FilaDisparadores Fila de disparadores
 /// @param d Disparador a ser inserido
 void insereFilaDisparadores(Fila FilaDisparadores, void* d);
+
 
 /// @brief Remove o primeiro elemento da fila
 /// @param f Fila
@@ -77,11 +79,11 @@ void* percorreFila(Fila f, int posicao);
 /// @param disparadores Fila que contém todos os disparadores
 /// @param carregadores Fila que contém todos os carregadores
 /// @param arena Libera a fila da arena
-void liberarTudo( Fila disparadores, Fila carregadores, Fila arena);
+void liberarFilaComConteudo(Fila f, DestruidorConteudo destruir);
 
-/// @brief Printa em um arquivo txt tudo o que estiver na fila
-/// @param fila Fila 
-/// @param arqTxt Arquivo texto 
-void printarFilaTxt(Fila fila, FILE* arqTxt);
+// / @brief Printa em um arquivo txt tudo o que estiver na fila
+// / @param fila Fila 
+// / @param arqTxt Arquivo texto 
+// void printarFilaTxt(Fila fila, FILE* arqTxt);
 
 #endif

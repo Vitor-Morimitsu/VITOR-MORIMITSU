@@ -95,7 +95,7 @@ void* getConteudoPilha(Pilha p){
 
 int getIDPilha(Pilha p){
     if(p == NULL){
-        printf("Erro ao acessar a pilha.");
+        printf("Erro ao acessar a pilha pela função getIDPilha.\n");
         return -1;
     }
     stPilha* pilha = (stPilha*)p;
