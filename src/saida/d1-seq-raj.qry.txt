@@ -29,5 +29,31 @@ rjd 5 d 9.00 10.50 9.00 10.50
 
 calc
 
-Área esmagada do round: 0.000000.
-Área total esmagada: 0.000000.
+Área esmagada no Round: 0.00
+Área esmagada no Round: 333.20
+Área esmagada no Round: 448.95
+Área esmagada no Round: 580.80
+Área esmagada no Round: 728.75
+Área esmagada no Round: 892.80
+Área esmagada no Round: 1072.95
+Área esmagada no Round: 1269.20
+Área esmagada no Round: 0.00
+Área esmagada no Round: 1710.00
+Área esmagada no Round: 0.00
+Área esmagada no Round: 0.00
+Área esmagada no Round: 2491.95
+Área esmagada no Round: 5569.60
+Área esmagada no Round: 0.00
+Área esmagada no Round: 3418.80
+Área esmagada no Round: 0.00
+Área esmagada no Round: 0.00
+Área esmagada no Round: 4079.65
+Área esmagada no Round: 0.00
+Área esmagada no Round: 0.00
+Área esmagada no Round: 0.00
+Área esmagada no Round: 0.00
+Área esmagada no Round: 0.00
+Área esmagada no Round: 0.00
+--- Fim dos Cálculos ---
+Área total esmagada: 22596.65
+

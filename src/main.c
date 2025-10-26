@@ -119,15 +119,15 @@ int main(int argc, char* argv[])
         fclose(arqQry);
         fclose(arqTxt);
         
-        //reabrir txt para leitura 
-        arqTxt = fopen(arquivoSaidaTxt,"r");
-        if(arqTxt == NULL){
-            printf("Erro ao abrir aqruivo txt para leitura");
+        // //reabrir txt para leitura 
+        // arqTxt = fopen(arquivoSaidaTxt,"r");
+        // if(arqTxt == NULL){
+        //     printf("Erro ao abrir aqruivo txt para leitura");
            
-            liberarTudo(filaDisparadores, filaPilhas,chao);
-            return 1;
-        }
-        printf("Txt reaberto para leitura\n");
+        //     liberarTudo(filaDisparadores, filaPilhas,chao);
+        //     return 1;
+        // }
+        // printf("Txt reaberto para leitura no main\n");
 
         //abrir svg de saida
         FILE* arqSvgSaida = fopen(arquivoSaidaSvgQry, "w"); 
@@ -139,7 +139,7 @@ int main(int argc, char* argv[])
         }
         printf("Arquivo svg de saída aberto no main\n");
 
-        gerarSvgSaida(arqTxt, arqSvgSaida);   
+        gerarSvgSaida(chao, arqSvgSaida);   
         printf("Arquivo Svg saída gerado no main\n");
         
         fclose(arqTxt);

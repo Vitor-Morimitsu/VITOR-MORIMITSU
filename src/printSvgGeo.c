@@ -8,9 +8,7 @@
 void abrirSvg(FILE* arqSvg){
     fprintf(arqSvg, "<svg xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\n");
 }
-void desenharCirculoSVG(FILE* arqSvg, Forma forma) {
-    Circulo c = (Circulo)forma;
-    
+void desenharCirculoSVG(FILE* arqSvg, Circulo c) {    
     fprintf(arqSvg, "\t<circle id=\"%i\" cx=\"%f\" cy=\"%f\" r=\"%f\" stroke=\"%s\" fill=\"%s\" />\n",getIDCirculo(c), getCoordXCirculo(c),getCoordYCirculo(c),getRaioCirculo(c), getCorBCirculo(c), getCorPCirculo(c));
 }
 void desenharRetanguloSVG(FILE* arqSvg, Forma forma){
@@ -40,9 +38,12 @@ void gerarSvgSaida(Fila filaFormas, FILE* arqSvgSaida){
         printf("Erro ao acessar os arquivos para gerar o svg de saída.\n");
     }
     abrirSvg(arqSvgSaida);
+
     No_t atual = getPrimeiroNoFila(filaFormas);
     if(atual == NULL){
         printf("Fila vazia\n");
+        fecharSVG(arqSvgSaida);
+        return;
     }
     printf("dentro do svg de saída\n");
 
@@ -50,39 +51,35 @@ void gerarSvgSaida(Fila filaFormas, FILE* arqSvgSaida){
         Forma formaAtual = (Forma)getConteudoDoNoFila(atual);
         if(formaAtual == NULL){
             printf("Erro ao gerar a formaAtual no arquivo printSvgGeo\n");
-            continue;
         }
 
         char tipoForma = getTipoForma(formaAtual);
         void* figura = getFiguraForma(formaAtual);
         if(figura == NULL){
             printf("Erro ao acessar a figura void*\n");
-            atual = getProximoNoFila(atual);
-            continue;
         }
 
         if(tipoForma == 'c'){
             //círculo 
-            desenharCirculoSVG(arqSvgSaida,formaAtual);          
+            desenharCirculoSVG(arqSvgSaida,(Circulo*)figura);          
             printf("Printar o círculo no arquivo de saída svg");
 
         }else if(tipoForma == 'r'){
             //retângulo
-            desenharRetanguloSVG(arqSvgSaida,formaAtual);  
-            printf("Retangulo printado no arquivo de saida do svg\n");        
+            desenharRetanguloSVG(arqSvgSaida,(Retangulo*)figura);          
 
         }else if(tipoForma == 'l'){
             //linha
-            desenharLinhaSVG(arqSvgSaida,formaAtual);
+            desenharLinhaSVG(arqSvgSaida,(Linha*)figura);
             
         }else if(tipoForma == 't'){
             //texto
-            desenharTextoSVG(arqSvgSaida, formaAtual);
+            desenharTextoSVG(arqSvgSaida, (Texto*)figura);
             
         }else{
             continue;
         }
         atual = getProximoNoFila(atual);
-        fecharSVG(arqSvgSaida);
     }
+    fecharSVG(arqSvgSaida);
 }

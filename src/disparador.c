@@ -123,6 +123,7 @@ void setCarregadorDisparador(Disparador d, int idPilhaEsq, int idPilhaDir){
     }  
     stDisparador* ds = (stDisparador*)d;
     ds->idEsquerda = idPilhaEsq;
+    printf("id do carregador %i e o carregador %i na esquerda\n",getIDDisparador(d), idPilhaEsq);
     ds->idDireita = idPilhaDir;
 }
 

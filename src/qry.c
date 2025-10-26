@@ -32,9 +32,9 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
                 printf("erro ao criar o disparador no comando pd\n");
                 continue;
             }
-            // printf("Disparador criado\n");
             insereFilaDisparadores(filaDisparadores, d);
             setPosicaoDisparador(d,x,y);
+            printf("passou no comando pd\n");
             
         }else if(strcmp(comando, "lc") == 0){
             printf("comando lc\n");
@@ -50,9 +50,9 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
             carregarPilhaPelaFila(p, chao, n);
             escreverConteudoPilha(arqTxt, p);
             printf("passou no comando lc\n");
-            // printf("Escreveu na pilha\n");
             
         }else if(strcmp(comando, "atch") == 0){
+            printf("comando atch\n");
             //encaixa no disparador d os carregadores cesq(na esquerda) e cdir(na direita)
             int idDis, idCesq, idCDir;
             sscanf(linha,"atch %i %i %i",&idDis,&idCesq,&idCDir);
@@ -64,6 +64,7 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
             printf("passou no comando atch\n");
             
         }else if(strcmp(comando, "shft") == 0){
+            printf("comando shft\n");
             //pressiona o botão esquerdo(e) ou o botão direito(d) do disparador d n vezes
             char lado;
             int n, idDis;
@@ -82,6 +83,7 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
             printf("teste 2 no comando shft \n");
             
         }else if(strcmp(comando, "dsp") == 0){
+            printf("comando disp\n");
             //posiciona a forma que está em posição de disparo a um deslocamento de dx, dy em relação à posição do disparador
             double dx, dy;
             int idDis;
@@ -93,8 +95,8 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
             comandoDsp(arqTxt,filaDisparadores, idDis,dx,dy);
             printf("teste 3 no comando dsp\n");
             
-            
         }else if(strcmp(comando, "rjd") == 0){
+            printf("comando rjd\n");
             //rajada de disparos até as formas do carregador se esgotarem
             char car;
             int idDis, idEsq, idDir;
@@ -103,7 +105,9 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
             
             Disparador d = encontrarDisparadorPorID(filaDisparadores, idDis);
             idEsq = getIDPilhaEsquerda(d);
+            printf("id da pilha esquerda: %d\n", idEsq);
             idDir = getIDPilhaDireita(d);
+            printf("id da pilha direita: %d\n", idDir);
             
             Pilha pEsq = encontrarPilhaPorID(filaCarregadores, idEsq);
             Pilha pDir = encontrarPilhaPorID(filaCarregadores, idDir);
@@ -141,9 +145,9 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
             
             
         }else if(strcmp(comando, "calc") == 0){
-            printf("teste 5 no comando calc\n");
             //processa as figuras da arena conforme descrito anteriormente em um novo arqSVg
             comandoCalc(arqTxt,chao);
+            printf("passou no comando calc\n");
         }
     }
 }
