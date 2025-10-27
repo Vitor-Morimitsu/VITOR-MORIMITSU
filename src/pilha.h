@@ -13,6 +13,7 @@
 
 typedef void* Pilha;
 typedef void* NoPilha_t;
+typedef void (*DestruidorConteudo)(void* conteudo);
 
 /// @brief Cria e retorna uma pilha vazia
 /// @return Pilha vazia
@@ -22,17 +23,6 @@ Pilha criarPilha(int d);
 /// @param p Pilha
 /// @param conteudo Conteudo a ser inserido
 void inserirPilha(Pilha p, void* conteudo);
-
-// /// @brief Insere os n primeiros elementos da fila na pilha
-// /// @param p Pilha p
-// /// @param f Fila
-// /// @param n Quantidade de elementos da fila a serem inseridos na pilha
-// void carregarPilhaPelaFila(Pilha p, Fila f, int n);
-
-// /// @brief Reportar os dados de cada uma das formas carregadas
-// /// @param arqTxt Arquivo destino
-// /// @param p Pilha
-// void escreverConteudoPilha(FILE* arqTxt, Pilha p);
 
 /// @brief Remove a celula do inicio da pilha
 /// @param p Pilha p
@@ -68,7 +58,8 @@ NoPilha_t getProximoNoPilha(NoPilha_t no);
 /// @return Conteúdo do nó da pilha
 void* getConteudoDoNoPilha(NoPilha_t p);
 
-/// @brief Libera memória da pilha.
-/// @param p Pilha
-void liberarMemoriaPilha(Pilha p);
+/// @brief Libera toda a memória associada à pilha, incluindo nós e conteúdo.
+/// @param p A pilha a ser liberada.
+/// @param destruir Ponteiro para a função que sabe como liberar o 'conteudo' de cada nó (ex: free, liberarForma).
+void liberarMemoriaPilha(Pilha p, DestruidorConteudo destruir);
 #endif      

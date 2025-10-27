@@ -30,18 +30,17 @@ void insereFila(Fila f, void* Conteudo, char type);
 /// @param d Disparador a ser inserido
 void insereFilaDisparadores(Fila FilaDisparadores, void* d);
 
-
 /// @brief Remove o primeiro elemento da fila
 /// @param f Fila
-void removeFila(Fila f);
+void* removeFila(Fila f);
 
 /// @brief Mostra o primeiro elemento da fila
 /// @param f Fila
-void* getPrimeiraFormaFila(Fila f);
+void* getPrimeiroConteudoFila(Fila f);
 
 /// @brief Libera a memória ocupada pela fila
 /// @param f Fila
-void liberarFila(Fila f);
+void liberarFilaComConteudo(Fila f, DestruidorConteudo destruir);
 
 /// @brief Retorna o primeiro nó da fila para iniciar uma iteração.
 /// @param f A fila.
@@ -80,10 +79,4 @@ void* percorreFila(Fila f, int posicao);
 /// @param carregadores Fila que contém todos os carregadores
 /// @param arena Libera a fila da arena
 void liberarFilaComConteudo(Fila f, DestruidorConteudo destruir);
-
-// / @brief Printa em um arquivo txt tudo o que estiver na fila
-// / @param fila Fila 
-// / @param arqTxt Arquivo texto 
-// void printarFilaTxt(Fila fila, FILE* arqTxt);
-
 #endif

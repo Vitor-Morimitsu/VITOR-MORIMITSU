@@ -59,7 +59,7 @@ double getAreaForma(Forma f);
 
 /// @brief Libera as formas criadas
 /// @param f Forma f
-void liberarForma(Forma f);
+void liberarForma(void* f);
 
 /// @brief Reportar os dados de cada uma das formas carregadas
 /// @param arqTxt Arquivo destino

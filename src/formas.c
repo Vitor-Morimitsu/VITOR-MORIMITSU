@@ -258,29 +258,15 @@ double getAreaForma(Forma f){
     }
 }
 
-void liberarForma(Forma f){
-    if(f == NULL){
-        return; 
-    }
-
-    stForma* formaWrapper = (stForma*)f;
-
-    switch (formaWrapper->tipo) {
-        case 'r':
-            liberaRetangulo(formaWrapper->fig);
-            break;
-        case 'c':
-            liberaCirculo(formaWrapper->fig);
-            break;
-        case 'l':
-            liberaLinha(formaWrapper->fig);
-            break;
-        case 't':
-            liberaTexto(formaWrapper->fig);
-            break;
-    }
-
-    free(formaWrapper);
+void liberarForma(void* f){
+    if (f == NULL){
+      printf("erro ao liberar a forma em forma.c\n");
+      return;  
+    } 
+    Forma forma = (Forma)f;
+    void* figura = getFiguraForma(forma);
+    if (figura != NULL) free(figura); 
+    free(forma); 
 }
 
 void posicionaForma(Forma f, Disparador d, double deslocX, double deslocY){

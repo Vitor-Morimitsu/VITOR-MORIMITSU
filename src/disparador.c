@@ -36,6 +36,16 @@ void* getConteudoCentro(Disparador d) {
     return ds->centro;
 }
 
+void setConteudoCentro(Disparador d, void* conteudo){
+    if(d == NULL){
+        printf("Erro ao acessar o disparador para colocar o conteudo no centro\n");
+        return;
+    }
+
+    stDisparador* ds = (stDisparador*)d;
+    ds->centro = conteudo;
+}
+
 int getIDDisparador(Disparador d){
     if(d == NULL){
         printf("Erro ao acessar o disparador para retornar a ID.");
@@ -180,12 +190,4 @@ void pressionaBotao(Disparador d, char lado, int n, Pilha esq, Pilha dir){
             inserirPilha(destino, antigo);
         }
     }
-}
-
-void destruirDisparador(Disparador ds){
-    if(ds == NULL){
-        printf("Erro ao acessar o disparador.");
-        exit(1);
-    }
-    free(ds);
 }

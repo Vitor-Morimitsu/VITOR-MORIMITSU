@@ -1,5 +1,208 @@
 #include "qry.h"
 
+void qryAtch(Fila disparadores, Fila carregadores,int idDisparador, int idEsquerdo, int idDireito){
+    Disparador d = encontrarDisparadorPorID(disparadores,idDisparador);
+    if(d == NULL){
+        printf("Disparador não encontrado no comando atch no qry.\n");
+        return;
+    }
+
+    Pilha CE = encontrarPilhaPorID(carregadores,idEsquerdo);
+    if(CE == NULL){
+        printf("Carregador esquerdo não encontrado no comando atch no qry.\n");
+        CE = criarPilha(idEsquerdo);
+        insereFila(carregadores,(void*)CE,'p');
+        printf("Carregador esquerdo com o id %i criado \n", idEsquerdo);
+        return;
+    }
+
+    Pilha CD = encontrarPilhaPorID(carregadores,idDireito);
+    if(CD == NULL){
+        printf("Carregador direito não encontrado no comando atch no qry.\n"); 
+        CD = criarPilha(idDireito);
+        insereFila(carregadores, (void*)CD, 'p');
+        printf("Carregador direitor com o id %i criado \n", idDireito);
+        return;
+    }
+
+    //certeza que existem as coisas
+    setCarregadorDisparador(d,idEsquerdo,idDireito);
+}
+
+void qryShft(Fila disparadores, Fila carregadores, int idDis, char lado, int n){
+    Disparador d = encontrarDisparadorPorID(disparadores, idDis);
+    if(d == NULL){
+        printf("erro ao localizar o disparador no comando shft no qry.\n");
+        return;
+    }
+    int idCe = getIDPilhaEsquerda(d);
+    int idCd = getIDPilhaDireita(d);
+
+    Pilha CE = encontrarPilhaPorID(carregadores,idCe);
+    if(CE == NULL){
+        printf("Carregador esquerdo não encontrado no comando shft\n");
+        return;
+    }
+    Pilha CD = encontrarPilhaPorID(carregadores, idCd);     
+    if(CD == NULL){
+        printf("Carregador direito não encotrado no comando shft\n");
+        return;
+    }    
+
+    
+    if(lado == 'e'){
+    
+        for(int i = 0;i<n;i++){
+            void* centro = getConteudoCentro(d); 
+            if(centro == NULL){
+                void* conteudo = removerPilha(CE);    
+                if(conteudo == NULL){
+                    printf("carregador esquerdo vazio no comando shft\n");
+                    break;
+                }
+                setConteudoCentro(d,conteudo);
+
+            }else{//tem coisa no centro
+                void* conteudo = removerPilha(CE);
+                if(conteudo == NULL){
+                    printf("carregador esquerdo vazio no comando shft\n");
+                    break;
+                }
+                inserirPilha(CD, centro);
+                setConteudoCentro(d,conteudo);          
+            }         
+        }
+
+
+    }else if(lado == 'd'){
+        for(int i = 0;i<n;i++){
+            void* centro = getConteudoCentro(d); 
+            if(centro == NULL){//não tem nada no centro
+                void* conteudo = removerPilha(CD);  
+                if(conteudo == NULL){
+                    printf("carregador direito vazio no comando shft\n");
+                    break;
+                }  
+                setConteudoCentro(d,conteudo);
+
+            }else{//tem coisa no centro
+                void* conteudo = removerPilha(CD);
+                if(conteudo == NULL){
+                    printf("carregador direito vazio no comando shft\n");
+                    break;
+                }
+                inserirPilha(CE, centro);
+                setConteudoCentro(d,conteudo);            
+            
+            }         
+        }
+        
+    }else{
+        printf("Lado inválido no comando shft\n");
+        return;
+    }
+}
+
+void qryDsp(Fila disparadores, int idDis, double dx, double dy, char letra, int iteracao){
+    Disparador d = encontrarDisparadorPorID(disparadores, idDis);
+    if(d == NULL){
+        printf("Erro ao localizar o disparador na função qryDsp\n");
+        return;
+    }
+
+    double xDisparador = getXDisparador(d);
+    double yDisparador = getYDisparador(d);
+
+    int comando = 1;
+
+    if(letra == 'v'){//anotar as dimensões do disparo
+
+    }else if(letra == 'i'){//aumentar conforme iteração
+        comando = iteracao;
+    }
+
+    void* conteudo = getConteudoCentro(d);
+    if(conteudo == NULL){
+        printf("nada a ser disparado\n");
+    }else{
+        Forma forma = conteudo;
+        char tipoConteudo = getTipoForma(forma);
+        if(tipoConteudo == 'c'){
+            Circulo* circ = (Circulo*)forma;
+            setXCirculo(circ, xDisparador + (comando * dx));
+            setYCirculo(circ, yDisparador + (comando * dy));
+
+        }else if(tipoConteudo == 'r'){
+            Retangulo* ret = (Retangulo*)forma;
+            setCoordXRetangulo(ret,xDisparador + (comando * dx));
+            setCoordYRetangulo(ret,yDisparador + (comando * dy));
+
+        }else if(tipoConteudo == 'l'){
+            Linha* lin = (Linha*)forma;
+            double vetorX = getX2Linha(lin) - getX1Linha(lin);
+            double vetorY = getY2Linha(lin) - getY1Linha(lin);
+            
+            setX1Linha(lin, xDisparador + (comando * dx));
+            setY1Linha(lin, yDisparador + (comando * dy));
+
+
+            setX2Linha(lin, (xDisparador + (comando * dx)) + vetorX);
+            setY2Linha(lin, (yDisparador + (comando * dy)) + vetorY);
+        }else if(tipoConteudo == 't'){
+            Texto* t = (Texto*)forma;
+            setXTexto(t, xDisparador + (comando * dx));
+            setYTexto(t, yDisparador + (comando * dy));
+        }
+    }
+
+    setConteudoCentro(d, NULL);
+}
+
+void qryRjd(Fila disparadores, Fila carregadores, int idDis, char lado, double dx, double dy,double ix, double iy, int iteracao){
+    //encontrar tamanho da pilha 
+    Disparador d = encontrarDisparadorPorID(disparadores,idDis);
+    if(d == NULL){
+        printf("Erro ao localizar disparador no qryRjd\n");
+        return;
+    }
+
+    int idE = getIDPilhaEsquerda(d);
+    int idD = getIDPilhaDireita(d);
+
+    Pilha esq = encontrarPilhaPorID(carregadores,idE);
+    if(esq == NULL){
+        printf("Pilha esquerda em qryRjd é nula\n");
+    }
+
+    Pilha dir = encontrarPilhaPorID(carregadores,idD);
+    if(dir == NULL){
+        printf("Pilha direita em qryRjd é nula\n");
+    }
+
+    int tamanhoEsq = getTamanhoPilha(esq);
+    int tamanhoDir = getTamanhoPilha(dir);
+
+    if(lado == 'e'){
+        //Carregador esquerdo
+        for(int i = 0; i< tamanhoEsq;i++){
+            iteracao = i;
+            qryShft(disparadores,carregadores,idDis,lado,1);
+            qryDsp(disparadores, idDis, dx+iteracao*ix, dy+iteracao*iy,lado,iteracao);
+        }
+        
+    }else if(lado == 'd'){
+        //carregador direito
+        for(int i = 0;i<tamanhoDir;i++){
+            iteracao = i;
+            qryShft(disparadores,carregadores,idDis,lado,1);
+            qryDsp(disparadores, idDis, dx+iteracao*ix, dy+iteracao*iy,lado,iteracao);
+
+        }
+
+    }
+ 
+}
+
 void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregadores,Fila chao){
     if(arqQry == NULL){
         printf("Erro ao ler o arquivo .qry");
@@ -69,12 +272,8 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
             sscanf(linha,"atch %i %i %i",&idDis,&idCesq,&idCDir);
             printf("comando atch = idDIs:%i  idEsq:%i  idDir:%i\n", idDis,idCesq,idCDir);
 
-            Disparador d = encontrarDisparadorPorID(filaDisparadores,idDis);
-            if(d == NULL){
-                printf("Erro ao encontrar o disparador no comando atch\n");
-            }
-            printf("O disparador %d foi carregado com as pilha %d na esquerda e %d na direita\n",idDis,idCesq,idCDir);
-            setCarregadorDisparador(d, idCesq, idCDir);
+            qryAtch(filaDisparadores,filaCarregadores,idDis,idCesq,idCDir);
+
             printf("passou no comando atch\n");//ok!
             
         }else if(strcmp(comando, "shft") == 0){
@@ -85,19 +284,10 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
             sscanf(linha, "shft %i %c %i", &idDis,&lado, &n);
             printf("comando shft = idDis:%i  lado:%c  qunatidade de vezes:%i\n",idDis,lado,n);
 
-            Disparador d = encontrarDisparadorPorID(filaDisparadores, idDis);
-            if(d != NULL){
-                printf("disparador encontrado no comando shft qry\n");
-                int idEsq = getIDPilhaEsquerda(d);
-                int idDir = getIDPilhaDireita(d);
-                
-                Pilha pEsq = encontrarPilhaPorID(filaCarregadores, idEsq);
-                Pilha pDir = encontrarPilhaPorID(filaCarregadores, idDir);
-                
-                pressionaBotao(d,lado,n,pEsq,pDir);
-                comandoShft(arqTxt, idDis, filaDisparadores);
-            }
-            printf("teste 2 no comando shft \n");
+            qryShft(filaDisparadores,filaCarregadores,idDis, lado,n);
+            //printar no txt
+            comandoShft(arqTxt,idDis, filaDisparadores);
+            printf("passou no comando shft \n");
             
         }else if(strcmp(comando, "dsp") == 0){
             printf("comando disp\n");
@@ -114,79 +304,18 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
             Forma f = getConteudoCentro(d);
             posicionaForma(f,d,dx,dy);
             comandoDsp(arqTxt,filaDisparadores, idDis,dx,dy);
-            printf("teste 3 no comando dsp\n");
+            printf("passando no comando dsp\n");
             
         }else if(strcmp(comando, "rjd") == 0){
             printf("comando rjd\n");
             //rajada de disparos até as formas do carregador se esgotarem
             char car;
-            int idDis, idEsq, idDir;
+            int idDis, idEsq, idDir,iteracao;
             double dx, dy, ix, iy;
             sscanf(linha, "rjd %i %c %lf %lf %lf %lf", &idDis,&car,&dx,&dy,&ix,&iy);
             printf("comando rjd = idDis:%i  letra do carregador:%c dx:%lf  dy:%lf  ix:%lf iy:%lf\n",idDis,car,dx,dy,ix,iy);
             
-            Disparador d = encontrarDisparadorPorID(filaDisparadores, idDis);
-            if(d == NULL){
-                printf("Disparador nao encontrado no comando disp qry\n");
-                continue;
-            }
-
-            printf("Id do disparador utilizado no comando rjd: %i\n", getIDDisparador(d));// tudo certo
-
-            idEsq = getIDPilhaEsquerda(d);
-            idDir = getIDPilhaDireita(d);
-            printf("ID do carregador direito do comando rjd: %i ----- id do carregador esquerdo do comando rjd: %i\n",idDir, idEsq);
-
-            Pilha esquerda = encontrarPilhaPorID(filaCarregadores,idEsq);
-
-            No_t noDebug = getPrimeiroNoFila(filaCarregadores);
-            int count = 0;
-            while (noDebug != NULL) {
-                void* conteudoDebug = getConteudoDoNoFila(noDebug);
-                if (conteudoDebug != NULL) {
-                    Pilha pilhaDebug = (Pilha)conteudoDebug;
-                    // CUIDADO: Verifique se getIDPilha é seguro contra NULL se algo der errado
-                    printf("  -> Item %d: Ponteiro Pilha=%p, ID=%d\n", count, (void*)pilhaDebug, getIDPilha(pilhaDebug));
-                } else {
-                    printf("  -> Item %d: Conteudo NULO!\n", count);
-                }
-                noDebug = getProximoNoFila(noDebug);
-                count++;
-            }
-            if (count == 0) {
-                    printf("  -> Fila de Carregadores está VAZIA!\n");
-            }
-            Pilha direita = encontrarPilhaPorID(filaCarregadores,idDir);
-
-            if(esquerda == NULL){
-                printf("Pilha esquerda do disparador é nula\n");
-            }else{
-                printf("Pilha esuqerda do disparador encontrada\n");
-            }
-
-            if(direita == NULL){
-                printf("Pilha direita do disparador é nula\n");
-            }else{
-                printf("Pilha direita do disparador encontrada\n");
-            }
-            
-            Forma centroAntes = getConteudoCentro(d);
-            if(centroAntes == NULL){
-                printf("centro está vazio\n");
-            }else{
-                char tipoAntes = getTipoForma(centroAntes);
-                printf("tipo do conteudo do centro %c\n", tipoAntes);
-            }
-
-            pressionaBotao(d,car,1,esquerda, direita);
-
-            Forma centroDepois = getConteudoCentro(d);
-            if(centroDepois == NULL){
-                printf("Centro depois está vazio.\n");
-            }else{
-                char tipoDepois = getTipoForma(centroDepois);
-                printf("tipo do centro depois %c\n", tipoDepois);
-            }
+            qryRjd(filaDisparadores,filaCarregadores,idDis,car,dx,dy,ix,iy, iteracao);
 
                       
             

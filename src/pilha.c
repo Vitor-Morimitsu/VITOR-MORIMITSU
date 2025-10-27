@@ -1,5 +1,4 @@
 #include "pilha.h"
-#include "fila.h"
 typedef struct stcelula{
     void* conteudo;
     struct stcelula *prox;
@@ -39,29 +38,6 @@ void inserirPilha(Pilha p, void* conteudo){
     pilha->topo = novaCelula;
     pilha->tamanho++;
 }
-
-// void escreverConteudoPilha(FILE* arqTxt, Pilha p){
-//     if(p == NULL || arqTxt == NULL){
-//         printf("erro ao acessar os parametros para printar o conteudo da pilha\n");
-//     }
-
-//     stPilha* pilha =(stPilha*)p;
-//     if(pilha == NULL || pilha->topo == NULL){
-//         return NULL;
-//     }        
-
-//     stCelula* atual = pilha->topo;
-//     void* conteudo = atual->conteudo;
-
-//     while(atual != NULL){
-
-
-
-//         atual = atual->prox;
-//     }
-
-    
-// }
 
 void* removerPilha(Pilha p){
     stPilha* pilha = (stPilha*)p;
@@ -130,17 +106,23 @@ void* getConteudoDoNoPilha(NoPilha_t no) {
     return celula_interna->conteudo;
 }
 
-void liberarMemoriaPilha(Pilha p){
+
+void liberarMemoriaPilha(Pilha p, DestruidorConteudo destruir) {
     if (p == NULL) {
         return;
     }
-
     stPilha* pilha = (stPilha*)p;
     stCelula* atual = pilha->topo;
- 
+
     while (atual != NULL) {
         stCelula* temp = atual;
         atual = atual->prox;
+
+        
+        if (destruir != NULL && temp->conteudo != NULL) {
+            destruir(temp->conteudo); 
+        }
+        
 
         free(temp); 
     }

@@ -63,6 +63,11 @@ int getIDPilhaDireita(Disparador d);
 /// @param i Identificador do disparador
 void setIDDisparador(Disparador d, int i);
 
+/// @brief Coloca o conteudo passado no centro do disparador
+/// @param d Disparador
+/// @param conteudo Conteudo a ser disparado
+void setConteudoCentro(Disparador d, void* conteudo);
+
 /// @brief Encaixa no disparador d os carregadores da esquerda e direita
 /// @param d Disparador
 /// @param idPilhaEsq Id do carregador da esquerda

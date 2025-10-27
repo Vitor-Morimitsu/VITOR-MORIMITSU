@@ -80,15 +80,41 @@ int main(int argc, char* argv[])
 
     if(arqGeo == NULL){
         printf("Nâo foi possível abrir o arquivo geo no main.");
-        liberarTudo(filaDisparadores, filaPilhas,chao);
+        liberarFilaComConteudo(filaDisparadores,free);
+            if(filaPilhas != NULL){
+                No_t noPilhaAtual = getPrimeiroNoFila(filaPilhas);
+                while(noPilhaAtual != NULL){
+                    void* conteudo = getConteudoDoNoFila(noPilhaAtual);
+                    if(conteudo != NULL){
+                    Pilha p = (Pilha)conteudo; 
+                    liberarMemoriaPilha(p,liberarForma);
+                  }
+                 noPilhaAtual = getProximoNoFila(noPilhaAtual);
+                }
+                liberarFilaComConteudo(filaPilhas,NULL);
+            }
+            liberarFilaComConteudo(chao,liberarForma);
         return 1;
     }
 
     FILE* arqSvgEntrada = fopen(arquivoSaidaSvgGeo, "w");
     if(arqSvgEntrada == NULL){
         printf("Erro ao abrir arquivo Svg de entrada.");
+        liberarFilaComConteudo(filaDisparadores,free);
+            if(filaPilhas != NULL){
+                No_t noPilhaAtual = getPrimeiroNoFila(filaPilhas);
+                while(noPilhaAtual != NULL){
+                    void* conteudo = getConteudoDoNoFila(noPilhaAtual);
+                    if(conteudo != NULL){
+                    Pilha p = (Pilha)conteudo; 
+                    liberarMemoriaPilha(p,liberarForma);
+                  }
+                 noPilhaAtual = getProximoNoFila(noPilhaAtual);
+                }
+                liberarFilaComConteudo(filaPilhas,NULL);
+            }
+            liberarFilaComConteudo(chao,liberarForma);
         fclose(arqGeo);
-        liberarTudo(filaDisparadores, filaPilhas,chao);
         return 1;
     }
     
@@ -101,15 +127,41 @@ int main(int argc, char* argv[])
         FILE* arqQry = fopen(fullPathQry, "r");
         if (arqQry == NULL) {
             printf("Falha ao abrir arquivo qry no main.");
-            liberarTudo(filaDisparadores, filaPilhas,chao);
+            liberarFilaComConteudo(filaDisparadores,free);
+            if(filaPilhas != NULL){
+                No_t noPilhaAtual = getPrimeiroNoFila(filaPilhas);
+                while(noPilhaAtual != NULL){
+                    void* conteudo = getConteudoDoNoFila(noPilhaAtual);
+                    if(conteudo != NULL){
+                    Pilha p = (Pilha)conteudo; 
+                    liberarMemoriaPilha(p,liberarForma);
+                  }
+                 noPilhaAtual = getProximoNoFila(noPilhaAtual);
+                }
+                liberarFilaComConteudo(filaPilhas,NULL);
+            }
+            liberarFilaComConteudo(chao,liberarForma);
             return 1;
         }
 
         FILE* arqTxt = fopen(arquivoSaidaTxt, "w");
         if(arqTxt == NULL){
             printf("Erro ao abrir txt para escrita.");
+            liberarFilaComConteudo(filaDisparadores,free);
+            if(filaPilhas != NULL){
+                No_t noPilhaAtual = getPrimeiroNoFila(filaPilhas);
+                while(noPilhaAtual != NULL){
+                    void* conteudo = getConteudoDoNoFila(noPilhaAtual);
+                    if(conteudo != NULL){
+                    Pilha p = (Pilha)conteudo; 
+                    liberarMemoriaPilha(p,liberarForma);
+                  }
+                 noPilhaAtual = getProximoNoFila(noPilhaAtual);
+                }
+                liberarFilaComConteudo(filaPilhas,NULL);
+            }
+            liberarFilaComConteudo(chao,liberarForma);
             fclose(arqQry);
-            liberarTudo(filaDisparadores, filaPilhas,chao);
             return 1;
         }
         
@@ -123,15 +175,42 @@ int main(int argc, char* argv[])
         FILE* arqSvgSaida = fopen(arquivoSaidaSvgQry, "w"); 
         if(arqSvgSaida == NULL){
             printf("Erro ao abrir svg de saida\n");
-            fclose(arqTxt);
-            liberarTudo(chao, filaDisparadores, filaPilhas);
+            liberarFilaComConteudo(filaDisparadores,free);
+            if(filaPilhas != NULL){
+                No_t noPilhaAtual = getPrimeiroNoFila(filaPilhas);
+                while(noPilhaAtual != NULL){
+                    void* conteudo = getConteudoDoNoFila(noPilhaAtual);
+                    if(conteudo != NULL){
+                    Pilha p = (Pilha)conteudo; 
+                    liberarMemoriaPilha(p,liberarForma);
+                  }
+                 noPilhaAtual = getProximoNoFila(noPilhaAtual);
+                }
+                liberarFilaComConteudo(filaPilhas,NULL);
+            }
+            liberarFilaComConteudo(chao,liberarForma);
             return 1;
         }
 
         gerarSvgSaida(chao, arqSvgSaida);   
-        printf("Arquivo Svg saída gerado no main\n");
+        printf("Passou arquivo Svg saída no main\n");
         
-        liberarTudo(chao, filaDisparadores, filaPilhas);
+        liberarFilaComConteudo(filaDisparadores,free);
+        if(filaPilhas != NULL){
+            No_t noPilhaAtual = getPrimeiroNoFila(filaPilhas);
+            while(noPilhaAtual != NULL){
+                void* conteudo = getConteudoDoNoFila(noPilhaAtual);
+                if(conteudo != NULL){
+                    Pilha p = (Pilha)conteudo; 
+                    liberarMemoriaPilha(p,liberarForma);
+                }
+                noPilhaAtual = getProximoNoFila(noPilhaAtual);
+            }
+            liberarFilaComConteudo(filaPilhas,NULL);
+        }
+        liberarFilaComConteudo(chao,liberarForma);
+
+
         fclose(arqSvgSaida);
     }
     return 0; 
