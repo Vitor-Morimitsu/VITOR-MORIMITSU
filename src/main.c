@@ -166,7 +166,7 @@ int main(int argc, char* argv[])
         }
         
         lerQry(arqQry,arqTxt,filaDisparadores,filaPilhas,chao);
-        printf("Passou a leitura do qry\n");
+        printf("Passou a leitura do qry no main\n");
         
         fclose(arqQry);
         fclose(arqTxt);
@@ -191,8 +191,11 @@ int main(int argc, char* argv[])
             liberarFilaComConteudo(chao,liberarForma);
             return 1;
         }
+        printf("Arquivo svg de saída criado no main\n");
 
         gerarSvgSaida(chao, arqSvgSaida);   
+        fflush(arqSvgSaida);
+        
         printf("Passou arquivo Svg saída no main\n");
         
         liberarFilaComConteudo(filaDisparadores,free);
@@ -207,8 +210,8 @@ int main(int argc, char* argv[])
                 noPilhaAtual = getProximoNoFila(noPilhaAtual);
             }
             liberarFilaComConteudo(filaPilhas,NULL);
+            liberarFilaComConteudo(chao,liberarForma);
         }
-        liberarFilaComConteudo(chao,liberarForma);
 
 
         fclose(arqSvgSaida);

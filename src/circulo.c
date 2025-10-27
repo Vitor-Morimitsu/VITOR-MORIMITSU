@@ -90,7 +90,7 @@ void liberaCirculo(Circulo c){
 
     stCirculo* circ = (stCirculo*)c;
 
-    free(circ->corb);
-    free(circ->corp);
-    free(circ);
+    // free(circ->corb);
+    // free(circ->corp);
+    // free(circ);
 }

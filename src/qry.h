@@ -39,12 +39,12 @@ void fecharQry(FILE* arqQry);
 /*
     Função que realiza uma rajada de disparos até as formas do carregador se esgotarem
 */
-void qryRjd(Fila disparadores, Fila carregadores, int idDis, char lado,double dx, double dy,double ix, double iy, int iteracao);
+void qryRjd(Fila disparadores, Fila carregadores, Fila arena,int idDis, char lado,double dx, double dy,double ix, double iy);
 
 /// @brief Função que posiciona a forma que está em posição de disparo a um deslocamento dx,dy em relação ao disparador
 /// @param disparadores Fila de disparadores
 /// @param idDis Id do disparador
-void qryDsp(Fila disparadores, int idDis, double dx, double dy, char letra, int iteracao);
+void qryDsp(Fila disparadores,Fila arena, int idDis, double dx, double dy, char letra, int iteracao);
 
 /*
     Função responsável por fechar o arquivo .txt que havia sido previamente aberto.

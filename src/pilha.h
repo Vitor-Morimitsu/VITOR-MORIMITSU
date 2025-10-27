@@ -60,6 +60,6 @@ void* getConteudoDoNoPilha(NoPilha_t p);
 
 /// @brief Libera toda a memória associada à pilha, incluindo nós e conteúdo.
 /// @param p A pilha a ser liberada.
-/// @param destruir Ponteiro para a função que sabe como liberar o 'conteudo' de cada nó (ex: free, liberarForma).
+/// @param destruir Ponteiro para a função que sabe como liberar o 'conteudo' de cada nó (ex: // free, liberarForma).
 void liberarMemoriaPilha(Pilha p, DestruidorConteudo destruir);
 #endif      

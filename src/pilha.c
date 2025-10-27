@@ -49,7 +49,7 @@ void* removerPilha(Pilha p){
     void* conteudo = temp->conteudo;
 
     pilha->topo = pilha->topo->prox;
-    free(temp);
+    // free(temp);
     pilha->tamanho--;
 
     return conteudo;
@@ -124,7 +124,7 @@ void liberarMemoriaPilha(Pilha p, DestruidorConteudo destruir) {
         }
         
 
-        free(temp); 
+        // free(temp); 
     }
-    free(pilha); 
+    // free(pilha); 
 }

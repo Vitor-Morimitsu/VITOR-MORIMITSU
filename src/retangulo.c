@@ -10,7 +10,7 @@ typedef struct Retangulo{
 }stRetangulo;
 
 Retangulo criaRetangulo(int i, double x, double y, double w, double h, char* corb, char* corp){
-    stRetangulo *r = malloc(sizeof(stRetangulo));
+    stRetangulo *r = (stRetangulo*)malloc(sizeof(stRetangulo));
     r->i = i;
     r->x = x;
     r->y = y;
@@ -21,6 +21,7 @@ Retangulo criaRetangulo(int i, double x, double y, double w, double h, char* cor
         printf("Erro ao alocar memória para cor da borda do retangulo.");
         exit(1);
     }
+    printf("Teste\n");
     strcpy(r->corb, corb);
 
     r->corp = (char*)malloc(strlen(corp) + 1);
@@ -97,8 +98,8 @@ void liberaRetangulo(Retangulo r){
     if(r == NULL) return;
 
     stRetangulo* ret = (stRetangulo*)r;
-    free(ret->corb);
-    free(ret->corp);
+    // free(ret->corb);
+    // free(ret->corp);
 
-    free(r);
+    // free(r);
 }

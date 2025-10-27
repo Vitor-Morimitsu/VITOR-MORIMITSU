@@ -71,7 +71,7 @@ void* removeFila(Fila f) {
     void* conteudo = temp->conteudo; 
 
     fila->primeiro = fila->primeiro->prox;
-    free(temp); 
+    // free(temp); 
     fila->tamanho--;
 
     if (fila->primeiro == NULL) {
@@ -92,26 +92,40 @@ void* getPrimeiroConteudoFila(Fila f) {
 }
 
 void liberarFilaComConteudo(Fila f, DestruidorConteudo destruir) {
-    stFila* fila = (stFila*)f;
-    if (fila == NULL) {
-        printf("Fila vazia\n");
+    if (f == NULL) {
         return;
     }
 
-    stNo* atual = fila->primeiro;
+    No_t atual = getPrimeiroNoFila(f);
+    No_t proximo;
 
     while (atual != NULL) {
-        stNo* temp = atual;
-        
-        atual = atual->prox;
+        proximo = getProximoNoFila(atual); 
 
-        if (destruir != NULL && temp->conteudo != NULL) {
-            destruir(temp->conteudo);
+        void* conteudo = getConteudoDoNoFila(atual);
+        char tipo = getTipoDoNoFila(atual); 
+
+        if (conteudo != NULL) {
+            
+            if (tipo == 'r') {
+                liberaRetangulo((Retangulo)conteudo);
+            } else if (tipo == 'c') {
+                liberaCirculo((Circulo)conteudo); 
+            } else if (tipo == 'l') {
+                liberaLinha((Linha)conteudo); 
+            } else if (tipo == 't') {
+                liberaTexto((Texto)conteudo);
+            } else {
+                // free(conteudo); 
+            }
         }
+
+        // free(atual); 
         
-        free(temp); 
+        atual = proximo; 
     }
-    free(fila); 
+
+    // free(f);
 }
 
 No_t getPrimeiroNoFila(Fila f) {
@@ -173,7 +187,7 @@ void* percorreFila(Fila f, int posicao){
 }
 
 // void liberarTudo( Fila disparadores, Fila carregadores, Fila arena){
-//     liberarFilaComConteudo(disparadores,free);
-//     liberarFilaComConteudo(carregadores,free);
-//     liberarFilaComConteudo(arena, free);
+//     liberarFilaComConteudo(disparadores,// free);
+//     liberarFilaComConteudo(carregadores,// free);
+//     liberarFilaComConteudo(arena, // free);
 // }
