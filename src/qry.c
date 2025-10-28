@@ -57,7 +57,7 @@ void qryShft(Fila disparadores, Fila carregadores, int idDis, char lado, int n){
     
         for(int i = 0;i<n;i++){
             void* centro = getConteudoCentro(d); 
-            if(centro == NULL){
+            if(centro == NULL){//não tem nada no centro
                 void* conteudo = removerPilha(CE);    
                 if(conteudo == NULL){
                     printf("carregador esquerdo vazio no comando shft\n");
@@ -81,7 +81,7 @@ void qryShft(Fila disparadores, Fila carregadores, int idDis, char lado, int n){
         for(int i = 0;i<n;i++){
             void* centro = getConteudoCentro(d); 
             if(centro == NULL){//não tem nada no centro
-                void* conteudo = removerPilha(CE);  
+                void* conteudo = removerPilha(CD);  
                 if(conteudo == NULL){
                     printf("carregador direito vazio no comando shft\n");
                     break;
@@ -202,7 +202,7 @@ void qryRjd(Fila disparadores, Fila carregadores, Fila arena,int idDis, char lad
 
         char ladoReal = (tamanhoEsq > 0) ? 'd' : 'e';
 
-        for(int i = 0; i< tamanhoEsq;i++){
+        for(int i = 0; i< tamanhoEsq; i++){
             int iteracao = i;
             qryShft(disparadores,carregadores,idDis,lado,1);
             qryDsp(disparadores,arena, idDis, dx+iteracao*ix, dy+iteracao*iy,'i',iteracao);
@@ -248,14 +248,14 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
         sscanf(linha, "%s", comando);
         fprintf(arqTxt, "%s\n" ,linha);
 
-        if(strcmp(comando, "pd") == 0){
+        if(strcmp(comando, "pd") == 0){ //-----------------está funcionando
             printf("comando pd\n");
             //posiciona o disparador l na coordenada (x,y)
             double x,y;
             int idDis;
             sscanf(linha, "pd %i %lf %lf",&idDis, &x, &y);
             printf("Comando pd= idDis:%i coordX:%lf  coordY:%lf\n",idDis,x,y);
-            Disparador d = criarDisparador(idDis,x,y,NULL,NULL);
+            Disparador d = criarDisparador(idDis,x,y,0,0);
             if(d == NULL){
                 printf("erro ao criar o disparador no comando pd\n");
                 continue;
@@ -264,7 +264,7 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
             setPosicaoDisparador(d,x,y);
             printf("passou no comando pd\n");
             
-        }else if(strcmp(comando, "lc") == 0){
+        }else if(strcmp(comando, "lc") == 0){//----------------------está funcionando
             printf("comando lc\n");
             //Coloca no carregador c as primeiras n formas que estão no chão
             int n;

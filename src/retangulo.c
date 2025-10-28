@@ -19,6 +19,8 @@ Retangulo criaRetangulo(int i, double x, double y, double w, double h, char* cor
     r->corb = (char*)malloc(strlen(corb) + 1);
     if(r->corb == NULL){
         printf("Erro ao alocar memória para cor da borda do retangulo.");
+        free(r->corb);
+        free(r);
         exit(1);
     }
     printf("Teste\n");
@@ -27,6 +29,8 @@ Retangulo criaRetangulo(int i, double x, double y, double w, double h, char* cor
     r->corp = (char*)malloc(strlen(corp) + 1);
     if(r->corp == NULL){
         printf("Erro ao alocar memória para a cor de preenchimento do retangulo.");
+        free(r->corp);
+        free(r);
         exit(1);
     }
     strcpy(r->corp, corp);

@@ -87,11 +87,12 @@ int main(int argc, char* argv[])
                     void* conteudo = getConteudoDoNoFila(noPilhaAtual);
                     if(conteudo != NULL){
                     Pilha p = (Pilha)conteudo; 
-                    liberarMemoriaPilha(p,liberarForma);
+                    liberarMemoriaPilha(p,NULL);
                   }
                  noPilhaAtual = getProximoNoFila(noPilhaAtual);
                 }
-                liberarFilaComConteudo(filaPilhas,NULL);
+                liberarFilaComConteudo(filaPilhas,liberarForma);
+                liberarFilaComConteudo(filaDisparadores, free);
             }
             liberarFilaComConteudo(chao,liberarForma);
         return 1;
@@ -107,13 +108,14 @@ int main(int argc, char* argv[])
                     void* conteudo = getConteudoDoNoFila(noPilhaAtual);
                     if(conteudo != NULL){
                     Pilha p = (Pilha)conteudo; 
-                    liberarMemoriaPilha(p,liberarForma);
+                    liberarMemoriaPilha(p,NULL);
                   }
                  noPilhaAtual = getProximoNoFila(noPilhaAtual);
                 }
                 liberarFilaComConteudo(filaPilhas,NULL);
+                liberarFilaComConteudo(filaDisparadores, NULL);
             }
-            liberarFilaComConteudo(chao,liberarForma);
+            liberarFilaComConteudo(chao,NULL);
         fclose(arqGeo);
         return 1;
     }
@@ -134,13 +136,14 @@ int main(int argc, char* argv[])
                     void* conteudo = getConteudoDoNoFila(noPilhaAtual);
                     if(conteudo != NULL){
                     Pilha p = (Pilha)conteudo; 
-                    liberarMemoriaPilha(p,liberarForma);
+                    liberarMemoriaPilha(p,NULL);
                   }
                  noPilhaAtual = getProximoNoFila(noPilhaAtual);
                 }
                 liberarFilaComConteudo(filaPilhas,NULL);
+                liberarFilaComConteudo(filaDisparadores, NULL);
             }
-            liberarFilaComConteudo(chao,liberarForma);
+            liberarFilaComConteudo(chao,NULL);
             return 1;
         }
 
@@ -154,21 +157,22 @@ int main(int argc, char* argv[])
                     void* conteudo = getConteudoDoNoFila(noPilhaAtual);
                     if(conteudo != NULL){
                     Pilha p = (Pilha)conteudo; 
-                    liberarMemoriaPilha(p,liberarForma);
+                    liberarMemoriaPilha(p,NULL);
                   }
                  noPilhaAtual = getProximoNoFila(noPilhaAtual);
                 }
                 liberarFilaComConteudo(filaPilhas,NULL);
+                liberarFilaComConteudo(filaDisparadores, NULL);
             }
-            liberarFilaComConteudo(chao,liberarForma);
+            liberarFilaComConteudo(chao,NULL);
             fclose(arqQry);
             return 1;
         }
         
         lerQry(arqQry,arqTxt,filaDisparadores,filaPilhas,chao);
         printf("Passou a leitura do qry no main\n");
+        fecharQry(arqQry);
         
-        fclose(arqQry);
         fclose(arqTxt);
 
         //abrir svg de saida
@@ -182,35 +186,36 @@ int main(int argc, char* argv[])
                     void* conteudo = getConteudoDoNoFila(noPilhaAtual);
                     if(conteudo != NULL){
                     Pilha p = (Pilha)conteudo; 
-                    liberarMemoriaPilha(p,liberarForma);
+                    liberarMemoriaPilha(p,NULL);
                   }
                  noPilhaAtual = getProximoNoFila(noPilhaAtual);
                 }
                 liberarFilaComConteudo(filaPilhas,NULL);
+                liberarFilaComConteudo(filaDisparadores, NULL);
             }
-            liberarFilaComConteudo(chao,liberarForma);
+            liberarFilaComConteudo(chao,NULL);
             return 1;
         }
         printf("Arquivo svg de saída criado no main\n");
 
         gerarSvgSaida(chao, arqSvgSaida);   
-        fflush(arqSvgSaida);
         
         printf("Passou arquivo Svg saída no main\n");
         
-        liberarFilaComConteudo(filaDisparadores,free);
+        // liberarFilaComConteudo(filaDisparadores,free);
         if(filaPilhas != NULL){
             No_t noPilhaAtual = getPrimeiroNoFila(filaPilhas);
             while(noPilhaAtual != NULL){
                 void* conteudo = getConteudoDoNoFila(noPilhaAtual);
                 if(conteudo != NULL){
                     Pilha p = (Pilha)conteudo; 
-                    liberarMemoriaPilha(p,liberarForma);
+                    liberarMemoriaPilha(p,NULL);
                 }
                 noPilhaAtual = getProximoNoFila(noPilhaAtual);
             }
             liberarFilaComConteudo(filaPilhas,NULL);
-            liberarFilaComConteudo(chao,liberarForma);
+            liberarFilaComConteudo(filaDisparadores, NULL);
+            liberarFilaComConteudo(chao,NULL);
         }
 
 

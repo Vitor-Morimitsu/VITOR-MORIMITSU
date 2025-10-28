@@ -92,40 +92,35 @@ void* getPrimeiroConteudoFila(Fila f) {
 }
 
 void liberarFilaComConteudo(Fila f, DestruidorConteudo destruir) {
-    if (f == NULL) {
-        return;
-    }
+    void liberarFilaComConteudo(Fila f, DestruidorConteudo destruir) {
+    // Cast inicial para a estrutura interna
+    stFila* fila = (stFila*)f;
+    // Verifica se a fila é nula
+    if (fila == NULL) return;
 
-    No_t atual = getPrimeiroNoFila(f);
-    No_t proximo;
-
+    // Começa a percorrer a partir do primeiro nó
+    stNo* atual = fila->primeiro;
     while (atual != NULL) {
-        proximo = getProximoNoFila(atual); 
+        // Guarda o nó atual para liberar depois
+        stNo* temp = atual;
+        // Avança para o próximo nó ANTES de liberar o atual
+        atual = atual->prox;
 
-        void* conteudo = getConteudoDoNoFila(atual);
-        char tipo = getTipoDoNoFila(atual); 
-
-        if (conteudo != NULL) {
-            
-            if (tipo == 'r') {
-                liberaRetangulo((Retangulo)conteudo);
-            } else if (tipo == 'c') {
-                liberaCirculo((Circulo)conteudo); 
-            } else if (tipo == 'l') {
-                liberaLinha((Linha)conteudo); 
-            } else if (tipo == 't') {
-                liberaTexto((Texto)conteudo);
-            } else {
-                // free(conteudo); 
-            }
+        // --- Libera o CONTEÚDO usando o destrutor GENÉRICO ---
+        void* conteudo = temp->conteudo; // Pega o conteúdo
+        if (destruir != NULL && conteudo != NULL) {
+            destruir(conteudo); // Chama a função passada (ex: free, liberarForma)
+                                // NÃO TENTA adivinhar o tipo aqui!
         }
+        // --- Fim da liberação do conteúdo ---
 
-        // free(atual); 
-        
-        atual = proximo; 
+        // --- Libera o NÓ ---
+        free(temp); // <-- DESCOMENTADO E CORRETO
     }
 
-    // free(f);
+    // --- Libera a ESTRUTURA DA FILA ---
+    free(fila); // <-- DESCOMENTADO E CORRETO (usa 'fila', o ponteiro stFila*)
+}
 }
 
 No_t getPrimeiroNoFila(Fila f) {
