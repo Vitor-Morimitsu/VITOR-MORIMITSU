@@ -40,23 +40,23 @@ void setTipoPacote(Pacote pac, char tipo);
 
 
 /// @brief Retorna a coordenada X da forma
-/// @param f Forma f
+/// @param pac Pacote
 /// @return Coordenada X da forma
-double getXForma(Forma f);
+double getXPacote(Pacote pac);
 
 /// @brief Retorna a coordenada Y da forma
-/// @param f Forma f
+/// @param pac Pacote
 /// @return Coordenada Y da forma
-double getYForma(Forma f);
+double getYPacote(Pacote pac);
 
 /// @brief Retorna a área da forma
-/// @param f Forma f
+/// @param pac Pacote
 /// @return Área da forma
-double getAreaForma(Forma f);
+double getAreaPacote(Pacote pac);
 
-/// @brief Libera as formas criadas
-/// @param f Forma f
-void liberarForma(void* f);
+/// @brief Libera os Pacotes  criadas
+/// @param pac Pacote
+void liberaPacote(Pacote pac);
 
 /// @brief Reportar os dados de cada uma das formas carregadas
 /// @param arqTxt Arquivo destino
@@ -66,6 +66,6 @@ void escreverConteudoPilha(FILE* arqTxt, Pilha p);
 /// @brief Posiciona a forma f a um deslocamento dx,dy em relação à posição do disparador
 /// @param f Forma 
 /// @param d Diparador
-void posicionaForma(Forma f, Disparador d, double deslocX, double deslocY);
+void posicionaPacote(Pacote f, Disparador d, double deslocX, double deslocY);
 
 #endif

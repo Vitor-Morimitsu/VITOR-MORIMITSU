@@ -31,25 +31,23 @@ double getXPacote(Pacote pac){
     if(pac == NULL){
         printf("Erro ao acessar o pacote em getXPacote\n");
         return -1;
-    }
+    }  
 
-    char tipo = getTipoPacote(pac);    
-
-    switch (tipoForma->tipo){
+    switch (pac->tipo){
         case 'r':{
-            Retangulo* ret =(Retangulo*)tipoForma->fig;
+            Retangulo* ret =(Retangulo*)pac->fig;
             return getCoordXRetangulo(ret);
         }
         case 'c':{
-            Circulo* cir = (Circulo*)tipoForma->fig;
+            Circulo* cir = (Circulo*)pac->fig;
             return getCoordXCirculo(cir);
         }
         case 'l':{
-            Linha* lin = (Linha*)tipoForma->fig;
+            Linha* lin = (Linha*)pac->fig;
             return getX1Linha(lin);
         }
         case 't':{
-            Texto* txt=(Texto*)tipoForma->fig;
+            Texto* txt=(Texto*)pac->fig;
             return getCoordXTexto(txt);
         }
         default:
@@ -57,28 +55,29 @@ double getXPacote(Pacote pac){
     }
 }
 
-double getYForma(Forma f){
-    if(f == NULL){
+double getYPacote(Pacote pac){
+    if(pac == NULL){
         printf("Erro ao buscar a coordenada y da forma");
         return NAN;
     }
 
-    stForma* tipoForma = (stForma*)f;
-    switch (tipoForma->tipo){
+    char tipo = getTipoPacote(pac);
+
+    switch (pac->tipo){
         case 'r': {
-            Retangulo* ret = (Retangulo*)tipoForma->fig;
+            Retangulo* ret = (Retangulo*)pac->fig;
             return getCoordYRetangulo(ret);
         }
         case 'c':{
-            Circulo* circ = (Circulo*)tipoForma->fig;
+            Circulo* circ = (Circulo*)pac->fig;
             return getCoordYCirculo(circ);
         }
         case 'l':{
-            Linha* lin = (Linha*)tipoForma->fig;
+            Linha* lin = (Linha*)pac->fig;
             return getY1Linha(lin);
         }
         case 't':{
-            Texto* txt = (Texto*)tipoForma->fig;
+            Texto* txt = (Texto*)pac->fig;
             return getCoordYTexto(txt);
         }
         default:
@@ -98,7 +97,7 @@ void escreverConteudoPilha(FILE* arqTxt, Pilha p){
         if(cont != NULL){
             Forma forma = (Forma)cont;
             
-            char tipo = getTipoForma(forma);
+            char tipo = getTipoPacote(forma);
             int id = getIDForma(forma);
             
             void* figura = getFiguraForma(forma);
@@ -152,42 +151,36 @@ void escreverConteudoPilha(FILE* arqTxt, Pilha p){
     }
 }
 
-void* getFiguraForma(Forma f){
-    return ((stForma*)f)->fig;
-}
-
-double getAreaForma(Forma f){
-    if(f == NULL){
-        printf("Erro ao acessar a forma.");
+double getAreaPacote(Pacote pac){
+    if(pac == NULL){
+        printf("Erro ao acessar o pacote para getareaPacote.");
         return 0;
     }
 
-    stForma* forma = (stForma*)f;
-    if(forma->tipo == 'c'){
-        //a forma é um círculo
-        Circulo* cir = (Circulo*)forma->fig;
+    if(pac->tipo == 'c'){
+        //o pacote é um círculo
+        Circulo* cir = (Circulo*)pac->fig;
         return getAreaCirculo(cir);
-    }else if(forma->tipo == 'r'){
-        //a forma é um retângulo
-        Retangulo* ret = (Retangulo*)forma->fig;
+    }else if(pac->tipo == 'r'){
+        //o pacote é um retângulo
+        Retangulo* ret = (Retangulo*)pac->fig;
         return getAreaRetangulo(ret);
-    }else if(forma->tipo == 'l'){
-        //é uma linha
-        Linha* lin = (Linha*)forma->fig;
+    }else if(pac->tipo == 'l'){
+        //o pacote é uma linha
+        Linha* lin = (Linha*)pac->fig;
         return getAreaLinha(lin);
-    }else if(forma->tipo == 't'){
-        //é um texto
-        Texto* t = (Texto*)forma->fig;
+    }else if(pac->tipo == 't'){
+        //o pacote é um texto
+        Texto* t = (Texto*)pac->fig;
         return getAreaTexto(t);
     }else{
         return 0.0;
     }
 }
 
-
-void posicionaForma(Forma f, Disparador d, double deslocX, double deslocY){
-    if(f == NULL || d == NULL){
-        printf("Erro ao acessar a figura para posicionar na arena.");
+void posicionaPacote(Pacote pac, Disparador d, double deslocX, double deslocY){
+    if(pac == NULL || d == NULL){
+        printf("Erro ao acessar o pacote ou o disparador para posicionar na arena.");
         exit(1);
     }
     double XD = getXDisparador(d);
@@ -196,8 +189,8 @@ void posicionaForma(Forma f, Disparador d, double deslocX, double deslocY){
     double dx = XD + deslocX;
     double dy = YD + deslocY;
 
-    char tipoForma = getTipoForma(f);
-    void* figura = getFiguraForma(f);
+    char tipoForma = pac->tipo;
+    Forma figura = pac->fig;
     if(figura == NULL){
         printf("Erro ao acessar a figura na função posicionaForma em formas.c\n");
         return;
@@ -240,4 +233,21 @@ void posicionaForma(Forma f, Disparador d, double deslocX, double deslocY){
         printf("Texto movido para %lf em x e %lf em y\n",dx,dy);
     }
 
+}
+
+void liberaPacote(Pacote pac){
+    if(pac == NULL){
+        printf("Erro ao liberar o pacote em formas.c\n");
+        return;
+    }
+
+    if(pac->tipo == 'c'){
+        liberaCirculo((Circulo*)pac->fig);
+    }else if(pac->tipo == 'r'){
+        liberaRetangulo((Retangulo*)pac->fig);
+    }else if(pac->tipo == 'l'){
+        liberaLinha((Linha*)pac->fig);
+    }else if(pac->tipo == 't'){
+        liberaTexto((Texto*)pac->fig);
+    }
 }
