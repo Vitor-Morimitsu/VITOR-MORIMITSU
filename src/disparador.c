@@ -67,26 +67,23 @@ double getXDisparador(Disparador d){
 }
 
 void carregarPilhaPelaFila(Pilha p, Fila f, int n){
-    if(p == NULL){
+    if(p == NULL || f == NULL){
         printf("Erro ao acessar a pilha para receber as formas da fila.");
         exit(1);
-    }
-    if(f == NULL){
-        printf("Erro ao acessar a fila para passar as formas para pilha.");
-        exit(2);
     }
     if(n <= 0){
         return;
     }
     
-    No_t noFila = getPrimeiroNoFila(f);
+    for(int i = 0; i < n;i++){
+        No_t primeiroNo = getPrimeiroNoFila(f);
+        if(primeiroNo == NULL) return;
 
-    for(int i = 0; i<n && noFila != NULL;i++){
-        void* conteudoInserir = getConteudoDoNoFila(noFila);
+        void* conteudo = getConteudoDoNoFila(primeiroNo);
 
-        inserirPilha(p,conteudoInserir);
-
-        noFila = getProximoNoFila(noFila);
+        removerPrimeiroNoFila(f);
+        inserirPilha(p,conteudo);
+        
     }
 }
 

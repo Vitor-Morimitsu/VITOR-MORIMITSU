@@ -91,36 +91,58 @@ void* getPrimeiroConteudoFila(Fila f) {
     return fila->primeiro->conteudo;
 }
 
-void liberarFilaComConteudo(Fila f, DestruidorConteudo destruir) {
-    void liberarFilaComConteudo(Fila f, DestruidorConteudo destruir) {
-    // Cast inicial para a estrutura interna
+void removerPrimeiroNoFila(Fila f) {
+    if(f == NULL) return;
+    
     stFila* fila = (stFila*)f;
-    // Verifica se a fila é nula
-    if (fila == NULL) return;
+    if(fila->primeiro == NULL) return;
+    
+    stNo* noRemover = fila->primeiro;
+    fila->primeiro = noRemover->prox;
 
-    // Começa a percorrer a partir do primeiro nó
-    stNo* atual = fila->primeiro;
-    while (atual != NULL) {
-        // Guarda o nó atual para liberar depois
-        stNo* temp = atual;
-        // Avança para o próximo nó ANTES de liberar o atual
-        atual = atual->prox;
+    if(fila->primeiro == NULL) {
+        fila->ultimo = NULL;
+    }
+    
+    fila->tamanho--;
+    free(noRemover); 
+}
 
-        // --- Libera o CONTEÚDO usando o destrutor GENÉRICO ---
-        void* conteudo = temp->conteudo; // Pega o conteúdo
-        if (destruir != NULL && conteudo != NULL) {
-            destruir(conteudo); // Chama a função passada (ex: free, liberarForma)
-                                // NÃO TENTA adivinhar o tipo aqui!
-        }
-        // --- Fim da liberação do conteúdo ---
-
-        // --- Libera o NÓ ---
-        free(temp); // <-- DESCOMENTADO E CORRETO
+void liberarFilaComConteudo(Fila f) {
+    if (f == NULL) {
+        return;
     }
 
-    // --- Libera a ESTRUTURA DA FILA ---
-    free(fila); // <-- DESCOMENTADO E CORRETO (usa 'fila', o ponteiro stFila*)
-}
+    No_t atual = getPrimeiroNoFila(f);
+    No_t proximo;
+
+    while (atual != NULL) {
+        proximo = getProximoNoFila(atual); 
+
+        void* conteudo = getConteudoDoNoFila(atual);       
+
+        if (conteudo != NULL) {
+            Forma forma =(Forma)conteudo;
+            char tipo = getTipoForma(forma);
+            void* fig = getFiguraForma(forma);
+            
+            if ( tipo == 'r') {
+                liberaRetangulo((Retangulo)fig);
+            } else if (tipo == 'c') {
+                liberaCirculo((Circulo)fig); 
+            } else if (tipo == 'l') {
+                liberaLinha((Linha)fig); 
+            } else if (tipo == 't') {
+                liberaTexto((Texto)fig);
+            }
+            // free(forma); 
+        }
+
+        // free(atual);
+        atual = proximo; 
+    }
+
+    // free(f);
 }
 
 No_t getPrimeiroNoFila(Fila f) {
@@ -181,8 +203,25 @@ void* percorreFila(Fila f, int posicao){
     return getConteudoDoNoFila(noAtual);
 }
 
-// void liberarTudo( Fila disparadores, Fila carregadores, Fila arena){
-//     liberarFilaComConteudo(disparadores,// free);
-//     liberarFilaComConteudo(carregadores,// free);
-//     liberarFilaComConteudo(arena, // free);
-// }
+void liberarArena(Fila arena){
+    if(arena == NULL){
+        printf("Nada a ser liberado com a função liberar Arena\n");
+        return;
+    }
+    No_t atual = getPrimeiroNoFila(arena);
+    if(atual == NULL){
+        printf("erro ao liberar arena em liberarArena\n");
+        return;
+    }
+    
+    while(atual != NULL){
+        void* cont = getConteudoDoNoFila(atual);
+        No_t proximo = getProximoNoFila(atual);
+
+        // free(cont);
+        // free(atual);
+        atual = proximo;        
+    }
+    // free(arena);
+    
+}

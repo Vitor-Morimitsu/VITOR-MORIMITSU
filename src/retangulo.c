@@ -102,8 +102,8 @@ void liberaRetangulo(Retangulo r){
     if(r == NULL) return;
 
     stRetangulo* ret = (stRetangulo*)r;
-    // free(ret->corb);
-    // free(ret->corp);
+    free(ret->corb);
+    free(ret->corp);
 
-    // free(r);
+    free(ret);
 }

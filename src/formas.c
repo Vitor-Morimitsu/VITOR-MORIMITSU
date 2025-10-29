@@ -1,114 +1,39 @@
 #include "formas.h"
 #include "disparador.h"
 
-typedef struct forma{
-    int id;
-    void* fig;
+struct pacote{
+    Forma fig;
     char tipo;
-}stForma;
+};
 
-Forma criaRetanguloForma(int i, char tipo,double x, double y, double w, double h, char* corb, char* corp){
-    stForma* f = malloc(sizeof(stForma));
-    if(f == NULL){
-        printf("Erro ao alocar memória para a nova forma.");
-        return NULL;
-    }
-    f->id = i;
-    f->fig = criaRetangulo(i,x,y,w,h,corb,corp);
-    f->tipo = 'r';
-
-    return f;
+Pacote criarPacote(){
+    Pacote pac = malloc(sizeof(struct pacote));
+    return pac;
 }
 
-Forma criaCirculoForma(int i, char tipo,double x, double y, double r, char* corb, char* corp){
-    stForma* f = malloc(sizeof(stForma));
-    if(f == NULL){
-        printf("Erro ao alocar memória para a nova forma.");
-        return NULL;
-    }
-
-    f->id = i;
-    f->fig = criaCirculo(i,x,y,r,corb,corp);
-    f->tipo = 'c';
-
-    return f;
+void setFormaPacote(Pacote pac, Forma forma){
+    pac->fig = forma;
 }
 
-Forma criaLinhaForma(int i, char tipo,double x1, double y1, double x2, double y2, char* cor){
-    stForma* f = malloc(sizeof(stForma));
-    if(f == NULL){
-        printf("Erro ao alocar memória para a nova forma.");
-        return NULL;
-    }
-
-    f->id = i;
-    f->fig = criarLinha(i,x1,y1,x2,y2,cor);
-    f->tipo = 'l';
-
-    return f;
+Forma getFormaPacote(Pacote pac){
+    return pac->fig;
 }
 
-Forma criaTextoForma(int i,char tipo, double x, double y, char* corb, char* corp, char a, char* txto, Estilo ts){
-    stForma* f = malloc(sizeof(stForma));
-    if(f == NULL){
-        printf("Erro ao alocar memória para a nova forma.");
-        return NULL;
-    }
-
-    f->id = i;
-    f->fig = criarTexto(i,x,y,corb,corp,a,txto,ts);
-    f->tipo = 't';
-
-    return f;
+void setTipoPacote(Pacote pac, char tipo){
+    pac->tipo = tipo;
 }
 
-int getIDForma(Forma f) {
-    if (f == NULL) {
-        printf("Erro ao buscar a ID da forma");
+char getTipoPacote(Pacote pac){
+    return pac->tipo;
+}
+
+double getXPacote(Pacote pac){
+    if(pac == NULL){
+        printf("Erro ao acessar o pacote em getXPacote\n");
         return -1;
     }
 
-    stForma* formaWrapper = (stForma*)f;
-
-    switch (formaWrapper->tipo) {
-        case 'r': {
-            Retangulo ret = (Retangulo*)formaWrapper->fig;
-            return getIDRetangulo(ret); 
-        }
-        case 'c': {
-            Circulo circ = (Circulo*)formaWrapper->fig;
-            return getIDCirculo(circ); 
-        }
-        case 'l': {
-            Linha lin = (Linha*)formaWrapper->fig;
-            return getIDLinha(lin);
-        }
-        case 't': {
-            Texto txt = (Texto*)formaWrapper->fig;
-            return getIDTexto(txt);
-        }
-        default:
-            // Tipo de forma desconhecido
-            return -1; 
-    }
-}
-
-char getTipoForma(Forma f){
-    if(f == NULL){
-        printf("Não existe nada no centro do carregador\n");
-        return 'n';
-    } 
-    stForma* forma = (stForma*)f;
-    return forma->tipo;
-}
-
-double getXForma(Forma f){
-    if(f == NULL){
-        printf("Erro ao buscar a coordenada X da forma.");
-        return NAN;
-    }
-
-    stForma* tipoForma = (stForma*)f;
+    char tipo = getTipoPacote(pac);    
 
     switch (tipoForma->tipo){
         case 'r':{
@@ -131,6 +56,7 @@ double getXForma(Forma f){
             return -1;
     }
 }
+
 double getYForma(Forma f){
     if(f == NULL){
         printf("Erro ao buscar a coordenada y da forma");
@@ -258,16 +184,6 @@ double getAreaForma(Forma f){
     }
 }
 
-void liberarForma(void* f){
-    if (f == NULL){
-      printf("erro ao liberar a forma em forma.c\n");
-      return;  
-    } 
-    Forma forma = (Forma)f;
-    void* figura = getFiguraForma(forma);
-    if (figura != NULL) free(figura); 
-    free(forma); 
-}
 
 void posicionaForma(Forma f, Disparador d, double deslocX, double deslocY){
     if(f == NULL || d == NULL){

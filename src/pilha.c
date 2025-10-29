@@ -124,7 +124,7 @@ void liberarMemoriaPilha(Pilha p, DestruidorConteudo destruir) {
         }
         
 
-        free(temp); 
+        // free(temp); 
     }
-    free(pilha); 
+    // free(pilha); 
 }

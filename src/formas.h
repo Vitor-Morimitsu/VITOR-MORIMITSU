@@ -18,29 +18,26 @@
 
 typedef void* Forma;
 
-/// @brief Cria um retangulo com os parametros fornecidos.
-Forma criaRetanguloForma(int i,char tipo, double x, double y, double w, double h, char* corb, char* corp);
+typedef struct pacote* Pacote;
 
-/// @brief Cria um círculo com os parâmetros fornecidos.
-Forma criaCirculoForma(int i,char tipo, double x, double y, double r, char* corb, char* corp);
+/// @brief Cria um pacote que armazenará uma Forma e o tipo dela
+/// @return Pacote criado
+Pacote criarPacote();
 
-/// @brief Cria uma linha com os parâmetros fornecidos.
-Forma criaLinhaForma(int i,char tipo, double x1, double y1, double x2, double y2, char* cor);
+/// @brief Define a forma ao pacote
+/// @param pac Pacote
+/// @param forma Forma
+void setFormaPacote(Pacote pac, Forma forma);
 
-/// @brief Cria um texto com os parâmetros fornecidos.
-Forma criaTextoForma(int i,char tipo, double x, double y, char* corb, char* corp, char a, char* txto, Estilo ts);
+/// @brief Retorna a forma do pacote 
+/// @param pac Pacote
+Forma getFormaPacote(Pacote pac);
 
-/// @brief Retorna o identificador da forma criada
-/// @param f Forma
-/// @return Identificador da forma
-int getIDForma(Forma f);
+/// @brief Define o tipo do pacote
+/// @param pac Pacote
+/// @param tipo Tipo do pacote
+void setTipoPacote(Pacote pac, char tipo);
 
-/// @brief Retorna o tipo da forma geométrica
-/// @param f Forma f
-/// @return Tipo da forma geométrica
-char getTipoForma(Forma f);
-
-void* getFiguraForma(Forma f);
 
 /// @brief Retorna a coordenada X da forma
 /// @param f Forma f

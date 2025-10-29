@@ -30,6 +30,10 @@ void insereFila(Fila f, void* Conteudo, char type);
 /// @param d Disparador a ser inserido
 void insereFilaDisparadores(Fila FilaDisparadores, void* d);
 
+/// @brief Remove o primeiro No da fila
+/// @param f Fila
+void removerPrimeiroNoFila(Fila f);
+
 /// @brief Remove o primeiro elemento da fila
 /// @param f Fila
 void* removeFila(Fila f);
@@ -40,7 +44,7 @@ void* getPrimeiroConteudoFila(Fila f);
 
 /// @brief Libera a memória ocupada pela fila
 /// @param f Fila
-void liberarFilaComConteudo(Fila f, DestruidorConteudo destruir);
+void liberarFilaComConteudo(Fila f);
 
 /// @brief Retorna o primeiro nó da fila para iniciar uma iteração.
 /// @param f A fila.
@@ -72,11 +76,4 @@ int getTamanhoFila(Fila f);
 /// @param posicao Posicao da forma de interesse
 /// @return Forma presente na posição desejada
 void* percorreFila(Fila f, int posicao);
-
-/// @brief Libera todas as filas criadas
-/// @param formas Fila que contém todas as formas
-/// @param disparadores Fila que contém todos os disparadores
-/// @param carregadores Fila que contém todos os carregadores
-/// @param arena Libera a fila da arena
-void liberarFilaComConteudo(Fila f, DestruidorConteudo destruir);
 #endif

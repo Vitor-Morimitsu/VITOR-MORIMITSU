@@ -1,3 +1,8 @@
+/**
+ * @file printSvgGeo.c
+ * @brief Implementação das funções de geração de arquivos SVG
+ */
+
 #include "printSvgGeo.h"
 #include "formas.h"
 #include "fila.h"
@@ -10,15 +15,18 @@ void abrirSvg(FILE* arqSvg){
 }
 void desenharCirculoSVG(FILE* arqSvg, Forma forma) {
     if(forma == NULL){
-        printf("Forma passadas para desenhar o círculo no svg é nula \n");
+        fprintf(stderr, "ERRO: Forma NULL ao desenhar círculo SVG\n");
+        return;
     }    
 
     Circulo* c = (Circulo*)forma;
     fprintf(arqSvg, "\t<circle id=\"%i\" cx=\"%f\" cy=\"%f\" r=\"%f\" stroke=\"%s\" fill=\"%s\" />\n",getIDCirculo(c), getCoordXCirculo(c),getCoordYCirculo(c),getRaioCirculo(c), getCorBCirculo(c), getCorPCirculo(c));
 }
+
 void desenharRetanguloSVG(FILE* arqSvg, Forma forma){
-    if(forma == NULL||arqSvg == NULL){
-        printf("Forma nula no retangulo\n");    
+    if(forma == NULL || arqSvg == NULL){
+        fprintf(stderr, "ERRO: Forma ou arquivo NULL ao desenhar retângulo SVG\n");
+        return;
     }
 
     Retangulo* r = (Retangulo*)forma;
@@ -50,20 +58,18 @@ void fecharSVG(FILE* arqSvg) {
 
 void gerarSvgSaida(Fila filaFormas, FILE* arqSvgSaida){
     if(filaFormas == NULL || arqSvgSaida == NULL){
-        printf("Erro ao acessar os arquivos para gerar o svg de saída.\n");
+        fprintf(stderr, "ERRO: Fila ou arquivo NULL ao gerar SVG de saída\n");
         exit(1);
     }
     abrirSvg(arqSvgSaida);
-    printf("dentro do svg de saida\n");
     
     No_t atual = getPrimeiroNoFila(filaFormas);
     if(atual == NULL){
-        printf("Fila do print svg saida está vazia\n");
         fecharSVG(arqSvgSaida);
         return;
     }
+    
     while(atual != NULL){
-        printf("processando nó no while de gerar Svg\n");
         char tipoAtual = getTipoDoNoFila(atual);
         void* conteudo = getConteudoDoNoFila(atual);
         if(conteudo == NULL){
@@ -72,30 +78,78 @@ void gerarSvgSaida(Fila filaFormas, FILE* arqSvgSaida){
         }
         Forma forma = (Forma)conteudo;
         void* figura = getFiguraForma(forma);
+        
         if(figura == NULL){
-            printf("Erro: figura é NULL\n");
+            fprintf(stderr, "AVISO: Figura interna NULL, pulando forma\n");
             atual = getProximoNoFila(atual);
             continue;
         }
         
         if(tipoAtual == 'c'){
-            Circulo circ = (Circulo)figura;
+            Circulo* circ = (Circulo*)figura;
             desenharCirculoSVG(arqSvgSaida,circ);
-            
-        }else if(tipoAtual == 'r'){    
-            Retangulo ret = (Retangulo)figura;
+        }else if(tipoAtual == 'r'){
+            Retangulo* ret = (Retangulo*)figura;
             desenharRetanguloSVG(arqSvgSaida,ret);
-            printf("gerou o retangulo no svg\n");
-
         }else if(tipoAtual == 'l'){
-            Linha lin = (Linha)figura;
+            Linha* lin = (Linha*)figura;
             desenharLinhaSVG(arqSvgSaida,lin);
         }else if(tipoAtual == 't'){
-            Texto tex = (Texto)figura;
+            Texto* tex = (Texto*)figura;
             desenharTextoSVG(arqSvgSaida,tex);
         }
         atual = getProximoNoFila(atual);
     }
-    printf("fim \n");
+    
     fecharSVG(arqSvgSaida);
+
+    // No_t atual = getPrimeiroNoFila(filaFormas);
+    // if(atual == NULL){
+    //     printf("chao vazia\n");
+    //     fecharSVG(arqSvgSaida);
+    //     return;
+    // }
+
+    // printf("dentro do svg de saída\n");
+
+    // while(atual != NULL){
+    //     Forma formaAtual = (Forma)getConteudoDoNoFila(atual);
+    //     if(formaAtual == NULL){
+    //         printf("Erro ao gerar a formaAtual no arquivo printSvgGeo\n");
+    //         atual = getProximoNoFila(atual);
+    //         continue;
+    //     }
+
+    //     char tipoForma = getTipoForma(formaAtual);
+    //     void* figura = getFiguraForma(formaAtual);
+
+    //     if(figura == NULL){
+    //         printf("Erro ao acessar a figura void*\n");
+    //         atual = getProximoNoFila(atual);
+    //         continue;
+    //     }
+
+    //     if(tipoForma == 'c'){
+    //         //círculo 
+    //         desenharCirculoSVG(arqSvgSaida,(Circulo*)figura);          
+    //         printf("Printar o círculo no arquivo de saída svg saida\n");
+
+    //     }else if(tipoForma == 'r'){
+    //         //retângulo
+    //         desenharRetanguloSVG(arqSvgSaida,(Retangulo*)figura);    
+    //         printf("printar retangulo no arquivo svg saida\n");      
+
+    //     }else if(tipoForma == 'l'){
+    //         //linha
+    //         desenharLinhaSVG(arqSvgSaida,(Linha*)figura);
+    //         printf("printar linha no arquivo svg saida\n");
+            
+    //     }else if(tipoForma == 't'){
+    //         //texto
+    //         desenharTextoSVG(arqSvgSaida, (Texto*)figura);
+    //         printf("printar texto no arquivo svg saida\n");
+            
+    //     }
+    //     atual = getProximoNoFila(atual);
+    // }
 }
