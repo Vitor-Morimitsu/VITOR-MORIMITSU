@@ -11,7 +11,6 @@
 #include "linha.h"
 #include "texto.h"
 #include "disparador.h"
-#include "buscas.h"
 
 /*
     Arquivo .h responsável por criar um arquivo .txt com as instruções contidas no primeiro trabalho de estruturas de dados.

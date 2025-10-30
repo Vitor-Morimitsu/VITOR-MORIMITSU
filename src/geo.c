@@ -65,7 +65,7 @@ void lerGeo(FILE* arqGeo, Fila chao, FILE* arqSvgEntrada){
             setFormaPacote(pac, lin);
             setTipoPacote(pac, 'l');
             insereFila(chao,pac);     
-            desenharLinhaSVG(arqGeo,lin)       
+            desenharLinhaSVG(arqGeo,lin);       
             
         } else if( tipoForma == 't'){
             int i;
@@ -77,15 +77,16 @@ void lerGeo(FILE* arqGeo, Fila chao, FILE* arqSvgEntrada){
             sscanf(linha, "t %d %lf %lf %s %s %c %s ", &i, &x, &y, corb, corp, &a, texto);
             Pacote pac = criarPacote();
             Texto text = criarTexto(i,x,y,corb,corp,a,texto);
+            Estilo ts = getEstiloTexto(text);
+            if(tipoForma == "ts"){
+                char font[500], weight[500], size[500];
+                sscanf(linha,"%*s %255s %1s %255s", font,weight,size);
+                setFAMILY(ts, font);
+                setWEIGHT(ts, weight);
+                setSIZE(ts, size);
+            }
             insereFila(chao, pac);
-            desenharTextoSVG(arqGeo,text,)
-        }else if(tipoForma == "ts"){
-            char font[500], weight[500], size[500];
-            sscanf(linha,"%*s %255s %1s %255s", font,weight,size);
-            Estilo ts = getEstiloTexto()
-            setFAMILY(ts, font);
-            setWEIGHT(ts, weight);
-            setSIZE(ts, size);
+            desenharTextoSVG(arqGeo,text,ts);
         }
         
     }    

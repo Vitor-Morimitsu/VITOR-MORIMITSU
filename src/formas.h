@@ -17,7 +17,7 @@
 */
 
 typedef void* Forma;
-
+typedef void* Disparador;
 typedef struct pacote* Pacote;
 
 /// @brief Cria um pacote que armazenará uma Forma e o tipo dela
@@ -32,6 +32,11 @@ void setFormaPacote(Pacote pac, Forma forma);
 /// @brief Retorna a forma do pacote 
 /// @param pac Pacote
 Forma getFormaPacote(Pacote pac);
+
+/// @brief Retorna o tipo do pacote
+/// @param pac Pacote
+/// @return Tipo do pacote
+char getTipoPacote(Pacote pac);
 
 /// @brief Define o tipo do pacote
 /// @param pac Pacote

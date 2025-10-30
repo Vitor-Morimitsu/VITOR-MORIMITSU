@@ -47,25 +47,23 @@ void qryShft(Fila disparadores, Fila carregadores, int idDis, char lado, int n){
         return;
     }    
 
-    
+    int confirmacao = -1;
     if(lado == 'e'){
         // Pressiona botão esquerdo: move formas do carregador esquerdo para o centro
         for(int i = 0;i<n;i++){
             void* centro = getConteudoCentro(d); 
             if(centro == NULL){
-                void* conteudo = removerPilha(CE);    
-                if(conteudo == NULL){
-                    break;
-                }
-                setConteudoCentro(d,conteudo);
+                //centro vazio
+                Forma f = getFormaTopoPilha(CE);
+                removerPilha(CE);    
+                int confirmacao = shft(d,'e');
 
             }else{
-                void* conteudo = removerPilha(CE);
-                if(conteudo == NULL){
-                    break;
-                }
+                //existe uma forma no centro
+                Forma f = getFormaTopoPilha(CE);
+                removerPilha(CE);                
                 inserirPilha(CD, centro);
-                setConteudoCentro(d,conteudo);          
+                int confirmacao = shft(d, 'e');          
             }         
         }
 
@@ -74,24 +72,28 @@ void qryShft(Fila disparadores, Fila carregadores, int idDis, char lado, int n){
         for(int i = 0;i<n;i++){
             void* centro = getConteudoCentro(d); 
             if(centro == NULL){
-                void* conteudo = removerPilha(CD);  
-                if(conteudo == NULL){
-                    break;
-                }  
-                setConteudoCentro(d,conteudo);
-
+                //centro vazio
+                Forma f = getFormaTopoPilha(CD);  
+                removerPilha(CD);
+                confirmacao = shft(d, 'd');
             }else{
-                void* conteudo = removerPilha(CD);
-                if(conteudo == NULL){
-                    break;
-                }
+                //existe uma forma no centro
+                Forma f = getFormaTopoPilha(CD);
+                removerPilha(CD);
                 inserirPilha(CE, centro);
-                setConteudoCentro(d,conteudo);            
+                confirmacao = shft(d, 'd');          
             }         
         }
         
     }else{
         fprintf(stderr, "ERRO [shft]: Lado inválido '%c'. Use 'e' ou 'd'\n", lado);
+        return;
+    }
+    if(confirmacao == 0){
+        printf("Comando shft realizado com sucesso\n");
+        return;
+    }else{
+        printf("Erro ao realizar o comando shft\n");
         return;
     }
 }
@@ -132,13 +134,13 @@ void qryDsp(Fila disparadores,Fila arena, int idDis, double dx, double dy, char 
             Circulo* circ = (Circulo*)figura;
             setXCirculo(circ, xDisparador +  dx);
             setYCirculo(circ, yDisparador + dy);
-            insereFila(arena,forma,'c');
+            insereFila(arena,forma);
 
         }else if(tipoConteudo == 'r'){
             Retangulo* ret = (Retangulo*)figura;
             setCoordXRetangulo(ret,xDisparador + dx);
             setCoordYRetangulo(ret,yDisparador + dy);
-            insereFila(arena,forma,'r');
+            insereFila(arena,forma);
 
         }else if(tipoConteudo == 'l'){
             Linha* lin = (Linha*)figura;
@@ -152,13 +154,13 @@ void qryDsp(Fila disparadores,Fila arena, int idDis, double dx, double dy, char 
             setX2Linha(lin, (xDisparador + dx) + vetorX);
             setY2Linha(lin, (yDisparador + dy) + vetorY);
 
-            insereFila(arena,forma,'l');
+            insereFila(arena,forma);
 
         }else if(tipoConteudo == 't'){
             Texto* t = (Texto*)figura;
             setXTexto(t, xDisparador + dx);
             setYTexto(t, yDisparador + dy);
-            insereFila(arena,forma,'t');
+            insereFila(arena,forma);
         }
         
     }
@@ -242,7 +244,7 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
             double x,y;
             int idDis;
             sscanf(linha, "pd %i %lf %lf",&idDis, &x, &y);
-            Disparador d = criarDisparador(idDis,x,y,0,0);
+            Disparador d = criarDisparador(idDis,x,y);
             if(d == NULL){
                 fprintf(stderr, "ERRO [pd]: Falha ao criar disparador ID %d\n", idDis);
                 continue;

@@ -213,23 +213,23 @@ void comandoCalc(FILE* arqTxt, Fila chao) {
 
     printf("calculo das sobreposições\n");
 
-    No_t no1 = getPrimeiroNoFila(chao);
-    while (no1 != NULL) {
+    Forma atual = getPrimeiroConteudoFila(chao);
+    while (atual != NULL) {
         double areaEsmagadaRound = 0.0;
-        Forma f1 = (Forma)getConteudoDoNoFila(no1);
+        Forma f1 = (Forma)getConteudoDoNoFila(atual);
         if (f1 == NULL) {
-            no1 = getProximoNoFila(no1);
+            atual = getProximoNoFila(atual);
             continue;
         }
         char tipo_f1 = getTipoForma(f1);
         void* figura1 = getFiguraForma(f1);
         if (figura1 == NULL) {
              printf("  Aviso: Figura interna nula encontrada (Tipo %c).\n", tipo_f1);
-             no1 = getProximoNoFila(no1);
+             atual = getProximoNoFila(atual);
              continue;
         }
 
-        No_t no2 = getProximoNoFila(no1);
+        Forma no2 = getProximoNoFila(atual);
         while (no2 != NULL) {
             Forma f2 = (Forma)getConteudoDoNoFila(no2);
             if (f2 == NULL) {
@@ -305,7 +305,7 @@ void comandoCalc(FILE* arqTxt, Fila chao) {
             no2 = getProximoNoFila(no2); 
         } 
         fprintf(arqTxt,"Área esmagada no Round: %.2f\n", areaEsmagadaRound);
-        no1 = getProximoNoFila(no1);
+        atual = getProximoNoFila(atual);
     } 
     fprintf(arqTxt, "--- Fim dos Cálculos ---\n");
     fprintf(arqTxt, "Área total esmagada: %.2f\n\n", area_esmagada_total);
