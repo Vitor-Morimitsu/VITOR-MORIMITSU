@@ -51,18 +51,13 @@ void removerPilha(Pilha p){
     free(temp);
 }
 
-Forma getTopoPilha(Pilha p){
+Forma getFormaTopoPilha(Pilha p){
     if(p == NULL){
         printf("Erro ao acessar o conteúdo da pilha");
         return NULL;
     }
 
-    stPilha* pilha = (stPilha*)p;
-    if(pilha != NULL && pilha->topo != NULL){
-        return pilha->topo->forma;
-    }else{
-        return NULL;
-    }
+    return ((stPilha*)p)->topo->forma;
 }
 
 int getTamanhoPilha(Pilha p){
@@ -70,8 +65,7 @@ int getTamanhoPilha(Pilha p){
         printf("Erro ao acessar o tamanho da pilha.");
         return 0;
     }
-    stPilha* pilha = (stPilha*)p;
-    return pilha->tamanho;
+    return ((stPilha*)p)->tamanho;
 }
 
 void destruirPilha(Pilha p){
