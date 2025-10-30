@@ -1,17 +1,12 @@
 #include "buscas.h"
 
-Disparador encontrarDisparadorPorID(Fila filaDeDisparadores, int id) {
-    if (filaDeDisparadores == NULL) {
+Disparador encontrarDisparadorPorID(Fila disparadores, int id) {
+    if (disparadores == NULL) {
         printf("Erro ao procurar o disparador pela ID");
         return NULL;
     }
-    for (No_t no = getPrimeiroNoFila(filaDeDisparadores); no != NULL; no = getProximoNoFila(no)) {
-        Disparador d = (Disparador)getConteudoDoNoFila(no);
-        if (getIDDisparador(d) == id) {
-            return d; 
-        }
-    } 
-    return NULL;
+    int tamanho = getTamanhoFila(disparadores);
+    Disparador temp;
 }
 
 Pilha encontrarPilhaPorID(Fila filaPilhas, int idPilha) {

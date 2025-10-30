@@ -6,7 +6,7 @@
 typedef struct disparador{
     int i;
     double x,y;
-    void* centro;
+    Forma centro;
     int idEsquerda;
     int idDireita; 
 } stDisparador;
