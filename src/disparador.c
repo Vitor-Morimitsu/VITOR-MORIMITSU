@@ -2,16 +2,17 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "carregador.h"
 
 typedef struct disparador{
     int i;
     double x,y;
     Forma centro;
-    int idEsquerda;
-    int idDireita; 
+    Carregador esquerdo;
+    Carregador direito;
 } stDisparador;
 
-Disparador criarDisparador(int i, double x, double y,int idEsquerdo, int idDireito){
+Disparador criarDisparador(int i, double x, double y){
     stDisparador* d = (stDisparador*)malloc(sizeof(stDisparador));
     if(d == NULL){
         printf("Erro ao alocar memória para o novo disparador.");
@@ -22,38 +23,71 @@ Disparador criarDisparador(int i, double x, double y,int idEsquerdo, int idDirei
     d->x = x;
     d->y = y;
     d->centro = NULL;
-    d->idEsquerda = idEsquerdo;
-    d->idDireita = idDireito;
+    d->esquerdo = NULL;
+    d->direito = NULL;
     return d;
 }
 
-void* getConteudoCentro(Disparador d) {
+
+int getIDDisparador(Disparador d){
+    stDisparador* ds = (stDisparador*)d;
+    if(ds == NULL){
+        printf("Id do disparador não encontrada\n");
+        exit(1);
+    }
+
+    return ds->i;
+}
+
+Forma getConteudoCentro(Disparador d) {
     if (d == NULL) {
         return NULL;
     }
-    stDisparador* ds = (stDisparador*)d;
-    
-    return ds->centro;
+    return((stDisparador*)d)->centro;
 }
 
-void setConteudoCentro(Disparador d, void* conteudo){
-    if(d == NULL){
-        printf("Erro ao acessar o disparador para colocar o conteudo no centro\n");
-        return;
-    }
-
+int shft(Disparador d, char lado){
     stDisparador* ds = (stDisparador*)d;
-    ds->centro = conteudo;
-}
-
-int getIDDisparador(Disparador d){
-    if(d == NULL){
-        printf("Erro ao acessar o disparador para retornar a ID.");
+    if(ds == NULL || ds->direito == NULL || ds->esquerdo){
+        printf("Erro ao preparar o disparo do disparador\n");
         exit(1);
     }
-    stDisparador* ds = (stDisparador*)d;
+    Carregador original = (lado == 'd') ? ds->direito : ds->esquerdo;
+    Carregador destino = (lado == 'e') ? ds->esquerdo : ds->direito;
 
-    return ds->i; 
+    if(ds->centro != NULL){
+        if(destino != NULL){
+            Pilha pDestino = getPilhaCarregador(destino);
+            inserirPilha(pDestino, ds->centro);
+        }else{
+            printf("Carregador de destino não existe\n");
+            exit(1);
+        }
+        ds->centro = NULL;
+    }
+
+    if(original != NULL){
+        Pilha pOriginal = getPilhaCarregador(original);
+        if(getTamanhoPilha(original) != 0){
+            removerPilha(original);
+        }else{
+            ds->centro = NULL;
+            return 0;
+        }
+    }
+}
+
+Forma dsp(Disparador d){
+    stDisparador* ds = (stDisparador*)d;
+    if(d == NULL){
+        printf("Erro ao realizar o disparo da forma\n");
+        exit(1);
+    }
+
+    Forma disparada = ds->centro;
+    ds->centro = NULL;
+
+    return disparada;
 }
 
 double getXDisparador(Disparador d){
@@ -67,24 +101,7 @@ double getXDisparador(Disparador d){
 }
 
 void carregarPilhaPelaFila(Pilha p, Fila f, int n){
-    if(p == NULL || f == NULL){
-        printf("Erro ao acessar a pilha para receber as formas da fila.");
-        exit(1);
-    }
-    if(n <= 0){
-        return;
-    }
     
-    for(int i = 0; i < n;i++){
-        No_t primeiroNo = getPrimeiroNoFila(f);
-        if(primeiroNo == NULL) return;
-
-        void* conteudo = getConteudoDoNoFila(primeiroNo);
-
-        removerPrimeiroNoFila(f);
-        inserirPilha(p,conteudo);
-        
-    }
 }
 
 double getYDisparador(Disparador d){

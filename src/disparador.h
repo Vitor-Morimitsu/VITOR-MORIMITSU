@@ -13,21 +13,18 @@
 */
 
 typedef void* Disparador;
-//typedef void* Pilha;
-typedef void* Celula;
-
 
 /// @brief Cria e retorna o disparador
 /// @param i Identificador do disparador
 /// @param x Coordenada X do disparador
 /// @param y Coordenada Y do disparador
 /// @return Disparador criado
-Disparador criarDisparador(int i,double x, double y, int IDEsquerda, int IDDireita);
+Disparador criarDisparador(int i,double x, double y);
 
 /// @brief Retorna o conteudo que está no centro do disparador em posição de disparo
 /// @param d Disparador
 /// @return Conteudo do centro
-void* getConteudoCentro(Disparador d);
+Forma getConteudoCentro(Disparador d);
 
 /// @brief Retorna o identificador do disparador
 /// @return Identificador
@@ -38,35 +35,36 @@ int getIDDisparador(Disparador d);
 /// @return Coordenada X do disparador
 double getXDisparador(Disparador d);
 
+/// @brief Retorna a coordenada Y do disparador
+/// @param d Disparador
+/// @return Coordenada Y do disparador
+double getYDisparador(Disparador d);
+
 /// @brief Insere os n primeiros elementos da fila na pilha
 /// @param p Pilha p
 /// @param f Fila
 /// @param n Quantidade de elementos da fila a serem inseridos na pilha
 void carregarPilhaPelaFila(Pilha p, Fila f, int n);
 
-/// @brief Retorna a coordenada Y do disparador
-/// @param d Disparador
-/// @return Coordenada Y do disparador
-double getYDisparador(Disparador d);
-
-/// @brief Retorna o identificador da pilha esquerda
-/// @param d Disparador
-/// @return Identificador da pilha esquerda
-int getIDPilhaEsquerda(Disparador d);
-
-/// @brief Retorna o identificador da pilha direita
-/// @param d Disparador
-/// @return Identificador da pilha direita
-int getIDPilhaDireita(Disparador d);
-
 /// @brief Define o identificador
 /// @param i Identificador do disparador
 void setIDDisparador(Disparador d, int i);
 
-/// @brief Coloca o conteudo passado no centro do disparador
+/// @brief Prepara uma forma para ser disparada
 /// @param d Disparador
-/// @param conteudo Conteudo a ser disparado
-void setConteudoCentro(Disparador d, void* conteudo);
+/// @param lado Lado do carregador que virá a forma 
+/// @return 0 se a forma foi preparada para disparo e 1 caso não tenha sido reparada para disparo
+int shft(Disparador d, char lado);
+
+/// @brief Realiza o disparo da forma
+/// @param d Disparador
+/// @return Forma disparada
+Forma dsp(Disparador d);
+
+/// @brief Identifica qual forma está em posição de disparo
+/// @param d Disparador
+/// @return Forma em posição de disparo
+Forma engatilhada(Disparador d);
 
 /// @brief Encaixa no disparador d os carregadores da esquerda e direita
 /// @param d Disparador
