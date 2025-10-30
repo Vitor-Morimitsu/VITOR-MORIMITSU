@@ -27,7 +27,7 @@ void insereFila(Fila f, Pacote pac);
 /// @brief Insere um disparador na fila de disparadores
 /// @param FilaDisparadores Fila de disparadores
 /// @param d Disparador a ser inserido
-void insereFilaDisparadores(Fila FilaDisparadores, void* d);
+void insereFilaDisparadores(Fila FilaDisparadores, void* d);        
 
 /// @brief Remove o primeiro elemento da fila
 /// @param f Fila
@@ -35,40 +35,15 @@ void removeFila(Fila f);
 
 /// @brief Mostra o primeiro elemento da fila
 /// @param f Fila
-void* getPrimeiroConteudoFila(Fila f);
+Forma getPrimeiroConteudoFila(Fila f);
 
 /// @brief Libera a memória ocupada pela fila
 /// @param f Fila
 void liberarFilaComConteudo(Fila f);
-
-/// @brief Retorna o primeiro nó da fila para iniciar uma iteração.
-/// @param f A fila.
-/// @return O primeiro nó (como um No_t), ou NULL se a fila estiver vazia.
-No_t getPrimeiroNoFila(Fila f);
-
-/// @brief Dado um nó, retorna o próximo nó na sequência da fila.
-/// @param no O nó atual (um No_t).
-/// @return O nó seguinte, ou NULL se for o último.
-No_t getProximoNoFila(No_t no);
-
-/// @brief Retorna a Forma (o dado) armazenada dentro de um nó.
-/// @param no O nó (um No_t).
-/// @return A Forma contida no nó.
-void* getConteudoDoNoFila(No_t no);
-
-/// @brief Retorna o tipo (char) da Forma armazenada dentro de um nó.
-/// @param no O nó (um No_t).
-/// @return O caractere de tipo da Forma.
-char getTipoDoNoFila(No_t no);
 
 /// @brief Retorna o tamanho da fila
 /// @param f Fila
 /// @return Tamanho da fila
 int getTamanhoFila(Fila f);
 
-/// @brief Retorna a forma que está em determinada posicao
-/// @param f Fila
-/// @param posicao Posicao da forma de interesse
-/// @return Forma presente na posição desejada
-void* percorreFila(Fila f, int posicao);
 #endif
