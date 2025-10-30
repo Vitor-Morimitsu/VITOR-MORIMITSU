@@ -74,13 +74,9 @@ void lerGeo(FILE* arqGeo, Fila chao, FILE* arqSvgEntrada){
             char corp[32];
             char texto[50];
             char a;
-            sscanf(linha, "t %d %lf %lf %s %s %c %s", &i, &x, &y, corb, corp, &a, texto);
-            printf("passou scanf texto\n");
-            Forma novaForma = criaTextoForma(i,'t',x,y,corb,corp,a,texto,NULL);
-            desenharTextoSVG(arqSvgEntrada, getFiguraForma(novaForma));
-            printf("passou desenho texto");
-            insereFila(chao, novaForma, 't');
-            printf("texto insere fila");
+            sscanf(linha, "t %d %lf %lf %s %s %c %s ", &i, &x, &y, corb, corp, &a, texto);
+            Pacote pac = criarPacote();
+            Texto text = criarTexto(i,x,y,corb,corp,a,txt)
         }
         
     }    

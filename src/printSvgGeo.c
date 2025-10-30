@@ -1,8 +1,3 @@
-/**
- * @file printSvgGeo.c
- * @brief Implementação das funções de geração de arquivos SVG
- */
-
 #include "printSvgGeo.h"
 #include "formas.h"
 #include "fila.h"
