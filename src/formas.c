@@ -90,9 +90,9 @@ void escreverConteudoPilha(FILE* arqTxt, Pilha p){
         printf("Erro ao abrir arquivos.");
         exit(1);
     }
-    NoPilha_t atual = getNoTopoPilha(p);  
+       
     fprintf(arqTxt, "Conteudo da pilha\n");
-    while(atual != NULL){
+    while( != NULL){
         void* cont = getConteudoDoNoPilha(atual);
         if(cont != NULL){
             Forma forma = (Forma)cont;

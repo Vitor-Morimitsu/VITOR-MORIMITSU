@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "pilha.h"
-//#include "disparador.h"
-//#include "formas.h"
+#include "disparador.h"
+#include "carregador.h"
 
 /*
     Arquivo .h criado com o intuito de criar uma fila no primeiro trabalho de estrutura de dados.
@@ -37,4 +37,15 @@ Forma getPrimeiroConteudoFila(Fila f);
 /// @return Tamanho da fila
 int getTamanhoFila(Fila f);
 
+/// @brief Procura um disparador na fila de disparadores criados
+/// @param disparadores Fila de disparadores existentes
+/// @param id Id a ser procurado
+/// @return Disparador
+Disparador procuraNaFilaDisparadores(Fila disparadores, int id);
+
+/// @brief Procura um carregador na fila de carregadores existentes
+/// @param carregadores Fila de carregadores
+/// @param id ID a ser procurado
+/// @return Carregador
+Carregador procuraNaFilaCarregadores(Fila carregadores, int id);
 #endif

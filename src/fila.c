@@ -75,7 +75,7 @@ int getTamanhoFila(Fila f){
 
 Disparador procuraNaFilaDisparadores(Fila disparadores, int id){
     if(disparadores == NULL){
-        printf("Erro ao procurar na fila\n");
+        printf("Erro ao procurar disparador na fila\n");
         exit(1);
     }
 
@@ -94,4 +94,23 @@ Disparador procuraNaFilaDisparadores(Fila disparadores, int id){
     return NULL;
 }
 
+Carregador procuraNaFilaCarregadores(Fila carregadores, int id){
+    if(carregadores == NULL || id == 0){
+        printf("Erro ao procurar carregador na fila\n");
+        exit(1);
+    }
 
+    stFila* fila = (stFila*)carregadores;
+    pont atual = fila->primeiro;
+    while(atual != NULL){
+        Carregador car = (Carregador)atual->forma;
+        int idCar = getIDCarregador(car);
+        if(idCar == id){
+            return car;
+        }
+        atual = atual->prox;
+    }
+
+    //Não encontrou o carregador
+    return NULL;
+}
