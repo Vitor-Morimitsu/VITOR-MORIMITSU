@@ -37,4 +37,17 @@ Forma getPrimeiroConteudoFila(Fila f);
 /// @return Tamanho da fila
 int getTamanhoFila(Fila f);
 
+/// @brief Encontra e retorna um disparador específico
+/// @param disparadores Fila dos disparadores
+/// @param id Id do disparador
+/// @return Disparador com o mesmo id passado por parametro
+Disparador encontrarDisparadorPorId(Fila disparadores,int id);
+
+/// @brief Encontra e retorna um carreagador específico
+/// @param carregadores Fila dos carregadores
+/// @param id Id do carregador
+/// @return Carregador com o mesmo id passado por parametro
+Carregador encontrarCarregadorPorId(Fila carregadores, int id);
+
+
 #endif

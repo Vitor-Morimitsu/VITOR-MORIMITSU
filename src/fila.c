@@ -72,3 +72,43 @@ int getTamanhoFila(Fila f){
     stFila* fila = (stFila*)f;
     return fila->tamanho;
 }
+
+Disparador encontrarDisparadorPorId(Fila disparadores, int id){
+    if(disparadores == NULL){
+        printf("Disparador não encontrado");
+        exit(1);
+    }
+
+    stFila* fila = (stFila*)disparadores;
+    pont atual = fila->primeiro;
+
+    while(atual != NULL){
+        Disparador d = (Disparador)atual->forma;
+        if(getIDDisparador(d) == id){
+            return d;
+        }
+        atual = atual->prox;
+    }
+
+    //não encontrou o disparador com a id passada
+    return NULL;
+}
+
+Carregador encontrarCarregadorPorId(Fila carregadores, int id){
+    if(carregadores == NULL){
+        printf("Carregador não encontrado\n");
+        exit(1);
+    }
+    stFila* fila = (stFila*)carregadores;
+    pont atual = fila->primeiro;
+    while(atual != NULL){
+        Carregador car = (Carregador*)atual->forma;
+        if(getIDCarregador(car) == id){
+            return car;
+        }
+        atual = atual->prox;
+    }
+
+    //não encotrou o carregador com a id passada
+    return NULL;
+}
