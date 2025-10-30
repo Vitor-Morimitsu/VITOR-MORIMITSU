@@ -16,18 +16,18 @@ void qryAtch(Fila disparadores, Fila carregadores,int idDisparador, int idEsquer
     Pilha CE = encontrarPilhaPorID(carregadores,idEsquerdo);
     if(CE == NULL){
         CE = criarPilha(idEsquerdo);
-        insereFila(carregadores,(void*)CE,'p');
+        insereFila(carregadores,CE);
     }
 
     // Busca ou cria carregador direito
     Pilha CD = encontrarPilhaPorID(carregadores,idDireito);
     if(CD == NULL){
         CD = criarPilha(idDireito);
-        insereFila(carregadores, (void*)CD, 'p');
+        insereFila(carregadores, CD);
     }
 
     // Associa os carregadores ao disparador
-    setCarregadorDisparador(d,idEsquerdo,idDireito);
+    atch(d, )
 }
 
 void qryShft(Fila disparadores, Fila carregadores, int idDis, char lado, int n){
