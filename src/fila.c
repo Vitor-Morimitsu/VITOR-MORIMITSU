@@ -73,4 +73,25 @@ int getTamanhoFila(Fila f){
     return fila->tamanho;
 }
 
+Disparador procuraNaFilaDisparadores(Fila disparadores, int id){
+    if(disparadores == NULL){
+        printf("Erro ao procurar na fila\n");
+        exit(1);
+    }
+
+    stFila* fila = (stFila*)disparadores;
+    pont atual = fila->primeiro;
+    while(atual != NULL){
+        Disparador d = (Disparador)atual->forma;
+        int idDis = getIDDisparador(d);
+        if(idDis == id){
+            return d;
+        }
+        atual = atual->prox;
+    }
+    
+    //Disparador não encontrado
+    return NULL;
+}
+
 
