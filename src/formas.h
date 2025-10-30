@@ -10,6 +10,7 @@
 #include "texto.h"
 #include "disparador.h"
 #include "pilha.h"
+#include "fila.h"
 
 /*
     Arquivo .h destinado à criação de um tipo genérico de forma que consiga armazenar e classificar outros tipos armazenados internamente.
@@ -17,52 +18,57 @@
 
 typedef void* Forma;
 
-/// @brief Cria um retangulo com os parametros fornecidos.
-Forma criaRetanguloForma(int i,char tipo, double x, double y, double w, double h, char* corb, char* corp);
+typedef struct pacote* Pacote;
 
-/// @brief Cria um círculo com os parâmetros fornecidos.
-Forma criaCirculoForma(int i,char tipo, double x, double y, double r, char* corb, char* corp);
+/// @brief Cria um pacote que armazenará uma Forma e o tipo dela
+/// @return Pacote criado
+Pacote criarPacote();
 
-/// @brief Cria uma linha com os parâmetros fornecidos.
-Forma criaLinhaForma(int i,char tipo, double x1, double y1, double x2, double y2, char* cor);
+/// @brief Define a forma ao pacote
+/// @param pac Pacote
+/// @param forma Forma
+void setFormaPacote(Pacote pac, Forma forma);
 
-/// @brief Cria um texto com os parâmetros fornecidos.
-Forma criaTextoForma(int i,char tipo, double x, double y, char* corb, char* corp, char a, char* txto, Estilo ts);
+/// @brief Retorna a forma do pacote 
+/// @param pac Pacote
+Forma getFormaPacote(Pacote pac);
 
-/// @brief Retorna o identificador da forma criada
-/// @param f Forma
-/// @return Identificador da forma
-int getIDForma(Forma f);
+/// @brief Define o tipo do pacote
+/// @param pac Pacote
+/// @param tipo Tipo do pacote
+void setTipoPacote(Pacote pac, char tipo);
 
-/// @brief Retorna o tipo da forma geométrica
-/// @param f Forma f
-/// @return Tipo da forma geométrica
-char getTipoForma(Forma f);
-
-void* getFiguraForma(Forma f);
 
 /// @brief Retorna a coordenada X da forma
-/// @param f Forma f
+/// @param pac Pacote
 /// @return Coordenada X da forma
-double getXForma(Forma f);
+double getXPacote(Pacote pac);
 
 /// @brief Retorna a coordenada Y da forma
-/// @param f Forma f
+/// @param pac Pacote
 /// @return Coordenada Y da forma
-double getYForma(Forma f);
+double getYPacote(Pacote pac);
 
 /// @brief Retorna a área da forma
-/// @param f Forma f
+/// @param pac Pacote
 /// @return Área da forma
-double getAreaForma(Forma f);
+double getAreaPacote(Pacote pac);
 
-/// @brief Libera as formas criadas
-/// @param f Forma f
-void liberarForma(Forma f);
+/// @brief Libera a forma contida no pacote
+/// @param pac Pacote
+void liberaFormaPacote(Pacote pac);
+
+/// @brief Reportar os dados de cada uma das formas carregadas
+/// @param arqTxt Arquivo destino
+/// @param p Pilha
+void escreverConteudoPilha(FILE* arqTxt, Pilha p);
 
 /// @brief Posiciona a forma f a um deslocamento dx,dy em relação à posição do disparador
 /// @param f Forma 
 /// @param d Diparador
-void posicionaForma(Forma f, Disparador d, double deslocX, double deslocY);
+void posicionaPacote(Pacote f, Disparador d, double deslocX, double deslocY);
 
+/// @brief Libera a memória de um Pacote
+/// @param pac 
+void freePacote(Pacote pac);
 #endif

@@ -1,26 +1,27 @@
 #include "buscas.h"
 
-Disparador encontrarDisparadorPorID(Fila filaDeDisparadores, int id) {
-    if (filaDeDisparadores == NULL) {
+Disparador encontrarDisparadorPorID(Fila disparadores, int id) {
+    if (disparadores == NULL) {
         printf("Erro ao procurar o disparador pela ID");
         return NULL;
     }
-    for (No_t no = getPrimeiroNoFila(filaDeDisparadores); no != NULL; no = getProximoNoFila(no)) {
-        Disparador d = (Disparador)getConteudoDoNoFila(no);
-        if (getIDDisparador(d) == id) {
-            return d; 
-        }
-    } 
-    return NULL;
+    int tamanho = getTamanhoFila(disparadores);
+    Disparador temp;
 }
 
-Pilha encontrarPilhaPorID(Fila listaDePilhas, int id) {
-    if (listaDePilhas == NULL) {
+Pilha encontrarPilhaPorID(Fila filaPilhas, int idPilha) {
+    if (filaPilhas == NULL) {
+        printf("fila de pilhas vazia na função encontrar pilha por id\n");
         return NULL;
     }
-    for (No_t no = getNoTopoPilha(listaDePilhas); no != NULL; no = getProximoNoPilha(no)) {
-        Conteudo p = getConteudoDoNoPilha(no);
-        if (getIDPilha(p) == id) {
+
+    for(No_t no = getPrimeiroNoFila(filaPilhas); no != NULL; no = getProximoNoFila(no)) {
+        void* conteudo = getConteudoDoNoFila(no);
+        if (conteudo == NULL) continue;
+
+        Pilha p = (Pilha)conteudo;
+
+        if (getIDPilha(p) == idPilha){
             return p; 
         }
     }

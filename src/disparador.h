@@ -7,6 +7,7 @@
 #include "pilha.h"
 #include "fila.h"
 
+
 /*
     Arquivo .h destinado à criação de um disparador e suas operações de uso no primeiro trabalho de estrutura de dados
 */
@@ -61,6 +62,11 @@ int getIDPilhaDireita(Disparador d);
 /// @brief Define o identificador
 /// @param i Identificador do disparador
 void setIDDisparador(Disparador d, int i);
+
+/// @brief Coloca o conteudo passado no centro do disparador
+/// @param d Disparador
+/// @param conteudo Conteudo a ser disparado
+void setConteudoCentro(Disparador d, void* conteudo);
 
 /// @brief Encaixa no disparador d os carregadores da esquerda e direita
 /// @param d Disparador

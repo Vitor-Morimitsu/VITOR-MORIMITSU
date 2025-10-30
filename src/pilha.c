@@ -1,106 +1,63 @@
 #include "pilha.h"
-#include "fila.h"
 typedef struct stcelula{
-    void* conteudo;
+    Forma forma;
     struct stcelula *prox;
 }stCelula;
-typedef struct stpilha{
-    int id;
-    stCelula *topo;
+
+typedef stCelula* pont;
+typedef struct {
+    pont topo;
     int tamanho;
 }stPilha;
 
-Pilha criarPilha(int ID){
+Pilha criarPilha(){
     stPilha* p = (stPilha*)malloc(sizeof(stPilha));
     if(p == NULL){
         printf("Erro ao alocar memória para a Pilha");
         exit(1);
     }
-    p->id = ID;
     p->tamanho = 0;
     p->topo = NULL;
     return p;
 }
 
-void inserirPilha(Pilha p, void* conteudo){
+void inserirPilha(Pilha p, Forma forma){
     if(p == NULL){
-        printf("Erro ao acessar a pilha.");
-        return;
+        printf("Erro ao acessar a pilha para adicionar uma nova celula\n.");
+        exit(1);
     }
     stPilha* pilha = (stPilha*)p;
 
-    stCelula* novaCelula = (stCelula*)malloc(sizeof(stCelula));
+    pont novaCelula = malloc(sizeof(stCelula));
     if(novaCelula == NULL){
-        printf("Erro ao acessar a nova celula criada");
-        return;
+        printf("Erro ao criar a nova celula criada\n");
+        exit(1);
     }
-    novaCelula->conteudo = conteudo;
+    novaCelula->forma = forma;
     novaCelula->prox = pilha->topo;
     pilha->topo = novaCelula;
     pilha->tamanho++;
 }
 
-// void carregarPilhaPelaFila(Pilha p, Fila f, int n){
-//     if(p == NULL){
-//         printf("Erro ao acessar a pilha para receber as fomras da fila.");
-//         exit(1);
-//     }
-//     if(f == NULL){
-//         printf("Erro ao acessar a fila para passar as formas para pilha.");
-//         exit(2);
-//     }
-//     if(n <= 0){
-//         return;
-//     }
-    
-//     No_t noFila = getPrimeiroNoFila(f);
-
-//     for(int i = 0; i<n && noFila != NULL;i++){
-//         void* conteudoInserir = getConteudoDoNoFila(noFila);
-
-//         inserirPilha(p,conteudoInserir);
-
-//         noFila = getProximoNoFila(noFila);
-//     }
-// }
-
-void* removerPilha(Pilha p){
+void removerPilha(Pilha p){
     stPilha* pilha = (stPilha*)p;
     if(pilha == NULL||pilha->topo == NULL){
         return NULL;
     }
 
     stCelula* temp = pilha->topo;
-    void* conteudo = temp->conteudo;
-
     pilha->topo = pilha->topo->prox;
+    free(temp->forma);
     free(temp);
-    pilha->tamanho--;
-
-    return conteudo;
 }
 
-void* getConteudoPilha(Pilha p){
+Forma getFormaTopoPilha(Pilha p){
     if(p == NULL){
         printf("Erro ao acessar o conteúdo da pilha");
         return NULL;
     }
 
-    stPilha* pilha = (stPilha*)p;
-    if(pilha != NULL && pilha->topo != NULL){
-        return pilha->topo->conteudo;
-    }else{
-        return NULL;
-    }
-}
-
-int getIDPilha(Pilha p){
-    if(p == NULL){
-        printf("Erro ao acessar a pilha.");
-        return -1;
-    }
-    stPilha* pilha = (stPilha*)p;
-    return pilha->id;
+    return ((stPilha*)p)->topo->forma;
 }
 
 int getTamanhoPilha(Pilha p){
@@ -108,42 +65,23 @@ int getTamanhoPilha(Pilha p){
         printf("Erro ao acessar o tamanho da pilha.");
         return 0;
     }
+    return ((stPilha*)p)->tamanho;
+}
 
+void destruirPilha(Pilha p){
     stPilha* pilha = (stPilha*)p;
-    return pilha->tamanho;
-}
-
-NoPilha_t getNoTopoPilha(Pilha p) {
-    if (p == NULL) return NULL;
-    stPilha* pilha = (stPilha*)p;
-    return (NoPilha_t)pilha->topo; 
-}
-
-NoPilha_t getProximoNoPilha(NoPilha_t no) {
-    if (no == NULL) return NULL;
-    stCelula* celula_interna = (stCelula*)no; 
-    return (NoPilha_t)celula_interna->prox;
-}
-
-void* getConteudoDoNoPilha(NoPilha_t no) {
-    if (no == NULL) return NULL;
-    stCelula* celula_interna = (stCelula*)no;
-    return celula_interna->conteudo;
-}
-
-void liberarMemoriaPilha(Pilha p){
-    if (p == NULL) {
-        return;
+    if(pilha == NULL){
+        printf("Pilha vazia. Impossível destruir.\n");
+        exit(1);
     }
 
-    stPilha* pilha = (stPilha*)p;
-    stCelula* atual = pilha->topo;
- 
-    while (atual != NULL) {
-        stCelula* temp = atual;
+    pont atual = pilha->topo;
+    pont apagar;
+    while(atual != NULL){
+        apagar = atual;
         atual = atual->prox;
-
-        free(temp); 
+        freePacote(apagar->forma);
+        free(apagar);
     }
-    free(pilha); 
+    free(pilha);
 }

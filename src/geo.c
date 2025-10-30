@@ -30,9 +30,6 @@ void lerGeo(FILE* arqGeo, Fila chao, FILE* arqSvgEntrada){
         
         sscanf(linha, "%c", &tipoForma);
         
-        
-        //Forma novaForma = NULL;
-        
         if (tipoForma == 'c') {
             int i;
             double x, y, r;
