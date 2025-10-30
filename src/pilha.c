@@ -1,6 +1,6 @@
 #include "pilha.h"
 typedef struct stcelula{
-    void* conteudo;
+    Pacote pac;
     struct stcelula *prox;
 }stCelula;
 typedef struct stpilha{

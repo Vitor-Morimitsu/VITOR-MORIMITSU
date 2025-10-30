@@ -3,14 +3,15 @@
 #include <stdlib.h>
 #include "disparador.h"
 #include "formas.h"
-typedef struct stNo {
-    void* conteudo;
-    char type;
+struct stNo {
+    Pacote conteudo;
     struct stNo* prox;
-} stNo;
+};
+
+typedef struct stNo* pont;
 typedef struct stFila {
-    stNo* primeiro;
-    stNo* ultimo;
+    pont primeiro;
+    pont ultimo;
     int tamanho;
 } stFila;
 
@@ -27,7 +28,7 @@ Fila criarFila() {
     return f;
 }
 
-void insereFila(Fila f,void* conteudo, char type) {
+void insereFila(Fila f,Pacote pac) {
     stFila* fila = (stFila*)f;
 
     stNo* novoNo = (stNo*)malloc(sizeof(stNo));
@@ -36,11 +37,10 @@ void insereFila(Fila f,void* conteudo, char type) {
         exit(1);
     }
     
-    novoNo->conteudo = conteudo;
-    novoNo->type = type;
+    novoNo->conteudo = pac;
     novoNo->prox = NULL;
 
-    if (fila->primeiro == NULL) {
+    if (fila->primeiro == NULL) {//fila vazia
         fila->primeiro = novoNo;
         fila->ultimo = novoNo;
     } else {
@@ -61,23 +61,15 @@ void insereFilaDisparadores(Fila FilaDisparadores, void* d){
 
 }
 
-void* removeFila(Fila f) {
+void removeFila(Fila f) {
     stFila* fila = (stFila*)f;
-    if (fila == NULL || fila->primeiro == NULL) {
+    if (fila == NULL || fila->primeiro == NULL) {//fila vazia ou inexistente
         return NULL; 
     }
-    
-    stNo* temp = fila->primeiro;
-    void* conteudo = temp->conteudo; 
 
+    pont temp = fila->primeiro;
     fila->primeiro = fila->primeiro->prox;
-    // free(temp); 
-    fila->tamanho--;
-
-    if (fila->primeiro == NULL) {
-        fila->ultimo = NULL;
-    }
-    return conteudo;
+    free(temp);
 }
 
 
@@ -89,23 +81,6 @@ void* getPrimeiroConteudoFila(Fila f) {
     }
     
     return fila->primeiro->conteudo;
-}
-
-void removerPrimeiroNoFila(Fila f) {
-    if(f == NULL) return;
-    
-    stFila* fila = (stFila*)f;
-    if(fila->primeiro == NULL) return;
-    
-    stNo* noRemover = fila->primeiro;
-    fila->primeiro = noRemover->prox;
-
-    if(fila->primeiro == NULL) {
-        fila->ultimo = NULL;
-    }
-    
-    fila->tamanho--;
-    free(noRemover); 
 }
 
 void liberarFilaComConteudo(Fila f) {

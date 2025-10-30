@@ -83,7 +83,7 @@ int main(int argc, char* argv[])
     }
     
     // Inicializa estruturas de dados principais
-    Fila chao = criarFila();                    // Fila para armazenar formas no "chão"
+    Fila chao = criarFila();                    // Fila para gerar as formas no "chão"
     Fila filaDisparadores = criarFila();        // Fila de disparadores
     Fila filaPilhas = criarFila();              // Fila de pilhas (carregadores)
 
