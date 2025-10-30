@@ -6,8 +6,6 @@
 #include "formas.h"
 #include "disparador.h"
 #include "pilha.h"
-#include "buscas.h"
-#include "criarTxt.h"
 
 /*
     Arquivo .h responsável por ler as instruções contidas no arquivo .qry e executa-las  

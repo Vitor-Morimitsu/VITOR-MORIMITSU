@@ -1,8 +1,10 @@
-#include "disparador.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
+#include "disparador.h"
 #include "carregador.h"
+#include "fila.h"
+#include "pilha.h"
 
 typedef struct disparador{
     int i;
@@ -64,8 +66,8 @@ Forma engatilhada(Disparador d){
 
 int shft(Disparador d, char lado){
     stDisparador* ds = (stDisparador*)d;
-    if(ds == NULL || ds->direito == NULL || ds->esquerdo){
-        printf("Erro ao preparar o disparo do disparador\n");
+    if(ds == NULL || ds->direito == NULL || ds->esquerdo == NULL){
+        printf("Erro ao realizar o comanodo shft do disparador\n");
         exit(1);
     }
     Carregador original = (lado == 'd') ? ds->direito : ds->esquerdo;

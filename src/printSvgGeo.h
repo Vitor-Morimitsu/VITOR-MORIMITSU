@@ -19,27 +19,22 @@ void abrirSvg(FILE* arqSvg);
 /*
     Função responsável por gerar um círculo em SVG.
 */
-void desenharCirculoSVG(FILE* arqSvg,Forma f);
+void desenharCirculoSVG(FILE* arqSvg,Circulo circ);
 
 /*
     Função responsável por gerar um retângulo em SVG.
 */
-void desenharRetanguloSVG(FILE* arqSvg, Forma f);
+void desenharRetanguloSVG(FILE* arqSvg, Retangulo r);
 
 /*
     Função responsável por gerar uma linha em SVG.
 */
-void desenharLinhaSVG(FILE* arqSvg, Forma f);
+void desenharLinhaSVG(FILE* arqSvg, Linha l);
 
 /*
     Função responsável por gerar um texto em SVG.
 */
-void desenharTextoSVG(FILE* arqSvg, Forma f);
-
-/*
-    Função responsável por gerar um arquivo Svg com base nas formas lidas da fila
-*/ 
-void gerarSvgSaida(Fila filaFormas, FILE* arqSvg);
+void desenharTextoSVG(FILE* arqSvg, Texto t, Estilo ts);
 
 /// @brief Realiza o comando de encerramento do arquivo svg
 /// @param arqSvg Arquivo

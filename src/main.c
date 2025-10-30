@@ -91,42 +91,11 @@ int main(int argc, char* argv[])
 
     if(arqGeo == NULL){
         fprintf(stderr, "ERRO: Não foi possível abrir o arquivo .geo: %s\n", fullPathGeo);
-        liberarFilaComConteudo(filaDisparadores);
-            if(filaPilhas != NULL){
-                No_t noPilhaAtual = getPrimeiroNoFila(filaPilhas);
-                while(noPilhaAtual != NULL){
-                    void* conteudo = getConteudoDoNoFila(noPilhaAtual);
-                    if(conteudo != NULL){
-                        Pilha p = (Pilha)conteudo; 
-                        liberarMemoriaPilha(p,NULL);
-                  }
-                 noPilhaAtual = getProximoNoFila(noPilhaAtual);
-                }
-                liberarFilaComConteudo(filaPilhas);
-            }
-            liberarFilaComConteudo(chao);
-        return 1;
     }
 
     FILE* arqSvgEntrada = fopen(arquivoSaidaSvgGeo, "w");
     if(arqSvgEntrada == NULL){
         fprintf(stderr, "ERRO: Não foi possível criar arquivo SVG de entrada: %s\n", arquivoSaidaSvgGeo);
-        liberarFilaComConteudo(filaDisparadores);
-            if(filaPilhas != NULL){
-                No_t noPilhaAtual = getPrimeiroNoFila(filaPilhas);
-                while(noPilhaAtual != NULL){
-                    void* conteudo = getConteudoDoNoFila(noPilhaAtual);
-                    if(conteudo != NULL){
-                    Pilha p = (Pilha)conteudo; 
-                    liberarMemoriaPilha(p,NULL);
-                  }
-                 noPilhaAtual = getProximoNoFila(noPilhaAtual);
-                }
-                liberarFilaComConteudo(filaPilhas);
-            }
-            liberarFilaComConteudo(chao);
-        fclose(arqGeo);
-        return 1;
     }
     
     lerGeo(arqGeo,chao,arqSvgEntrada);

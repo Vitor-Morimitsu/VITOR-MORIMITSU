@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include "fila.h"
 #include "formas.h"
+#include "disparador.h"
+#include "carregador.h"
 
 
 

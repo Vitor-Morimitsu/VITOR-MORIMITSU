@@ -1,6 +1,8 @@
 #ifndef CARREGADOR_H
 #define CARREGADOR_H
 
+typedef void* Pilha;
+
 #include "formas.h"
 #include "disparador.h"
 #include "fila.h"

@@ -35,21 +35,24 @@ void lerGeo(FILE* arqGeo, Fila chao, FILE* arqSvgEntrada){
             double x, y, r;
             char corb[32], corp[32];
             sscanf(linha, "c %d %lf %lf %lf %s %s", &i, &x, &y, &r, corb, corp);
-            printf("passou scanf circulo\n");
-            Forma novaForma = criaCirculoForma(i, 'c',x, y, r, corb, corp);
-            desenharCirculoSVG(arqSvgEntrada, getFiguraForma(novaForma));
-            printf("passou desenho cirfculo svg");
-            insereFila(chao, novaForma, 'c');
-            printf("Circulo insere fila");
+            Pacote pac = criarPacote;
+            Circulo circ = criaCirculo(i,x,y,r,corb,corp);
+            setFormaPacote(pac, circ);
+            setTipoPacote(pac, 'c');
+            insereFila(chao, pac);
+            desenharCirculoSVG(arqSvgEntrada,circ);
             
         } else if (tipoForma == 'r') {
             int i;
             double x, y, w, h;
             char corb[32], corp[32];
             sscanf(linha, "r %d %lf %lf %lf %lf %s %s", &i, &x, &y, &w, &h, corb, corp);
-            Forma novaForma = criaRetanguloForma(i,'r', x, y, w, h, corb, corp);
-            desenharRetanguloSVG(arqSvgEntrada,getFiguraForma(novaForma));
-            insereFila(chao, novaForma, 'r');
+            Pacote pac = criarPacote();
+            Retangulo ret = criaRetangulo(i,x,y,w,h,corb,corp);
+            setFormaPacote(pac, ret);
+            setTipoPacote(pac,'r');
+            insereFila(chao,pac);
+            desenharRetanguloSVG(arqSvgEntrada,ret);
             
         } else if (tipoForma == 'l'){
             int i;
@@ -57,12 +60,12 @@ void lerGeo(FILE* arqGeo, Fila chao, FILE* arqSvgEntrada){
             char cor[32];
             sscanf(linha, "l %d %lf %lf %lf %lf %s", &i, &x1, &y1, &x2, &y2, cor);
             printf("passou scanf linha\n");
-            Forma novaForma = criaLinhaForma(i,'l', x1,y1,x2,y2,cor);
-            desenharLinhaSVG(arqSvgEntrada, getFiguraForma(novaForma));
-            printf("passou desenho linha");
-            insereFila(chao,novaForma,'l');
-            printf("linha insere fila");
-            
+            Pacote pac = criarPacote();
+            Linha lin = criarLinha(i,x1,y1,x2,y2,cor);
+            setFormaPacote(pac, lin);
+            setTipoPacote(pac, 'l');
+            insereFila(chao,pac);     
+            desenharLinhaSVG(arqGeo,lin)       
             
         } else if( tipoForma == 't'){
             int i;

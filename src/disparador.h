@@ -5,8 +5,8 @@
 #include <stdlib.h>
 #include <string.h>
 #include "pilha.h"
-#include "fila.h"
-
+#include "carregador.h"
+#include "formas.h"
 
 /*
     Arquivo .h destinado à criação de um disparador e suas operações de uso no primeiro trabalho de estrutura de dados

@@ -1,9 +1,5 @@
-/**
- * @file qry.c
- * @brief Implementação das operações de consulta e manipulação de disparadores
- */
-
 #include "qry.h"
+
 
 void qryAtch(Fila disparadores, Fila carregadores,int idDisparador, int idEsquerdo, int idDireito){
     Disparador d = encontrarDisparadorPorID(disparadores,idDisparador);
@@ -27,7 +23,8 @@ void qryAtch(Fila disparadores, Fila carregadores,int idDisparador, int idEsquer
     }
 
     // Associa os carregadores ao disparador
-    atch(d, )
+    atch(d,CE,'e');
+    atch(d,CD,'d');
 }
 
 void qryShft(Fila disparadores, Fila carregadores, int idDis, char lado, int n){
@@ -219,24 +216,6 @@ void qryRjd(Fila disparadores, Fila carregadores, Fila arena,int idDis, char lad
  
 }
 
-/**
- * @brief Lê e processa arquivo de consultas (.qry)
- * 
- * Processa linha por linha do arquivo .qry, executando comandos como:
- * - pd: posiciona disparador
- * - lc: carrega formas em carregador
- * - atch: encaixa carregadores em disparador
- * - shft: pressiona botão do disparador
- * - dsp: dispara forma
- * - rjd: rajada de disparos
- * - calc: calcula sobreposições
- * 
- * @param arqQry Arquivo de consultas
- * @param arqTxt Arquivo de saída para log
- * @param filaDisparadores Fila de disparadores
- * @param filaCarregadores Fila de carregadores
- * @param chao Fila de formas disponíveis
- */
 void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregadores,Fila chao){
     if(arqQry == NULL){
         fprintf(stderr, "ERRO: Arquivo .qry é NULL\n");
@@ -277,21 +256,12 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
             int idCar;
             sscanf(linha, "lc %i %i", &idCar, &n);
 
-            // Verifica se já existe uma pilha com este ID
-            Pilha p = encontrarPilhaPorID(filaCarregadores, idCar);
-            if(p != NULL){
-                fprintf(stderr, "AVISO [lc]: Carregador ID %d já existe\n", idCar);
-                continue;
-            }
-
             Pilha novaPilha = criarPilha(idCar);
             if(novaPilha == NULL){
                 fprintf(stderr, "ERRO [lc]: Falha ao criar carregador ID %d\n", idCar);
                 continue;
             }            
-            carregarPilhaPelaFila(novaPilha, chao, n);
-            insereFila(filaCarregadores, (void*)novaPilha, 'p');
-            escreverConteudoPilha(arqTxt, novaPilha);
+    
             
         }else if(strcmp(comando, "atch") == 0){
             printf("comando atch\n");
