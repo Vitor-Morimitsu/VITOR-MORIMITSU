@@ -32,7 +32,7 @@ typedef void* Estilo;
 /// @param txto Texto
 /// @param ts Estilo do texto
 /// @return Retorna o texto criado
-Texto criarTexto(int i, double x, double y, char* corb, char* corp, char a, char* txto, Estilo ts);
+Texto criarTexto(int i, double x, double y, char* corb, char* corp, char a, char* txto);
 
 /// @brief Retorna o identificador do texto
 /// @param t Texto

@@ -76,7 +76,16 @@ void lerGeo(FILE* arqGeo, Fila chao, FILE* arqSvgEntrada){
             char a;
             sscanf(linha, "t %d %lf %lf %s %s %c %s ", &i, &x, &y, corb, corp, &a, texto);
             Pacote pac = criarPacote();
-            Texto text = criarTexto(i,x,y,corb,corp,a,txt)
+            Texto text = criarTexto(i,x,y,corb,corp,a,texto);
+            insereFila(chao, pac);
+            desenharTextoSVG(arqGeo,text,)
+        }else if(tipoForma == "ts"){
+            char font[500], weight[500], size[500];
+            sscanf(linha,"%*s %255s %1s %255s", font,weight,size);
+            Estilo ts = getEstiloTexto()
+            setFAMILY(ts, font);
+            setWEIGHT(ts, weight);
+            setSIZE(ts, size);
         }
         
     }    
