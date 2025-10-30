@@ -235,7 +235,7 @@ void posicionaPacote(Pacote pac, Disparador d, double deslocX, double deslocY){
 
 }
 
-void liberaPacote(Pacote pac){
+void liberaFormaPacote(Pacote pac){
     if(pac == NULL){
         printf("Erro ao liberar o pacote em formas.c\n");
         return;
@@ -250,4 +250,9 @@ void liberaPacote(Pacote pac){
     }else if(pac->tipo == 't'){
         liberaTexto((Texto*)pac->fig);
     }
+}
+
+void freePacote(Pacote pac){
+    liberaFormaPacote(pac);
+    free(pac);    
 }

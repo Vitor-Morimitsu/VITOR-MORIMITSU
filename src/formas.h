@@ -54,9 +54,9 @@ double getYPacote(Pacote pac);
 /// @return Área da forma
 double getAreaPacote(Pacote pac);
 
-/// @brief Libera os Pacotes  criadas
+/// @brief Libera a forma contida no pacote
 /// @param pac Pacote
-void liberaPacote(Pacote pac);
+void liberaFormaPacote(Pacote pac);
 
 /// @brief Reportar os dados de cada uma das formas carregadas
 /// @param arqTxt Arquivo destino
@@ -68,4 +68,7 @@ void escreverConteudoPilha(FILE* arqTxt, Pilha p);
 /// @param d Diparador
 void posicionaPacote(Pacote f, Disparador d, double deslocX, double deslocY);
 
+/// @brief Libera a memória de um Pacote
+/// @param pac 
+void freePacote(Pacote pac);
 #endif

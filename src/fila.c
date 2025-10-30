@@ -50,6 +50,7 @@ void removeFila(Fila f) {
 
     pont temp = fila->primeiro;
     fila->primeiro = fila->primeiro->prox;
+    fila->tamanho--;
     free(temp);
 }
 
