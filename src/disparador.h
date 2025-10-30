@@ -40,12 +40,6 @@ double getXDisparador(Disparador d);
 /// @return Coordenada Y do disparador
 double getYDisparador(Disparador d);
 
-/// @brief Insere os n primeiros elementos da fila na pilha
-/// @param p Pilha p
-/// @param f Fila
-/// @param n Quantidade de elementos da fila a serem inseridos na pilha
-void carregarPilhaPelaFila(Pilha p, Fila f, int n);
-
 /// @brief Define o identificador
 /// @param i Identificador do disparador
 void setIDDisparador(Disparador d, int i);
@@ -68,21 +62,15 @@ Forma engatilhada(Disparador d);
 
 /// @brief Encaixa no disparador d os carregadores da esquerda e direita
 /// @param d Disparador
-/// @param idPilhaEsq Id do carregador da esquerda
-/// @param idPilhaDir Id do carregador da direita
-void setCarregadorDisparador(Disparador d, int idPilhaEsq,int idPilhaDir);
+/// @param car Carregador que vai ser encaixado no disparador
+/// @param lado Lado em que o carregador será encaixado
+void atch(Disparador d,Carregador car, char lado);
 
 /// @brief Define a posição do disparador com base nas coordenadas passadas
 /// @param d Disparador
 /// @param x Coordenada X do disparador
 /// @param y Coordenada Y do disparador
 void setPosicaoDisparador(Disparador d, double x, double y);
-
-/// @brief Pressiona um botão do disparador n vezes
-/// @param d Disparador
-/// @param lado Lado a ser alterado
-/// @param n Quantidade de vezes a ser alterado
-void pressionaBotao(Disparador d, char lado, int n, Pilha esq, Pilha dir);
 
 /// @brief Destruir um disparador
 /// @param d Disparador
