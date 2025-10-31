@@ -36,9 +36,14 @@ void insereFila(Fila f,Forma forma) {
         printf("Falha ao alocar memória para novo nó da fila\n");
         exit(1);
     }
-    novo->forma = forma;
-    novo->prox = NULL;
-    fila->ultimo = novo;
+
+    if(fila->primeiro == NULL){
+        fila->primeiro = novo;
+        fila->ultimo = novo;
+    }else{
+        fila->ultimo->prox = novo;
+        fila->ultimo = novo;
+    }
 
     fila->tamanho++;    
 }

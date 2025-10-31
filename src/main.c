@@ -116,18 +116,19 @@ int main(int argc, char* argv[])
 
         // Gera arquivo SVG de saída com resultados das consultas
         FILE* arqSvgSaida = fopen(arquivoSaidaSvgQry, "w"); 
+        if(arqSvgSaida == NULL) exit(1);
 
-        gerarSvgSaida(chao, arqSvgSaida);   
-        fflush(arqSvgSaida);
+        // gerarSvgSaida(chao, arqSvgSaida);   
+        // fflush(arqSvgSaida);
         
         // Libera memória alocada
-        liberarFilaComConteudo(filaDisparadores);
+        // liberarFilaComConteudo(filaDisparadores);
 
-        fclose(arqSvgSaida);
-        free(arqGeo);
-        free(arqQry);
-        free(arqSvgEntrada);
-        free(arqSvgSaida);
+        // fclose(arqSvgSaida);
+        // free(arqGeo);
+        // free(arqQry);
+        // free(arqSvgEntrada);
+        // free(arqSvgSaida);
     }
 
     printf("***Executou até o fim***\n");

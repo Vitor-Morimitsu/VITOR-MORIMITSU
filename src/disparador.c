@@ -60,10 +60,6 @@ Forma getConteudoCentro(Disparador d) {
     return((stDisparador*)d)->centro;
 }
 
-Forma engatilhada(Disparador d){
-    return ((stDisparador*)d)->centro;
-}
-
 int shft(Disparador d, char lado){
     stDisparador* ds = (stDisparador*)d;
     if(ds == NULL || ds->direito == NULL || ds->esquerdo == NULL){

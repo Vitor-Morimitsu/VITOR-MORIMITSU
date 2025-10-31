@@ -21,6 +21,16 @@ typedef void* Fila;
 void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores, Fila filaCarregadores, Fila chao);
 
 /*
+    Função responsável por posicionar o disparador criado
+*/
+void qryPd(Fila disparadores, int id, double x, double y);
+
+/*
+    Função responsável por carregar as formas no carregador
+*/
+void qryLc(Fila carregadores,Fila chao,int idCar, int n);
+
+/*
     Função responsável por encaixar os carregadores no disparador
 */
 void qryAtch(Fila disparadores, Fila carregadores,int idDisparador, int idEsquerdo, int idDireito);

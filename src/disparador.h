@@ -57,11 +57,6 @@ int shft(Disparador d, char lado);
 /// @return Forma disparada
 Forma dsp(Disparador d);
 
-/// @brief Identifica qual forma está em posição de disparo
-/// @param d Disparador
-/// @return Forma em posição de disparo
-Forma engatilhada(Disparador d);
-
 /// @brief Encaixa no disparador d os carregadores da esquerda e direita
 /// @param d Disparador
 /// @param car Carregador que vai ser encaixado no disparador
