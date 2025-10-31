@@ -14,6 +14,7 @@
 
 typedef void* Fila;
 typedef void* Forma;
+typedef void* Disparador;
 
 /// @brief Cria uma fila vazia
 /// @return Ponteiro para a fila criada

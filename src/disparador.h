@@ -77,4 +77,10 @@ void setPosicaoDisparador(Disparador d, double x, double y);
 /// @brief Destruir um disparador
 /// @param d Disparador
 void destruirDisparador(Disparador d);
+
+/// @brief Retorna o carregador do lado especificado
+/// @param d Disparador 
+/// @param lado Lado
+/// @return Carregador 
+Carregador getCarregadorDisparador(Disparador d, char lado);
 #endif

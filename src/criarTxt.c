@@ -42,21 +42,21 @@ void comandoDsp(FILE* arqTxt, Fila filaDisparadores,int idDis, double dx, double
         printf("Disparador não encontrado.");
         return;
     }
-    Forma forma = getConteudoCentro(d);
-    if(forma == NULL){
+    Pacote pac = (Pacote)getConteudoCentro(d);
+    if(pac == NULL){
         printf("Nenhuma forma foi disparada.");
         return;
     }
-    posicionaPacote(forma, d, dx, dy);
+    posicionaPacote(pac, d, dx, dy);
 
-    double xFinal = getXForma(forma);
-    double yFinal = getYForma(forma);
+    double xFinal = getXPacote(pac);
+    double yFinal = getYPacote(pac);
     //caso da linha
     double x2Final = -1;
     double y2Final = -1;
     
     char* nomeFigura = "desconhecida";
-    char tipo = getTipoPacote(forma);
+    char tipo = getTipoPacote(pac);
     if(tipo == 'c'){
 
         nomeFigura = "círculo";
@@ -65,10 +65,10 @@ void comandoDsp(FILE* arqTxt, Fila filaDisparadores,int idDis, double dx, double
         nomeFigura = "retângulo";
     }else if(tipo == 'l'){
         nomeFigura = "linha";
-        xFinal = getX1Linha((Linha*)forma);
-        yFinal = getY1Linha((Linha*)forma);
-        x2Final = getX2Linha((Linha*)forma);
-        y2Final = getY2Linha((Linha*)forma);
+        xFinal = getX1Linha((Linha*)pac);
+        yFinal = getY1Linha((Linha*)pac);
+        x2Final = getX2Linha((Linha*)pac);
+        y2Final = getY2Linha((Linha*)pac);
 
     }else if(tipo == 't'){
         nomeFigura = "texto";

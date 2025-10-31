@@ -9,6 +9,7 @@ typedef struct stNo {
 }stNoFila;
 
 typedef stNoFila* pont;
+typedef void* Fila;
 typedef struct{
     pont primeiro;
     pont ultimo;

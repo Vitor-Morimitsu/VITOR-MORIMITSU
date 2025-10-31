@@ -2,21 +2,21 @@
 
 
 void qryAtch(Fila disparadores, Fila carregadores,int idDisparador, int idEsquerdo, int idDireito){
-    Disparador d = encontrarDisparadorPorID(disparadores,idDisparador);
+    Disparador d = encontrarDisparadorPorId(disparadores,idDisparador);
     if(d == NULL){
         fprintf(stderr, "AVISO [atch]: Disparador ID %d não encontrado\n", idDisparador);
         return;
     }
 
     // Busca ou cria carregador esquerdo
-    Pilha CE = encontrarPilhaPorID(carregadores,idEsquerdo);
+    Pilha CE = encontrarDisparadorPorId(carregadores,idEsquerdo);
     if(CE == NULL){
         CE = criarPilha(idEsquerdo);
         insereFila(carregadores,CE);
     }
 
     // Busca ou cria carregador direito
-    Pilha CD = encontrarPilhaPorID(carregadores,idDireito);
+    Pilha CD = encontrarDisparadorPorId(carregadores,idDireito);
     if(CD == NULL){
         CD = criarPilha(idDireito);
         insereFila(carregadores, CD);
@@ -28,7 +28,7 @@ void qryAtch(Fila disparadores, Fila carregadores,int idDisparador, int idEsquer
 }
 
 void qryShft(Fila disparadores, Fila carregadores, int idDis, char lado, int n){
-    Disparador d = encontrarDisparadorPorID(disparadores, idDis);
+    Disparador d = encontrarDisparadorPorId(disparadores, idDis);
     if(d == NULL){
         fprintf(stderr, "ERRO [shft]: Disparador ID %d não encontrado\n", idDis);
         return;
@@ -36,12 +36,12 @@ void qryShft(Fila disparadores, Fila carregadores, int idDis, char lado, int n){
     int idCe = getIDPilhaEsquerda(d);
     int idCd = getIDPilhaDireita(d);
 
-    Pilha CE = encontrarPilhaPorID(carregadores,idCe);
+    Pilha CE = encontrarDisparadorPorId(carregadores,idCe);
     if(CE == NULL){
         fprintf(stderr, "ERRO [shft]: Carregador esquerdo ID %d não encontrado\n", idCe);
         return;
     }
-    Pilha CD = encontrarPilhaPorID(carregadores, idCd);     
+    Pilha CD = encontrarDisparadorPorId(carregadores, idCd);     
     if(CD == NULL){
         fprintf(stderr, "ERRO [shft]: Carregador direito ID %d não encontrado\n", idCd);
         return;
@@ -99,7 +99,7 @@ void qryShft(Fila disparadores, Fila carregadores, int idDis, char lado, int n){
 }
 
 void qryDsp(Fila disparadores,Fila arena, int idDis, double dx, double dy, char letra, int iteracao){
-    Disparador d = encontrarDisparadorPorID(disparadores, idDis);
+    Disparador d = encontrarDisparadorPorId(disparadores, idDis);
     if(d == NULL){
         fprintf(stderr, "ERRO [dsp]: Disparador ID %d não encontrado\n", idDis);
         return;
@@ -169,7 +169,7 @@ void qryDsp(Fila disparadores,Fila arena, int idDis, double dx, double dy, char 
 }
 
 void qryRjd(Fila disparadores, Fila carregadores, Fila arena,int idDis, char lado, double dx, double dy,double ix, double iy){ 
-    Disparador d = encontrarDisparadorPorID(disparadores,idDis);
+    Disparador d = encontrarDisparadorPorId(disparadores,idDis);
     if(d == NULL){
         fprintf(stderr, "ERRO [rjd]: Disparador ID %d não encontrado\n", idDis);
         return;
@@ -178,13 +178,13 @@ void qryRjd(Fila disparadores, Fila carregadores, Fila arena,int idDis, char lad
     int idE = getIDPilhaEsquerda(d);
     int idD = getIDPilhaDireita(d);
 
-    Pilha esq = encontrarPilhaPorID(carregadores,idE);
+    Pilha esq = encontrarDisparadorPorId(carregadores,idE);
     if(esq == NULL){
         fprintf(stderr, "ERRO [rjd]: Carregador esquerdo ID %d não encontrado\n", idE);
         return;
     }
 
-    Pilha dir = encontrarPilhaPorID(carregadores,idD);
+    Pilha dir = encontrarDisparadorPorId(carregadores,idD);
     if(dir == NULL){
         fprintf(stderr, "ERRO [rjd]: Carregador direito ID %d não encontrado\n", idD);
         return;

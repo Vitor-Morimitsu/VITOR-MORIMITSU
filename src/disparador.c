@@ -156,3 +156,19 @@ void destruirDisparador(Disparador d){
     destruirCarregador(ds->esquerdo);
     free(ds);
 }
+
+Carregador getCarregadorDisparador(Disparador d, char lado){
+    if(d == NULL){
+        printf("Erro ao acessar o disparador\n");
+        exit(1);
+    }
+    stDisparador* ds = (stDisparador*)d;
+    Carregador car;
+    if(lado == 'e'){
+        return ds->esquerdo;
+    }else if(lado == 'd'){
+        return ds->direito;
+    }else{
+        printf("Lado inválido\n");
+    }
+}
