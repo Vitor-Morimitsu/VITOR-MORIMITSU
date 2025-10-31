@@ -76,11 +76,9 @@ void liberarFilaComConteudo(Fila f) {
     pont atual = fila->primeiro;
     while(atual != NULL){
         pont proximo = atual->prox;
-
         Pacote pac = (Pacote)atual->pacote;
         if(pac != NULL){
-            liberaFormaPacote(pac);
-            free(pac);
+            freePacote(pac);
         }
         free(atual);
         atual = proximo;
@@ -106,7 +104,7 @@ Disparador encontrarDisparadorPorId(Fila disparadores, int id){
     pont atual = fila->primeiro;
 
     while(atual != NULL){
-        Disparador d = (Disparador)atual->forma;
+        Disparador d = (Disparador)atual->pacote;
         if(getIDDisparador(d) == id){
             return d;
         }
@@ -125,7 +123,7 @@ Carregador encontrarCarregadorPorId(Fila carregadores, int id){
     stFila* fila = (stFila*)carregadores;
     pont atual = fila->primeiro;
     while(atual != NULL){
-        Carregador car = (Carregador*)atual->forma;
+        Carregador car = (Carregador*)atual->pacote;
         if(getIDCarregador(car) == id){
             return car;
         }
