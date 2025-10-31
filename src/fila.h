@@ -15,6 +15,7 @@
 typedef void* Fila;
 typedef void* Forma;
 typedef void* Disparador;
+typedef void* Carregador;
 
 /// @brief Cria uma fila vazia
 /// @return Ponteiro para a fila criada
@@ -31,7 +32,7 @@ void removeFila(Fila f);
 
 /// @brief Mostra o primeiro elemento da fila
 /// @param f Fila
-Forma getPrimeiroConteudoFila(Fila f);
+Pacote getPrimeiroConteudoFila(Fila f);
 
 /// @brief Retorna o tamanho da fila
 /// @param f Fila
@@ -49,6 +50,5 @@ Disparador encontrarDisparadorPorId(Fila disparadores,int id);
 /// @param id Id do carregador
 /// @return Carregador com o mesmo id passado por parametro
 Carregador encontrarCarregadorPorId(Fila carregadores, int id);
-
 
 #endif

@@ -18,7 +18,8 @@
 
 typedef void* Forma;
 typedef void* Disparador;
-typedef struct pacote* Pacote;
+// typedef struct pacote* Pacote;
+typedef void* Pacote;
 
 /// @brief Cria um pacote que armazenará uma Forma e o tipo dela
 /// @return Pacote criado

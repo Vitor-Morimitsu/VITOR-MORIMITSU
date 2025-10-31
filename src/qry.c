@@ -11,6 +11,15 @@ void qryPd(Fila disparadores,int id, double x, double y){
 }
 
 void qryLc(Fila carregadores,Fila chao, int idCar, int n){
+    if(chao == NULL){
+        printf("Chão está vazio\n");
+        return;
+    }
+    if(carregadores == NULL){
+        printf("fila de carregadores está vazia\n");
+        return;
+    }
+
     Carregador car = encontrarCarregadorPorId(carregadores,idCar);
     if(car == NULL){
         //carregador inexistente. Preciso criar um.
@@ -21,15 +30,16 @@ void qryLc(Fila carregadores,Fila chao, int idCar, int n){
     Pilha pCar = getPilhaCarregador(car);
     int tamanhoChao = getTamanhoFila(chao);
    
-    for( int i = 0; i<n;i++){
+    for(int i = 0; i<n;i++){
         Forma f = getPrimeiroConteudoFila(chao);
-        if(f == NULL){
-            printf("Chão está vazio\n");
-            break;
-        }
+        // if(f == NULL){
+        //     printf("Chão está vazio\n");
+        //     break;
+        // }
         removeFila(chao);
         inserirPilha(pCar,f);
     }
+    
 }
 
 void qryAtch(Fila disparadores, Fila carregadores,int idDisparador, int idEsquerdo, int idDireito){

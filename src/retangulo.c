@@ -23,7 +23,6 @@ Retangulo criaRetangulo(int i, double x, double y, double w, double h, char* cor
         free(r);
         exit(1);
     }
-    printf("Teste\n");
     strcpy(r->corb, corb);
 
     r->corp = (char*)malloc(strlen(corp) + 1);

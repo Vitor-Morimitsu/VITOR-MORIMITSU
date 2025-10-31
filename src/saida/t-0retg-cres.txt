@@ -2,58 +2,9 @@ pd 5 1.00 1.00
 
 lc 3 20
 
-Conteudo da pilha
-retângulo id:24 x:498.141348 y:171.984084 w:69.500000 h:61.000000 corB:#6600ff corP:#c8ab37
-retângulo id:23 x:433.835479 y:156.802256 w:69.500000 h:58.700000 corB:#784421 corP:#00aa88
-retângulo id:22 x:294.480004 y:75.814784 w:69.500000 h:56.400000 corB:#6600ff corP:#c8ab37
-retângulo id:21 x:410.368758 y:481.561045 w:69.500000 h:54.100000 corB:#784421 corP:#00aa88
-retângulo id:20 x:455.123940 y:460.385887 w:66.000000 h:51.800000 corB:#6600ff corP:#c8ab37
-retângulo id:19 x:131.907590 y:217.633351 w:62.500000 h:49.500000 corB:#784421 corP:#00aa88
-retângulo id:18 x:415.273789 y:446.868232 w:59.000000 h:47.200000 corB:#6600ff corP:#c8ab37
-retângulo id:17 x:390.496177 y:330.293303 w:55.500000 h:44.900000 corB:#784421 corP:#00aa88
-retângulo id:16 x:266.954233 y:506.927236 w:52.000000 h:42.600000 corB:#6600ff corP:#c8ab37
-retângulo id:15 x:30.091255 y:416.485625 w:48.500000 h:40.300000 corB:#784421 corP:#00aa88
-retângulo id:14 x:325.387652 y:145.745251 w:45.000000 h:38.000000 corB:#6600ff corP:#c8ab37
-retângulo id:13 x:71.205057 y:263.726353 w:41.500000 h:35.700000 corB:#784421 corP:#00aa88
-retângulo id:12 x:394.455368 y:97.672955 w:38.000000 h:33.400000 corB:#6600ff corP:#c8ab37
-retângulo id:11 x:331.330774 y:184.813362 w:34.500000 h:31.100000 corB:#784421 corP:#00aa88
-retângulo id:10 x:119.684776 y:216.874620 w:31.000000 h:28.800000 corB:#6600ff corP:#c8ab37
-retângulo id:9 x:445.427706 y:161.239745 w:27.500000 h:26.500000 corB:#784421 corP:#00aa88
-retângulo id:8 x:280.226806 y:502.669255 w:24.000000 h:24.200000 corB:#6600ff corP:#c8ab37
-retângulo id:7 x:208.111123 y:364.721054 w:20.500000 h:21.900000 corB:#784421 corP:#00aa88
-retângulo id:6 x:244.502267 y:352.510430 w:17.000000 h:19.600000 corB:#6600ff corP:#c8ab37
-retângulo id:5 x:30.313610 y:485.355072 w:13.500000 h:17.300000 corB:#784421 corP:#00aa88
 atch 5 3 6
 
 rjd 5 d 9.00 10.50 9.00 10.50
 
 calc
-
-Área esmagada no Round: 0.00
-Área esmagada no Round: 0.00
-Área esmagada no Round: 0.00
-Área esmagada no Round: 0.00
-Área esmagada no Round: 0.00
-Área esmagada no Round: 18271.95
-Área esmagada no Round: 16977.10
-Área esmagada no Round: 15549.25
-Área esmagada no Round: 14004.50
-Área esmagada no Round: 10585.70
-Área esmagada no Round: 9446.50
-Área esmagada no Round: 8371.70
-Área esmagada no Round: 7361.30
-Área esmagada no Round: 6415.30
-Área esmagada no Round: 4460.75
-Área esmagada no Round: 3823.70
-Área esmagada no Round: 3234.95
-Área esmagada no Round: 2694.50
-Área esmagada no Round: 1621.55
-Área esmagada no Round: 1309.55
-Área esmagada no Round: 1029.75
-Área esmagada no Round: 782.15
-Área esmagada no Round: 566.75
-Área esmagada no Round: 233.55
-Área esmagada no Round: 0.00
---- Fim dos Cálculos ---
-Área total esmagada: 126740.50
 

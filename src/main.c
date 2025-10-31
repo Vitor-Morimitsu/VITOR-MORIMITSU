@@ -88,14 +88,13 @@ int main(int argc, char* argv[])
     Fila filaPilhas = criarFila();              // Fila de pilhas (carregadores)
 
     arqGeo = fopen(fullPathGeo, "r");
-
     if(arqGeo == NULL){
-        fprintf(stderr, "ERRO: Não foi possível abrir o arquivo .geo: %s\n", fullPathGeo);
+        printf("ERRO: Não foi possível abrir o arquivo .geo: %s\n", fullPathGeo);
     }
 
     FILE* arqSvgEntrada = fopen(arquivoSaidaSvgGeo, "w");
     if(arqSvgEntrada == NULL){
-        fprintf(stderr, "ERRO: Não foi possível criar arquivo SVG de entrada: %s\n", arquivoSaidaSvgGeo);
+        printf("ERRO: Não foi possível criar arquivo SVG de entrada: %s\n", arquivoSaidaSvgGeo);
     }
     
     lerGeo(arqGeo,chao,arqSvgEntrada);
@@ -107,7 +106,6 @@ int main(int argc, char* argv[])
         FILE* arqQry = fopen(fullPathQry, "r");
 
         FILE* arqTxt = fopen(arquivoSaidaTxt, "w");
-        
         
         lerQry(arqQry,arqTxt,filaDisparadores,filaPilhas,chao);
         

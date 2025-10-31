@@ -37,34 +37,35 @@ void lerGeo(FILE* arqGeo, Fila chao, FILE* arqSvgEntrada){
             sscanf(linha, "c %d %lf %lf %lf %s %s", &i, &x, &y, &r, corb, corp);
             Pacote pac = criarPacote;
             Circulo circ = criaCirculo(i,x,y,r,corb,corp);
-            setFormaPacote(pac, circ);
+            setFormaPacote(pac,(Forma)circ);
             setTipoPacote(pac, 'c');
-            insereFila(chao, pac);
+            insereFila(chao,(Forma)pac);
             desenharCirculoSVG(arqSvgEntrada,circ);
             
         } else if (tipoForma == 'r') {
             int i;
             double x, y, w, h;
             char corb[32], corp[32];
-            sscanf(linha, "r %d %lf %lf %lf %lf %s %s", &i, &x, &y, &w, &h, corb, corp);
             Pacote pac = criarPacote();
+            sscanf(linha, "r %d %lf %lf %lf %lf %s %s", &i, &x, &y, &w, &h, corb, corp);
+            // printf("Dados do novo retangulo: id %i x:%lf y:%lf w:%lf h:%lf corb:%s corp:%lf\n",i,x,y,w,h,corb,corp); --------------ok
             Retangulo ret = criaRetangulo(i,x,y,w,h,corb,corp);
-            setFormaPacote(pac, ret);
+            setFormaPacote(pac, (Forma)ret);
             setTipoPacote(pac,'r');
-            insereFila(chao,pac);
+            insereFila(chao,(Forma)pac);
             desenharRetanguloSVG(arqSvgEntrada,ret);
+            // printf("******TESTE********\n"); -------------ok
             
         } else if (tipoForma == 'l'){
             int i;
             double x1,y1,x2,y2;
             char cor[32];
             sscanf(linha, "l %d %lf %lf %lf %lf %s", &i, &x1, &y1, &x2, &y2, cor);
-            printf("passou scanf linha\n");
             Pacote pac = criarPacote();
             Linha lin = criarLinha(i,x1,y1,x2,y2,cor);
-            setFormaPacote(pac, lin);
+            setFormaPacote(pac, (Forma)lin);
             setTipoPacote(pac, 'l');
-            insereFila(chao,pac);     
+            insereFila(chao,(Forma)pac);     
             desenharLinhaSVG(arqGeo,lin);       
             
         } else if( tipoForma == 't'){
@@ -77,6 +78,7 @@ void lerGeo(FILE* arqGeo, Fila chao, FILE* arqSvgEntrada){
             sscanf(linha, "t %d %lf %lf %s %s %c %s ", &i, &x, &y, corb, corp, &a, texto);
             Pacote pac = criarPacote();
             Texto text = criarTexto(i,x,y,corb,corp,a,texto);
+            setFormaPacote(pac,(Texto)text);
             Estilo ts = getEstiloTexto(text);
             if(tipoForma == "ts"){
                 char font[500], weight[500], size[500];
@@ -85,7 +87,7 @@ void lerGeo(FILE* arqGeo, Fila chao, FILE* arqSvgEntrada){
                 setfWeight(ts, weight);
                 setfSize(ts, size);
             }
-            insereFila(chao, pac);
+            insereFila(chao, (Forma)pac);
             desenharTextoSVG(arqGeo,text,ts);
         }
         

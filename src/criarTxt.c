@@ -1,36 +1,46 @@
-// #include "criarTxt.h"
+#include "criarTxt.h"
 
-// void comandoShft(FILE* arqTxt,int idDis, Fila filaDisparadores){
-//     if(arqTxt == NULL){
-//         printf("Erro ao abrir o arquivo txt.");
-//         exit(1);
-//     }
+void comandoLc(FILE* arqTxt, Pilha p){
+    if(arqTxt == NULL || p == NULL){
+        printf("Erro realizar o comando Lc no txt\n");
+        return;
+    }
 
-//     Disparador disp = encontrarDisparadorPorId(filaDisparadores, idDis);
-//     if(disp == NULL){
-//         printf("Erro ao acessar o disparador.");
-//         return;
-//     }
+    //TERMINAR A LÒGICA
 
-//     Forma centro = getConteudoCentro(disp);
-//     if(centro == NULL){
-//         printf("A posição de disparo está vazia.");
-//         return;
-//     }else{
-//         char fig = getTipoPacote(centro);
-//         char* figura = "desconhecida";
-//         if(fig == 'c'){
-//             figura = "circulo";
-//         }else if(fig == 'r'){
-//             figura = "retangulo";
-//         }else if(fig == 'l'){
-//             figura = "linha";
-//         }else if(fig == 't'){
-//             figura = "texto";
-//         }
-//         fprintf(arqTxt, "A figura que está no centro é %s\n", figura);
-//     }
-// }
+}
+
+void comandoShft(FILE* arqTxt,int idDis, Fila filaDisparadores){
+    if(arqTxt == NULL){
+        printf("Erro ao abrir o arquivo txt.");
+        exit(1);
+    }
+
+    Disparador disp = encontrarDisparadorPorId(filaDisparadores, idDis);
+    if(disp == NULL){
+        printf("Erro ao acessar o disparador.");
+        return;
+    }
+
+    Forma centro = getConteudoCentro(disp);
+    if(centro == NULL){
+        printf("A posição de disparo está vazia.");
+        return;
+    }else{
+        char fig = getTipoPacote(centro);
+        char* figura = "desconhecida";
+        if(fig == 'c'){
+            figura = "circulo";
+        }else if(fig == 'r'){
+            figura = "retangulo";
+        }else if(fig == 'l'){
+            figura = "linha";
+        }else if(fig == 't'){
+            figura = "texto";
+        }
+        fprintf(arqTxt, "A figura que está no centro é %s\n", figura);
+    }
+}
 
 // void comandoDsp(FILE* arqTxt, Fila filaDisparadores,int idDis, double dx, double dy){
 //     if(arqTxt == NULL){

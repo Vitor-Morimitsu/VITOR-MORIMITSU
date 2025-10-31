@@ -4,7 +4,7 @@
 #include "disparador.h"
 #include "formas.h"
 typedef struct stNo {
-    Forma forma;
+    Pacote pacote;
     struct stNo* prox;
 }stNoFila;
 
@@ -60,21 +60,38 @@ void removeFila(Fila f) {
     free(temp);
 }
 
-Forma getPrimeiroConteudoFila(Fila f) {
+Pacote getPrimeiroConteudoFila(Fila f) {
     stFila* fila = (stFila*)f;
     if (fila == NULL || fila->primeiro == NULL) {
         return NULL;
     }
-    return fila->primeiro->forma;
+    return fila->primeiro->pacote;
 }
 
 void liberarFilaComConteudo(Fila f) {
     if (f == NULL) {
         return;
     }    
+    stFila* fila = (stFila*)f;
+    pont atual = fila->primeiro;
+    while(atual != NULL){
+        pont proximo = atual->prox;
+
+        Pacote pac = (Pacote)atual->pacote;
+        if(pac != NULL){
+            liberaFormaPacote(pac);
+            free(pac);
+        }
+        free(atual);
+        atual = proximo;
+    }
 }
 
 int getTamanhoFila(Fila f){
+    if(f == NULL){
+        printf("Erro ao acessar o tamanho da fila\n");
+        return 0;
+    }
     stFila* fila = (stFila*)f;
     return fila->tamanho;
 }
