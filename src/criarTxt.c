@@ -7,7 +7,7 @@ void comandoLc(FILE* arqTxt, Pilha p){
     }
     
     fprintf(arqTxt, "Conteúdo da pilha:\n");
-    while(getTamanhoPilha(p) != NULL){
+    while(getTamanhoPilha(p) > 0){
         Pacote pac = getPacoteTopoPilha(p);
         if(pac != NULL){
 

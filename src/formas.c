@@ -1,5 +1,11 @@
+#include "texto.h"
 #include "formas.h"
 #include "disparador.h"
+#include "circulo.h"
+#include "retangulo.h"
+#include "linha.h"
+
+void liberaTexto(Texto t); // Explicit declaration
 
 typedef struct{
     Forma fig;

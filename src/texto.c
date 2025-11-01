@@ -139,6 +139,10 @@ void setTxtoTexto(Texto t, char* txto){
     strcpy(tex->txto, txto);
 }
 
+void setEstiloTexto(Texto t, Estilo es){
+    ((stTexto*)t)->estiloTexto = es;
+}
+
 void liberaTexto(Texto t){
     if(t == NULL) return;
     stTexto* texto = (stTexto*)t;

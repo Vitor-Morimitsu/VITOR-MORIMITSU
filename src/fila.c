@@ -57,6 +57,9 @@ void removeFila(Fila f) {
     pont temp = fila->primeiro;
     fila->primeiro = fila->primeiro->prox;
     fila->tamanho--;
+    if(fila->primeiro == NULL){
+        fila->ultimo == NULL;
+    }
     free(temp);
 }
 
@@ -75,12 +78,12 @@ void liberarFila(Fila f) {
         free(atual);
         atual = proximo;
     }
+    free(fila);
 }
 
 void* getPrimeiroConteudoFila(Fila f){
     stFila* fila = (stFila*)f;
     if(f == NULL || fila->primeiro == NULL){
-        printf("Não há nada na fila\n");
         return NULL;
     }
     return fila->primeiro->conteudo;
@@ -145,8 +148,7 @@ Fila clonarFilaChao(Fila original){
     pont atual = f->primeiro;
 
     while(atual != NULL){
-        Pacote pac = (Pacote)atual->conteudo;
-        insereFila(nova, pac);
+        insereFila(nova,atual->conteudo);
         atual = atual->prox;
     }
     return nova;

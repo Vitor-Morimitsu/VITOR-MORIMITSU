@@ -1,12 +1,16 @@
+#include "texto.h"
 #include "geo.h"
 #include "circulo.h"
-#include "texto.h"
-#include "linha.h"
 #include "retangulo.h"
+#include "linha.h"
 #include "formas.h"
 #include <string.h>
 #include <stdio.h>
 #include "printSvg.h"
+
+Estilo criarEstilo(char *fFamily, char *fWeight, char *fSize); // Explicit declaration
+#include "texto.h"
+#include "texto.h"
 
 typedef void* Forma;
 
@@ -48,13 +52,11 @@ void lerGeo(FILE* arqGeo, Fila chao, FILE* arqSvgEntrada){
             char corb[32], corp[32];
             Pacote pac = criarPacote();
             sscanf(linha, "r %d %lf %lf %lf %lf %s %s", &i, &x, &y, &w, &h, corb, corp);
-            // printf("Dados do novo retangulo: id %i x:%lf y:%lf w:%lf h:%lf corb:%s corp:%lf\n",i,x,y,w,h,corb,corp); --------------ok
             Retangulo ret = criaRetangulo(i,x,y,w,h,corb,corp);
             setFormaPacote(pac, (Forma)ret);
             setTipoPacote(pac,'r');
             insereFila(chao,(Forma)pac);
             desenharRetanguloSVG(arqSvgEntrada,ret);
-            // printf("******TESTE********\n"); -------------ok
             
         } else if (tipoForma == 'l'){
             int i;
@@ -66,7 +68,7 @@ void lerGeo(FILE* arqGeo, Fila chao, FILE* arqSvgEntrada){
             setFormaPacote(pac, (Forma)lin);
             setTipoPacote(pac, 'l');
             insereFila(chao,(Forma)pac);     
-            desenharLinhaSVG(arqGeo,lin);       
+            desenharLinhaSVG(arqSvgEntrada,lin);       
             
         } else if( tipoForma == 't'){
             int i;
@@ -79,16 +81,17 @@ void lerGeo(FILE* arqGeo, Fila chao, FILE* arqSvgEntrada){
             Pacote pac = criarPacote();
             Texto text = criarTexto(i,x,y,corb,corp,a,texto);
             setFormaPacote(pac,(Texto)text);
-            Estilo ts = getEstiloTexto(text);
-            if(tipoForma == "ts"){
+
+            const char* ts_marker = strstr(linha, " ts ");
+            if(ts_marker != NULL){
                 char font[500], weight[500], size[500];
-                sscanf(linha,"%*s %255s %1s %255s", font,weight,size);
-                setfFamily(ts, font);
-                setfWeight(ts, weight);
-                setfSize(ts, size);
+                sscanf(ts_marker, " ts %s %s %s", font, weight, size);
+                Estilo ts = criarEstilo(font, weight, size);
+                setEstiloTexto(text, ts);
             }
+
             insereFila(chao, (Forma)pac);
-            desenharTextoSVG(arqGeo,text,ts);
+            desenharTextoSVG(arqSvgEntrada,text,getEstiloTexto(text));
         }
         
     }    

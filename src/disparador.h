@@ -14,6 +14,7 @@
 
 typedef void* Carregador;
 typedef void* Disparador;
+typedef void* Pacote;
 typedef void* Forma;
 
 /// @brief Cria e retorna o disparador
@@ -26,7 +27,7 @@ Disparador criarDisparador(int i,double x, double y);
 /// @brief Retorna o conteudo que está no centro do disparador em posição de disparo
 /// @param d Disparador
 /// @return Conteudo do centro
-Forma getConteudoCentro(Disparador d);
+Pacote getConteudoCentro(Disparador d);
 
 /// @brief Retorna o identificador do disparador
 /// @return Identificador

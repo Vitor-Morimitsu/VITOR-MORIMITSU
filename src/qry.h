@@ -2,6 +2,9 @@
 #define QRY_H
 
 #include "fila.h"
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
 #include "geo.h"
 #include "formas.h"
 #include "disparador.h"

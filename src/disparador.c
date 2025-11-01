@@ -9,7 +9,7 @@
 typedef struct disparador{
     int i;
     double x,y;
-    Forma centro;
+    Pacote centro;
     Carregador esquerdo;
     Carregador direito;
 } stDisparador;
@@ -53,11 +53,12 @@ int getIDDisparador(Disparador d){
     return ds->i;
 }
 
-Forma getConteudoCentro(Disparador d) {
+Pacote getConteudoCentro(Disparador d) {
     if (d == NULL) {
         return NULL;
     }
-    return((stDisparador*)d)->centro;
+    stDisparador* ds = (stDisparador*)d;
+    return ds->centro;
 }
 
 int shft(Disparador d, char lado){
@@ -82,8 +83,9 @@ int shft(Disparador d, char lado){
 
     if(original != NULL){
         Pilha pOriginal = getPilhaCarregador(original);
-        if(getTamanhoPilha(original) != 0){
-            removerPilha(original);
+        if(getTamanhoPilha(pOriginal) != 0){
+            ds->centro = getPacoteTopoPilha(pOriginal);
+            removerPilha(pOriginal);
         }else{
             ds->centro = NULL;
             return 0;
@@ -92,17 +94,17 @@ int shft(Disparador d, char lado){
     return 0;
 }
 
-Forma dsp(Disparador d){
+Pacote dsp(Disparador d){
     stDisparador* ds = (stDisparador*)d;
     if(d == NULL){
         printf("Erro ao realizar o disparo da forma\n");
         exit(1);
     }
 
-    Forma disparada = ds->centro;
+    Pacote disparado = ds->centro;
     ds->centro = NULL;
 
-    return disparada;
+    return disparado;
 }
 
 double getXDisparador(Disparador d){

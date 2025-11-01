@@ -5,7 +5,8 @@ void qryPd(Fila disparadores,int id, double x, double y){
     if(d == NULL){
         //Disparador inexistente. Preciso criar um 
         d = criarDisparador(id,x,y);
-        insereFila(disparadores, (Pacote)d);
+        insereFila(disparadores, d);
+        // printf("ID do disparador: %i\n", getIDDisparador(d));----------------------ok
     }else{
         setPosicaoDisparador(d,x,y);
     }
@@ -20,23 +21,60 @@ void qryLc(FILE* Txt,Fila carregadores,Fila chao, int idCar, int n){
         printf("fila de carregadores está vazia\n");
         return;
     }
-
+    
     Carregador car = encontrarCarregadorPorId(carregadores,idCar);
     if(car == NULL){
         //carregador inexistente. Preciso criar um.
         car = criarCarregador(idCar);
         insereFila(carregadores,car);
     }
-
+    
     Pilha pCar = getPilhaCarregador(car);
     int tamanhoChao = getTamanhoFila(chao);
-   
-    for(int i = 0; i<n;i++){
-        Pacote pac = getPrimeiroConteudoFila(chao);
-        removeFila(chao);
-        inserirPilha(pCar,pac);
+    if(tamanhoChao<n){
+        printf("Quantidade de fomras insuficentes para carregamento\n");
+        return;
     }
-    comandoLc(Txt, pCar);    
+    
+    // Carrega as formas do chão para a pilha
+    for(int i = 0; i<n;i++){
+        Pacote pac = (Pacote)getPrimeiroConteudoFila(chao);
+        inserirPilha(pCar,pac);
+        removeFila(chao);
+    }
+    
+    // Escreve no arquivo txt o conteúdo da pilha (sem remover)
+    fprintf(Txt, "\nConteúdo da pilha:\n");
+    Pilha pilhaTemp = criarPilha();
+    
+    // Copia para pilha temporária e escreve
+    while(getTamanhoPilha(pCar) > 0){
+        Pacote pac = getPacoteTopoPilha(pCar);
+        if(pac != NULL){
+            Forma forma = getFormaPacote(pac);
+            char tipoPac = getTipoPacote(pac);
+            if(tipoPac == 'c'){
+                fprintf(Txt, "Circulo com id:%d\n", getIDCirculo((Circulo)forma));            
+            }else if(tipoPac == 'r'){
+                fprintf(Txt, "Retângulo com id:%d\n", getIDRetangulo((Retangulo)forma));          
+            }else if(tipoPac == 'l'){
+                fprintf(Txt, "Linha com id:%d\n", getIDLinha((Linha)forma));           
+            }else if(tipoPac == 't'){
+                fprintf(Txt, "Texto com id:%d\n", getIDTexto((Texto)forma));            
+            }
+            inserirPilha(pilhaTemp, pac);
+        }
+        removerPilha(pCar);
+    }
+    
+    // Restaura a pilha original
+    while(getTamanhoPilha(pilhaTemp) > 0){
+        Pacote pac = getPacoteTopoPilha(pilhaTemp);
+        inserirPilha(pCar, pac);
+        removerPilha(pilhaTemp);
+    }
+    
+    destruirPilha(pilhaTemp);
 }
 
 void qryAtch(Fila disparadores, Fila carregadores,int idDisparador, int idEsquerdo, int idDireito){
@@ -49,6 +87,7 @@ void qryAtch(Fila disparadores, Fila carregadores,int idDisparador, int idEsquer
     // Busca ou cria carregador esquerdo
     Carregador CE = encontrarCarregadorPorId(carregadores,idEsquerdo);
     if(CE == NULL){
+        //não existe carregador esquerdo
         CE = criarCarregador(idEsquerdo);
         insereFila(carregadores,CE);
     }
@@ -56,6 +95,7 @@ void qryAtch(Fila disparadores, Fila carregadores,int idDisparador, int idEsquer
     // Busca ou cria carregador direito
     Carregador CD = encontrarCarregadorPorId(carregadores,idDireito);
     if(CD == NULL){
+        //não existe carregador direito
         CD = criarCarregador(idDireito);
         insereFila(carregadores, CD);
     }
@@ -63,6 +103,7 @@ void qryAtch(Fila disparadores, Fila carregadores,int idDisparador, int idEsquer
     // Associa os carregadores ao disparador
     atch(d,CE,'e');
     atch(d,CD,'d');
+
 }
 
 void qryShft(Fila disparadores, Fila carregadores, int idDis, char lado, int n){
@@ -71,8 +112,8 @@ void qryShft(Fila disparadores, Fila carregadores, int idDis, char lado, int n){
         fprintf(stderr, "ERRO [shft]: Disparador ID %d não encontrado\n", idDis);
         return;
     }
-
-    Carregador CE = getCarregadorDisparador(d, 'e');
+    printf("8");
+    Carregador CE = getCarregadorDisparador(d,'e');
     Carregador CD = getCarregadorDisparador(d,'d');
 
     int confirmacao = -1;
@@ -119,6 +160,7 @@ void qryShft(Fila disparadores, Fila carregadores, int idDis, char lado, int n){
 }
 
 void qryDsp(Fila disparadores,Fila arena, int idDis, double dx, double dy, char letra, int iteracao){
+    printf("Teste\n");
     Disparador d = encontrarDisparadorPorId(disparadores, idDis);
     if(d == NULL){
         fprintf(stderr, "ERRO [dsp]: Disparador ID %d não encontrado\n", idDis);
@@ -137,13 +179,13 @@ void qryDsp(Fila disparadores,Fila arena, int idDis, double dx, double dy, char 
         // Modo iteração: multiplica deslocamento pela iteração
         comando = iteracao;
     }
-
-    Pacote conteudoDisparado = dsp(d);
-    if(conteudoDisparado == NULL){
+    Pacote pacoteDisparado = dsp(d);
+    if(pacoteDisparado == NULL){
+        printf("nada foi disparado\n");
         return;
     }else{
-        char tipoConteudo = getTipoPacote(conteudoDisparado);
-        Forma form = getFormaPacote(conteudoDisparado);
+        char tipoConteudo = getTipoPacote(pacoteDisparado);
+        Forma form = getFormaPacote(pacoteDisparado);
         if(form == NULL){
             fprintf(stderr, "ERRO [dsp]: Figura interna é NULL\n");
             return;
@@ -153,13 +195,14 @@ void qryDsp(Fila disparadores,Fila arena, int idDis, double dx, double dy, char 
             Circulo* circ = (Circulo*)form;
             setXCirculo(circ, xDisparador +  dx);
             setYCirculo(circ, yDisparador + dy);
-            insereFila(arena,form);
+            insereFila(arena,circ);
 
         }else if(tipoConteudo == 'r'){
+            printf("ret disparado\n");
             Retangulo* ret = (Retangulo*)form;
             setCoordXRetangulo(ret,xDisparador + dx);
             setCoordYRetangulo(ret,yDisparador + dy);
-            insereFila(arena,form);
+            insereFila(arena,ret);
 
         }else if(tipoConteudo == 'l'){
             Linha* lin = (Linha*)form;
@@ -173,13 +216,13 @@ void qryDsp(Fila disparadores,Fila arena, int idDis, double dx, double dy, char 
             setX2Linha(lin, (xDisparador + dx) + vetorX);
             setY2Linha(lin, (yDisparador + dy) + vetorY);
 
-            insereFila(arena,form);
+            insereFila(arena,lin);
 
         }else if(tipoConteudo == 't'){
             Texto* t = (Texto*)form;
             setXTexto(t, xDisparador + dx);
             setYTexto(t, yDisparador + dy);
-            insereFila(arena,form);
+            insereFila(arena,t);
         }
     }
 }
@@ -198,7 +241,9 @@ void qryRjd(Fila disparadores, Fila carregadores, Fila arena,int idDis, char lad
     Pilha pilhaDireita = getPilhaCarregador(CD);
 
     int tamEsq = getTamanhoPilha(pilhaEsquerda);
+    printf("tamanho do carregadores esquerdo: %d\n",tamEsq);
     int tamDir = getTamanhoPilha(pilhaDireita);
+    printf("Tamanho carregador direito:%d \n",tamDir);
 
     if(lado == 'e'){
         //esvazia o carregador direito
@@ -211,6 +256,7 @@ void qryRjd(Fila disparadores, Fila carregadores, Fila arena,int idDis, char lad
     }else if(lado == 'd'){
         //esvazia o carregador esquerdo        
         for(int i = 0;i<tamEsq;i++){
+            printf("Teste\n");
             int iteracao = i;
             qryShft(disparadores,carregadores,idDis,lado,1);
             qryDsp(disparadores,arena, idDis, dx+iteracao*ix, dy+iteracao*iy,'i',i);
@@ -245,7 +291,7 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
             int idDis;
             sscanf(linha, "pd %i %lf %lf",&idDis, &x, &y);
             qryPd(filaDisparadores,idDis,x,y);
-            
+
         }else if(strcmp(comando, "lc") == 0){
             // Comando lc: carrega formas no carregador
             int n;
@@ -254,12 +300,11 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
             qryLc(arqTxt,filaCarregadores,chao,idCar,n);
             
         }else if(strcmp(comando, "atch") == 0){
-            printf("comando atch\n");
             //encaixa no disparador d os carregadores cesq(na esquerda) e cdir(na direita)
             int idDis, idCesq, idCDir;
             sscanf(linha,"atch %i %i %i",&idDis,&idCesq,&idCDir);
-            printf("comando atch = idDIs:%i  idEsq:%i  idDir:%i\n", idDis,idCesq,idCDir);
             qryAtch(filaDisparadores,filaCarregadores,idDis,idCesq,idCDir);
+            //funcionando corretamente
             
         }else if(strcmp(comando, "shft") == 0){
             printf("comando shft\n");

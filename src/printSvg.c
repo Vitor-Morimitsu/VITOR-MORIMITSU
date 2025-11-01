@@ -1,9 +1,16 @@
+#include "texto.h"
 #include "printSvg.h"
 #include "formas.h"
 #include "fila.h"
 #include <stdio.h>
 #include <stdlib.h>
 #include "geo.h"
+
+char* getfFamily(Estilo ts); // Explicit declaration
+char* getfSize(Estilo ts);   // Explicit declaration
+char* getfWeight(Estilo ts); // Explicit declaration
+#include "texto.h"
+#include "texto.h"
 
 void abrirSvg(FILE* arqSvg){
     fprintf(arqSvg, "<svg xmlns:svg=\"http://www.w3.org/2000/svg\" xmlns=\"http://www.w3.org/2000/svg\" version=\"1.1\">\n");
@@ -14,7 +21,7 @@ void desenharCirculoSVG(FILE* arqSvg, Circulo circ) {
         return;
     }    
 
-    fprintf(arqSvg, "\t<circle id=\"%i\" cx=\"%f\" cy=\"%f\" r=\"%f\" stroke=\"%s\" fill=\"%s\" />\n",
+    fprintf(arqSvg, "\t<circle id=\"%i\" cx=\"%f\" cy=\"%f\" r=\"%f\" stroke=\"%s\" fill=\"%s\" fill-opacity=\"0.5\"/>\n",
         getIDCirculo(circ), 
         getCoordXCirculo(circ),
         getCoordYCirculo(circ),
@@ -53,18 +60,27 @@ void desenharLinhaSVG(FILE* arqSvg, Linha l){
 
 void desenharTextoSVG(FILE* arqSvg, Texto t, Estilo ts){
     if(arqSvg == NULL || t == NULL){
-        fprintf(arqSvg, "Erro: Forma ou arquivo NULL ao desenhar Texto Svg\n");
+        fprintf(stderr, "Erro: Forma ou arquivo NULL ao desenhar Texto Svg\n");
         return;
     }
-    fprintf(arqSvg, "<text id=\"%d\" x=\"%lf\" y=\"%lf\" style=\"font-family: '%s'; font-size: %spx; font-weight: %s; fill: %s;\"> %s </text>\n",
-    getIDTexto(t), 
-    getCoordXTexto(t),  
-    getCoordYTexto(t), 
-    getfFamily(ts),
-    getfSize(ts),
-    getfWeight(ts), 
-    getCorPTexto(t),  
-    getTxtoTexto(t));
+    if (ts != NULL) {
+        fprintf(arqSvg, "<text id=\"%d\" x=\"%lf\" y=\"%lf\" style=\"font-family: '%s'; font-size: %spx; font-weight: %s; fill: %s;\"> %s </text>\n",
+        getIDTexto(t), 
+        getCoordXTexto(t),  
+        getCoordYTexto(t), 
+        getfFamily(ts),
+        getfSize(ts),
+        getfWeight(ts), 
+        getCorPTexto(t),  
+        getTxtoTexto(t));
+    } else {
+        fprintf(arqSvg, "<text id=\"%d\" x=\"%lf\" y=\"%lf\" fill=\"%s\"> %s </text>\n",
+        getIDTexto(t), 
+        getCoordXTexto(t),  
+        getCoordYTexto(t), 
+        getCorPTexto(t),  
+        getTxtoTexto(t));
+    }
 }
 
 void gerarSvgSaida(FILE* svg, Fila pacotes){
@@ -72,17 +88,12 @@ void gerarSvgSaida(FILE* svg, Fila pacotes){
         printf("Erro ao gerar o svg de saída\n");
         return;
     }
+    Fila clone = clonarFilaChao(pacotes);
 
-    while(noAtual != NULL){
-        Pacote pac = getConteudoNo(noAtual);
-        char tipo = getTipoPacote(pac);
-        Forma forma = getFormaPacote(pac);
-
-        if(forma == NULL){
-            printf("Erro ao acessar a forma do pacote em gerarSvgSaida\n");
-            noAtual = getProximoNo(noAtual);
-            continue;
-        }
+    Pacote atual = getPrimeiroConteudoFila(clone);
+    while(atual != NULL){
+        char tipo = getTipoPacote(atual);
+        Forma forma = getFormaPacote(atual);
 
         if(tipo == 'c'){
             desenharCirculoSVG(svg, (Circulo)forma);
@@ -94,9 +105,10 @@ void gerarSvgSaida(FILE* svg, Fila pacotes){
             Estilo es = getEstiloTexto((Texto)forma);
             desenharTextoSVG(svg, (Texto)forma, es);
         }
-        
-        noAtual = getProximoNo(noAtual);
+        removeFila(clone);
+        atual = getPrimeiroConteudoFila(clone);
     }
+    liberarClone(clone);
 }
 
 void fecharSVG(FILE* arqSvg) {
