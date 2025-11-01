@@ -8,7 +8,7 @@
 #include "geo.h"
 #include "linha.h"
 #include "pilha.h"
-#include "printSvgGeo.h"
+#include "printSvg.h"
 #include "texto.h"
 #include <string.h>
 #include "qry.h"
@@ -79,100 +79,39 @@ int main(int argc, char* argv[])
     char arquivoSaidaTxt[1024];
     if (strlen(nomeArquivoQry) > 0) {
         snprintf(arquivoSaidaSvgQry, sizeof(arquivoSaidaSvgQry), "%s/%s-%s.svg", dirSaida, baseGeo, baseQry);
-        snprintf(arquivoSaidaTxt, sizeof(arquivoSaidaTxt), "%s/%s.txt", dirSaida,baseGeo,baseQry);
+        snprintf(arquivoSaidaTxt, sizeof(arquivoSaidaTxt), "%s/%s-%s.txt", dirSaida, baseGeo, baseQry);
     }
     
     // Inicializa estruturas de dados principais
     Fila chao = criarFila();                    // Fila para gerar as formas no "chão"
     Fila filaDisparadores = criarFila();        // Fila de disparadores
-    Fila filaPilhas = criarFila();              // Fila de pilhas (carregadores)
+    Fila filaPilhas = criarFila();              // Fila de carregadores
 
     arqGeo = fopen(fullPathGeo, "r");
-
     if(arqGeo == NULL){
-        fprintf(stderr, "ERRO: Não foi possível abrir o arquivo .geo: %s\n", fullPathGeo);
-        liberarFilaComConteudo(filaDisparadores);
-            if(filaPilhas != NULL){
-                No_t noPilhaAtual = getPrimeiroNoFila(filaPilhas);
-                while(noPilhaAtual != NULL){
-                    void* conteudo = getConteudoDoNoFila(noPilhaAtual);
-                    if(conteudo != NULL){
-                        Pilha p = (Pilha)conteudo; 
-                        liberarMemoriaPilha(p,NULL);
-                  }
-                 noPilhaAtual = getProximoNoFila(noPilhaAtual);
-                }
-                liberarFilaComConteudo(filaPilhas);
-            }
-            liberarFilaComConteudo(chao);
-        return 1;
+        printf("ERRO: Não foi possível abrir o arquivo .geo: %s\n", fullPathGeo);
     }
 
     FILE* arqSvgEntrada = fopen(arquivoSaidaSvgGeo, "w");
     if(arqSvgEntrada == NULL){
-        fprintf(stderr, "ERRO: Não foi possível criar arquivo SVG de entrada: %s\n", arquivoSaidaSvgGeo);
-        liberarFilaComConteudo(filaDisparadores);
-            if(filaPilhas != NULL){
-                No_t noPilhaAtual = getPrimeiroNoFila(filaPilhas);
-                while(noPilhaAtual != NULL){
-                    void* conteudo = getConteudoDoNoFila(noPilhaAtual);
-                    if(conteudo != NULL){
-                    Pilha p = (Pilha)conteudo; 
-                    liberarMemoriaPilha(p,NULL);
-                  }
-                 noPilhaAtual = getProximoNoFila(noPilhaAtual);
-                }
-                liberarFilaComConteudo(filaPilhas);
-            }
-            liberarFilaComConteudo(chao);
-        fclose(arqGeo);
-        return 1;
+        printf("ERRO: Não foi possível criar arquivo SVG de entrada: %s\n", arquivoSaidaSvgGeo);
     }
-    
+
     lerGeo(arqGeo,chao,arqSvgEntrada);
-    
+
     fclose(arqGeo);
     fclose(arqSvgEntrada);
 
     if (strlen(nomeArquivoQry) > 0) {
         FILE* arqQry = fopen(fullPathQry, "r");
-        if (arqQry == NULL) {
-            printf("Falha ao abrir arquivo qry no main.");
-            liberarFilaComConteudo(filaDisparadores);
-            if(filaPilhas != NULL){
-                No_t noPilhaAtual = getPrimeiroNoFila(filaPilhas);
-                while(noPilhaAtual != NULL){
-                    void* conteudo = getConteudoDoNoFila(noPilhaAtual);
-                    if(conteudo != NULL){
-                    Pilha p = (Pilha)conteudo; 
-                    liberarMemoriaPilha(p,NULL);
-                  }
-                 noPilhaAtual = getProximoNoFila(noPilhaAtual);
-                }
-                liberarFilaComConteudo(filaPilhas);
-            }
-            liberarFilaComConteudo(chao);
+        if(arqQry == NULL){
+            printf("erro ao abrir qry para leitura\n");
             return 1;
         }
 
         FILE* arqTxt = fopen(arquivoSaidaTxt, "w");
         if(arqTxt == NULL){
-            printf("Erro ao abrir txt para escrita.");
-            liberarFilaComConteudo(filaDisparadores);
-            if(filaPilhas != NULL){
-                No_t noPilhaAtual = getPrimeiroNoFila(filaPilhas);
-                while(noPilhaAtual != NULL){
-                    void* conteudo = getConteudoDoNoFila(noPilhaAtual);
-                    if(conteudo != NULL){
-                    Pilha p = (Pilha)conteudo; 
-                    liberarMemoriaPilha(p,NULL);
-                  }
-                 noPilhaAtual = getProximoNoFila(noPilhaAtual);
-                }
-                liberarFilaComConteudo(filaPilhas);
-            }
-            liberarFilaComConteudo(chao);
-            fclose(arqQry);
+            printf("Erro ao abrir arquivo txt para escrita\n");
             return 1;
         }
         
@@ -183,52 +122,30 @@ int main(int argc, char* argv[])
 
         // Gera arquivo SVG de saída com resultados das consultas
         FILE* arqSvgSaida = fopen(arquivoSaidaSvgQry, "w"); 
-        if(arqSvgSaida == NULL){
-            fprintf(stderr, "ERRO: Não foi possível criar arquivo SVG de saída: %s\n", arquivoSaidaSvgQry);
-            liberarFilaComConteudo(filaDisparadores);
-            if(filaPilhas != NULL){
-                No_t noPilhaAtual = getPrimeiroNoFila(filaPilhas);
-                while(noPilhaAtual != NULL){
-                    void* conteudo = getConteudoDoNoFila(noPilhaAtual);
-                    if(conteudo != NULL){
-                    Pilha p = (Pilha)conteudo; 
-                    liberarMemoriaPilha(p,NULL);
-                  }
-                 noPilhaAtual = getProximoNoFila(noPilhaAtual);
-                }
-                liberarFilaComConteudo(filaPilhas);
-            }
-            liberarFilaComConteudo(chao);
+        if(arqSvgSaida == NULL) {
+            printf("Erro ao abrir o SVG de saída no main\n");
             return 1;
         }
-
-        gerarSvgSaida(chao, arqSvgSaida);   
-        fflush(arqSvgSaida);
         
-        // Libera memória alocada
-        liberarFilaComConteudo(filaDisparadores);
-        if(filaPilhas != NULL){
-            No_t noPilhaAtual = getPrimeiroNoFila(filaPilhas);
-            while(noPilhaAtual != NULL){
-                void* conteudo = getConteudoDoNoFila(noPilhaAtual);
-                if(conteudo != NULL){
-                    Pilha p = (Pilha)conteudo; 
-                    liberarMemoriaPilha(p,NULL);
-                }
-                noPilhaAtual = getProximoNoFila(noPilhaAtual);
-            }
-            liberarFilaComConteudo(filaPilhas);
-            liberarFilaComConteudo(chao);
-        }
-
-
+        abrirSvg(arqSvgSaida);
+        gerarSvgSaida(arqSvgSaida, chao);
+        fecharSVG(arqSvgSaida);
         fclose(arqSvgSaida);
-        free(arqGeo);
-        free(arqQry);
-        free(arqSvgEntrada);
-        free(arqSvgSaida);
+        
     }
-
+    liberarFila(chao);
+    while(getTamanhoFila(filaDisparadores) > 0) {
+        Disparador d = getPrimeiroConteudoFila(filaDisparadores);
+        free(d);
+        removeFila(filaDisparadores);
+    }
+    free(filaDisparadores);
+    while(getTamanhoFila(filaPilhas) > 0) {
+        Carregador c = getPrimeiroConteudoFila(filaPilhas);
+        destruirCarregador(c);
+        removeFila(filaPilhas);
+    }
+    free(filaPilhas);
     printf("***Executou até o fim***\n");
     return 0; 
 

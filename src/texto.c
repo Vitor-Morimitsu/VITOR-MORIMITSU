@@ -3,7 +3,7 @@ typedef struct stEstilo{
     char* fFamily;
     char* fWeight;
     char* fSize;
-} stEstilo;
+} estilo;
 typedef struct stTexto{
     int i;
     double x, y;
@@ -11,10 +11,10 @@ typedef struct stTexto{
     char* corp;
     char a;
     char* txto;
-    Estilo ts;
+    Estilo estiloTexto;
 } stTexto;
 
-Texto criarTexto(int i, double x, double y, char* corb, char* corp, char a, char* txto, Estilo ts){
+Texto criarTexto(int i, double x, double y, char* corb, char* corp, char a, char* txto){
     stTexto *t = malloc(sizeof(stTexto));
     t->i = i;
     t->x = x;
@@ -31,8 +31,11 @@ Texto criarTexto(int i, double x, double y, char* corb, char* corp, char a, char
         printf("Erro ao alocar memória da cor de preenchimento do texto");
         exit(1);
     }
+    strcpy(t->corp, corp);
 
     t->a = a;
+
+    t->estiloTexto = NULL;
 
     t->txto = (char*)malloc(strlen(txto) + 1);
     if(t->txto == NULL){
@@ -40,8 +43,6 @@ Texto criarTexto(int i, double x, double y, char* corb, char* corp, char a, char
         exit(1);
     }
     strcpy(t->txto, txto);
-
-    t->ts = ts;
 
     return ((stTexto*)t);
 }
@@ -82,7 +83,7 @@ int quantidadeLetras(Texto t){
 }
 
 Estilo getEstiloTexto(Texto t){
-    return((stTexto*)t)->ts;
+    return((stTexto*)t)->estiloTexto;
 }
 
 double getAreaTexto(Texto t){
@@ -102,11 +103,25 @@ void setYTexto(Texto t, double y){
 }
 
 void setCorBTexto(Texto t, char* corb){
-    ((stTexto*)t)->corb = corb;
+    stTexto* texto =(stTexto*)t;
+    free(texto->corb);
+    texto->corb = (char*)malloc(strlen(corb)+1);
+    if(texto->corb == NULL){
+        printf("Erro ao alocar memória para a corb do texto\n");
+        exit(1);
+    }
+    strcpy(texto->corb, corb);
 }
 
 void setCorPTexto(Texto t, char* corp){
-    ((stTexto*)t)->corp = corp;
+    stTexto* texto =(stTexto*)t;
+    free(texto->corp);
+    texto->corp = (char*)malloc(strlen(corp) +1);
+    if(texto->corp == NULL){
+        printf("Erro ao alocar a corp do texto\n");
+        exit(1);
+    }
+    strcpy(texto->corp, corp);
 }
  
 void setATexto(Texto t, char anc){
@@ -114,21 +129,41 @@ void setATexto(Texto t, char anc){
 }
 
 void setTxtoTexto(Texto t, char* txto){
-    ((stTexto*)t)->txto = txto;
+    stTexto* tex = (stTexto*)t;
+    free(tex->txto);
+    tex->txto = (char*)malloc(strlen(txto)+1);
+    if(tex->txto == NULL){
+        printf("Erro ao alocar memória para texto em Texto\n");
+        exit(1);
+    }
+    strcpy(tex->txto, txto);
+}
+
+void setEstiloTexto(Texto t, Estilo es){
+    ((stTexto*)t)->estiloTexto = es;
 }
 
 void liberaTexto(Texto t){
     if(t == NULL) return;
     stTexto* texto = (stTexto*)t;
-    // free(texto->corb);
-    // free(texto->corp);
-    // free(texto->ts);
-    // free(texto->txto);
-    // free(texto);
+    free(texto->corb);
+    free(texto->corp);
+    if(texto->estiloTexto != NULL){
+        estilo* ts = (estilo*)texto->estiloTexto;
+        free(ts->fFamily);
+        free(ts->fSize);
+        free(ts->fWeight);
+        free(texto->estiloTexto);
+    }
+    free(texto->txto);
+    free(texto);
 }
+
+
+
 // FUNÇÕES DE ESTILO
 Estilo criarEstilo(char* fFamily, char* fWeight, char*fSize){
-    stEstilo* ts = malloc(sizeof(stEstilo));
+    estilo* ts = malloc(sizeof(estilo));
     ts->fFamily = (char*)malloc(strlen(fFamily)+1);
     if(ts->fFamily == NULL){
         printf("Erro ao alocar memória para família");
@@ -150,30 +185,39 @@ Estilo criarEstilo(char* fFamily, char* fWeight, char*fSize){
     }
     strcpy(ts->fSize, fSize);
 
-    return((stEstilo*)ts);
+    return((estilo*)ts);
 }
 
 char* getfFamily(Estilo ts){
-    return((stEstilo*)ts)->fFamily;
+    return((estilo*)ts)->fFamily;
 }
 
 char* getfWeight(Estilo ts){
-    return((stEstilo*)ts)->fWeight;
+    return((estilo*)ts)->fWeight;
 }
 
 char* getfSize(Estilo ts){
-    return((stEstilo*)ts)->fSize;
+    return((estilo*)ts)->fSize;
 }
 
 void setfFamily(Estilo ts, char* fFamily){
-    ((stEstilo*)ts)->fFamily = fFamily;
+    estilo* es =(estilo*)ts;
+    free(es->fFamily);
+    es->fFamily = malloc(strlen(fFamily)+1);
+    strcpy(es->fFamily, fFamily);
 }
 
 void setfWeight(Estilo ts, char* fWeight){
-    ((stEstilo*)ts)->fWeight = fWeight;
+    estilo* es =(estilo*)ts;
+    free(es->fWeight);
+    es->fWeight = malloc(strlen(fWeight)+1);
+    strcpy(es->fWeight, fWeight);
 }
 
 void setfSize(Estilo ts, char* fSize){
-    ((stEstilo*)ts)->fSize = fSize;
+    estilo* es = (estilo*)ts;
+    free(es->fSize);
+    es->fSize = malloc(strlen(fSize)+1);
+    strcpy(es->fSize, fSize);
 }
 

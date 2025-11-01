@@ -88,6 +88,6 @@ void liberaLinha(Linha l){
     if(l == NULL) return;
 
     stLinha* linha = (stLinha*)l;
-    // free(linha->cor);
-    // free(linha);
+    free(linha->cor);
+    free(linha);
 }

@@ -2,6 +2,7 @@ pd 5 1.00 1.00
 
 lc 3 20
 
+
 Conteúdo da pilha:
 Retângulo com id:24
 Retângulo com id:23

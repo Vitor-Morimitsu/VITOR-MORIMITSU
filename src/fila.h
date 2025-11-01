@@ -4,8 +4,8 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include "pilha.h"
-//#include "disparador.h"
-//#include "formas.h"
+#include "disparador.h"
+#include "carregador.h"
 
 /*
     Arquivo .h criado com o intuito de criar uma fila no primeiro trabalho de estrutura de dados.
@@ -13,7 +13,9 @@
 */
 
 typedef void* Fila;
-typedef void* Forma;
+typedef void* Pacote;
+typedef void* Disparador;
+typedef void* Carregador;
 
 /// @brief Cria uma fila vazia
 /// @return Ponteiro para a fila criada
@@ -21,13 +23,8 @@ Fila criarFila();
 
 /// @brief Insere um elemento na fila
 /// @param f Fila
-/// @param form Forma a ser inserida
-void insereFila(Fila f, Pacote pac);
-
-/// @brief Insere um disparador na fila de disparadores
-/// @param FilaDisparadores Fila de disparadores
-/// @param d Disparador a ser inserido
-void insereFilaDisparadores(Fila FilaDisparadores, void* d);        
+/// @param conteudo Conteudo a ser inserido
+void insereFila(Fila f, void* conteudo);
 
 /// @brief Remove o primeiro elemento da fila
 /// @param f Fila
@@ -35,15 +32,46 @@ void removeFila(Fila f);
 
 /// @brief Mostra o primeiro elemento da fila
 /// @param f Fila
-Forma getPrimeiroConteudoFila(Fila f);
-
-/// @brief Libera a memória ocupada pela fila
-/// @param f Fila
-void liberarFilaComConteudo(Fila f);
+void* getPrimeiroConteudoFila(Fila f);
 
 /// @brief Retorna o tamanho da fila
 /// @param f Fila
 /// @return Tamanho da fila
 int getTamanhoFila(Fila f);
+
+/// @brief Limpa a memória ocupada pela fila
+/// @param f Fila
+void liberarFila(Fila f);
+
+/// @brief Encontra e retorna um disparador específico
+/// @param disparadores Fila dos disparadores
+/// @param id Id do disparador
+/// @return Disparador com o mesmo id passado por parametro
+Disparador encontrarDisparadorPorId(Fila disparadores,int id);
+
+/// @brief Encontra e retorna um carreagador específico
+/// @param carregadores Fila dos carregadores
+/// @param id Id do carregador
+/// @return Carregador com o mesmo id passado por parametro
+Carregador encontrarCarregadorPorId(Fila carregadores, int id);
+
+/// @brief Clona uma fila de Formas
+/// @param original Fila original
+/// @return Fila clonada
+Fila clonarFilaChao(Fila original);
+
+/// @brief Clona uma fila de disparadores
+/// @param original Fila original
+/// @return Fila clonada
+Fila clonarFilaDisparadores(Fila original);
+
+/// @brief Clona uma fila de carregadores
+/// @param original Fila original
+/// @return Fila clonada
+Fila clonarFilaCarregadores(Fila original);
+
+/// @brief Libera apenas as células e não o conteúdo
+/// @param clone Fila
+void liberarClone(Fila clone);
 
 #endif

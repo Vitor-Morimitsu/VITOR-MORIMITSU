@@ -1,30 +1,40 @@
+#include "texto.h"
 #include "formas.h"
 #include "disparador.h"
+#include "circulo.h"
+#include "retangulo.h"
+#include "linha.h"
 
-struct pacote{
+void liberaTexto(Texto t); // Explicit declaration
+
+typedef struct{
     Forma fig;
     char tipo;
-};
+}stPacote;
 
 Pacote criarPacote(){
-    Pacote pac = malloc(sizeof(struct pacote));
+    stPacote* pac = (stPacote*)malloc(sizeof(stPacote));
     return pac;
 }
 
 void setFormaPacote(Pacote pac, Forma forma){
-    pac->fig = forma;
+    stPacote* p = (stPacote*)pac;
+    p->fig = forma;
 }
 
 Forma getFormaPacote(Pacote pac){
-    return pac->fig;
+    stPacote* p = (stPacote*)pac;
+    return p->fig;
 }
 
 void setTipoPacote(Pacote pac, char tipo){
-    pac->tipo = tipo;
+    stPacote* p = (stPacote*)pac;
+    p->tipo = tipo;
 }
 
 char getTipoPacote(Pacote pac){
-    return pac->tipo;
+    stPacote* p = (stPacote*)pac;
+    return p->tipo;
 }
 
 double getXPacote(Pacote pac){
@@ -32,22 +42,23 @@ double getXPacote(Pacote pac){
         printf("Erro ao acessar o pacote em getXPacote\n");
         return -1;
     }  
+    stPacote* p = (stPacote*)pac;
 
-    switch (pac->tipo){
+    switch (p->tipo){
         case 'r':{
-            Retangulo* ret =(Retangulo*)pac->fig;
+            Retangulo* ret =(Retangulo*)p->fig;
             return getCoordXRetangulo(ret);
         }
         case 'c':{
-            Circulo* cir = (Circulo*)pac->fig;
+            Circulo* cir = (Circulo*)p->fig;
             return getCoordXCirculo(cir);
         }
         case 'l':{
-            Linha* lin = (Linha*)pac->fig;
+            Linha* lin = (Linha*)p->fig;
             return getX1Linha(lin);
         }
         case 't':{
-            Texto* txt=(Texto*)pac->fig;
+            Texto* txt=(Texto*)p->fig;
             return getCoordXTexto(txt);
         }
         default:
@@ -60,94 +71,28 @@ double getYPacote(Pacote pac){
         printf("Erro ao buscar a coordenada y da forma");
         return NAN;
     }
-
+    stPacote* p = (stPacote*)pac;
     char tipo = getTipoPacote(pac);
 
-    switch (pac->tipo){
+    switch (p->tipo){
         case 'r': {
-            Retangulo* ret = (Retangulo*)pac->fig;
+            Retangulo* ret = (Retangulo*)p->fig;
             return getCoordYRetangulo(ret);
         }
         case 'c':{
-            Circulo* circ = (Circulo*)pac->fig;
+            Circulo* circ = (Circulo*)p->fig;
             return getCoordYCirculo(circ);
         }
         case 'l':{
-            Linha* lin = (Linha*)pac->fig;
+            Linha* lin = (Linha*)p->fig;
             return getY1Linha(lin);
         }
         case 't':{
-            Texto* txt = (Texto*)pac->fig;
+            Texto* txt = (Texto*)p->fig;
             return getCoordYTexto(txt);
         }
         default:
             return -1;
-    }
-}
-
-void escreverConteudoPilha(FILE* arqTxt, Pilha p){
-    if(p == NULL || arqTxt == NULL){
-        printf("Erro ao abrir arquivos.");
-        exit(1);
-    }
-    NoPilha_t atual = getNoTopoPilha(p);  
-    fprintf(arqTxt, "Conteudo da pilha\n");
-    while(atual != NULL){
-        void* cont = getConteudoDoNoPilha(atual);
-        if(cont != NULL){
-            Forma forma = (Forma)cont;
-            
-            char tipo = getTipoPacote(forma);
-            int id = getIDForma(forma);
-            
-            void* figura = getFiguraForma(forma);
-
-            if(tipo == 'c'){//círculo
-                Circulo* circ = (Circulo*)figura;
-                double x = getCoordXCirculo(circ);
-                double y = getCoordYCirculo(circ);
-                double raio = getRaioCirculo(circ);
-                char* corb = getCorBCirculo(circ);
-                char* corp = getCorPCirculo(circ);
-                fprintf(arqTxt, "círculo id:%i x:%lf y:%lf raio:%lf corb:%s corp:%s\n", id,x,y,raio,corb,corp);
-            }else if(tipo == 'r'){
-                // retângulo
-                Retangulo* ret = (Retangulo*)figura;
-                int idRet = getIDRetangulo(ret);
-                double CordX = getCoordXRetangulo(ret);
-                double CordY = getCoordYRetangulo(ret);
-                double w = getWRetangulo(ret);
-                double h = getHRetangulo(ret);
-                char* corb = getCorBRetangulo(ret);
-                char* corp = getCorPRetangulo(ret);
-                fprintf(arqTxt, "retângulo id:%i x:%lf y:%lf w:%lf h:%lf corB:%s corP:%s\n",idRet,CordX,CordY,w,h,corb,corp);
-            }else if(tipo == 'l'){
-                //linha
-                Linha* l = (Linha*)figura;
-                double x1 = getX1Linha(l);
-                double y1 = getY1Linha(l);
-                double x2 = getX2Linha(l);
-                double y2 = getY2Linha(l);
-                char* cor = getCorLinha(l);
-                fprintf(arqTxt, "l id:%d x1:%lf y1:%lf x2:%lf y2:%lf cor:%s\n",id,x1,y1,x2,y2,cor);
-            }else if(tipo == 't'){
-                //texto 
-                Texto* t = (Texto*)figura;
-                double x = getCoordXTexto(t);
-                double y = getCoordYTexto(t);
-                char* corb = getCorBTexto(t);
-                char* corp = getCorPTexto(t);
-                char a = getATexto(t);
-                char* txto = getTxtoTexto(t);
-                
-                Estilo ts = getEstiloTexto(t);
-                char* fFamily = getfFamily(ts);
-                char* fWeight = getfWeight(ts);
-                char* fSize = getfSize(ts);
-                fprintf(arqTxt, "t id:%d x:%lf y:%lf corb:%s corp:%s ancora:%c texto:%s family:%s weight:%s size:%s\n",id,x,y,corb,corp,a,txto,fFamily,fWeight,fSize);
-            }
-        }
-        atual = getProximoNoPilha(atual);
     }
 }
 
@@ -156,22 +101,23 @@ double getAreaPacote(Pacote pac){
         printf("Erro ao acessar o pacote para getareaPacote.");
         return 0;
     }
+    stPacote* p = (stPacote*)pac;
 
-    if(pac->tipo == 'c'){
+    if(p->tipo == 'c'){
         //o pacote é um círculo
-        Circulo* cir = (Circulo*)pac->fig;
+        Circulo* cir = (Circulo*)p->fig;
         return getAreaCirculo(cir);
-    }else if(pac->tipo == 'r'){
+    }else if(p->tipo == 'r'){
         //o pacote é um retângulo
-        Retangulo* ret = (Retangulo*)pac->fig;
+        Retangulo* ret = (Retangulo*)p->fig;
         return getAreaRetangulo(ret);
-    }else if(pac->tipo == 'l'){
+    }else if(p->tipo == 'l'){
         //o pacote é uma linha
-        Linha* lin = (Linha*)pac->fig;
+        Linha* lin = (Linha*)p->fig;
         return getAreaLinha(lin);
-    }else if(pac->tipo == 't'){
+    }else if(p->tipo == 't'){
         //o pacote é um texto
-        Texto* t = (Texto*)pac->fig;
+        Texto* t = (Texto*)p->fig;
         return getAreaTexto(t);
     }else{
         return 0.0;
@@ -189,8 +135,9 @@ void posicionaPacote(Pacote pac, Disparador d, double deslocX, double deslocY){
     double dx = XD + deslocX;
     double dy = YD + deslocY;
 
-    char tipoForma = pac->tipo;
-    Forma figura = pac->fig;
+    stPacote* p = (stPacote*)pac;
+    char tipoForma = p->tipo;
+    Forma figura = p->fig;
     if(figura == NULL){
         printf("Erro ao acessar a figura na função posicionaForma em formas.c\n");
         return;
@@ -241,14 +188,15 @@ void liberaFormaPacote(Pacote pac){
         return;
     }
 
-    if(pac->tipo == 'c'){
-        liberaCirculo((Circulo*)pac->fig);
-    }else if(pac->tipo == 'r'){
-        liberaRetangulo((Retangulo*)pac->fig);
-    }else if(pac->tipo == 'l'){
-        liberaLinha((Linha*)pac->fig);
-    }else if(pac->tipo == 't'){
-        liberaTexto((Texto*)pac->fig);
+    stPacote* p = (stPacote*)pac;
+    if(p->tipo == 'c'){
+        liberaCirculo((Circulo*)p->fig);
+    }else if(p->tipo == 'r'){
+        liberaRetangulo((Retangulo*)p->fig);
+    }else if(p->tipo == 'l'){
+        liberaLinha((Linha*)p->fig);
+    }else if(p->tipo == 't'){
+        liberaTexto((Texto*)p->fig);
     }
 }
 

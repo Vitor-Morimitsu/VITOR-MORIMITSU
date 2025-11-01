@@ -1,10 +1,10 @@
 #include "pilha.h"
 typedef struct stcelula{
-    Forma forma;
+    Pacote pacote;
     struct stcelula *prox;
-}stCelula;
+}stNoPilha;
 
-typedef stCelula* pont;
+typedef stNoPilha* pont;
 typedef struct {
     pont topo;
     int tamanho;
@@ -21,19 +21,19 @@ Pilha criarPilha(){
     return p;
 }
 
-void inserirPilha(Pilha p, Forma forma){
+void inserirPilha(Pilha p,Pacote pac){
     if(p == NULL){
         printf("Erro ao acessar a pilha para adicionar uma nova celula\n.");
         exit(1);
     }
     stPilha* pilha = (stPilha*)p;
 
-    pont novaCelula = malloc(sizeof(stCelula));
+    pont novaCelula = malloc(sizeof(stNoPilha));
     if(novaCelula == NULL){
         printf("Erro ao criar a nova celula criada\n");
         exit(1);
     }
-    novaCelula->forma = forma;
+    novaCelula->pacote = pac;
     novaCelula->prox = pilha->topo;
     pilha->topo = novaCelula;
     pilha->tamanho++;
@@ -42,22 +42,23 @@ void inserirPilha(Pilha p, Forma forma){
 void removerPilha(Pilha p){
     stPilha* pilha = (stPilha*)p;
     if(pilha == NULL||pilha->topo == NULL){
-        return NULL;
+        return;
     }
 
-    stCelula* temp = pilha->topo;
+    stNoPilha* temp = pilha->topo;
     pilha->topo = pilha->topo->prox;
-    free(temp->forma);
     free(temp);
+    pilha->tamanho--;
 }
 
-Forma getFormaTopoPilha(Pilha p){
-    if(p == NULL){
+Pacote getPacoteTopoPilha(Pilha p){
+    stPilha* pilha =(stPilha*)p;
+    if(p == NULL || pilha->topo == NULL){
         printf("Erro ao acessar o conteúdo da pilha");
         return NULL;
     }
-
-    return ((stPilha*)p)->topo->forma;
+    
+    return pilha->topo->pacote;
 }
 
 int getTamanhoPilha(Pilha p){
@@ -80,7 +81,7 @@ void destruirPilha(Pilha p){
     while(atual != NULL){
         apagar = atual;
         atual = atual->prox;
-        freePacote(apagar->forma);
+        freePacote(apagar->pacote);
         free(apagar);
     }
     free(pilha);

@@ -1,12 +1,16 @@
+#include "texto.h"
 #include "geo.h"
 #include "circulo.h"
-#include "texto.h"
-#include "linha.h"
 #include "retangulo.h"
+#include "linha.h"
 #include "formas.h"
 #include <string.h>
 #include <stdio.h>
-#include "printSvgGeo.h"
+#include "printSvg.h"
+
+Estilo criarEstilo(char *fFamily, char *fWeight, char *fSize); // Explicit declaration
+#include "texto.h"
+#include "texto.h"
 
 typedef void* Forma;
 
@@ -35,34 +39,36 @@ void lerGeo(FILE* arqGeo, Fila chao, FILE* arqSvgEntrada){
             double x, y, r;
             char corb[32], corp[32];
             sscanf(linha, "c %d %lf %lf %lf %s %s", &i, &x, &y, &r, corb, corp);
-            printf("passou scanf circulo\n");
-            Forma novaForma = criaCirculoForma(i, 'c',x, y, r, corb, corp);
-            desenharCirculoSVG(arqSvgEntrada, getFiguraForma(novaForma));
-            printf("passou desenho cirfculo svg");
-            insereFila(chao, novaForma, 'c');
-            printf("Circulo insere fila");
+            Pacote pac = criarPacote();
+            Circulo circ = criaCirculo(i,x,y,r,corb,corp);
+            setFormaPacote(pac,(Forma)circ);
+            setTipoPacote(pac, 'c');
+            insereFila(chao,(Forma)pac);
+            desenharCirculoSVG(arqSvgEntrada,circ);
             
         } else if (tipoForma == 'r') {
             int i;
             double x, y, w, h;
             char corb[32], corp[32];
+            Pacote pac = criarPacote();
             sscanf(linha, "r %d %lf %lf %lf %lf %s %s", &i, &x, &y, &w, &h, corb, corp);
-            Forma novaForma = criaRetanguloForma(i,'r', x, y, w, h, corb, corp);
-            desenharRetanguloSVG(arqSvgEntrada,getFiguraForma(novaForma));
-            insereFila(chao, novaForma, 'r');
+            Retangulo ret = criaRetangulo(i,x,y,w,h,corb,corp);
+            setFormaPacote(pac, (Forma)ret);
+            setTipoPacote(pac,'r');
+            insereFila(chao,(Forma)pac);
+            desenharRetanguloSVG(arqSvgEntrada,ret);
             
         } else if (tipoForma == 'l'){
             int i;
             double x1,y1,x2,y2;
             char cor[32];
             sscanf(linha, "l %d %lf %lf %lf %lf %s", &i, &x1, &y1, &x2, &y2, cor);
-            printf("passou scanf linha\n");
-            Forma novaForma = criaLinhaForma(i,'l', x1,y1,x2,y2,cor);
-            desenharLinhaSVG(arqSvgEntrada, getFiguraForma(novaForma));
-            printf("passou desenho linha");
-            insereFila(chao,novaForma,'l');
-            printf("linha insere fila");
-            
+            Pacote pac = criarPacote();
+            Linha lin = criarLinha(i,x1,y1,x2,y2,cor);
+            setFormaPacote(pac, (Forma)lin);
+            setTipoPacote(pac, 'l');
+            insereFila(chao,(Forma)pac);     
+            desenharLinhaSVG(arqSvgEntrada,lin);       
             
         } else if( tipoForma == 't'){
             int i;
@@ -71,13 +77,21 @@ void lerGeo(FILE* arqGeo, Fila chao, FILE* arqSvgEntrada){
             char corp[32];
             char texto[50];
             char a;
-            sscanf(linha, "t %d %lf %lf %s %s %c %s", &i, &x, &y, corb, corp, &a, texto);
-            printf("passou scanf texto\n");
-            Forma novaForma = criaTextoForma(i,'t',x,y,corb,corp,a,texto,NULL);
-            desenharTextoSVG(arqSvgEntrada, getFiguraForma(novaForma));
-            printf("passou desenho texto");
-            insereFila(chao, novaForma, 't');
-            printf("texto insere fila");
+            sscanf(linha, "t %d %lf %lf %s %s %c %s ", &i, &x, &y, corb, corp, &a, texto);
+            Pacote pac = criarPacote();
+            Texto text = criarTexto(i,x,y,corb,corp,a,texto);
+            setFormaPacote(pac,(Texto)text);
+
+            const char* ts_marker = strstr(linha, " ts ");
+            if(ts_marker != NULL){
+                char font[500], weight[500], size[500];
+                sscanf(ts_marker, " ts %s %s %s", font, weight, size);
+                Estilo ts = criarEstilo(font, weight, size);
+                setEstiloTexto(text, ts);
+            }
+
+            insereFila(chao, (Forma)pac);
+            desenharTextoSVG(arqSvgEntrada,text,getEstiloTexto(text));
         }
         
     }    

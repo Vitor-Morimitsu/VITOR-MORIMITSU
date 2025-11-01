@@ -17,8 +17,9 @@
 */
 
 typedef void* Forma;
-
-typedef struct pacote* Pacote;
+typedef void* Disparador;
+// typedef struct pacote* Pacote;
+typedef void* Pacote;
 
 /// @brief Cria um pacote que armazenará uma Forma e o tipo dela
 /// @return Pacote criado
@@ -33,11 +34,15 @@ void setFormaPacote(Pacote pac, Forma forma);
 /// @param pac Pacote
 Forma getFormaPacote(Pacote pac);
 
+/// @brief Retorna o tipo do pacote
+/// @param pac Pacote
+/// @return Tipo do pacote
+char getTipoPacote(Pacote pac);
+
 /// @brief Define o tipo do pacote
 /// @param pac Pacote
 /// @param tipo Tipo do pacote
 void setTipoPacote(Pacote pac, char tipo);
-
 
 /// @brief Retorna a coordenada X da forma
 /// @param pac Pacote
@@ -57,11 +62,6 @@ double getAreaPacote(Pacote pac);
 /// @brief Libera a forma contida no pacote
 /// @param pac Pacote
 void liberaFormaPacote(Pacote pac);
-
-/// @brief Reportar os dados de cada uma das formas carregadas
-/// @param arqTxt Arquivo destino
-/// @param p Pilha
-void escreverConteudoPilha(FILE* arqTxt, Pilha p);
 
 /// @brief Posiciona a forma f a um deslocamento dx,dy em relação à posição do disparador
 /// @param f Forma 

@@ -5,6 +5,8 @@
 #include <stdlib.h>
 #include "fila.h"
 #include "formas.h"
+#include "disparador.h"
+#include "carregador.h"
 
 
 
@@ -13,7 +15,7 @@
 */
 
 typedef void* Pilha;
-typedef void* Forma;
+typedef void* Pacote;
 
 /// @brief Cria e retorna uma pilha vazia
 /// @return Pilha vazia
@@ -22,7 +24,7 @@ Pilha criarPilha();
 /// @brief Insere um conteúdo no topo da pilha
 /// @param p Pilha
 /// @param conteudo Conteudo a ser inserido
-void inserirPilha(Pilha p, Forma forma);
+void inserirPilha(Pilha p, Pacote pac);
 
 /// @brief Remove a celula do inicio da pilha
 /// @param p Pilha p
@@ -31,7 +33,7 @@ void removerPilha(Pilha p);
 /// @brief Retorna o conteúdo da célula no início da pilha
 /// @param p Pilha p
 /// @return Conteúdo da primeira célula
- Forma getFormaTopoPilha(Pilha p);
+Pacote getPacoteTopoPilha(Pilha p);
 
 /// @brief Retorna o tamanho da pilha
 /// @param p Pilha

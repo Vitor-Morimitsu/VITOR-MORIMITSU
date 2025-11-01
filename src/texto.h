@@ -32,7 +32,7 @@ typedef void* Estilo;
 /// @param txto Texto
 /// @param ts Estilo do texto
 /// @return Retorna o texto criado
-Texto criarTexto(int i, double x, double y, char* corb, char* corp, char a, char* txto, Estilo ts);
+Texto criarTexto(int i, double x, double y, char* corb, char* corp, char a, char* txto);
 
 /// @brief Retorna o identificador do texto
 /// @param t Texto
@@ -119,12 +119,18 @@ void setATexto(Texto t, char anc);
 /// @param txto Novo texto
 void setTxtoTexto(Texto t, char* txto);
 
-/// @brief Libera um texto
+/// @brief Define o estilo de um texto
+/// @param t Texto
+/// @param es Estilo
+void setEstiloTexto(Texto t, Estilo es);
+
+/// @brief Libera a memória de um texto
 /// @param t Texto
 void liberaTexto(Texto t);
 
-// ---------------- FUNÇÕES DE ESTILO ----------------- //
-/// @brief Cria e retorna um estilo de texto
+//FUNÇÕES DE ESTILO
+
+/*
 /// @param fFamily Familia da fonte
 /// @param fWeight Weight da fonte
 /// @param fSize Tamanho da fonte
@@ -161,4 +167,5 @@ void setfWeight(Estilo ts, char *weight);
 /// @param size Novo tamanho de fonte
 void setfSize(Estilo ts, char *size);
 
+*/
 #endif
