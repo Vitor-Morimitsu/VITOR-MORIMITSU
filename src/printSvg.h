@@ -41,6 +41,14 @@ void desenharTextoSVG(FILE* arqSvg, Texto t, Estilo ts);
 /// @param pacotes Fila de pacotes contendo as formas
 void gerarSvgSaida(FILE* svg, Fila pacotes);
 
+/// @brief Insere as dimensões do disparo no arquivo svg
+/// @param svg Arquivo svg
+/// @param xDis Coordenada x do disparador
+/// @param yDis Cooordenada y do dispardor
+/// @param dx Distância dx
+/// @param dy Distância dy
+void dimensoesDisparo(FILE* svg, double xDis, double yDis, double dx, double dy);
+
 /// @brief Realiza o comando de encerramento do arquivo svg
 /// @param arqSvg Arquivo
 void fecharSVG(FILE* arqSvg);

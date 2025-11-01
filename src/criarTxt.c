@@ -59,54 +59,51 @@ void comandoShft(FILE* arqTxt,int idDis, Fila filaDisparadores){
     }
 }
 
-// void comandoDsp(FILE* arqTxt, Fila filaDisparadores,int idDis, double dx, double dy){
-//     if(arqTxt == NULL){
-//         printf("Erro ao acessar o arquivo txt.");
-//         return;
-//     }
-//     Disparador d = encontrarDisparadorPorId(filaDisparadores, idDis);
-//     if(d == NULL){
-//         printf("Disparador não encontrado.");
-//         return;
-//     }
-//     Pacote pac = (Pacote)getConteudoCentro(d);
-//     if(pac == NULL){
-//         printf("Nenhuma forma foi disparada.");
-//         return;
-//     }
-//     posicionaPacote(pac, d, dx, dy);
-
-//     double xFinal = getXPacote(pac);
-//     double yFinal = getYPacote(pac);
-//     //caso da linha
-//     double x2Final = -1;
-//     double y2Final = -1;
+void comandoDsp(FILE* arqTxt, Fila chao, double dx, double dy){
+    if(arqTxt == NULL){
+        printf("Erro ao acessar o arquivo txt.");
+        return;
+    }
     
-//     char* nomeFigura = "desconhecida";
-//     char tipo = getTipoPacote(pac);
-//     if(tipo == 'c'){
+    // Pega a última forma adicionada na arena (chão)
+    Pacote pac = (Pacote)getPrimeiroConteudoFila(chao);
+    if(pac == NULL){
+        fprintf(arqTxt, "Nenhuma forma foi disparada.\n");
+        return;
+    }
 
-//         nomeFigura = "círculo";
-//     }else if(tipo == 'r'){
+    double xFinal = getXPacote(pac);
+    double yFinal = getYPacote(pac);
+    double x2Final = -1;
+    double y2Final = -1;
+    
+    char* nomeFigura = "desconhecida";
+    char tipo = getTipoPacote(pac);
+    Forma forma = getFormaPacote(pac);
+    
+    if(tipo == 'c'){
+        nomeFigura = "círculo";
+    }else if(tipo == 'r'){
+        nomeFigura = "retângulo";
+    }else if(tipo == 'l'){
+        nomeFigura = "linha";
+        Linha* lin = (Linha*)forma;
+        xFinal = getX1Linha(lin);
+        yFinal = getY1Linha(lin);
+        x2Final = getX2Linha(lin);
+        y2Final = getY2Linha(lin);
+    }else if(tipo == 't'){
+        nomeFigura = "texto";
+    }
 
-//         nomeFigura = "retângulo";
-//     }else if(tipo == 'l'){
-//         nomeFigura = "linha";
-//         xFinal = getX1Linha((Linha*)pac);
-//         yFinal = getY1Linha((Linha*)pac);
-//         x2Final = getX2Linha((Linha*)pac);
-//         y2Final = getY2Linha((Linha*)pac);
-
-//     }else if(tipo == 't'){
-//         nomeFigura = "texto";
-//     }
-
-//     if(tipo == 'l'){
-//         fprintf(arqTxt, "forma:%s   X1 final:%lf   Y1 final:%lf  X2 final:%lf  Y2 final:%lf\n ", nomeFigura, xFinal, yFinal, x2Final, y2Final);
-//     }else{
-//         fprintf(arqTxt, "forma:%s  X final:%lf  Y final:%lf\n", nomeFigura, xFinal, yFinal);
-//     }
-// }
+    if(tipo == 'l'){
+        fprintf(arqTxt, "Forma disparada: %s | Deslocamento: dx=%.2lf dy=%.2lf | Posição final: X1=%.2lf Y1=%.2lf X2=%.2lf Y2=%.2lf\n", 
+                nomeFigura, dx, dy, xFinal, yFinal, x2Final, y2Final);
+    }else{
+        fprintf(arqTxt, "Forma disparada: %s | Deslocamento: dx=%.2lf dy=%.2lf | Posição final: X=%.2lf Y=%.2lf\n", 
+                nomeFigura, dx, dy, xFinal, yFinal);
+    }
+}
 
 // void comandoRjd(FILE* arqTxt, Fila filaDisparadores, int idDis,Fila filaCarregadores, char car){
 //     if (arqTxt == NULL) {

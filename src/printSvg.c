@@ -111,6 +111,16 @@ void gerarSvgSaida(FILE* svg, Fila pacotes){
     liberarClone(clone);
 }
 
+void dimensoesDisparo(FILE* svg, double xDis, double yDis, double dx, double dy){
+    if(svg == NULL){
+        printf("erro ao gerar a dimensão do disparo\n");
+        return;
+    }
+    fprintf(svg,"<line x1=\"%lf\" y1=\"%lf\" x2=\"%lf\" y2=\"%lf\" stroke=\"purple\" stroke-width=\"2\" />\n", xDis, yDis, xDis+dx, yDis+dy);        
+    fprintf(svg,"<line  x1=\"%lf\" y1=\"%lf\" x2=\"%lf\" y2=\"%lf\" stroke=\"blue\" stroke-width=\"2\" stroke-dasharray=\"2 2\" />\n",xDis, yDis, xDis+dx,yDis);
+    fprintf(svg,"<line  x1=\"%lf\" y1=\"%lf\" x2=\"%lf\" y2=\"%lf\" stroke=\"blue\" stroke-width=\"2\" stroke-dasharray=\"2 2\" />\n", xDis, yDis, xDis, yDis+dy);
+}
+
 void fecharSVG(FILE* arqSvg) {
     fprintf(arqSvg, "</svg>\n");
 }

@@ -1,4 +1,5 @@
 #include "qry.h"
+#include <math.h>
 
 void qryPd(Fila disparadores,int id, double x, double y){
     Disparador d = encontrarDisparadorPorId(disparadores, id);
@@ -44,7 +45,7 @@ void qryLc(FILE* Txt,Fila carregadores,Fila chao, int idCar, int n){
     }
     
     // Escreve no arquivo txt o conteúdo da pilha (sem remover)
-    fprintf(Txt, "\nConteúdo da pilha:\n");
+    fprintf(Txt, "Conteúdo da pilha:\n");
     Pilha pilhaTemp = criarPilha();
     
     // Copia para pilha temporária e escreve
@@ -75,6 +76,29 @@ void qryLc(FILE* Txt,Fila carregadores,Fila chao, int idCar, int n){
     }
     
     destruirPilha(pilhaTemp);
+}
+
+// Função auxiliar para registrar dimensões do disparo
+void registrarDimensoesDisparo(FILE* arqTxt, Disparador d, double dx, double dy, Pacote pac) {
+    if(arqTxt == NULL || pac == NULL || d == NULL) return;
+    
+    double xDisp = getXDisparador(d);
+    double yDisp = getYDisparador(d);
+    double xFinal = xDisp + dx;
+    double yFinal = yDisp + dy;
+    double distancia = sqrt(dx*dx + dy*dy);
+    
+    char tipo = getTipoPacote(pac);
+    const char* nomeTipo = (tipo == 'r') ? "Retângulo" : 
+                           (tipo == 'c') ? "Círculo" : 
+                           (tipo == 'l') ? "Linha" : "Texto";
+    
+    fprintf(arqTxt, "\n--- Dimensões do Disparo ---\n");
+    fprintf(arqTxt, "Tipo da forma: %s\n", nomeTipo);
+    fprintf(arqTxt, "Posição do disparador: (%.2lf, %.2lf)\n", xDisp, yDisp);
+    fprintf(arqTxt, "Deslocamento aplicado: dx=%.2lf, dy=%.2lf\n", dx, dy);
+    fprintf(arqTxt, "Posição final da forma: (%.2lf, %.2lf)\n", xFinal, yFinal);
+    fprintf(arqTxt, "Distância percorrida: %.2lf\n", distancia);
 }
 
 void qryAtch(Fila disparadores, Fila carregadores,int idDisparador, int idEsquerdo, int idDireito){
@@ -112,7 +136,6 @@ void qryShft(Fila disparadores, Fila carregadores, int idDis, char lado, int n){
         fprintf(stderr, "ERRO [shft]: Disparador ID %d não encontrado\n", idDis);
         return;
     }
-    printf("8");
     Carregador CE = getCarregadorDisparador(d,'e');
     Carregador CD = getCarregadorDisparador(d,'d');
 
@@ -159,8 +182,7 @@ void qryShft(Fila disparadores, Fila carregadores, int idDis, char lado, int n){
     }
 }
 
-void qryDsp(Fila disparadores,Fila arena, int idDis, double dx, double dy, char letra, int iteracao){
-    printf("Teste\n");
+void qryDsp(Fila disparadores, Fila arena, int idDis, double dx, double dy, char letra, int iteracao, FILE* arqTxt){
     Disparador d = encontrarDisparadorPorId(disparadores, idDis);
     if(d == NULL){
         fprintf(stderr, "ERRO [dsp]: Disparador ID %d não encontrado\n", idDis);
@@ -173,17 +195,23 @@ void qryDsp(Fila disparadores,Fila arena, int idDis, double dx, double dy, char 
     int comando = 1;
 
     if(letra == 'v'){
-        //anotar as dimensões do disparo no svg ----------------------------------------------------------------------falta terminar para printar no arqTxt
+        // Modo vetor: usa deslocamento direto
         
     }else if(letra == 'i'){
         // Modo iteração: multiplica deslocamento pela iteração
         comando = iteracao;
     }
+    
     Pacote pacoteDisparado = dsp(d);
     if(pacoteDisparado == NULL){
         printf("nada foi disparado\n");
         return;
     }else{
+        // REGISTRA AS DIMENSÕES DO DISPARO (apenas no modo 'v')
+        if(letra == 'v' && arqTxt != NULL){
+            registrarDimensoesDisparo(arqTxt, d, dx, dy, pacoteDisparado);
+        }
+        
         char tipoConteudo = getTipoPacote(pacoteDisparado);
         Forma form = getFormaPacote(pacoteDisparado);
         if(form == NULL){
@@ -211,7 +239,6 @@ void qryDsp(Fila disparadores,Fila arena, int idDis, double dx, double dy, char 
             
             setX1Linha(lin, xDisparador + dx);
             setY1Linha(lin, yDisparador + dy);
-
 
             setX2Linha(lin, (xDisparador + dx) + vetorX);
             setY2Linha(lin, (yDisparador + dy) + vetorY);
@@ -250,7 +277,7 @@ void qryRjd(Fila disparadores, Fila carregadores, Fila arena,int idDis, char lad
         for(int i = 0; i< tamDir;i++){
             int iteracao = i;
             qryShft(disparadores,carregadores,idDis,lado,1);
-            qryDsp(disparadores,arena, idDis, dx+iteracao*ix, dy+iteracao*iy,'i',i);
+            qryDsp(disparadores,arena, idDis, dx+iteracao*ix, dy+iteracao*iy,'i',i,NULL);
         }
         
     }else if(lado == 'd'){
@@ -259,12 +286,12 @@ void qryRjd(Fila disparadores, Fila carregadores, Fila arena,int idDis, char lad
             printf("Teste\n");
             int iteracao = i;
             qryShft(disparadores,carregadores,idDis,lado,1);
-            qryDsp(disparadores,arena, idDis, dx+iteracao*ix, dy+iteracao*iy,'i',i);
+            qryDsp(disparadores,arena, idDis, dx+iteracao*ix, dy+iteracao*iy,'i',i,NULL);
         }
     }
 }
 
-void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregadores,Fila chao){
+void lerQry(FILE* arqQry, FILE* arqTxt, FILE* svg, Fila filaDisparadores,Fila filaCarregadores,Fila chao){
     if(arqQry == NULL){
         fprintf(stderr, "ERRO: Arquivo .qry é NULL\n");
         exit(1);
@@ -327,8 +354,8 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
             sscanf(linha, "dsp %i %lf %lf %c", &idDis,&dx,&dy,&letra);
             printf("comando dsp = idDIs:%i  deslocX:%lf deslocY:%lf letra:%c\n",idDis,dx,dy,letra);
 
-            qryDsp(filaDisparadores,chao,idDis,dx,dy,letra,iteracao);
-            // comandoDsp(arqTxt,filaDisparadores, idDis,dx,dy);
+            qryDsp(filaDisparadores,chao,idDis,dx,dy,letra,iteracao,arqTxt);
+            comandoDsp(arqTxt, chao, dx, dy);
             
         }else if(strcmp(comando, "rjd") == 0){
             printf("comando rjd\n");
@@ -342,7 +369,7 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
             
         }else if(strcmp(comando, "calc") == 0){
             //processa as figuras da arena conforme descrito anteriormente em um novo arqSVg
-            // comandoCalc(arqTxt,chao);
+            comandoCalc(arqTxt,chao);
         }
     }
 }
