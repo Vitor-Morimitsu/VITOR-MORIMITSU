@@ -5,9 +5,26 @@ void comandoLc(FILE* arqTxt, Pilha p){
         printf("Erro realizar o comando Lc no txt\n");
         return;
     }
+    
+    fprintf(arqTxt, "Conteúdo da pilha:\n");
+    while(getTamanhoPilha(p) != NULL){
+        Pacote pac = getPacoteTopoPilha(p);
+        if(pac != NULL){
 
-    //TERMINAR A LÒGICA
-
+            Forma forma = getFormaPacote(pac);
+            char tipoPac = getTipoPacote(pac);
+            if(tipoPac == 'c'){
+                fprintf(arqTxt, "Circulo com id:%d\n", getIDCirculo((Circulo)forma));            
+            }else if(tipoPac == 'r'){
+                fprintf(arqTxt, "Retângulo com id:%d\n", getIDRetangulo((Retangulo)forma));          
+            }else if(tipoPac == 'l'){
+                fprintf(arqTxt, "Linha com id:%d\n", getIDLinha((Linha)forma));           
+            }else if(tipoPac == 't'){
+                fprintf(arqTxt, "Texto com id:%d\n", getIDTexto((Texto)forma));            
+            }
+        }
+        removerPilha(p);
+    }
 }
 
 void comandoShft(FILE* arqTxt,int idDis, Fila filaDisparadores){

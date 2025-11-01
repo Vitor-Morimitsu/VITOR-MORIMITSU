@@ -2,6 +2,27 @@ pd 5 1.00 1.00
 
 lc 3 20
 
+Conteúdo da pilha:
+Retângulo com id:24
+Retângulo com id:23
+Retângulo com id:22
+Retângulo com id:21
+Retângulo com id:20
+Retângulo com id:19
+Retângulo com id:18
+Retângulo com id:17
+Retângulo com id:16
+Retângulo com id:15
+Retângulo com id:14
+Retângulo com id:13
+Retângulo com id:12
+Retângulo com id:11
+Retângulo com id:10
+Retângulo com id:9
+Retângulo com id:8
+Retângulo com id:7
+Retângulo com id:6
+Retângulo com id:5
 atch 5 3 6
 
 rjd 5 d 9.00 10.50 9.00 10.50

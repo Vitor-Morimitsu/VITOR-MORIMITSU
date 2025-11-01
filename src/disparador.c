@@ -89,6 +89,7 @@ int shft(Disparador d, char lado){
             return 0;
         }
     }
+    return 0;
 }
 
 Forma dsp(Disparador d){
@@ -156,7 +157,7 @@ void destruirDisparador(Disparador d){
 Carregador getCarregadorDisparador(Disparador d, char lado){
     if(d == NULL){
         printf("Erro ao acessar o disparador\n");
-        exit(1);
+        return NULL;
     }
     stDisparador* ds = (stDisparador*)d;
     Carregador car;
@@ -166,5 +167,6 @@ Carregador getCarregadorDisparador(Disparador d, char lado){
         return ds->direito;
     }else{
         printf("Lado inválido\n");
+        return NULL;
     }
 }

@@ -29,7 +29,7 @@ void qryPd(Fila disparadores, int id, double x, double y);
 /*
     Função responsável por carregar as formas no carregador
 */
-void qryLc(Fila carregadores,Fila chao,int idCar, int n);
+void qryLc(FILE* Txt,Fila carregadores,Fila chao,int idCar, int n);
 
 /*
     Função responsável por encaixar os carregadores no disparador

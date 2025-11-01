@@ -6,7 +6,7 @@
 #include "formas.h"
 #include <string.h>
 #include <stdio.h>
-#include "printSvgGeo.h"
+#include "printSvg.h"
 
 typedef void* Forma;
 
@@ -35,7 +35,7 @@ void lerGeo(FILE* arqGeo, Fila chao, FILE* arqSvgEntrada){
             double x, y, r;
             char corb[32], corp[32];
             sscanf(linha, "c %d %lf %lf %lf %s %s", &i, &x, &y, &r, corb, corp);
-            Pacote pac = criarPacote;
+            Pacote pac = criarPacote();
             Circulo circ = criaCirculo(i,x,y,r,corb,corp);
             setFormaPacote(pac,(Forma)circ);
             setTipoPacote(pac, 'c');

@@ -1,5 +1,5 @@
-#ifndef PRINTSVGGEO_H
-#define PRINTSVGGEO_H
+#ifndef PRINTSVG_H
+#define PRINTSVG_H
 
 #include "formas.h"
 #include "geo.h"
@@ -35,6 +35,11 @@ void desenharLinhaSVG(FILE* arqSvg, Linha l);
     Função responsável por gerar um texto em SVG.
 */
 void desenharTextoSVG(FILE* arqSvg, Texto t, Estilo ts);
+
+/// @brief Função responsável por gerar o Svg de saída
+/// @param svg Arquivo do svg
+/// @param pacotes Fila de pacotes contendo as formas
+void gerarSvgSaida(FILE* svg, Fila pacotes);
 
 /// @brief Realiza o comando de encerramento do arquivo svg
 /// @param arqSvg Arquivo

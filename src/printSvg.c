@@ -1,4 +1,4 @@
-#include "printSvgGeo.h"
+#include "printSvg.h"
 #include "formas.h"
 #include "fila.h"
 #include <stdio.h>
@@ -56,7 +56,47 @@ void desenharTextoSVG(FILE* arqSvg, Texto t, Estilo ts){
         fprintf(arqSvg, "Erro: Forma ou arquivo NULL ao desenhar Texto Svg\n");
         return;
     }
-   fprintf(arqSvg, "<text id=\"%d\" x=\"%lf\" y=\"%lf\" style=\"font-family: '%s'; font-size: %spx; font-weight: %s; fill: %s;\"> %s </text>\n",getIDTexto(t), getCoordXTexto(t),  getCoordYTexto(t), getfFamily(ts),getfSize(ts),getfWeight(ts), getCorPTexto(t),  getTxtoTexto(t));
+    fprintf(arqSvg, "<text id=\"%d\" x=\"%lf\" y=\"%lf\" style=\"font-family: '%s'; font-size: %spx; font-weight: %s; fill: %s;\"> %s </text>\n",
+    getIDTexto(t), 
+    getCoordXTexto(t),  
+    getCoordYTexto(t), 
+    getfFamily(ts),
+    getfSize(ts),
+    getfWeight(ts), 
+    getCorPTexto(t),  
+    getTxtoTexto(t));
+}
+
+void gerarSvgSaida(FILE* svg, Fila pacotes){
+    if(svg == NULL || pacotes == NULL){
+        printf("Erro ao gerar o svg de saída\n");
+        return;
+    }
+
+    while(noAtual != NULL){
+        Pacote pac = getConteudoNo(noAtual);
+        char tipo = getTipoPacote(pac);
+        Forma forma = getFormaPacote(pac);
+
+        if(forma == NULL){
+            printf("Erro ao acessar a forma do pacote em gerarSvgSaida\n");
+            noAtual = getProximoNo(noAtual);
+            continue;
+        }
+
+        if(tipo == 'c'){
+            desenharCirculoSVG(svg, (Circulo)forma);
+        } else if(tipo == 'r'){
+            desenharRetanguloSVG(svg, (Retangulo)forma);
+        } else if(tipo == 'l'){
+            desenharLinhaSVG(svg, (Linha)forma);
+        } else if(tipo == 't'){
+            Estilo es = getEstiloTexto((Texto)forma);
+            desenharTextoSVG(svg, (Texto)forma, es);
+        }
+        
+        noAtual = getProximoNo(noAtual);
+    }
 }
 
 void fecharSVG(FILE* arqSvg) {

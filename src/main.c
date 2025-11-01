@@ -8,7 +8,7 @@
 #include "geo.h"
 #include "linha.h"
 #include "pilha.h"
-#include "printSvgGeo.h"
+#include "printSvg.h"
 #include "texto.h"
 #include <string.h>
 #include "qry.h"
@@ -85,39 +85,62 @@ int main(int argc, char* argv[])
     // Inicializa estruturas de dados principais
     Fila chao = criarFila();                    // Fila para gerar as formas no "chão"
     Fila filaDisparadores = criarFila();        // Fila de disparadores
-    Fila filaPilhas = criarFila();              // Fila de pilhas (carregadores)
+    Fila filaPilhas = criarFila();              // Fila de carregadores
+    
+    printf("Filas criadas\n");
 
     arqGeo = fopen(fullPathGeo, "r");
     if(arqGeo == NULL){
         printf("ERRO: Não foi possível abrir o arquivo .geo: %s\n", fullPathGeo);
     }
 
+    printf("arqGeo aberto\n");
+
     FILE* arqSvgEntrada = fopen(arquivoSaidaSvgGeo, "w");
     if(arqSvgEntrada == NULL){
         printf("ERRO: Não foi possível criar arquivo SVG de entrada: %s\n", arquivoSaidaSvgGeo);
     }
     
+    printf("arqSvg de entrada aberto\n");
+
     lerGeo(arqGeo,chao,arqSvgEntrada);
     
+    printf("Leitura do geo realizada\n");
+
     fclose(arqGeo);
     fclose(arqSvgEntrada);
 
     if (strlen(nomeArquivoQry) > 0) {
         FILE* arqQry = fopen(fullPathQry, "r");
+        if(arqQry == NULL){
+            printf("erro ao abrir qry para leitura\n");
+            return 1;
+        }
+        printf("arqQry aberto para leitura\n");
 
         FILE* arqTxt = fopen(arquivoSaidaTxt, "w");
+        if(arqTxt == NULL){
+            printf("Erro ao abrir arquivo txt para escrita\n");
+            return 1;
+        }
+
         
         lerQry(arqQry,arqTxt,filaDisparadores,filaPilhas,chao);
         
+        printf("Arquivo qry lido\n");
+
         fclose(arqQry);
         fclose(arqTxt);
 
         // Gera arquivo SVG de saída com resultados das consultas
         FILE* arqSvgSaida = fopen(arquivoSaidaSvgQry, "w"); 
-        if(arqSvgSaida == NULL) exit(1);
-
-        // gerarSvgSaida(chao, arqSvgSaida);   
-        // fflush(arqSvgSaida);
+        if(arqSvgSaida == NULL) {
+            printf("Erro ao abrir o SVG de saída no main\n");
+            return 1;
+        }
+        
+        gerarSvgSaida(chao, arqSvgSaida);   
+        printf("Passou o svg saída\n");
         
         // Libera memória alocada
         // liberarFilaComConteudo(filaDisparadores);
@@ -128,7 +151,9 @@ int main(int argc, char* argv[])
         // free(arqSvgEntrada);
         // free(arqSvgSaida);
     }
-
+    liberarFila(chao);
+    liberarFila(filaDisparadores);
+    liberarFila(filaPilhas);
     printf("***Executou até o fim***\n");
     return 0; 
 

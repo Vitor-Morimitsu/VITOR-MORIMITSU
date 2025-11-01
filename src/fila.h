@@ -13,7 +13,7 @@
 */
 
 typedef void* Fila;
-typedef void* Forma;
+typedef void* Pacote;
 typedef void* Disparador;
 typedef void* Carregador;
 
@@ -23,8 +23,8 @@ Fila criarFila();
 
 /// @brief Insere um elemento na fila
 /// @param f Fila
-/// @param form Forma a ser inserida
-void insereFila(Fila f, Forma forma);
+/// @param conteudo Conteudo a ser inserido
+void insereFila(Fila f, void* conteudo);
 
 /// @brief Remove o primeiro elemento da fila
 /// @param f Fila
@@ -32,12 +32,16 @@ void removeFila(Fila f);
 
 /// @brief Mostra o primeiro elemento da fila
 /// @param f Fila
-Pacote getPrimeiroConteudoFila(Fila f);
+void* getPrimeiroConteudoFila(Fila f);
 
 /// @brief Retorna o tamanho da fila
 /// @param f Fila
 /// @return Tamanho da fila
 int getTamanhoFila(Fila f);
+
+/// @brief Limpa a memória ocupada pela fila
+/// @param f Fila
+void liberarFila(Fila f);
 
 /// @brief Encontra e retorna um disparador específico
 /// @param disparadores Fila dos disparadores
@@ -50,5 +54,24 @@ Disparador encontrarDisparadorPorId(Fila disparadores,int id);
 /// @param id Id do carregador
 /// @return Carregador com o mesmo id passado por parametro
 Carregador encontrarCarregadorPorId(Fila carregadores, int id);
+
+/// @brief Clona uma fila de Formas
+/// @param original Fila original
+/// @return Fila clonada
+Fila clonarFilaChao(Fila original);
+
+/// @brief Clona uma fila de disparadores
+/// @param original Fila original
+/// @return Fila clonada
+Fila clonarFilaDisparadores(Fila original);
+
+/// @brief Clona uma fila de carregadores
+/// @param original Fila original
+/// @return Fila clonada
+Fila clonarFilaCarregadores(Fila original);
+
+/// @brief Libera apenas as células e não o conteúdo
+/// @param clone Fila
+void liberarClone(Fila clone);
 
 #endif

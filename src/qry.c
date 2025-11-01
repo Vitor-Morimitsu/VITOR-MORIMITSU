@@ -5,12 +5,13 @@ void qryPd(Fila disparadores,int id, double x, double y){
     if(d == NULL){
         //Disparador inexistente. Preciso criar um 
         d = criarDisparador(id,x,y);
+        insereFila(disparadores, (Pacote)d);
     }else{
         setPosicaoDisparador(d,x,y);
     }
 }
 
-void qryLc(Fila carregadores,Fila chao, int idCar, int n){
+void qryLc(FILE* Txt,Fila carregadores,Fila chao, int idCar, int n){
     if(chao == NULL){
         printf("Chão está vazio\n");
         return;
@@ -31,15 +32,11 @@ void qryLc(Fila carregadores,Fila chao, int idCar, int n){
     int tamanhoChao = getTamanhoFila(chao);
    
     for(int i = 0; i<n;i++){
-        Forma f = getPrimeiroConteudoFila(chao);
-        // if(f == NULL){
-        //     printf("Chão está vazio\n");
-        //     break;
-        // }
+        Pacote pac = getPrimeiroConteudoFila(chao);
         removeFila(chao);
-        inserirPilha(pCar,f);
+        inserirPilha(pCar,pac);
     }
-    
+    comandoLc(Txt, pCar);    
 }
 
 void qryAtch(Fila disparadores, Fila carregadores,int idDisparador, int idEsquerdo, int idDireito){
@@ -50,16 +47,16 @@ void qryAtch(Fila disparadores, Fila carregadores,int idDisparador, int idEsquer
     }
 
     // Busca ou cria carregador esquerdo
-    Pilha CE = encontrarDisparadorPorId(carregadores,idEsquerdo);
+    Carregador CE = encontrarCarregadorPorId(carregadores,idEsquerdo);
     if(CE == NULL){
-        CE = criarPilha(idEsquerdo);
+        CE = criarCarregador(idEsquerdo);
         insereFila(carregadores,CE);
     }
 
     // Busca ou cria carregador direito
-    Pilha CD = encontrarDisparadorPorId(carregadores,idDireito);
+    Carregador CD = encontrarCarregadorPorId(carregadores,idDireito);
     if(CD == NULL){
-        CD = criarPilha(idDireito);
+        CD = criarCarregador(idDireito);
         insereFila(carregadores, CD);
     }
 
@@ -254,7 +251,7 @@ void lerQry(FILE* arqQry, FILE* arqTxt, Fila filaDisparadores,Fila filaCarregado
             int n;
             int idCar;
             sscanf(linha, "lc %i %i", &idCar, &n);   
-            qryLc(filaCarregadores,chao,idCar,n);
+            qryLc(arqTxt,filaCarregadores,chao,idCar,n);
             
         }else if(strcmp(comando, "atch") == 0){
             printf("comando atch\n");

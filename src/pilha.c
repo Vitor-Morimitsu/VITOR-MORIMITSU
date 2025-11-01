@@ -21,7 +21,7 @@ Pilha criarPilha(){
     return p;
 }
 
-void inserirPilha(Pilha p, Forma forma){
+void inserirPilha(Pilha p,Pacote pac){
     if(p == NULL){
         printf("Erro ao acessar a pilha para adicionar uma nova celula\n.");
         exit(1);
@@ -33,7 +33,7 @@ void inserirPilha(Pilha p, Forma forma){
         printf("Erro ao criar a nova celula criada\n");
         exit(1);
     }
-    novaCelula->pacote = forma;
+    novaCelula->pacote = pac;
     novaCelula->prox = pilha->topo;
     pilha->topo = novaCelula;
     pilha->tamanho++;
@@ -42,22 +42,23 @@ void inserirPilha(Pilha p, Forma forma){
 void removerPilha(Pilha p){
     stPilha* pilha = (stPilha*)p;
     if(pilha == NULL||pilha->topo == NULL){
-        return NULL;
+        return;
     }
 
     stNoPilha* temp = pilha->topo;
     pilha->topo = pilha->topo->prox;
-    free(temp->pacote);
     free(temp);
+    pilha->tamanho--;
 }
 
 Pacote getPacoteTopoPilha(Pilha p){
-    if(p == NULL){
+    stPilha* pilha =(stPilha*)p;
+    if(p == NULL || pilha->topo == NULL){
         printf("Erro ao acessar o conteúdo da pilha");
         return NULL;
     }
-
-    return ((stPilha*)p)->topo->pacote;
+    
+    return pilha->topo->pacote;
 }
 
 int getTamanhoPilha(Pilha p){

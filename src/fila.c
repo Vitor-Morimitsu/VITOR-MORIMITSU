@@ -4,7 +4,7 @@
 #include "disparador.h"
 #include "formas.h"
 typedef struct stNo {
-    Pacote pacote;
+    void* conteudo;
     struct stNo* prox;
 }stNoFila;
 
@@ -29,14 +29,15 @@ Fila criarFila() {
     return f;
 }
 
-void insereFila(Fila f,Forma forma) {
+void insereFila(Fila f,void* conteudo) {
     stFila* fila = (stFila*)f;
     pont novo = malloc(sizeof(stNoFila));
     if(novo == NULL){
         printf("Falha ao alocar memória para novo nó da fila\n");
         exit(1);
     }
-
+    novo->conteudo = conteudo;
+    novo->prox = NULL;
     if(fila->primeiro == NULL){
         fila->primeiro = novo;
         fila->ultimo = novo;
@@ -44,14 +45,13 @@ void insereFila(Fila f,Forma forma) {
         fila->ultimo->prox = novo;
         fila->ultimo = novo;
     }
-
     fila->tamanho++;    
 }
 
 void removeFila(Fila f) {
     stFila* fila = (stFila*)f;
     if (fila == NULL || fila->primeiro == NULL) {//fila vazia ou inexistente
-        return NULL; 
+        return; 
     }
 
     pont temp = fila->primeiro;
@@ -60,15 +60,7 @@ void removeFila(Fila f) {
     free(temp);
 }
 
-Pacote getPrimeiroConteudoFila(Fila f) {
-    stFila* fila = (stFila*)f;
-    if (fila == NULL || fila->primeiro == NULL) {
-        return NULL;
-    }
-    return fila->primeiro->pacote;
-}
-
-void liberarFilaComConteudo(Fila f) {
+void liberarFila(Fila f) {
     if (f == NULL) {
         return;
     }    
@@ -76,7 +68,7 @@ void liberarFilaComConteudo(Fila f) {
     pont atual = fila->primeiro;
     while(atual != NULL){
         pont proximo = atual->prox;
-        Pacote pac = (Pacote)atual->pacote;
+        Pacote pac = (Pacote)atual->conteudo;
         if(pac != NULL){
             freePacote(pac);
         }
@@ -85,9 +77,17 @@ void liberarFilaComConteudo(Fila f) {
     }
 }
 
+void* getPrimeiroConteudoFila(Fila f){
+    stFila* fila = (stFila*)f;
+    if(f == NULL || fila->primeiro == NULL){
+        printf("Não há nada na fila\n");
+        return NULL;
+    }
+    return fila->primeiro->conteudo;
+}
+
 int getTamanhoFila(Fila f){
     if(f == NULL){
-        printf("Erro ao acessar o tamanho da fila\n");
         return 0;
     }
     stFila* fila = (stFila*)f;
@@ -97,14 +97,14 @@ int getTamanhoFila(Fila f){
 Disparador encontrarDisparadorPorId(Fila disparadores, int id){
     if(disparadores == NULL){
         printf("Disparador não encontrado");
-        exit(1);
+        return NULL;
     }
 
     stFila* fila = (stFila*)disparadores;
     pont atual = fila->primeiro;
 
     while(atual != NULL){
-        Disparador d = (Disparador)atual->pacote;
+        Disparador d = (Disparador)atual->conteudo;
         if(getIDDisparador(d) == id){
             return d;
         }
@@ -118,12 +118,12 @@ Disparador encontrarDisparadorPorId(Fila disparadores, int id){
 Carregador encontrarCarregadorPorId(Fila carregadores, int id){
     if(carregadores == NULL){
         printf("Carregador não encontrado\n");
-        exit(1);
+        return NULL;
     }
     stFila* fila = (stFila*)carregadores;
     pont atual = fila->primeiro;
     while(atual != NULL){
-        Carregador car = (Carregador*)atual->pacote;
+        Carregador car = (Carregador)atual->conteudo;
         if(getIDCarregador(car) == id){
             return car;
         }
@@ -132,4 +132,71 @@ Carregador encontrarCarregadorPorId(Fila carregadores, int id){
 
     //não encotrou o carregador com a id passada
     return NULL;
+}
+
+Fila clonarFilaChao(Fila original){
+    stFila* f = (stFila*)original;
+    if(f == NULL){
+        printf("Erro ao clonar a fila\n");
+        return NULL;
+    }
+    
+    Fila nova = criarFila();
+    pont atual = f->primeiro;
+
+    while(atual != NULL){
+        Pacote pac = (Pacote)atual->conteudo;
+        insereFila(nova, pac);
+        atual = atual->prox;
+    }
+    return nova;
+}
+
+Fila clonarFilaDisparadores(Fila original){
+    if(original == NULL){
+        printf("Fila de disparadores vazia. Erro ao clonar\n");
+        return NULL;
+    }
+
+    stFila* fila = (stFila*)original;
+    pont atual = fila->primeiro;
+    Fila nova = criarFila();
+    while(atual != NULL){
+        Disparador d = (Disparador)atual->conteudo;
+        insereFila(nova, d);
+        atual = atual->prox;
+    }
+    return nova;
+}
+
+Fila clonarFilaCarregadores(Fila original){
+    if(original == NULL){
+        printf("Fila de carregadores vazia.Erro ao clonar\n");
+        return NULL;
+    }
+    stFila* fila = (stFila*)original;
+    pont atual = fila->primeiro;
+    Fila nova = criarFila();
+    while(atual != NULL){
+        Carregador car = (Carregador)atual->conteudo;
+        insereFila(nova, car);
+        atual = atual->prox;
+    }
+    return nova;
+}
+
+void liberarClone(Fila clone){
+    if(clone == NULL){
+        printf("Erro ao acessar a fila clone\n");
+        return;
+    }
+    stFila* fila = (stFila*)clone;
+    pont atual = fila->primeiro;
+
+    while(atual != NULL){
+        pont proximo = atual->prox;
+        free(atual);
+        atual = proximo;
+    }
+    free(fila);
 }
