@@ -28,36 +28,50 @@ void comandoLc(FILE* arqTxt, Pilha p){
     }
 }
 
-void comandoShft(FILE* arqTxt,int idDis, Fila filaDisparadores){
+void comandoShft(FILE* arqTxt, int idDis, Fila filaDisparadores){
     if(arqTxt == NULL){
-        printf("Erro ao abrir o arquivo txt.");
-        exit(1);
+        return;
     }
 
     Disparador disp = encontrarDisparadorPorId(filaDisparadores, idDis);
     if(disp == NULL){
-        printf("Erro ao acessar o disparador.");
+        fprintf(arqTxt, "Disparador ID %d não encontrado.\n", idDis);
         return;
     }
 
-    Forma centro = getConteudoCentro(disp);
+    Pacote centro = getConteudoCentro(disp);
+    
+    fprintf(arqTxt, "Estado do disparador %d após shft:\n", idDis);
+    
     if(centro == NULL){
-        printf("A posição de disparo está vazia.");
-        return;
+        fprintf(arqTxt, "  Posição de disparo: VAZIA\n");
     }else{
-        char fig = getTipoPacote(centro);
-        char* figura = "desconhecida";
-        if(fig == 'c'){
-            figura = "circulo";
-        }else if(fig == 'r'){
-            figura = "retangulo";
-        }else if(fig == 'l'){
-            figura = "linha";
-        }else if(fig == 't'){
-            figura = "texto";
-        }
-        fprintf(arqTxt, "A figura que está no centro é %s\n", figura);
+        char tipo = getTipoPacote(centro);
+        Forma forma = getFormaPacote(centro);
+        int id = getIdForma(forma, tipo);
+        
+        const char* nomeTipo = (tipo == 'c') ? "Círculo" : 
+                               (tipo == 'r') ? "Retângulo" : 
+                               (tipo == 'l') ? "Linha" : "Texto";
+        
+        fprintf(arqTxt, "  Posição de disparo: %s (ID: %d)\n", nomeTipo, id);
     }
+    
+    // Mostra estado dos carregadores
+    Carregador ce = getCarregadorDisparador(disp, 'e');
+    Carregador cd = getCarregadorDisparador(disp, 'd');
+    
+    if(ce != NULL){
+        Pilha pe = getPilhaCarregador(ce);
+        fprintf(arqTxt, "  Carregador esquerdo: %d formas\n", getTamanhoPilha(pe));
+    }
+    
+    if(cd != NULL){
+        Pilha pd = getPilhaCarregador(cd);
+        fprintf(arqTxt, "  Carregador direito: %d formas\n", getTamanhoPilha(pd));
+    }
+    
+    fprintf(arqTxt, "\n");
 }
 
 void comandoDsp(FILE* arqTxt, Fila chao, double dx, double dy){
@@ -198,7 +212,6 @@ void comandoCalc(FILE* arqTxt,FILE* svg, Fila chao) {
         char tipo_p1 = getTipoPacote(p1);
         Forma f1 = getFormaPacote(p1);
         int id1 = getIdForma(f1, tipo_p1);
-        printf("DEBUG: p1 tipo=%c, forma=%p, id=%d\n", tipo_p1, f1, id1);
         
         // Compara com todas as formas seguintes (j > i)
         for(int j = i + 1; j < tamanhoFila; j++) {

@@ -22,9 +22,24 @@ atch 5 7 8
 
 shft 3 d 1
 
-shft 5 e 1
+Estado do disparador 3 após shft:
+  Posição de disparo: Linha (ID: 8)
+  Carregador esquerdo: 3 formas
+  Carregador direito: 0 formas
 
 shft 5 e 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Linha (ID: 12)
+  Carregador esquerdo: 0 formas
+  Carregador direito: 3 formas
+
+shft 5 e 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Linha (ID: 12)
+  Carregador esquerdo: 0 formas
+  Carregador direito: 3 formas
 
 dsp 5 -387.78 6.74 v
 
