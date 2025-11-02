@@ -49,6 +49,12 @@ void gerarSvgSaida(FILE* svg, Fila pacotes);
 /// @param dy Distância dy
 void dimensoesDisparo(FILE* svg, double xDis, double yDis, double dx, double dy);
 
+/// @brief Insere um asterisco vermelho na posição da forma esmagada (menor área)
+/// @param svg Arquivo SVG
+/// @param x Coordenada X da forma
+/// @param y Coordenada Y da forma
+void printAsterisco(FILE* svg, double x, double y);
+
 /// @brief Realiza o comando de encerramento do arquivo svg
 /// @param arqSvg Arquivo
 void fecharSVG(FILE* arqSvg);

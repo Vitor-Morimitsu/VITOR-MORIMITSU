@@ -1,0 +1,8 @@
+pd 1 100.00 100.00
+lc 1 5
+atch 1 1 2
+shft 1 d 1
+dsp 1 50.00 75.00 v
+shft 1 d 1
+dsp 1 -30.00 40.00 v
+calc

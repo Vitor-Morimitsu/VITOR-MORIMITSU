@@ -67,6 +67,7 @@ void qryLc(FILE* Txt,Fila carregadores,Fila chao, int idCar, int n){
         }
         removerPilha(pCar);
     }
+    fprintf(Txt, "\n");
     
     // Restaura a pilha original
     while(getTamanhoPilha(pilhaTemp) > 0){
@@ -369,7 +370,7 @@ void lerQry(FILE* arqQry, FILE* arqTxt, FILE* svg, Fila filaDisparadores,Fila fi
             
         }else if(strcmp(comando, "calc") == 0){
             //processa as figuras da arena conforme descrito anteriormente em um novo arqSVg
-            comandoCalc(arqTxt,chao);
+            comandoCalc(arqTxt, svg, chao);
         }
     }
 }

@@ -121,6 +121,14 @@ void dimensoesDisparo(FILE* svg, double xDis, double yDis, double dx, double dy)
     fprintf(svg,"<line  x1=\"%lf\" y1=\"%lf\" x2=\"%lf\" y2=\"%lf\" stroke=\"blue\" stroke-width=\"2\" stroke-dasharray=\"2 2\" />\n", xDis, yDis, xDis, yDis+dy);
 }
 
+void printAsterisco(FILE* svg, double x, double y){
+    if(svg == NULL) return;
+    // Asterisco centralizado na posição da forma esmagada
+    fprintf(svg,"<text fill=\"red\" x=\"%.2lf\" y=\"%.2lf\" font-size=\"25\" "
+                "text-anchor=\"middle\" dominant-baseline=\"middle\" "
+                "font-weight=\"bold\">*</text>\n", x, y);
+}
+
 void fecharSVG(FILE* arqSvg) {
     fprintf(arqSvg, "</svg>\n");
 }
