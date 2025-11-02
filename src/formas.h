@@ -71,4 +71,11 @@ void posicionaPacote(Pacote f, Disparador d, double deslocX, double deslocY);
 /// @brief Libera a memória de um Pacote
 /// @param pac 
 void freePacote(Pacote pac);
+
+/// @brief Retorna o ID de uma forma baseado no seu tipo
+/// @param f Forma
+/// @param tipo Tipo da forma ('c', 'r', 'l', 't')
+/// @return ID da forma ou -1 se inválida
+int getIdForma(Forma f, char tipo);
+
 #endif

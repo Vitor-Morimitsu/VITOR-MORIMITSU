@@ -165,18 +165,6 @@ void comandoDsp(FILE* arqTxt, Fila chao, double dx, double dy){
 //     }
 // }
 
-// Função auxiliar para obter ID de uma forma
-int getIDForma(Forma forma, char tipo) {
-    if(forma == NULL) return -1;
-    
-    if(tipo == 'c') return getIDCirculo((Circulo)forma);
-    else if(tipo == 'r') return getIDRetangulo((Retangulo)forma);
-    else if(tipo == 'l') return getIDLinha((Linha)forma);
-    else if(tipo == 't') return getIDTexto((Texto)forma);
-    
-    return -1;
-}
-
 void comandoCalc(FILE* arqTxt,FILE* svg, Fila chao) {
     if (arqTxt == NULL || chao == NULL) {
         printf("Erro: Arquivo Txt ou Fila 'chao' nulos no comando calc.\n");
@@ -209,7 +197,8 @@ void comandoCalc(FILE* arqTxt,FILE* svg, Fila chao) {
         
         char tipo_p1 = getTipoPacote(p1);
         Forma f1 = getFormaPacote(p1);
-        int id1 = getIDForma(f1, tipo_p1);
+        int id1 = getIdForma(f1, tipo_p1);
+        printf("DEBUG: p1 tipo=%c, forma=%p, id=%d\n", tipo_p1, f1, id1);
         
         // Compara com todas as formas seguintes (j > i)
         for(int j = i + 1; j < tamanhoFila; j++) {
@@ -228,7 +217,7 @@ void comandoCalc(FILE* arqTxt,FILE* svg, Fila chao) {
             
             char tipo_p2 = getTipoPacote(p2);
             Forma f2 = getFormaPacote(p2);
-            int id2 = getIDForma(f2, tipo_p2);
+            int id2 = getIdForma(f2, tipo_p2);
             
             // Verifica sobreposição usando a função genérica
             int sobrepoe = formasSobrepoem(p1, p2);

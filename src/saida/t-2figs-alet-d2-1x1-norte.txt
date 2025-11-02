@@ -1,0 +1,81 @@
+pd 3 4.12 7.39
+
+lc 6 4
+
+Conteúdo da pilha:
+Linha com id:8
+Retângulo com id:6
+Retângulo com id:5
+
+atch 3 6 9
+
+pd 5 585.28 565.76
+
+lc 8 4
+
+Conteúdo da pilha:
+Linha com id:12
+Linha com id:11
+Linha com id:10
+
+atch 5 7 8
+
+shft 3 d 1
+
+shft 5 e 1
+
+shft 5 e 1
+
+dsp 5 -387.78 6.74 v
+
+
+--- Dimensões do Disparo ---
+Tipo da forma: Linha
+Posição do disparador: (585.28, 565.76)
+Deslocamento aplicado: dx=-387.78, dy=6.74
+Posição final da forma: (197.50, 572.50)
+Distância percorrida: 387.84
+Forma disparada: linha | Deslocamento: dx=-387.78 dy=6.74 | Posição final: X1=350.52 Y1=129.04 X2=370.44 Y2=168.82
+rjd 3 d 193.38 565.11 1.25 2.50
+
+calc
+
+
+=== Cálculo das Sobreposições ===
+Total de formas na arena: 45
+
+Sobreposição detectada: [c:14] x [r:42] | Área esmagada: 2743.30
+  → Área esmagada no Round 2: 2743.30
+
+Sobreposição detectada: [r:16] x [c:45] | Área esmagada: 180.91
+  → Área esmagada no Round 4: 180.91
+
+Sobreposição detectada: [l:19] x [c:31] | Área esmagada: 159.78
+Sobreposição detectada: [l:19] x [l:41] | Área esmagada: 115.06
+  → Área esmagada no Round 7: 274.84
+
+Sobreposição detectada: [c:25] x [c:40] | Área esmagada: 1772.84
+  → Área esmagada no Round 13: 1772.84
+
+Sobreposição detectada: [r:27] x [c:31] | Área esmagada: 854.88
+Sobreposição detectada: [r:27] x [l:41] | Área esmagada: 115.06
+  → Área esmagada no Round 15: 969.94
+
+Sobreposição detectada: [c:28] x [r:33] | Área esmagada: 272.37
+  → Área esmagada no Round 16: 272.37
+
+Sobreposição detectada: [l:29] x [c:46] | Área esmagada: 162.16
+  → Área esmagada no Round 17: 162.16
+
+Sobreposição detectada: [c:31] x [l:41] | Área esmagada: 115.06
+  → Área esmagada no Round 19: 115.06
+
+Sobreposição detectada: [c:36] x [r:44] | Área esmagada: 424.09
+  → Área esmagada no Round 24: 424.09
+
+Sobreposição detectada: [r:42] x [l:51] | Área esmagada: 69.77
+  → Área esmagada no Round 30: 69.77
+
+=== Resultado Final ===
+Área total esmagada: 6985.29
+

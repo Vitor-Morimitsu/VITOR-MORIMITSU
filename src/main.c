@@ -120,14 +120,15 @@ int main(int argc, char* argv[])
             return 1;
         }
         
+        // Abre o SVG antes de processar o qry
+        abrirSvg(arqSvgSaida);
+        
         lerQry(arqQry,arqTxt,arqSvgSaida,filaDisparadores,filaPilhas,chao);
         
         fclose(arqQry);
         fclose(arqTxt);
 
         // Gera arquivo SVG de saída com resultados das consultas
-        
-        abrirSvg(arqSvgSaida);
         gerarSvgSaida(arqSvgSaida, chao);
         fecharSVG(arqSvgSaida);
         fclose(arqSvgSaida);
