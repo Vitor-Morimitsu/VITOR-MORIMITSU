@@ -1,0 +1,226 @@
+pd 5 1.00 1.00
+
+lc 3 24
+
+Conteúdo da pilha:
+Retângulo com id:28
+Circulo com id:27
+Retângulo com id:26
+Circulo com id:25
+Retângulo com id:24
+Circulo com id:23
+Retângulo com id:22
+Circulo com id:21
+Retângulo com id:20
+Circulo com id:19
+Retângulo com id:18
+Circulo com id:17
+Retângulo com id:16
+Circulo com id:15
+Retângulo com id:14
+Circulo com id:13
+Retângulo com id:12
+Circulo com id:11
+Retângulo com id:10
+Circulo com id:9
+Retângulo com id:8
+Circulo com id:7
+Retângulo com id:6
+Circulo com id:5
+
+atch 5 3 6
+
+rjd 5 d 10.00 7.50 6.25 5.00
+
+calc
+
+
+=== Cálculo das Sobreposições ===
+Total de formas na arena: 30
+
+Sobreposição [c:31] x [r:32] - área esmagada: 4298.66
+Sobreposição [c:31] x [c:33] - área esmagada: 4298.66
+  → Área esmagada no Round 3: 8597.32
+
+Sobreposição [r:28] x [c:27] - área esmagada: 3523.86
+Sobreposição [r:28] x [r:26] - área esmagada: 3473.45
+Sobreposição [r:28] x [c:25] - área esmagada: 3165.32
+Sobreposição [r:28] x [r:24] - área esmagada: 3120.00
+Sobreposição [r:28] x [c:23] - área esmagada: 2826.00
+Sobreposição [r:28] x [r:22] - área esmagada: 2785.45
+Sobreposição [r:28] x [c:21] - área esmagada: 2505.92
+Sobreposição [r:28] x [r:20] - área esmagada: 2469.80
+Sobreposição [r:28] x [c:19] - área esmagada: 2205.07
+Sobreposição [r:28] x [r:18] - área esmagada: 2173.05
+Sobreposição [r:28] x [c:17] - área esmagada: 1923.45
+Sobreposição [r:28] x [c:15] - área esmagada: 1661.06
+  → Área esmagada no Round 7: 31832.42
+
+Sobreposição [c:27] x [r:26] - área esmagada: 3473.45
+Sobreposição [c:27] x [c:25] - área esmagada: 3165.32
+Sobreposição [c:27] x [r:24] - área esmagada: 3120.00
+Sobreposição [c:27] x [c:23] - área esmagada: 2826.00
+Sobreposição [c:27] x [c:21] - área esmagada: 2505.92
+  → Área esmagada no Round 8: 15090.68
+
+Sobreposição [r:26] x [c:25] - área esmagada: 3165.32
+Sobreposição [r:26] x [r:24] - área esmagada: 3120.00
+Sobreposição [r:26] x [c:23] - área esmagada: 2826.00
+Sobreposição [r:26] x [r:22] - área esmagada: 2785.45
+Sobreposição [r:26] x [c:21] - área esmagada: 2505.92
+Sobreposição [r:26] x [r:20] - área esmagada: 2469.80
+Sobreposição [r:26] x [c:19] - área esmagada: 2205.07
+Sobreposição [r:26] x [r:18] - área esmagada: 2173.05
+Sobreposição [r:26] x [c:17] - área esmagada: 1923.45
+Sobreposição [r:26] x [r:16] - área esmagada: 1895.20
+Sobreposição [r:26] x [c:15] - área esmagada: 1661.06
+Sobreposição [r:26] x [c:13] - área esmagada: 1417.91
+  → Área esmagada no Round 9: 28148.21
+
+Sobreposição [c:25] x [r:24] - área esmagada: 3120.00
+Sobreposição [c:25] x [c:23] - área esmagada: 2826.00
+Sobreposição [c:25] x [r:22] - área esmagada: 2785.45
+Sobreposição [c:25] x [c:21] - área esmagada: 2505.92
+Sobreposição [c:25] x [c:19] - área esmagada: 2205.07
+  → Área esmagada no Round 10: 13442.43
+
+Sobreposição [r:24] x [c:23] - área esmagada: 2826.00
+Sobreposição [r:24] x [r:22] - área esmagada: 2785.45
+Sobreposição [r:24] x [c:21] - área esmagada: 2505.92
+Sobreposição [r:24] x [r:20] - área esmagada: 2469.80
+Sobreposição [r:24] x [c:19] - área esmagada: 2205.07
+Sobreposição [r:24] x [r:18] - área esmagada: 2173.05
+Sobreposição [r:24] x [c:17] - área esmagada: 1923.45
+Sobreposição [r:24] x [r:16] - área esmagada: 1895.20
+Sobreposição [r:24] x [c:15] - área esmagada: 1661.06
+Sobreposição [r:24] x [c:13] - área esmagada: 1417.91
+  → Área esmagada no Round 11: 21862.89
+
+Sobreposição [c:23] x [r:22] - área esmagada: 2785.45
+Sobreposição [c:23] x [c:21] - área esmagada: 2505.92
+Sobreposição [c:23] x [r:20] - área esmagada: 2469.80
+Sobreposição [c:23] x [c:19] - área esmagada: 2205.07
+Sobreposição [c:23] x [c:17] - área esmagada: 1923.45
+  → Área esmagada no Round 12: 11889.68
+
+Sobreposição [r:22] x [c:21] - área esmagada: 2505.92
+Sobreposição [r:22] x [r:20] - área esmagada: 2469.80
+Sobreposição [r:22] x [c:19] - área esmagada: 2205.07
+Sobreposição [r:22] x [r:18] - área esmagada: 2173.05
+Sobreposição [r:22] x [c:17] - área esmagada: 1923.45
+Sobreposição [r:22] x [r:16] - área esmagada: 1895.20
+Sobreposição [r:22] x [c:15] - área esmagada: 1661.06
+Sobreposição [r:22] x [r:14] - área esmagada: 1636.25
+Sobreposição [r:22] x [c:13] - área esmagada: 1417.91
+Sobreposição [r:22] x [c:11] - área esmagada: 1193.99
+  → Área esmagada no Round 13: 19081.68
+
+Sobreposição [c:21] x [r:20] - área esmagada: 2469.80
+Sobreposição [c:21] x [c:19] - área esmagada: 2205.07
+Sobreposição [c:21] x [r:18] - área esmagada: 2173.05
+Sobreposição [c:21] x [c:17] - área esmagada: 1923.45
+Sobreposição [c:21] x [c:15] - área esmagada: 1661.06
+  → Área esmagada no Round 14: 10432.42
+
+Sobreposição [r:20] x [c:19] - área esmagada: 2205.07
+Sobreposição [r:20] x [r:18] - área esmagada: 2173.05
+Sobreposição [r:20] x [c:17] - área esmagada: 1923.45
+Sobreposição [r:20] x [r:16] - área esmagada: 1895.20
+Sobreposição [r:20] x [c:15] - área esmagada: 1661.06
+Sobreposição [r:20] x [r:14] - área esmagada: 1636.25
+Sobreposição [r:20] x [c:13] - área esmagada: 1417.91
+Sobreposição [r:20] x [r:12] - área esmagada: 1396.20
+Sobreposição [r:20] x [c:11] - área esmagada: 1193.99
+  → Área esmagada no Round 15: 15502.16
+
+Sobreposição [c:19] x [r:18] - área esmagada: 2173.05
+Sobreposição [c:19] x [c:17] - área esmagada: 1923.45
+Sobreposição [c:19] x [r:16] - área esmagada: 1895.20
+Sobreposição [c:19] x [c:15] - área esmagada: 1661.06
+  → Área esmagada no Round 16: 7652.76
+
+Sobreposição [r:18] x [c:17] - área esmagada: 1923.45
+Sobreposição [r:18] x [r:16] - área esmagada: 1895.20
+Sobreposição [r:18] x [c:15] - área esmagada: 1661.06
+Sobreposição [r:18] x [r:14] - área esmagada: 1636.25
+Sobreposição [r:18] x [c:13] - área esmagada: 1417.91
+Sobreposição [r:18] x [r:12] - área esmagada: 1396.20
+Sobreposição [r:18] x [c:11] - área esmagada: 1193.99
+Sobreposição [r:18] x [c:9] - área esmagada: 989.30
+  → Área esmagada no Round 17: 12113.34
+
+Sobreposição [c:17] x [r:16] - área esmagada: 1895.20
+Sobreposição [c:17] x [c:15] - área esmagada: 1661.06
+Sobreposição [c:17] x [r:14] - área esmagada: 1636.25
+Sobreposição [c:17] x [c:13] - área esmagada: 1417.91
+  → Área esmagada no Round 18: 6610.42
+
+Sobreposição [r:16] x [c:15] - área esmagada: 1661.06
+Sobreposição [r:16] x [r:14] - área esmagada: 1636.25
+Sobreposição [r:16] x [c:13] - área esmagada: 1417.91
+Sobreposição [r:16] x [r:12] - área esmagada: 1396.20
+Sobreposição [r:16] x [c:11] - área esmagada: 1193.99
+Sobreposição [r:16] x [r:10] - área esmagada: 1175.05
+Sobreposição [r:16] x [c:9] - área esmagada: 989.30
+Sobreposição [r:16] x [c:7] - área esmagada: 803.84
+  → Área esmagada no Round 19: 10273.59
+
+Sobreposição [c:15] x [r:14] - área esmagada: 1636.25
+Sobreposição [c:15] x [c:13] - área esmagada: 1417.91
+Sobreposição [c:15] x [c:11] - área esmagada: 1193.99
+  → Área esmagada no Round 20: 4248.14
+
+Sobreposição [r:14] x [c:13] - área esmagada: 1417.91
+Sobreposição [r:14] x [r:12] - área esmagada: 1396.20
+Sobreposição [r:14] x [c:11] - área esmagada: 1193.99
+Sobreposição [r:14] x [r:10] - área esmagada: 1175.05
+Sobreposição [r:14] x [c:9] - área esmagada: 989.30
+Sobreposição [r:14] x [r:8] - área esmagada: 972.80
+Sobreposição [r:14] x [c:7] - área esmagada: 803.84
+  → Área esmagada no Round 21: 7949.08
+
+Sobreposição [c:13] x [r:12] - área esmagada: 1396.20
+Sobreposição [c:13] x [c:11] - área esmagada: 1193.99
+Sobreposição [c:13] x [c:9] - área esmagada: 989.30
+  → Área esmagada no Round 22: 3579.48
+
+Sobreposição [r:12] x [c:11] - área esmagada: 1193.99
+Sobreposição [r:12] x [r:10] - área esmagada: 1175.05
+Sobreposição [r:12] x [c:9] - área esmagada: 989.30
+Sobreposição [r:12] x [r:8] - área esmagada: 972.80
+Sobreposição [r:12] x [c:7] - área esmagada: 803.84
+Sobreposição [r:12] x [r:6] - área esmagada: 789.45
+Sobreposição [r:12] x [c:5] - área esmagada: 637.62
+  → Área esmagada no Round 23: 6562.04
+
+Sobreposição [c:11] x [r:10] - área esmagada: 1175.05
+Sobreposição [c:11] x [c:9] - área esmagada: 989.30
+Sobreposição [c:11] x [c:7] - área esmagada: 803.84
+  → Área esmagada no Round 24: 2968.19
+
+Sobreposição [r:10] x [c:9] - área esmagada: 989.30
+Sobreposição [r:10] x [r:8] - área esmagada: 972.80
+Sobreposição [r:10] x [c:7] - área esmagada: 803.84
+Sobreposição [r:10] x [r:6] - área esmagada: 789.45
+Sobreposição [r:10] x [c:5] - área esmagada: 637.62
+  → Área esmagada no Round 25: 4193.00
+
+Sobreposição [c:9] x [r:8] - área esmagada: 972.80
+Sobreposição [c:9] x [c:7] - área esmagada: 803.84
+  → Área esmagada no Round 26: 1776.64
+
+Sobreposição [r:8] x [c:7] - área esmagada: 803.84
+Sobreposição [r:8] x [r:6] - área esmagada: 789.45
+Sobreposição [r:8] x [c:5] - área esmagada: 637.62
+  → Área esmagada no Round 27: 2230.91
+
+Sobreposição [c:7] x [r:6] - área esmagada: 789.45
+Sobreposição [c:7] x [c:5] - área esmagada: 637.62
+  → Área esmagada no Round 28: 1427.07
+
+Sobreposição [r:6] x [c:5] - área esmagada: 637.62
+  → Área esmagada no Round 29: 637.62
+
+=== Resultado Final ===
+Área total esmagada: 248102.15
+

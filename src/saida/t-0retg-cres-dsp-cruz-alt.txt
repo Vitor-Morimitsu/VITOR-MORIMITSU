@@ -1,0 +1,314 @@
+pd 5 250.00 250.00
+
+lc 3 20
+
+Conteúdo da pilha:
+Retângulo com id:24
+Retângulo com id:23
+Retângulo com id:22
+Retângulo com id:21
+Retângulo com id:20
+Retângulo com id:19
+Retângulo com id:18
+Retângulo com id:17
+Retângulo com id:16
+Retângulo com id:15
+Retângulo com id:14
+Retângulo com id:13
+Retângulo com id:12
+Retângulo com id:11
+Retângulo com id:10
+Retângulo com id:9
+Retângulo com id:8
+Retângulo com id:7
+Retângulo com id:6
+Retângulo com id:5
+
+atch 5 3 6
+
+shft 5 d 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Retângulo (ID: 24)
+  Carregador esquerdo: 19 formas
+  Carregador direito: 0 formas
+
+dsp 5 20.00 -30.00 i
+
+Forma disparada: retângulo | Deslocamento: dx=20.00 dy=-30.00 | Posição final: X=270.00 Y=220.00
+shft 5 d 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Retângulo (ID: 23)
+  Carregador esquerdo: 18 formas
+  Carregador direito: 0 formas
+
+dsp 5 -20.00 -30.00 i
+
+Forma disparada: retângulo | Deslocamento: dx=-20.00 dy=-30.00 | Posição final: X=230.00 Y=220.00
+shft 5 d 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Retângulo (ID: 22)
+  Carregador esquerdo: 17 formas
+  Carregador direito: 0 formas
+
+dsp 5 -20.00 30.00 i
+
+Forma disparada: retângulo | Deslocamento: dx=-20.00 dy=30.00 | Posição final: X=230.00 Y=280.00
+shft 5 d 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Retângulo (ID: 21)
+  Carregador esquerdo: 16 formas
+  Carregador direito: 0 formas
+
+dsp 5 30.00 45.00 i
+
+Forma disparada: retângulo | Deslocamento: dx=30.00 dy=45.00 | Posição final: X=280.00 Y=295.00
+shft 5 d 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Retângulo (ID: 20)
+  Carregador esquerdo: 15 formas
+  Carregador direito: 0 formas
+
+dsp 5 30.00 -45.00 i
+
+Forma disparada: retângulo | Deslocamento: dx=30.00 dy=-45.00 | Posição final: X=280.00 Y=205.00
+shft 5 d 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Retângulo (ID: 19)
+  Carregador esquerdo: 14 formas
+  Carregador direito: 0 formas
+
+dsp 5 -30.00 -45.00 i
+
+Forma disparada: retângulo | Deslocamento: dx=-30.00 dy=-45.00 | Posição final: X=220.00 Y=205.00
+shft 5 d 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Retângulo (ID: 18)
+  Carregador esquerdo: 13 formas
+  Carregador direito: 0 formas
+
+dsp 5 -30.00 45.00 i
+
+Forma disparada: retângulo | Deslocamento: dx=-30.00 dy=45.00 | Posição final: X=220.00 Y=295.00
+shft 5 d 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Retângulo (ID: 17)
+  Carregador esquerdo: 12 formas
+  Carregador direito: 0 formas
+
+dsp 5 40.00 60.00 i
+
+Forma disparada: retângulo | Deslocamento: dx=40.00 dy=60.00 | Posição final: X=290.00 Y=310.00
+shft 5 d 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Retângulo (ID: 16)
+  Carregador esquerdo: 11 formas
+  Carregador direito: 0 formas
+
+dsp 5 40.00 -60.00 i
+
+Forma disparada: retângulo | Deslocamento: dx=40.00 dy=-60.00 | Posição final: X=290.00 Y=190.00
+shft 5 d 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Retângulo (ID: 15)
+  Carregador esquerdo: 10 formas
+  Carregador direito: 0 formas
+
+dsp 5 -40.00 -60.00 i
+
+Forma disparada: retângulo | Deslocamento: dx=-40.00 dy=-60.00 | Posição final: X=210.00 Y=190.00
+shft 5 d 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Retângulo (ID: 14)
+  Carregador esquerdo: 9 formas
+  Carregador direito: 0 formas
+
+dsp 5 -40.00 60.00 i
+
+Forma disparada: retângulo | Deslocamento: dx=-40.00 dy=60.00 | Posição final: X=210.00 Y=310.00
+shft 5 d 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Retângulo (ID: 13)
+  Carregador esquerdo: 8 formas
+  Carregador direito: 0 formas
+
+dsp 5 50.00 75.00 i
+
+Forma disparada: retângulo | Deslocamento: dx=50.00 dy=75.00 | Posição final: X=300.00 Y=325.00
+shft 5 d 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Retângulo (ID: 12)
+  Carregador esquerdo: 7 formas
+  Carregador direito: 0 formas
+
+dsp 5 50.00 -75.00 i
+
+Forma disparada: retângulo | Deslocamento: dx=50.00 dy=-75.00 | Posição final: X=300.00 Y=175.00
+shft 5 d 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Retângulo (ID: 11)
+  Carregador esquerdo: 6 formas
+  Carregador direito: 0 formas
+
+dsp 5 -50.00 -75.00 i
+
+Forma disparada: retângulo | Deslocamento: dx=-50.00 dy=-75.00 | Posição final: X=200.00 Y=175.00
+shft 5 d 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Retângulo (ID: 10)
+  Carregador esquerdo: 5 formas
+  Carregador direito: 0 formas
+
+dsp 5 -50.00 75.00 i
+
+Forma disparada: retângulo | Deslocamento: dx=-50.00 dy=75.00 | Posição final: X=200.00 Y=325.00
+shft 5 d 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Retângulo (ID: 9)
+  Carregador esquerdo: 4 formas
+  Carregador direito: 0 formas
+
+dsp 5 60.00 90.00 i
+
+Forma disparada: retângulo | Deslocamento: dx=60.00 dy=90.00 | Posição final: X=310.00 Y=340.00
+shft 5 d 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Retângulo (ID: 8)
+  Carregador esquerdo: 3 formas
+  Carregador direito: 0 formas
+
+dsp 5 60.00 -90.00 i
+
+Forma disparada: retângulo | Deslocamento: dx=60.00 dy=-90.00 | Posição final: X=310.00 Y=160.00
+shft 5 d 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Retângulo (ID: 7)
+  Carregador esquerdo: 2 formas
+  Carregador direito: 0 formas
+
+dsp 5 -60.00 -90.00 i
+
+Forma disparada: retângulo | Deslocamento: dx=-60.00 dy=-90.00 | Posição final: X=190.00 Y=160.00
+shft 5 d 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Retângulo (ID: 6)
+  Carregador esquerdo: 1 formas
+  Carregador direito: 0 formas
+
+dsp 5 -60.00 90.00 i
+
+Forma disparada: retângulo | Deslocamento: dx=-60.00 dy=90.00 | Posição final: X=190.00 Y=340.00
+shft 5 d 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Retângulo (ID: 5)
+  Carregador esquerdo: 0 formas
+  Carregador direito: 0 formas
+
+dsp 5 70.00 105.00 i
+
+Forma disparada: retângulo | Deslocamento: dx=70.00 dy=105.00 | Posição final: X=320.00 Y=355.00
+calc
+
+
+=== Cálculo das Sobreposições ===
+Total de formas na arena: 25
+
+Sobreposição [r:27] x [r:6] - área esmagada: 333.20
+  → Área esmagada no Round 3: 333.20
+
+Sobreposição [r:29] x [r:24] - área esmagada: 4239.50
+Sobreposição [r:29] x [r:20] - área esmagada: 3418.80
+Sobreposição [r:29] x [r:16] - área esmagada: 2215.20
+Sobreposição [r:29] x [r:12] - área esmagada: 1269.20
+Sobreposição [r:29] x [r:8] - área esmagada: 580.80
+  → Área esmagada no Round 5: 11723.50
+
+Sobreposição [r:24] x [r:23] - área esmagada: 4079.65
+Sobreposição [r:24] x [r:22] - área esmagada: 3919.80
+Sobreposição [r:24] x [r:20] - área esmagada: 3418.80
+Sobreposição [r:24] x [r:19] - área esmagada: 3093.75
+Sobreposição [r:24] x [r:16] - área esmagada: 2215.20
+  → Área esmagada no Round 6: 16727.20
+
+Sobreposição [r:23] x [r:20] - área esmagada: 3418.80
+Sobreposição [r:23] x [r:19] - área esmagada: 3093.75
+Sobreposição [r:23] x [r:16] - área esmagada: 2215.20
+Sobreposição [r:23] x [r:15] - área esmagada: 1954.55
+  → Área esmagada no Round 7: 10682.30
+
+Sobreposição [r:22] x [r:21] - área esmagada: 3759.95
+Sobreposição [r:22] x [r:18] - área esmagada: 2784.80
+Sobreposição [r:22] x [r:17] - área esmagada: 2491.95
+Sobreposição [r:22] x [r:14] - área esmagada: 1710.00
+Sobreposição [r:22] x [r:10] - área esmagada: 892.80
+  → Área esmagada no Round 8: 11639.50
+
+Sobreposição [r:21] x [r:17] - área esmagada: 2491.95
+Sobreposição [r:21] x [r:13] - área esmagada: 1481.55
+Sobreposição [r:21] x [r:9] - área esmagada: 728.75
+  → Área esmagada no Round 9: 4702.25
+
+Sobreposição [r:20] x [r:19] - área esmagada: 3093.75
+Sobreposição [r:20] x [r:16] - área esmagada: 2215.20
+Sobreposição [r:20] x [r:12] - área esmagada: 1269.20
+  → Área esmagada no Round 10: 6578.15
+
+Sobreposição [r:19] x [r:15] - área esmagada: 1954.55
+Sobreposição [r:19] x [r:11] - área esmagada: 1072.95
+  → Área esmagada no Round 11: 3027.50
+
+Sobreposição [r:18] x [r:14] - área esmagada: 1710.00
+Sobreposição [r:18] x [r:10] - área esmagada: 892.80
+  → Área esmagada no Round 12: 2602.80
+
+Sobreposição [r:17] x [r:13] - área esmagada: 1481.55
+Sobreposição [r:17] x [r:9] - área esmagada: 728.75
+  → Área esmagada no Round 13: 2210.30
+
+Sobreposição [r:16] x [r:12] - área esmagada: 1269.20
+  → Área esmagada no Round 14: 1269.20
+
+Sobreposição [r:15] x [r:11] - área esmagada: 1072.95
+  → Área esmagada no Round 15: 1072.95
+
+Sobreposição [r:14] x [r:10] - área esmagada: 892.80
+  → Área esmagada no Round 16: 892.80
+
+Sobreposição [r:13] x [r:9] - área esmagada: 728.75
+Sobreposição [r:13] x [r:5] - área esmagada: 233.55
+  → Área esmagada no Round 17: 962.30
+
+Sobreposição [r:12] x [r:8] - área esmagada: 580.80
+  → Área esmagada no Round 18: 580.80
+
+Sobreposição [r:11] x [r:7] - área esmagada: 448.95
+  → Área esmagada no Round 19: 448.95
+
+Sobreposição [r:10] x [r:6] - área esmagada: 333.20
+  → Área esmagada no Round 20: 333.20
+
+Sobreposição [r:9] x [r:5] - área esmagada: 233.55
+  → Área esmagada no Round 21: 233.55
+
+=== Resultado Final ===
+Área total esmagada: 76020.45
+

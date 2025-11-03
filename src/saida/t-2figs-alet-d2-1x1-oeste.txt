@@ -1,0 +1,103 @@
+pd 3 4.12 7.39
+
+lc 6 4
+
+Conteúdo da pilha:
+Linha com id:8
+Retângulo com id:6
+Retângulo com id:5
+
+atch 3 6 9
+
+pd 5 585.28 565.76
+
+lc 8 4
+
+Conteúdo da pilha:
+Linha com id:12
+Linha com id:11
+Linha com id:10
+
+atch 5 7 8
+
+shft 3 d 1
+
+Estado do disparador 3 após shft:
+  Posição de disparo: Linha (ID: 8)
+  Carregador esquerdo: 3 formas
+  Carregador direito: 0 formas
+
+shft 5 e 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Linha (ID: 12)
+  Carregador esquerdo: 0 formas
+  Carregador direito: 3 formas
+
+shft 5 e 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Linha (ID: 12)
+  Carregador esquerdo: 0 formas
+  Carregador direito: 3 formas
+
+dsp 5 -33.61 -389.10 v
+
+
+--- Dimensões do Disparo ---
+Tipo da forma: Linha
+Posição do disparador: (585.28, 565.76)
+Deslocamento aplicado: dx=-33.61, dy=-389.10
+Posição final da forma: (551.67, 176.66)
+Distância percorrida: 390.55
+Forma disparada: linha | Deslocamento: dx=-33.61 dy=-389.10 | Posição final: X1=551.67 Y1=176.66 X2=572.59 Y2=261.55
+rjd 3 d 547.55 169.28 1.25 2.50
+
+calc
+
+
+=== Cálculo das Sobreposições ===
+Total de formas na arena: 46
+
+Sobreposição [c:14] x [r:42] - área esmagada: 2743.30
+  → Área esmagada no Round 2: 2743.30
+
+Sobreposição [r:16] x [c:45] - área esmagada: 180.91
+  → Área esmagada no Round 4: 180.91
+
+Sobreposição [l:19] x [c:31] - área esmagada: 159.78
+Sobreposição [l:19] x [l:41] - área esmagada: 115.06
+  → Área esmagada no Round 7: 274.84
+
+Sobreposição [c:25] x [c:40] - área esmagada: 1772.84
+  → Área esmagada no Round 13: 1772.84
+
+Sobreposição [r:27] x [c:31] - área esmagada: 854.88
+Sobreposição [r:27] x [l:41] - área esmagada: 115.06
+  → Área esmagada no Round 15: 969.94
+
+Sobreposição [c:28] x [r:33] - área esmagada: 272.37
+  → Área esmagada no Round 16: 272.37
+
+Sobreposição [l:29] x [c:46] - área esmagada: 162.16
+  → Área esmagada no Round 17: 162.16
+
+Sobreposição [c:31] x [l:41] - área esmagada: 115.06
+  → Área esmagada no Round 19: 115.06
+
+Sobreposição [c:36] x [r:44] - área esmagada: 424.09
+  → Área esmagada no Round 24: 424.09
+
+Sobreposição [r:42] x [l:51] - área esmagada: 69.77
+  → Área esmagada no Round 30: 69.77
+
+Sobreposição [l:12] x [l:8] - área esmagada: 174.86
+Sobreposição [l:12] x [r:6] - área esmagada: 174.86
+  → Área esmagada no Round 43: 349.71
+
+Sobreposição [l:8] x [r:6] - área esmagada: 189.82
+  → Área esmagada no Round 44: 189.82
+
+=== Resultado Final ===
+Área total esmagada: 7524.82
+
