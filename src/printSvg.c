@@ -116,9 +116,6 @@ void dimensoesDisparo(FILE* svg, double xDis, double yDis, double dx, double dy)
         printf("erro ao gerar a dimensão do disparo\n");
         return;
     }
-    // Linha contínua roxa: da posição inicial até a posição final (diagonal)
-    fprintf(svg,"<line x1=\"%lf\" y1=\"%lf\" x2=\"%lf\" y2=\"%lf\" stroke=\"purple\" stroke-width=\"2\" />\n", xDis, yDis, xDis+dx, yDis+dy);
-    
     // Linhas tracejadas azuis formando um retângulo
     // Linha horizontal superior: de (xDis, yDis) até (xDis+dx, yDis)
     fprintf(svg,"<line x1=\"%lf\" y1=\"%lf\" x2=\"%lf\" y2=\"%lf\" stroke=\"blue\" stroke-width=\"2\" stroke-dasharray=\"2 2\" />\n", xDis, yDis, xDis+dx, yDis);

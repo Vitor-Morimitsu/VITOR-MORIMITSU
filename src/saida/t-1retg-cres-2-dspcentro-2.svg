@@ -1,0 +1,74 @@
+<svg xmlns:svg="http://www.w3.org/2000/svg" xmlns="http://www.w3.org/2000/svg" version="1.1">
+<line x1="10.000000" y1="10.000000" x2="367.860000" y2="10.000000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="367.860000" y1="10.000000" x2="367.860000" y2="369.580000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="367.860000" y1="369.580000" x2="10.000000" y2="369.580000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="10.000000" y1="369.580000" x2="10.000000" y2="10.000000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="10.000000" y1="10.000000" x2="374.810000" y2="10.000000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="374.810000" y1="10.000000" x2="374.810000" y2="374.780000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="374.810000" y1="374.780000" x2="10.000000" y2="374.780000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="10.000000" y1="374.780000" x2="10.000000" y2="10.000000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="710.000000" y1="10.000000" x2="352.140000" y2="10.000000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="352.140000" y1="10.000000" x2="352.140000" y2="369.580000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="352.140000" y1="369.580000" x2="710.000000" y2="369.580000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="710.000000" y1="369.580000" x2="710.000000" y2="10.000000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="710.000000" y1="10.000000" x2="359.100000" y2="10.000000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="359.100000" y1="10.000000" x2="359.100000" y2="374.780000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="359.100000" y1="374.780000" x2="710.000000" y2="374.780000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="710.000000" y1="374.780000" x2="710.000000" y2="10.000000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="710.000000" y1="710.000000" x2="352.140000" y2="710.000000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="352.140000" y1="710.000000" x2="352.140000" y2="350.420000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="352.140000" y1="350.420000" x2="710.000000" y2="350.420000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="710.000000" y1="350.420000" x2="710.000000" y2="710.000000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="710.000000" y1="710.000000" x2="352.410000" y2="710.000000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="352.410000" y1="710.000000" x2="352.410000" y2="354.920000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="352.410000" y1="354.920000" x2="710.000000" y2="354.920000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="710.000000" y1="354.920000" x2="710.000000" y2="710.000000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="10.000000" y1="710.000000" x2="367.860000" y2="710.000000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="367.860000" y1="710.000000" x2="367.860000" y2="350.420000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="367.860000" y1="350.420000" x2="10.000000" y2="350.420000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="10.000000" y1="350.420000" x2="10.000000" y2="710.000000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="10.000000" y1="710.000000" x2="368.130000" y2="710.000000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="368.130000" y1="710.000000" x2="368.130000" y2="354.920000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="368.130000" y1="354.920000" x2="10.000000" y2="354.920000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<line x1="10.000000" y1="354.920000" x2="10.000000" y2="710.000000" stroke="blue" stroke-width="2" stroke-dasharray="2 2" />
+<text fill="red" x="385.06" y="385.73" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+<text fill="red" x="379.86" y="381.68" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+<text fill="red" x="379.86" y="381.68" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+<text fill="red" x="379.86" y="381.68" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+<text fill="red" x="379.86" y="381.68" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+<text fill="red" x="379.86" y="381.68" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+<text fill="red" x="379.86" y="381.68" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+<text fill="red" x="385.06" y="385.73" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+<text fill="red" x="385.06" y="385.73" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+<text fill="red" x="385.06" y="385.73" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+<text fill="red" x="385.06" y="385.73" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+<text fill="red" x="385.06" y="385.73" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+<text fill="red" x="385.06" y="385.73" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+<text fill="red" x="372.85" y="388.03" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+<text fill="red" x="367.64" y="383.98" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+<text fill="red" x="367.64" y="383.98" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+<text fill="red" x="367.64" y="383.98" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+<text fill="red" x="367.64" y="383.98" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+<text fill="red" x="372.85" y="388.03" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+<text fill="red" x="372.85" y="388.03" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+<text fill="red" x="372.85" y="388.03" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+<text fill="red" x="372.85" y="388.03" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+<text fill="red" x="376.66" y="375.07" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+<text fill="red" x="378.14" y="371.72" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+<text fill="red" x="378.14" y="371.72" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+<text fill="red" x="376.66" y="375.07" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+<text fill="red" x="376.66" y="375.07" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+<text fill="red" x="395.88" y="377.37" font-size="25" text-anchor="middle" dominant-baseline="middle" font-weight="bold">*</text>
+	<rect id="21" x="59.187600" y="347.465167" width="69.500000" height="54.100000" stroke="#784421" fill="#00aa88" opacity="0.5" />
+	<rect id="22" x="480.670374" y="167.172712" width="73.000000" height="56.400000" stroke="#6600ff" fill="#c8ab37" opacity="0.5" />
+	<rect id="23" x="671.958342" y="89.372388" width="76.500000" height="58.700000" stroke="#784421" fill="#00aa88" opacity="0.5" />
+	<rect id="24" x="583.951317" y="164.299397" width="80.000000" height="61.000000" stroke="#6600ff" fill="#c8ab37" opacity="0.5" />
+	<rect id="8" x="367.860000" y="369.580000" width="24.000000" height="24.200000" stroke="#6600ff" fill="#c8ab37" opacity="0.5" />
+	<rect id="7" x="374.810000" y="374.780000" width="20.500000" height="21.900000" stroke="#784421" fill="#00aa88" opacity="0.5" />
+	<rect id="10" x="352.140000" y="369.580000" width="31.000000" height="28.800000" stroke="#6600ff" fill="#c8ab37" opacity="0.5" />
+	<rect id="9" x="359.100000" y="374.780000" width="27.500000" height="26.500000" stroke="#784421" fill="#00aa88" opacity="0.5" />
+	<rect id="16" x="352.140000" y="350.420000" width="52.000000" height="42.600000" stroke="#6600ff" fill="#c8ab37" opacity="0.5" />
+	<rect id="15" x="352.410000" y="354.920000" width="48.500000" height="40.300000" stroke="#784421" fill="#00aa88" opacity="0.5" />
+	<rect id="18" x="367.860000" y="350.420000" width="59.000000" height="47.200000" stroke="#6600ff" fill="#c8ab37" opacity="0.5" />
+	<rect id="17" x="368.130000" y="354.920000" width="55.500000" height="44.900000" stroke="#784421" fill="#00aa88" opacity="0.5" />
+</svg>
