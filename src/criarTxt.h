@@ -12,6 +12,7 @@
 #include "texto.h"
 #include "disparador.h"
 #include "carregador.h"
+#include "printSvg.h"
 
 /*
     Arquivo .h responsável por criar um arquivo .txt com as instruções contidas no primeiro trabalho de estruturas de dados.
@@ -39,6 +40,7 @@ void comandoRjd(FILE* arqTxt, Fila filaDisparadores, int idDis,Fila filaCarregad
 
 /// @brief Reportar o resultado de cada verificação; área total esmagada no round e a área total esmagada
 /// @param arqTxt Arquivo destino
-void comandoCalc(FILE* arqTxt,Fila chao);
+/// @param chao Fila com as formas na arena
+void comandoCalc(FILE* arqTxt, FILE* svg, Fila chao);
 
 #endif

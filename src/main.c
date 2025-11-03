@@ -114,20 +114,21 @@ int main(int argc, char* argv[])
             printf("Erro ao abrir arquivo txt para escrita\n");
             return 1;
         }
-        
-        lerQry(arqQry,arqTxt,filaDisparadores,filaPilhas,chao);
-        
-        fclose(arqQry);
-        fclose(arqTxt);
-
-        // Gera arquivo SVG de saída com resultados das consultas
         FILE* arqSvgSaida = fopen(arquivoSaidaSvgQry, "w"); 
         if(arqSvgSaida == NULL) {
             printf("Erro ao abrir o SVG de saída no main\n");
             return 1;
         }
         
+        // Abre o SVG antes de processar o qry
         abrirSvg(arqSvgSaida);
+        
+        lerQry(arqQry,arqTxt,arqSvgSaida,filaDisparadores,filaPilhas,chao);
+        
+        fclose(arqQry);
+        fclose(arqTxt);
+
+        // Gera arquivo SVG de saída com resultados das consultas
         gerarSvgSaida(arqSvgSaida, chao);
         fecharSVG(arqSvgSaida);
         fclose(arqSvgSaida);

@@ -19,7 +19,6 @@ typedef void* Estilo;
     Arquivo .h para criação e mudança de estilos de texto.
 */
 
-
 // ------------------ FUNÇÕES DE TEXTO --------------------- //
 /// @brief Cria e retorna um texto com os atributos fornecidos
 /// @param i Identificador do texto

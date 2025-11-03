@@ -9,6 +9,7 @@
     "hide-files.files": [],
     "files.associations": {
         "geo.h": "c",
-        "printsvggeo.h": "c"
+        "printsvggeo.h": "c",
+        "texto.h": "c"
     }
 }

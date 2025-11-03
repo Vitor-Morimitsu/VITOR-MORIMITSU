@@ -1,0 +1,38 @@
+pd 1 100.00 100.00
+
+lc 1 5
+
+Conteúdo da pilha:
+Retângulo com id:9
+Retângulo com id:8
+Retângulo com id:7
+Retângulo com id:6
+Retângulo com id:5
+atch 1 1 2
+
+shft 1 d 1
+
+dsp 1 50.00 75.00 v
+
+
+--- Dimensões do Disparo ---
+Tipo da forma: Retângulo
+Posição do disparador: (100.00, 100.00)
+Deslocamento aplicado: dx=50.00, dy=75.00
+Posição final da forma: (150.00, 175.00)
+Distância percorrida: 90.14
+Forma disparada: retângulo | Deslocamento: dx=50.00 dy=75.00 | Posição final: X=119.68 Y=216.87
+shft 1 d 1
+
+dsp 1 -30.00 40.00 v
+
+
+--- Dimensões do Disparo ---
+Tipo da forma: Retângulo
+Posição do disparador: (100.00, 100.00)
+Deslocamento aplicado: dx=-30.00, dy=40.00
+Posição final da forma: (70.00, 140.00)
+Distância percorrida: 50.00
+Forma disparada: retângulo | Deslocamento: dx=-30.00 dy=40.00 | Posição final: X=119.68 Y=216.87
+calc
+

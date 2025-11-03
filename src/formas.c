@@ -5,7 +5,7 @@
 #include "retangulo.h"
 #include "linha.h"
 
-void liberaTexto(Texto t); // Explicit declaration
+void liberaTexto(Texto t);
 
 typedef struct{
     Forma fig;
@@ -15,6 +15,16 @@ typedef struct{
 Pacote criarPacote(){
     stPacote* pac = (stPacote*)malloc(sizeof(stPacote));
     return pac;
+}
+
+int getIdForma(Forma f, char tipo){
+    if(f == NULL) return -1;
+    if(tipo == 'c') return getIDCirculo((Circulo)f);
+    else if(tipo == 'r') return getIDRetangulo((Retangulo)f);
+    else if(tipo == 'l') return getIDLinha((Linha)f);
+    else if(tipo == 't') return getIDTexto((Texto)f);
+
+    return -1;
 }
 
 void setFormaPacote(Pacote pac, Forma forma){

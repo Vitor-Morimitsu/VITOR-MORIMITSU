@@ -42,7 +42,7 @@ void qryAtch(Fila disparadores, Fila carregadores,int idDisparador, int idEsquer
 /*
     Função que pressiona o botão esquerdo(e) ou o botão direito(d) do disparador d n vezes
 */
-void qryShft(Fila disparadores, Fila carregadores, int idDis, char lado, int n);
+void qryShft(FILE* txt,Fila disparadores, Fila carregadores, int idDis, char lado, int n);
 
 /*
     Função responsável por fechar o arquivo .qry que havia sido previamente aberto.
@@ -52,7 +52,7 @@ void fecharQry(FILE* arqQry);
 /*
     Função que realiza uma rajada de disparos até as formas do carregador se esgotarem
 */
-void qryRjd(Fila disparadores, Fila carregadores, Fila arena,int idDis, char lado,double dx, double dy,double ix, double iy);
+void qryRjd(FILE* txt,Fila disparadores, Fila carregadores, Fila arena,int idDis, char lado,double dx, double dy,double ix, double iy);
 
 /* 
 

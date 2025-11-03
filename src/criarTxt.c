@@ -1,4 +1,5 @@
 #include "criarTxt.h"
+#include "printSvg.h"
 
 void comandoLc(FILE* arqTxt, Pilha p){
     if(arqTxt == NULL || p == NULL){
@@ -27,36 +28,50 @@ void comandoLc(FILE* arqTxt, Pilha p){
     }
 }
 
-void comandoShft(FILE* arqTxt,int idDis, Fila filaDisparadores){
+void comandoShft(FILE* arqTxt, int idDis, Fila filaDisparadores){
     if(arqTxt == NULL){
-        printf("Erro ao abrir o arquivo txt.");
-        exit(1);
+        return;
     }
 
     Disparador disp = encontrarDisparadorPorId(filaDisparadores, idDis);
     if(disp == NULL){
-        printf("Erro ao acessar o disparador.");
+        fprintf(arqTxt, "Disparador ID %d não encontrado.\n", idDis);
         return;
     }
 
-    Forma centro = getConteudoCentro(disp);
+    Pacote centro = getConteudoCentro(disp);
+    
+    fprintf(arqTxt, "Estado do disparador %d após shft:\n", idDis);
+    
     if(centro == NULL){
-        printf("A posição de disparo está vazia.");
-        return;
+        fprintf(arqTxt, "  Posição de disparo: VAZIA\n");
     }else{
-        char fig = getTipoPacote(centro);
-        char* figura = "desconhecida";
-        if(fig == 'c'){
-            figura = "circulo";
-        }else if(fig == 'r'){
-            figura = "retangulo";
-        }else if(fig == 'l'){
-            figura = "linha";
-        }else if(fig == 't'){
-            figura = "texto";
-        }
-        fprintf(arqTxt, "A figura que está no centro é %s\n", figura);
+        char tipo = getTipoPacote(centro);
+        Forma forma = getFormaPacote(centro);
+        int id = getIdForma(forma, tipo);
+        
+        const char* nomeTipo = (tipo == 'c') ? "Círculo" : 
+                               (tipo == 'r') ? "Retângulo" : 
+                               (tipo == 'l') ? "Linha" : "Texto";
+        
+        fprintf(arqTxt, "  Posição de disparo: %s (ID: %d)\n", nomeTipo, id);
     }
+    
+    // Mostra estado dos carregadores
+    Carregador ce = getCarregadorDisparador(disp, 'e');
+    Carregador cd = getCarregadorDisparador(disp, 'd');
+    
+    if(ce != NULL){
+        Pilha pe = getPilhaCarregador(ce);
+        fprintf(arqTxt, "  Carregador esquerdo: %d formas\n", getTamanhoPilha(pe));
+    }
+    
+    if(cd != NULL){
+        Pilha pd = getPilhaCarregador(cd);
+        fprintf(arqTxt, "  Carregador direito: %d formas\n", getTamanhoPilha(pd));
+    }
+    
+    fprintf(arqTxt, "\n");
 }
 
 void comandoDsp(FILE* arqTxt, Fila chao, double dx, double dy){
@@ -164,111 +179,119 @@ void comandoDsp(FILE* arqTxt, Fila chao, double dx, double dy){
 //     }
 // }
 
-// void comandoCalc(FILE* arqTxt, Fila chao) {
-//     if (arqTxt == NULL || chao == NULL) {
-//         printf("Erro: Arquivo Txt ou Fila 'chao' nulos no comando calc.\n");
-//         return; 
-//     }
+void comandoCalc(FILE* arqTxt,FILE* svg, Fila chao) {
+    if (arqTxt == NULL || chao == NULL) {
+        printf("Erro: Arquivo Txt ou Fila 'chao' nulos no comando calc.\n");
+        return; 
+    }
 
-//     double area_esmagada_total = 0.0;
-//     int confirmacao = 0; 
+    double area_esmagada_total = 0.0;
+    int tamanhoFila = getTamanhoFila(chao);
+    
+    fprintf(arqTxt, "\n=== Cálculo das Sobreposições ===\n");
+    fprintf(arqTxt, "Total de formas na arena: %d\n\n", tamanhoFila);
 
-//     printf("calculo das sobreposições\n");
-
-//     Forma atual = getPrimeiroConteudoFila(chao);
-//     while (atual != NULL) {
-//         double areaEsmagadaRound = 0.0;
-//         Forma f1 = getPrimeiroConteudoFila(chao);
-//         if (f1 == NULL) {
-//             atual = getProximoNoFila(atual);
-//             continue;
-//         }
-//         char tipo_f1 = getTipoPacote(f1);
-//         void* figura1 = getFiguraForma(f1);
-//         if (figura1 == NULL) {
-//              printf("  Aviso: Figura interna nula encontrada (Tipo %c).\n", tipo_f1);
-//              atual = getProximoNoFila(atual);
-//              continue;
-//         }
-
-//         Forma no2 = getProximoNoFila(atual);
-//         while (no2 != NULL) {
-//             Forma f2 = (Forma)getConteudoDoNoFila(no2);
-//             if (f2 == NULL) {
-//                 no2 = getProximoNoFila(no2);
-//                 continue;
-//             }
-//             char tipo_f2 = getTipoPacote(f2);
-//             void* figura2 = getFiguraForma(f2);
-//              if (figura2 == NULL) {
-//                 printf("  Aviso: Figura interna nula encontrada (Tipo %c).\n", tipo_f2);
-//                 no2 = getProximoNoFila(no2);
-//                 continue;
-//             }
-
-//             confirmacao = 0; 
-
-//             if (tipo_f1 == 'c') {
-//                 Circulo* c1 = (Circulo*)figura1;
-//                 if (tipo_f2 == 'c') confirmacao = circuloSobrepoeCirculo(c1, (Circulo*)figura2);
-//                 else if (tipo_f2 == 'r') confirmacao = circuloSobrepoeRetangulo(c1, (Retangulo*)figura2);
-//                 else if (tipo_f2 == 'l') confirmacao = circuloSobrepoeLinha(c1, (Linha*)figura2);
-//                 else if (tipo_f2 == 't') confirmacao = circuloSobrepoeTexto(c1, (Texto*)figura2);
-//             } else if (tipo_f1 == 'r') {
-//                 Retangulo* r1 = (Retangulo*)figura1;
-//                 if (tipo_f2 == 'c') confirmacao = circuloSobrepoeRetangulo((Circulo*)figura2, r1); 
-//                 else if (tipo_f2 == 'r') confirmacao = retanguloSobrepoeRetangulo(r1, (Retangulo*)figura2);
-//                 else if (tipo_f2 == 'l') confirmacao = retanguloSobrepoeLinha(r1, (Linha*)figura2);
-//                 else if (tipo_f2 == 't') confirmacao = retanguloSobrepoeTexto(r1, (Texto*)figura2);
-//             } else if (tipo_f1 == 'l') {
-//                 Linha* l1 = (Linha*)figura1;
-//                 if (tipo_f2 == 'c') confirmacao = circuloSobrepoeLinha((Circulo*)figura2, l1); 
-//                 else if (tipo_f2 == 'r') confirmacao = retanguloSobrepoeLinha((Retangulo*)figura2, l1); 
-//                 else if (tipo_f2 == 'l') confirmacao = linhaSobrepoeLinha(l1, (Linha*)figura2);
-//                 else if (tipo_f2 == 't') confirmacao = linhaSobrepoeTexto(l1, (Texto*)figura2);
-//             } else if (tipo_f1 == 't') {
-//                 Texto* t1 = (Texto*)figura1;
-//                 if (tipo_f2 == 'c') confirmacao = circuloSobrepoeTexto((Circulo*)figura2, t1); 
-//                 else if (tipo_f2 == 'r') confirmacao = retanguloSobrepoeTexto((Retangulo*)figura2, t1); 
-//                 else if (tipo_f2 == 'l') confirmacao = linhaSobrepoeTexto((Linha*)figura2, t1); 
-//                 else if (tipo_f2 == 't') confirmacao = textoSobrepoeTexto(t1, (Texto*)figura2);
-//             }
-
-//             if (confirmacao == 1) {
-//                 double area_f1 = -1.0, area_f2 = -1.0;
-//                 if (tipo_f1 == 'c') area_f1 = getAreaCirculo((Circulo*)figura1);
-//                 else if (tipo_f1 == 'r') area_f1 = getAreaRetangulo((Retangulo*)figura1);
-//                 else if (tipo_f1 == 'l') area_f1 = getAreaLinha((Linha*)figura1);
-//                 else if (tipo_f1 == 't') area_f1 = getAreaTexto((Texto*)figura1);
-
-//                 if (tipo_f2 == 'c') area_f2 = getAreaCirculo((Circulo*)figura2);
-//                 else if (tipo_f2 == 'r') area_f2 = getAreaRetangulo((Retangulo*)figura2);
-//                 else if (tipo_f2 == 'l') area_f2 = getAreaLinha((Linha*)figura2);
-//                 else if (tipo_f2 == 't') area_f2 = getAreaTexto((Texto*)figura2);
-
-//                 if (area_f1 >= 0.0 && area_f2 >= 0.0) {
-//                     if (area_f1 < area_f2) {
-//                         areaEsmagadaRound += area_f1;
-//                         area_esmagada_total += area_f1;
-//                         // printf("  Sobreposição: [%c %d] sobre [%c %d]. Menor área (%.2f) adicionada.\n",
-//                         //         tipo_f1, getIDForma(f1), tipo_f2, getIDForma(f2), area_f1);
-//                     } else {
-//                         areaEsmagadaRound += area_f2;
-//                         area_esmagada_total += area_f2;
-//                         // printf("  Sobreposição: [%c %d] sobre [%c %d]. Menor área (%.2f) adicionada.\n",
-//                         //         tipo_f1, getIDForma(f1), tipo_f2, getIDForma(f2), area_f2);
-//                     }
-//                 } else {
-//                     // printf("  Sobreposição: [%c %d] sobre [%c %d]. Uma das áreas inválida (linha/texto?), não somado.\n",
-//                     //             tipo_f1, getIDForma(f1), tipo_f2, getIDForma(f2));
-//                 }
-//             } 
-
-//             no2 = getProximoNoFila(no2); 
-//         } 
-//         fprintf(arqTxt,"Área esmagada no Round: %.2f\n", areaEsmagadaRound);
-//         atual = getProximoNoFila(atual);
-//     } 
-//     fprintf(arqTxt, "--- Fim dos Cálculos ---\n");
-//     fprintf(arqTxt, "Área total esmagada: %.2f\n\n", area_esmagada_total);
-// }
+    // Percorre todas as formas comparando com as seguintes
+    for(int i = 0; i < tamanhoFila; i++) {
+        double areaEsmagadaRound = 0.0;
+        
+        // Cria clone para pegar a forma i
+        Fila clone1 = clonarFilaChao(chao);
+        
+        // Avança até a forma i
+        for(int skip = 0; skip < i; skip++) {
+            removeFila(clone1);
+        }
+        
+        Pacote p1 = getPrimeiroConteudoFila(clone1);
+        if(p1 == NULL) {
+            liberarClone(clone1);
+            break;
+        }
+        
+        char tipo_p1 = getTipoPacote(p1);
+        Forma f1 = getFormaPacote(p1);
+        int id1 = getIdForma(f1, tipo_p1);
+        
+        // Compara com todas as formas seguintes (j > i)
+        for(int j = i + 1; j < tamanhoFila; j++) {
+            Fila clone2 = clonarFilaChao(chao);
+            
+            // Avança até a forma j
+            for(int skip = 0; skip < j; skip++) {
+                removeFila(clone2);
+            }
+            
+            Pacote p2 = getPrimeiroConteudoFila(clone2);
+            if(p2 == NULL) {
+                liberarClone(clone2);
+                break;
+            }
+            
+            char tipo_p2 = getTipoPacote(p2);
+            Forma f2 = getFormaPacote(p2);
+            int id2 = getIdForma(f2, tipo_p2);
+            
+            // Verifica sobreposição usando a função genérica
+            int sobrepoe = formasSobrepoem(p1, p2);
+            
+            if (sobrepoe == 1) {
+                double area_f1 = getAreaPacote(p1);
+                double area_f2 = getAreaPacote(p2);
+                
+                if (area_f1 >= 0.0 && area_f2 >= 0.0) {
+                    double menorArea = (area_f1 < area_f2) ? area_f1 : area_f2;
+                    areaEsmagadaRound += menorArea;
+                    area_esmagada_total += menorArea;
+                    
+                    // Marca com asterisco a forma de menor área (esmagada)
+                    if(svg != NULL){
+                        if(area_f1 < area_f2){
+                            // Calcula centro da forma 1
+                            double xCentro = getXPacote(p1);
+                            double yCentro = getYPacote(p1);
+                            
+                            if(tipo_p1 == 'r'){
+                                Retangulo* ret = (Retangulo*)f1;
+                                xCentro += getWRetangulo(ret) / 2.0;
+                                yCentro += getHRetangulo(ret) / 2.0;
+                            }
+                            // Círculo já retorna o centro em getXPacote/getYPacote
+                            
+                            printAsterisco(svg, xCentro, yCentro);
+                        }else{
+                            // Calcula centro da forma 2
+                            double xCentro = getXPacote(p2);
+                            double yCentro = getYPacote(p2);
+                            
+                            if(tipo_p2 == 'r'){
+                                Retangulo* ret = (Retangulo*)f2;
+                                xCentro += getWRetangulo(ret) / 2.0;
+                                yCentro += getHRetangulo(ret) / 2.0;
+                            }
+                            
+                            printAsterisco(svg, xCentro, yCentro);
+                        }
+                    }
+                    
+                    fprintf(arqTxt, "Sobreposição detectada: [%c:%d] x [%c:%d] | Área esmagada: %.2lf\n",
+                            tipo_p1, id1, tipo_p2, id2, menorArea);
+                } else {
+                    fprintf(arqTxt, "Sobreposição detectada: [%c:%d] x [%c:%d] | Área inválida (linha/texto)\n",
+                            tipo_p1, id1, tipo_p2, id2);
+                }
+            }
+            
+            liberarClone(clone2);
+        }
+        
+        if(areaEsmagadaRound > 0.0) {
+            fprintf(arqTxt, "  → Área esmagada no Round %d: %.2lf\n\n", i+1, areaEsmagadaRound);
+        }
+        
+        liberarClone(clone1);
+    }
+    
+    fprintf(arqTxt, "=== Resultado Final ===\n");
+    fprintf(arqTxt, "Área total esmagada: %.2lf\n\n", area_esmagada_total);
+}
