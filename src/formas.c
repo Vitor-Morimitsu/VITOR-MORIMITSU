@@ -4,6 +4,7 @@
 #include "circulo.h"
 #include "retangulo.h"
 #include "linha.h"
+#include <string.h>
 
 void liberaTexto(Texto t);
 
@@ -213,4 +214,122 @@ void liberaFormaPacote(Pacote pac){
 void freePacote(Pacote pac){
     liberaFormaPacote(pac);
     free(pac);    
+}
+char*
+ getCorPreenchimentoPacote(Pacote pac){
+    if(pac == NULL) return NULL;
+    
+    stPacote* p = (stPacote*)pac;
+    
+    if(p->tipo == 'c'){
+        return getCorPCirculo((Circulo)p->fig);
+    }else if(p->tipo == 'r'){
+        return getCorPRetangulo((Retangulo)p->fig);
+    }else if(p->tipo == 't'){
+        return getCorPTexto((Texto)p->fig);
+    }
+    
+    return NULL; // Linha não tem cor de preenchimento
+}
+
+void mudarCorBordaPacote(Pacote pac, char* novaCor){
+    if(pac == NULL || novaCor == NULL) return;
+    
+    stPacote* p = (stPacote*)pac;
+    
+    // Aloca memória para a nova cor
+    char* corCopia = (char*)malloc(strlen(novaCor) + 1);
+    strcpy(corCopia, novaCor);
+    
+    if(p->tipo == 'c'){
+        setCorBCirculo((Circulo)p->fig, corCopia);
+    }else if(p->tipo == 'r'){
+        setCorBRetangulo((Retangulo)p->fig, corCopia);
+    }else if(p->tipo == 't'){
+        setCorBTexto((Texto)p->fig, corCopia);
+    }else if(p->tipo == 'l'){
+        setCorLinha((Linha)p->fig, corCopia);
+    }
+}
+
+Pacote clonarPacoteComCoresInvertidas(Pacote pac){
+    if(pac == NULL) return NULL;
+    
+    stPacote* p = (stPacote*)pac;
+    Pacote novoPac = criarPacote();
+    setTipoPacote(novoPac, p->tipo);
+    
+    if(p->tipo == 'c'){
+        Circulo* orig = (Circulo*)p->fig;
+        char* corb = getCorBCirculo(orig);
+        char* corp = getCorPCirculo(orig);
+        
+        // Cria novo círculo com cores invertidas
+        Circulo novo = criaCirculo(
+            getIDCirculo(orig),
+            getCoordXCirculo(orig),
+            getCoordYCirculo(orig),
+            getRaioCirculo(orig),
+            corp,  // borda = preenchimento original
+            corb   // preenchimento = borda original
+        );
+        setFormaPacote(novoPac, (Forma)novo);
+        
+    }else if(p->tipo == 'r'){
+        Retangulo* orig = (Retangulo*)p->fig;
+        char* corb = getCorBRetangulo(orig);
+        char* corp = getCorPRetangulo(orig);
+        
+        // Cria novo retângulo com cores invertidas
+        Retangulo novo = criaRetangulo(
+            getIDRetangulo(orig),
+            getCoordXRetangulo(orig),
+            getCoordYRetangulo(orig),
+            getWRetangulo(orig),
+            getHRetangulo(orig),
+            corp,  // borda = preenchimento original
+            corb   // preenchimento = borda original
+        );
+        setFormaPacote(novoPac, (Forma)novo);
+        
+    }else if(p->tipo == 't'){
+        Texto* orig = (Texto*)p->fig;
+        char* corb = getCorBTexto(orig);
+        char* corp = getCorPTexto(orig);
+        
+        // Cria novo texto com cores invertidas
+        Texto novo = criarTexto(
+            getIDTexto(orig),
+            getCoordXTexto(orig),
+            getCoordYTexto(orig),
+            corp,  // borda = preenchimento original
+            corb,  // preenchimento = borda original
+            getATexto(orig),
+            getTxtoTexto(orig)
+        );
+        
+        // Copia o estilo se existir
+        Estilo est = getEstiloTexto(orig);
+        if(est != NULL){
+            setEstiloTexto(novo, est);
+        }
+        
+        setFormaPacote(novoPac, (Forma)novo);
+        
+    }else if(p->tipo == 'l'){
+        // Linha não tem cores invertidas (só tem uma cor)
+        // Retorna uma cópia simples
+        Linha* orig = (Linha*)p->fig;
+        Linha nova = criarLinha(
+            getIDLinha(orig),
+            getX1Linha(orig),
+            getY1Linha(orig),
+            getX2Linha(orig),
+            getY2Linha(orig),
+            getCorLinha(orig)
+        );
+        setFormaPacote(novoPac, (Forma)nova);
+    }
+    
+    return novoPac;
 }

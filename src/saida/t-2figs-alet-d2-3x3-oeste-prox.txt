@@ -1,0 +1,127 @@
+pd 3 4.12 7.39
+
+lc 6 6
+
+Conteúdo da pilha:
+Linha com id:10
+Linha com id:8
+Retângulo com id:6
+Retângulo com id:5
+
+atch 3 6 9
+
+pd 5 585.28 565.76
+
+lc 8 6
+
+Conteúdo da pilha:
+Retângulo com id:16
+Circulo com id:14
+Linha com id:13
+Linha com id:12
+Linha com id:11
+
+atch 5 7 8
+
+shft 3 d 1
+
+Estado do disparador 3 após shft:
+  Posição de disparo: Linha (ID: 10)
+  Carregador esquerdo: 5 formas
+  Carregador direito: 0 formas
+
+shft 5 e 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Retângulo (ID: 16)
+  Carregador esquerdo: 0 formas
+  Carregador direito: 5 formas
+
+shft 5 e 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Retângulo (ID: 16)
+  Carregador esquerdo: 0 formas
+  Carregador direito: 5 formas
+
+dsp 5 -33.61 -389.10 i
+
+Forma disparada: retângulo | Deslocamento: dx=-33.61 dy=-389.10 | Posição final: X=551.67 Y=176.66
+shft 5 e 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Texto (ID: -1)
+  Carregador esquerdo: 0 formas
+  Carregador direito: 4 formas
+
+dsp 5 -31.11 -384.10 i
+
+Forma disparada: desconhecida | Deslocamento: dx=-31.11 dy=-384.10 | Posição final: X=-1.00 Y=-1.00
+shft 5 e 1
+
+Estado do disparador 5 após shft:
+  Posição de disparo: Círculo (ID: 14)
+  Carregador esquerdo: 0 formas
+  Carregador direito: 3 formas
+
+dsp 5 -28.61 -379.10 i
+
+Forma disparada: círculo | Deslocamento: dx=-28.61 dy=-379.10 | Posição final: X=556.67 Y=186.66
+rjd 3 d 547.55 169.28 2.50 5.00
+
+calc
+
+
+=== Cálculo das Sobreposições ===
+Total de formas na arena: 46
+
+Sobreposição [l:19] x [c:31] - área esmagada: 159.78
+Sobreposição [l:19] x [l:41] - área esmagada: 115.06
+  → Área esmagada no Round 3: 274.84
+
+Sobreposição [l:21] x [c:14] - área esmagada: 200.80
+  → Área esmagada no Round 5: 200.80
+
+Sobreposição [c:25] x [c:40] - área esmagada: 1772.84
+  → Área esmagada no Round 9: 1772.84
+
+Sobreposição [r:27] x [c:31] - área esmagada: 854.88
+Sobreposição [r:27] x [l:41] - área esmagada: 115.06
+  → Área esmagada no Round 11: 969.94
+
+Sobreposição [c:28] x [r:33] - área esmagada: 272.37
+  → Área esmagada no Round 12: 272.37
+
+Sobreposição [l:29] x [c:46] - área esmagada: 162.16
+  → Área esmagada no Round 13: 162.16
+
+Sobreposição [c:31] x [l:41] - área esmagada: 115.06
+  → Área esmagada no Round 15: 115.06
+
+Sobreposição [c:36] x [r:44] - área esmagada: 424.09
+  → Área esmagada no Round 20: 424.09
+
+Sobreposição [r:42] x [l:51] - área esmagada: 69.77
+  → Área esmagada no Round 26: 69.77
+
+Sobreposição [r:16] x [c:14] - área esmagada: 2743.30
+Sobreposição [r:16] x [l:10] - área esmagada: 92.67
+Sobreposição [r:16] x [l:8] - área esmagada: 189.82
+Sobreposição [r:16] x [r:6] - área esmagada: 973.46
+  → Área esmagada no Round 39: 3999.25
+
+Sobreposição [c:14] x [l:10] - área esmagada: 92.67
+Sobreposição [c:14] x [l:8] - área esmagada: 189.82
+Sobreposição [c:14] x [r:6] - área esmagada: 973.46
+  → Área esmagada no Round 41: 1255.95
+
+Sobreposição [l:10] x [l:8] - área esmagada: 92.67
+Sobreposição [l:10] x [r:6] - área esmagada: 92.67
+  → Área esmagada no Round 42: 185.34
+
+Sobreposição [l:8] x [r:6] - área esmagada: 189.82
+  → Área esmagada no Round 44: 189.82
+
+=== Resultado Final ===
+Área total esmagada: 9892.23
+

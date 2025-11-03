@@ -29,10 +29,10 @@ void comandoShft(FILE* arqTxt, int idDis,Fila filaDisparadores);
 
 /// @brief Reportar os dados da forma disparada e a posição final da forma
 /// @param arqTxt Arquivo destino
-/// @param chao Fila com as formas na arena
+/// @param pacote Pacote disparado
 /// @param dx Deslocamento X
 /// @param dy Deslocamento Y
-void comandoDsp(FILE* arqTxt, Fila chao, double dx, double dy);
+void comandoDsp(FILE* arqTxt, Pacote pacote, double dx, double dy);
 
 /// @brief Reportar os dados das formas disapradas
 /// @param arqTxt Arquivo destino

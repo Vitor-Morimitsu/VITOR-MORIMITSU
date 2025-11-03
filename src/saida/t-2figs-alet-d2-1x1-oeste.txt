@@ -41,17 +41,17 @@ Estado do disparador 5 após shft:
   Carregador esquerdo: 0 formas
   Carregador direito: 3 formas
 
-dsp 5 -387.78 6.74 v
+dsp 5 -33.61 -389.10 v
 
 
 --- Dimensões do Disparo ---
 Tipo da forma: Linha
 Posição do disparador: (585.28, 565.76)
-Deslocamento aplicado: dx=-387.78, dy=6.74
-Posição final da forma: (197.50, 572.50)
-Distância percorrida: 387.84
-Forma disparada: linha | Deslocamento: dx=-387.78 dy=6.74 | Posição final: X1=197.50 Y1=572.50 X2=218.42 Y2=657.39
-rjd 3 d 193.38 565.11 1.25 2.50
+Deslocamento aplicado: dx=-33.61, dy=-389.10
+Posição final da forma: (551.67, 176.66)
+Distância percorrida: 390.55
+Forma disparada: linha | Deslocamento: dx=-33.61 dy=-389.10 | Posição final: X1=551.67 Y1=176.66 X2=572.59 Y2=261.55
+rjd 3 d 547.55 169.28 1.25 2.50
 
 calc
 

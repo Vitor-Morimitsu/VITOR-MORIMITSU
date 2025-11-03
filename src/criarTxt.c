@@ -74,14 +74,12 @@ void comandoShft(FILE* arqTxt, int idDis, Fila filaDisparadores){
     fprintf(arqTxt, "\n");
 }
 
-void comandoDsp(FILE* arqTxt, Fila chao, double dx, double dy){
+void comandoDsp(FILE* arqTxt, Pacote pac, double dx, double dy){
     if(arqTxt == NULL){
         printf("Erro ao acessar o arquivo txt.");
         return;
     }
     
-    // Pega a última forma adicionada na arena (chão)
-    Pacote pac = (Pacote)getPrimeiroConteudoFila(chao);
     if(pac == NULL){
         fprintf(arqTxt, "Nenhuma forma foi disparada.\n");
         return;
@@ -179,7 +177,7 @@ void comandoDsp(FILE* arqTxt, Fila chao, double dx, double dy){
 //     }
 // }
 
-void comandoCalc(FILE* arqTxt,FILE* svg, Fila chao) {
+void comandoCalc(FILE* arqTxt, FILE* svg, Fila chao) {
     if (arqTxt == NULL || chao == NULL) {
         printf("Erro: Arquivo Txt ou Fila 'chao' nulos no comando calc.\n");
         return; 
@@ -274,10 +272,10 @@ void comandoCalc(FILE* arqTxt,FILE* svg, Fila chao) {
                         }
                     }
                     
-                    fprintf(arqTxt, "Sobreposição detectada: [%c:%d] x [%c:%d] | Área esmagada: %.2lf\n",
+                    fprintf(arqTxt, "Sobreposição [%c:%d] x [%c:%d] - área esmagada: %.2lf\n",
                             tipo_p1, id1, tipo_p2, id2, menorArea);
                 } else {
-                    fprintf(arqTxt, "Sobreposição detectada: [%c:%d] x [%c:%d] | Área inválida (linha/texto)\n",
+                    fprintf(arqTxt, "Sobreposição [%c:%d] x [%c:%d] - área inválida (linha/texto)\n",
                             tipo_p1, id1, tipo_p2, id2);
                 }
             }

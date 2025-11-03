@@ -147,7 +147,7 @@ void qryShft(FILE* txt,Fila disparadores, Fila carregadores, int idDis, char lad
     }
 }
 
-void qryDsp(Fila disparadores, Fila arena, int idDis, double dx, double dy, char letra, int iteracao, FILE* arqTxt){
+Pacote qryDsp(Fila disparadores, Fila arena, int idDis, double dx, double dy, char letra, int iteracao, FILE* arqTxt, FILE* arqSvg){
     Disparador d = encontrarDisparadorPorId(disparadores, idDis);
     if(d == NULL){
         fprintf(stderr, "ERRO [dsp]: Disparador ID %d não encontrado\n", idDis);
@@ -169,10 +169,10 @@ void qryDsp(Fila disparadores, Fila arena, int idDis, double dx, double dy, char
     Pacote pacoteDisparado = dsp(d);
     if(pacoteDisparado == NULL){
         printf("nada foi disparado\n");
-        return;
+        return NULL;
     }else{
         //registra as dimensões de disparo no modo 'v'
-        if(letra == 'v' && arqTxt != NULL){
+        if(letra == 'v'){
             double xDisp = getXDisparador(d);
             double yDisp = getYDisparador(d);
             double xFinal = xDisp + dx;
@@ -184,12 +184,19 @@ void qryDsp(Fila disparadores, Fila arena, int idDis, double dx, double dy, char
                                    (tipo == 'c') ? "Círculo" : 
                                    (tipo == 'l') ? "Linha" : "Texto";
             
-            fprintf(arqTxt, "\n--- Dimensões do Disparo ---\n");
-            fprintf(arqTxt, "Tipo da forma: %s\n", nomeTipo);
-            fprintf(arqTxt, "Posição do disparador: (%.2lf, %.2lf)\n", xDisp, yDisp);
-            fprintf(arqTxt, "Deslocamento aplicado: dx=%.2lf, dy=%.2lf\n", dx, dy);
-            fprintf(arqTxt, "Posição final da forma: (%.2lf, %.2lf)\n", xFinal, yFinal);
-            fprintf(arqTxt, "Distância percorrida: %.2lf\n", distancia);
+            if(arqTxt != NULL){
+                fprintf(arqTxt, "\n--- Dimensões do Disparo ---\n");
+                fprintf(arqTxt, "Tipo da forma: %s\n", nomeTipo);
+                fprintf(arqTxt, "Posição do disparador: (%.2lf, %.2lf)\n", xDisp, yDisp);
+                fprintf(arqTxt, "Deslocamento aplicado: dx=%.2lf, dy=%.2lf\n", dx, dy);
+                fprintf(arqTxt, "Posição final da forma: (%.2lf, %.2lf)\n", xFinal, yFinal);
+                fprintf(arqTxt, "Distância percorrida: %.2lf\n", distancia);
+            }
+            
+            // Desenha as linhas de dimensão no SVG
+            if(arqSvg != NULL){
+                dimensoesDisparo(arqSvg, xDisp, yDisp, dx, dy);
+            }
         }
         
         char tipoConteudo = getTipoPacote(pacoteDisparado);
@@ -205,7 +212,6 @@ void qryDsp(Fila disparadores, Fila arena, int idDis, double dx, double dy, char
             setYCirculo(circ, yDisparador + dy);
 
         }else if(tipoConteudo == 'r'){
-            printf("ret disparado\n");
             Retangulo* ret = (Retangulo*)form;
             setCoordXRetangulo(ret,xDisparador + dx);
             setCoordYRetangulo(ret,yDisparador + dy);
@@ -229,6 +235,7 @@ void qryDsp(Fila disparadores, Fila arena, int idDis, double dx, double dy, char
         
         // Insere o PACOTE completo na arena, não apenas a forma
         insereFila(arena, pacoteDisparado);
+        return pacoteDisparado;
     }
 }
 
@@ -246,16 +253,16 @@ void qryRjd(FILE* txt,Fila disparadores, Fila carregadores, Fila arena,int idDis
     Pilha pilhaDireita = getPilhaCarregador(CD);
 
     int tamEsq = getTamanhoPilha(pilhaEsquerda);
-    printf("tamanho do carregadores esquerdo: %d\n",tamEsq);
+    
     int tamDir = getTamanhoPilha(pilhaDireita);
-    printf("Tamanho carregador direito:%d \n",tamDir);
+    
 
     if(lado == 'e'){
         //esvazia o carregador direito
         for(int i = 0; i< tamDir;i++){
             int iteracao = i;
             qryShft(NULL,disparadores,carregadores,idDis,lado,1);
-            qryDsp(disparadores,arena, idDis, dx+iteracao*ix, dy+iteracao*iy,'i',i,NULL);
+            qryDsp(disparadores,arena, idDis, dx+iteracao*ix, dy+iteracao*iy,'i',i,NULL,NULL);
         }
         
     }else if(lado == 'd'){
@@ -263,7 +270,7 @@ void qryRjd(FILE* txt,Fila disparadores, Fila carregadores, Fila arena,int idDis
         for(int i = 0;i<tamEsq;i++){
             int iteracao = i;
             qryShft(NULL,disparadores,carregadores,idDis,lado,1);
-            qryDsp(disparadores,arena, idDis, dx+iteracao*ix, dy+iteracao*iy,'i',i,NULL);
+            qryDsp(disparadores,arena, idDis, dx+iteracao*ix, dy+iteracao*iy,'i',i,NULL,NULL);
         }
     }
 }
@@ -311,7 +318,6 @@ void lerQry(FILE* arqQry, FILE* arqTxt, FILE* svg, Fila filaDisparadores,Fila fi
            
             
         }else if(strcmp(comando, "shft") == 0){
-            printf("comando shft\n");
             //pressiona o botão esquerdo(e) ou o botão direito(d) do disparador d n vezes
             char lado;
             int n, idDis;
@@ -319,20 +325,16 @@ void lerQry(FILE* arqQry, FILE* arqTxt, FILE* svg, Fila filaDisparadores,Fila fi
             qryShft(arqTxt,filaDisparadores,filaCarregadores,idDis, lado,n);
             
         }else if(strcmp(comando, "dsp") == 0){
-            printf("comando disp\n");
             //posiciona a forma que está em posição de disparo a um deslocamento de dx, dy em relação à posição do disparador
             double dx, dy;
             int iteracao = 1;
             int idDis;
             char letra;
             sscanf(linha, "dsp %i %lf %lf %c", &idDis,&dx,&dy,&letra);
-            printf("comando dsp = idDIs:%i  deslocX:%lf deslocY:%lf letra:%c\n",idDis,dx,dy,letra);
-
-            qryDsp(filaDisparadores,chao,idDis,dx,dy,letra,iteracao,arqTxt);
-            comandoDsp(arqTxt, chao, dx, dy);
+            Pacote pacDisparado = qryDsp(filaDisparadores,chao,idDis,dx,dy,letra,iteracao,arqTxt,svg);
+            comandoDsp(arqTxt, pacDisparado, dx, dy);
             
         }else if(strcmp(comando, "rjd") == 0){
-            printf("comando rjd\n");
             //rajada de disparos até as formas do carregador se esgotarem
             char car;
             int idDis, idEsq, idDir;
