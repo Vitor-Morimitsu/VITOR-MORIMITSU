@@ -78,4 +78,19 @@ void freePacote(Pacote pac);
 /// @return ID da forma ou -1 se inválida
 int getIdForma(Forma f, char tipo);
 
+/// @brief Clona um pacote com cores invertidas (borda <-> preenchimento)
+/// @param pac Pacote original
+/// @return Novo pacote clonado com cores invertidas
+Pacote clonarPacoteComCoresInvertidas(Pacote pac);
+
+/// @brief Muda a cor da borda de um pacote
+/// @param pac Pacote
+/// @param novaCor Nova cor da borda
+void mudarCorBordaPacote(Pacote pac, char* novaCor);
+
+/// @brief Obtém a cor de preenchimento de um pacote
+/// @param pac Pacote
+/// @return Cor de preenchimento (ou NULL se não aplicável)
+char* getCorPreenchimentoPacote(Pacote pac);
+
 #endif

@@ -57,7 +57,7 @@ void qryRjd(FILE* txt,Fila disparadores, Fila carregadores, Fila arena,int idDis
 /* 
 
 */
-void qryDsp(Fila disparadores, Fila arena, int idDis, double dx, double dy, char letra, int iteracao, FILE* arqTxt);
+Pacote qryDsp(Fila disparadores, Fila arena, int idDis, double dx, double dy, char letra, int iteracao, FILE* arqTxt, FILE* arqSvg);
 
 /*
     Função responsável por fechar o arquivo .txt que havia sido previamente aberto.
