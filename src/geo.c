@@ -4,13 +4,12 @@
 #include "retangulo.h"
 #include "linha.h"
 #include "formas.h"
+#include "texto.h"
 #include <string.h>
 #include <stdio.h>
 #include "printSvg.h"
 
-Estilo criarEstilo(char *fFamily, char *fWeight, char *fSize); // Explicit declaration
-#include "texto.h"
-#include "texto.h"
+Estilo criarEstilo(char *fFamily, char *fWeight, char *fSize); 
 
 typedef void* Forma;
 

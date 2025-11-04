@@ -229,7 +229,7 @@ char*
         return getCorPTexto((Texto)p->fig);
     }
     
-    return NULL; // Linha não tem cor de preenchimento
+    return NULL; //linha não tem cor de preenchimento
 }
 
 void mudarCorBordaPacote(Pacote pac, char* novaCor){
@@ -237,7 +237,7 @@ void mudarCorBordaPacote(Pacote pac, char* novaCor){
     
     stPacote* p = (stPacote*)pac;
     
-    // Aloca memória para a nova cor
+    //aloca memória para a nova cor
     char* corCopia = (char*)malloc(strlen(novaCor) + 1);
     strcpy(corCopia, novaCor);
     
@@ -264,14 +264,14 @@ Pacote clonarPacoteComCoresInvertidas(Pacote pac){
         char* corb = getCorBCirculo(orig);
         char* corp = getCorPCirculo(orig);
         
-        // Cria novo círculo com cores invertidas
+        //cria novo círculo com cores invertidas
         Circulo novo = criaCirculo(
             getIDCirculo(orig),
             getCoordXCirculo(orig),
             getCoordYCirculo(orig),
             getRaioCirculo(orig),
-            corp,  // borda = preenchimento original
-            corb   // preenchimento = borda original
+            corp,  //borda = preenchimento original
+            corb   //preenchimento = borda original
         );
         setFormaPacote(novoPac, (Forma)novo);
         
@@ -280,15 +280,15 @@ Pacote clonarPacoteComCoresInvertidas(Pacote pac){
         char* corb = getCorBRetangulo(orig);
         char* corp = getCorPRetangulo(orig);
         
-        // Cria novo retângulo com cores invertidas
+        //cria novo retângulo com cores invertidas
         Retangulo novo = criaRetangulo(
             getIDRetangulo(orig),
             getCoordXRetangulo(orig),
             getCoordYRetangulo(orig),
             getWRetangulo(orig),
             getHRetangulo(orig),
-            corp,  // borda = preenchimento original
-            corb   // preenchimento = borda original
+            corp,  //borda = preenchimento original
+            corb   //preenchimento = borda original
         );
         setFormaPacote(novoPac, (Forma)novo);
         
@@ -297,18 +297,18 @@ Pacote clonarPacoteComCoresInvertidas(Pacote pac){
         char* corb = getCorBTexto(orig);
         char* corp = getCorPTexto(orig);
         
-        // Cria novo texto com cores invertidas
+        //cria novo texto com cores invertidas
         Texto novo = criarTexto(
             getIDTexto(orig),
             getCoordXTexto(orig),
             getCoordYTexto(orig),
-            corp,  // borda = preenchimento original
-            corb,  // preenchimento = borda original
+            corp,  //borda = preenchimento original
+            corb,  //preenchimento = borda original
             getATexto(orig),
             getTxtoTexto(orig)
         );
         
-        // Copia o estilo se existir
+        //copia o estilo se existir
         Estilo est = getEstiloTexto(orig);
         if(est != NULL){
             setEstiloTexto(novo, est);
@@ -317,8 +317,8 @@ Pacote clonarPacoteComCoresInvertidas(Pacote pac){
         setFormaPacote(novoPac, (Forma)novo);
         
     }else if(p->tipo == 'l'){
-        // Linha não tem cores invertidas (só tem uma cor)
-        // Retorna uma cópia simples
+        //linha não tem cores invertidas (só tem uma cor)
+        //retorna uma cópia simples
         Linha* orig = (Linha*)p->fig;
         Linha nova = criarLinha(
             getIDLinha(orig),

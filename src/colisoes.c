@@ -104,9 +104,9 @@ int circuloSobrepoeLinha(Pacote pac1, Pacote pac2){
     double distanciaQuadrada = (dx_centro_prox * dx_centro_prox) + (dy_centro_prox * dy_centro_prox);
 
     if (distanciaQuadrada <= (raio * raio)) {
-        return 1; // Sobrepõe
+        return 1; //sobrepõe
     } else {
-        return 0; // Não sobrepõe
+        return 0; //não sobrepõe
     }
 }
 
@@ -175,9 +175,9 @@ int circuloSobrepoeTexto(Pacote pac1, Pacote pac2){
     double distanciaQuadrada = (dx_centro_prox * dx_centro_prox) + (dy_centro_prox * dy_centro_prox);
 
     if (distanciaQuadrada <= (raio * raio)) {
-        return 1; // Sobrepõe
+        return 1; //sobrepõe
     } else {
-        return 0; // Não sobrepõe
+        return 0; //não sobrepõe
     }    
 }
 
@@ -293,7 +293,7 @@ int retanguloSobrepoeRetangulo(Pacote pac1, Pacote pac2){
     Retangulo* r1 = (Retangulo*)getFormaPacote(pac1);
     Retangulo* r2 = (Retangulo*)getFormaPacote(pac2);
 
-    // Dados r1 (usando nomes mais curtos para clareza)
+    //dados r1 
     double r1_x1 = getCoordXRetangulo(r1);
     double r1_y1 = getCoordYRetangulo(r1);
     double r1_w = getWRetangulo(r1);
@@ -301,7 +301,7 @@ int retanguloSobrepoeRetangulo(Pacote pac1, Pacote pac2){
     double r1_x2 = r1_x1 + r1_w; 
     double r1_y2 = r1_y1 + r1_h; 
 
-    // Dados r2
+    //dados r2
     double r2_x1 = getCoordXRetangulo(r2);
     double r2_y1 = getCoordYRetangulo(r2);
     double r2_w = getWRetangulo(r2);
@@ -491,7 +491,7 @@ int linhaSobrepoeTexto(Pacote pac1, Pacote pac2){
     double t_param = (s2_x * (p0_y - p2_y) - s2_y * (p0_x - p2_x)) / denominador;
 
     if (s >= 0 && s <= 1 && t_param >= 0 && t_param <= 1) {
-        return 1;  // Linhas se cruzam
+        return 1;  //linhas se cruzam
     }
 
     return 0;
@@ -555,14 +555,14 @@ int textoSobrepoeTexto(Pacote pac1, Pacote pac2){
 
     //lógica de sobreposição no eixo X
     if (x2_t1 <= x1_t2) {
-        return 0;  // t1 à esquerda de t2
+        return 0;  //t1 à esquerda de t2
     }
     
     if (x1_t1 >= x2_t2) {
-        return 0;  // t1 à direita de t2
+        return 0;  //t1 à direita de t2
     }
 
-    return 1;  // Se sobrepõem
+    return 1;  //se sobrepõem
 }
 
 int formasSobrepoem(Pacote pac1, Pacote pac2){

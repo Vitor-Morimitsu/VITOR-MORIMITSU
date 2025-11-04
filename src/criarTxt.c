@@ -44,7 +44,7 @@ void comandoShft(FILE* arqTxt, int idDis, Fila filaDisparadores){
     fprintf(arqTxt, "Estado do disparador %d após shft:\n", idDis);
     
     if(centro == NULL){
-        fprintf(arqTxt, "  Posição de disparo: VAZIA\n");
+        fprintf(arqTxt, "Posição de disparo: VAZIA\n");
     }else{
         char tipo = getTipoPacote(centro);
         Forma forma = getFormaPacote(centro);
@@ -57,7 +57,7 @@ void comandoShft(FILE* arqTxt, int idDis, Fila filaDisparadores){
         fprintf(arqTxt, "  Posição de disparo: %s (ID: %d)\n", nomeTipo, id);
     }
     
-    // Mostra estado dos carregadores
+    //mostra estado dos carregadores
     Carregador ce = getCarregadorDisparador(disp, 'e');
     Carregador cd = getCarregadorDisparador(disp, 'd');
     
@@ -118,65 +118,6 @@ void comandoDsp(FILE* arqTxt, Pacote pac, double dx, double dy){
     }
 }
 
-// void comandoRjd(FILE* arqTxt, Fila filaDisparadores, int idDis,Fila filaCarregadores, char car){
-//     if (arqTxt == NULL) {
-//         fprintf(stderr, "Erro: Arquivo de texto nulo.\n");
-//         return;
-//     }
-
-//     Disparador d = encontrarDisparadorPorId(filaDisparadores, idDis);
-//     if (d == NULL) {
-//         printf("Disparador não encontrado para rajada.\n");
-//         return;
-//     }
-
-//     int idEsq = getIDPilhaEsquerda(d);
-//     int idDir = getIDPilhaDireita(d);
-//     Pilha pEsq = encontrarPilhaPorID(filaCarregadores, idEsq);
-//     Pilha pDir = encontrarPilhaPorID(filaCarregadores, idDir);
-    
-//     if (pEsq == NULL || pDir == NULL) {
-//         printf("Pilhas para o disparador não encontradas.\n");
-//         return;
-//     }
-    
-//     Pilha pilhaRajada;
-//     if (car == 'e') {
-//         pilhaRajada = pEsq;
-//     } else {
-//         pilhaRajada = pDir;
-//     }
-        
-//     int totalTiros = 0;
-
-//     while (getTamanhoPilha(pilhaRajada) > 0) {
-//         pressionaBotao(d, car, 1, pEsq, pDir);
-        
-//         Forma f = getConteudoCentro(d);
-//         if (f == NULL) break; 
-        
-//         char tipo = getTipoPacote(f);
-//         int id = getIDForma(f);
-//         const char* nomeFigura = "desconhecida";
-//         if(tipo == 'c') nomeFigura = "circulo";
-//         else if(tipo == 'r') nomeFigura = "retangulo";
-//         else if(tipo == 'l') nomeFigura = "linha";
-//         else if(tipo == 't') nomeFigura = "texto";
-        
-//         fprintf(arqTxt, "Tiro %d: Forma disparada:%s ID:%d\n", totalTiros + 1, nomeFigura, id);
-        
-//         char ladoOposto;
-//         if (car == 'e') {
-//             ladoOposto = 'd';
-//         } else {
-//             ladoOposto = 'e';
-//         }
-//         pressionaBotao(d, ladoOposto, -1, pEsq, pDir); 
-        
-//         totalTiros++;
-//     }
-// }
-
 void comandoCalc(FILE* arqTxt, FILE* svg, Fila chao) {
     if (arqTxt == NULL || chao == NULL) {
         printf("Erro: Arquivo Txt ou Fila 'chao' nulos no comando calc.\n");
@@ -189,14 +130,14 @@ void comandoCalc(FILE* arqTxt, FILE* svg, Fila chao) {
     fprintf(arqTxt, "\n=== Cálculo das Sobreposições ===\n");
     fprintf(arqTxt, "Total de formas na arena: %d\n\n", tamanhoFila);
 
-    // Percorre todas as formas comparando com as seguintes
+    //percorre todas as formas comparando com as seguintes
     for(int i = 0; i < tamanhoFila; i++) {
         double areaEsmagadaRound = 0.0;
         
-        // Cria clone para pegar a forma i
+        //cria clone para pegar a forma i
         Fila clone1 = clonarFilaChao(chao);
         
-        // Avança até a forma i
+        //avança até a forma i
         for(int skip = 0; skip < i; skip++) {
             removeFila(clone1);
         }
@@ -211,11 +152,11 @@ void comandoCalc(FILE* arqTxt, FILE* svg, Fila chao) {
         Forma f1 = getFormaPacote(p1);
         int id1 = getIdForma(f1, tipo_p1);
         
-        // Compara com todas as formas seguintes (j > i)
+        //compara com todas as formas seguintes (j > i)
         for(int j = i + 1; j < tamanhoFila; j++) {
             Fila clone2 = clonarFilaChao(chao);
             
-            // Avança até a forma j
+            //avança até a forma j
             for(int skip = 0; skip < j; skip++) {
                 removeFila(clone2);
             }
@@ -230,7 +171,7 @@ void comandoCalc(FILE* arqTxt, FILE* svg, Fila chao) {
             Forma f2 = getFormaPacote(p2);
             int id2 = getIdForma(f2, tipo_p2);
             
-            // Verifica sobreposição usando a função genérica
+            //verifica sobreposição usando a função genérica
             int sobrepoe = formasSobrepoem(p1, p2);
             
             if (sobrepoe == 1) {
@@ -242,7 +183,7 @@ void comandoCalc(FILE* arqTxt, FILE* svg, Fila chao) {
                     areaEsmagadaRound += menorArea;
                     area_esmagada_total += menorArea;
                     
-                    // Marca com asterisco a forma de menor área (esmagada)
+                    //marca com asterisco a forma de menor área (esmagada)
                     if(svg != NULL){
                         if(area_f1 < area_f2){
                             // Calcula centro da forma 1
@@ -254,11 +195,10 @@ void comandoCalc(FILE* arqTxt, FILE* svg, Fila chao) {
                                 xCentro += getWRetangulo(ret) / 2.0;
                                 yCentro += getHRetangulo(ret) / 2.0;
                             }
-                            // Círculo já retorna o centro em getXPacote/getYPacote
                             
                             printAsterisco(svg, xCentro, yCentro);
                         }else{
-                            // Calcula centro da forma 2
+                            //calcula centro da forma 2
                             double xCentro = getXPacote(p2);
                             double yCentro = getYPacote(p2);
                             
@@ -284,7 +224,7 @@ void comandoCalc(FILE* arqTxt, FILE* svg, Fila chao) {
         }
         
         if(areaEsmagadaRound > 0.0) {
-            fprintf(arqTxt, "  → Área esmagada no Round %d: %.2lf\n\n", i+1, areaEsmagadaRound);
+            fprintf(arqTxt, " Área esmagada no Round %d: %.2lf\n\n", i+1, areaEsmagadaRound);
         }
         
         liberarClone(clone1);

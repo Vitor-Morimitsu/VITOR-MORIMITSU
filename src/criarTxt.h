@@ -34,10 +34,6 @@ void comandoShft(FILE* arqTxt, int idDis,Fila filaDisparadores);
 /// @param dy Deslocamento Y
 void comandoDsp(FILE* arqTxt, Pacote pacote, double dx, double dy);
 
-/// @brief Reportar os dados das formas disapradas
-/// @param arqTxt Arquivo destino
-void comandoRjd(FILE* arqTxt, Fila filaDisparadores, int idDis,Fila filaCarregadores, char car);
-
 /// @brief Reportar o resultado de cada verificação; área total esmagada no round e a área total esmagada
 /// @param arqTxt Arquivo destino
 /// @param chao Fila com as formas na arena

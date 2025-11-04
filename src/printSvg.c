@@ -116,20 +116,20 @@ void dimensoesDisparo(FILE* svg, double xDis, double yDis, double dx, double dy)
         printf("erro ao gerar a dimensão do disparo\n");
         return;
     }
-    // Linhas tracejadas azuis formando um retângulo
-    // Linha horizontal superior: de (xDis, yDis) até (xDis+dx, yDis)
+    //linhas tracejadas azuis formando um retângulo
+    //linha horizontal superior: de (xDis, yDis) até (xDis+dx, yDis)
     fprintf(svg,"<line x1=\"%lf\" y1=\"%lf\" x2=\"%lf\" y2=\"%lf\" stroke=\"blue\" stroke-width=\"2\" stroke-dasharray=\"2 2\" />\n", xDis, yDis, xDis+dx, yDis);
-    // Linha vertical direita: de (xDis+dx, yDis) até (xDis+dx, yDis+dy)
+    //linha vertical direita: de (xDis+dx, yDis) até (xDis+dx, yDis+dy)
     fprintf(svg,"<line x1=\"%lf\" y1=\"%lf\" x2=\"%lf\" y2=\"%lf\" stroke=\"blue\" stroke-width=\"2\" stroke-dasharray=\"2 2\" />\n", xDis+dx, yDis, xDis+dx, yDis+dy);
-    // Linha horizontal inferior: de (xDis+dx, yDis+dy) até (xDis, yDis+dy)
+    //linha horizontal inferior: de (xDis+dx, yDis+dy) até (xDis, yDis+dy)
     fprintf(svg,"<line x1=\"%lf\" y1=\"%lf\" x2=\"%lf\" y2=\"%lf\" stroke=\"blue\" stroke-width=\"2\" stroke-dasharray=\"2 2\" />\n", xDis+dx, yDis+dy, xDis, yDis+dy);
-    // Linha vertical esquerda: de (xDis, yDis+dy) até (xDis, yDis)
+    //linha vertical esquerda: de (xDis, yDis+dy) até (xDis, yDis)
     fprintf(svg,"<line x1=\"%lf\" y1=\"%lf\" x2=\"%lf\" y2=\"%lf\" stroke=\"blue\" stroke-width=\"2\" stroke-dasharray=\"2 2\" />\n", xDis, yDis+dy, xDis, yDis);
 }
 
 void printAsterisco(FILE* svg, double x, double y){
     if(svg == NULL) return;
-    // Asterisco centralizado na posição da forma esmagada
+    //asterisco centralizado na posição da forma esmagada
     fprintf(svg,"<text fill=\"red\" x=\"%.2lf\" y=\"%.2lf\" font-size=\"25\" "
                 "text-anchor=\"middle\" dominant-baseline=\"middle\" "
                 "font-weight=\"bold\">*</text>\n", x, y);
