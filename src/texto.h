@@ -129,7 +129,6 @@ void liberaTexto(Texto t);
 
 //FUNÇÕES DE ESTILO
 
-/*
 /// @param fFamily Familia da fonte
 /// @param fWeight Weight da fonte
 /// @param fSize Tamanho da fonte
@@ -166,5 +165,4 @@ void setfWeight(Estilo ts, char *weight);
 /// @param size Novo tamanho de fonte
 void setfSize(Estilo ts, char *size);
 
-*/
 #endif
