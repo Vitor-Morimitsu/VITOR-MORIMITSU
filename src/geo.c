@@ -8,8 +8,7 @@
 #include <stdio.h>
 #include "printSvg.h"
 
-Estilo criarEstilo(char *fFamily, char *fWeight, char *fSize); // Explicit declaration
-#include "texto.h"
+Estilo criarEstilo(char *fFamily, char *fWeight, char *fSize); 
 #include "texto.h"
 
 typedef void* Forma;
@@ -96,4 +95,5 @@ void lerGeo(FILE* arqGeo, Fila chao, FILE* arqSvgEntrada){
         
     }    
     fecharSVG(arqSvgEntrada);
+
 }
